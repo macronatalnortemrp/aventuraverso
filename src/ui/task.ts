@@ -1,5 +1,6 @@
 import { Question, judge, shuffled } from '../game/quiz';
 import { DayFeedback } from '../persistence/save';
+import { JourneyEntry } from '../game/journey';
 import { sfx } from '../engine/audio';
 import { canSpeak, speak, stopSpeaking } from '../engine/speech';
 import { ICONS } from './icons';
@@ -24,6 +25,8 @@ export class Task {
   open = false;
   /** a leitura em voz só funciona com o som ligado */
   voice = () => true;
+  /** retratos 3D (nome -> imagem) para usar nos cartões */
+  portraits: Record<string, string> = {};
 
   private panel() {
     const root = $('task'),
@@ -50,7 +53,7 @@ export class Task {
 
   private header(p: HTMLElement, who: string, title: string, read: string) {
     const top = el('div', 'thead');
-    top.append(text('span', 'who', who));
+    top.append(text('b', 'tag', who));
     const l = this.listen(read);
     if (l) top.append(l);
     p.append(top, text('h2', '', title));
@@ -278,7 +281,7 @@ export class Task {
     return new Promise((done) => {
       const p = this.panel();
       p.className = 'panel reward';
-      p.append(text('span', 'who', 'Dia concluído'), text('h2', '', o.title));
+      p.append(text('b', 'tag', 'Dia concluído'), text('h2', '', o.title));
       const b = el('div', 'badge', ICONS.badge);
       b.append(text('strong', '', o.badge), text('small', '', o.note));
       const stars = el('div', 'stars', ICONS.star.repeat(o.stars));
@@ -318,7 +321,7 @@ export class Task {
       const q = (t: string) => {
         p.innerHTML = '';
         const top = el('div', 'thead');
-        top.append(text('span', 'who', 'Tico'));
+        top.append(text('b', 'tag', 'Tico'));
         const l = this.listen(t);
         if (l) top.append(l);
         p.append(top, text('h2', '', t));
@@ -344,7 +347,7 @@ export class Task {
         const grid = el('div', 'likes');
         const opts: [string, string][] = [['tico', 'Tico'], ['search', 'Procurar coisas'], ['questions', 'Perguntas'], ['globe', 'Globo'], ['stories', 'Histórias'], ['people', 'Personagens']];
         for (const [k, label] of opts) {
-          const b = el('button', 'like', ICONS[k]);
+          const b = el('button', 'like', k === 'tico' && this.portraits.Tico ? `<img alt="" src="${this.portraits.Tico}">` : ICONS[k]);
           b.append(text('span', '', label));
           b.setAttribute('aria-pressed', 'false');
           b.onclick = () => {
@@ -372,6 +375,73 @@ export class Task {
         p.append(row);
       };
       moods();
+    });
+  }
+
+  /** Resumo: o que a criança fez e o que isso representa no dia da criação. */
+  recap(r: { title: string; intro: string; items: { icon: string; game: string; creation: string }[]; close: string }): Promise<void> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel recap';
+      const read = [r.intro, ...r.items.map((i) => `${i.game}: ${i.creation}`), r.close].join(' ');
+      this.header(p, 'Tico', r.title, read);
+      p.append(text('p', '', r.intro));
+      const list = el('div', 'items');
+      for (const it of r.items) {
+        const row = el('div', 'it', ICONS[it.icon] ?? ICONS.star);
+        const t = el('div');
+        t.append(text('b', '', it.game), text('span', '', it.creation));
+        row.append(t);
+        list.append(row);
+      }
+      const ok = this.button('Continuar');
+      ok.onclick = () => {
+        this.close();
+        done();
+      };
+      const row = el('div', 'row');
+      row.append(ok);
+      p.append(list, text('p', 'sub', r.close), row);
+      setTimeout(() => ok.focus(), 40);
+    });
+  }
+
+  /** Jornada do Éden: os sete dias, com o que já foi feito e o que dá para jogar agora. */
+  journey(days: JourneyEntry[], world: { done: number; total: number; nextWorldOpen: boolean }): Promise<{ day: number; replay: boolean } | null> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel journey';
+      const finish = (r: { day: number; replay: boolean } | null) => {
+        this.close();
+        done(r);
+      };
+      this.header(p, 'Mundo 1', 'Jornada do Éden', `Jornada do Éden. ${world.done} de ${world.total} dias concluídos.`);
+      p.append(text('p', 'sub', `${world.done} de ${world.total} dias concluídos. Jogue no seu ritmo: um dia por vez ou vários seguidos.`));
+      const grid = el('div', 'days');
+      let first: HTMLButtonElement | null = null;
+      for (const d of days) {
+        const b = el('button', 'day ' + d.status);
+        const label = { done: 'Jogar de novo', playing: 'Continuar', next: 'Começar', soon: 'Em breve', locked: 'Bloqueado' }[d.status];
+        const icon = { done: 'check', playing: 'play', next: 'play', soon: 'lock', locked: 'lock' }[d.status];
+        b.innerHTML = ICONS[icon];
+        b.prepend(text('span', 'n', `Dia ${d.n}`));
+        b.append(text('span', 't', d.ready ? d.title : d.status === 'locked' ? `Termine o Dia ${d.n - 1}` : 'Em construção'), text('span', 'st', label));
+        b.setAttribute('aria-label', `Dia ${d.n}: ${label}`);
+        if (d.status === 'soon' || d.status === 'locked') b.disabled = true;
+        else {
+          b.onclick = () => finish({ day: d.n, replay: d.status === 'done' });
+          if (!first || d.status !== 'done') first = d.status === 'done' && first ? first : b;
+        }
+        grid.append(b);
+      }
+      const w = el('div', 'world', ICONS[world.nextWorldOpen ? 'check' : 'lock']);
+      w.append(text('span', '', world.nextWorldOpen ? 'O portal do próximo mundo está aberto!' : `O portal do próximo mundo abre quando os ${world.total} dias estiverem concluídos.`));
+      const close = this.button('Fechar', true);
+      close.onclick = () => finish(null);
+      const row = el('div', 'row');
+      row.append(close);
+      p.append(grid, w, row);
+      setTimeout(() => (first ?? close).focus(), 40);
     });
   }
 

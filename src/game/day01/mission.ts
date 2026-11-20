@@ -33,6 +33,13 @@ export interface Day01Content {
   globe: { go: string; voice: string; after: string[] };
   rewards: { badge: string; badgeNote: string; lantern: string; stars: number };
   realMission: { text: string; adult: string };
+  creation: {
+    afterReading1: string[];
+    afterSparks: string[];
+    afterLamp: string[];
+    afterSort: string[];
+    recap: { title: string; intro: string; items: { icon: string; game: string; creation: string }[]; close: string };
+  };
 }
 
 interface Bible {
@@ -75,7 +82,7 @@ export interface MissionDeps {
   /** coloca o jogador num ponto e reposiciona a câmera */
   place(x: number, z: number, face: number): void;
   /** volta ao acampamento normal (fim ou saída da missão) */
-  onExit(done: boolean): void;
+  onExit(done: boolean, wantsNext: boolean): void;
 }
 
 export class Day01Mission {
@@ -164,7 +171,7 @@ export class Day01Mission {
     void this.run();
   }
 
-  exit() {
+  exit(wantsNext = false) {
     this.active = false;
     this.d.ambient.clear();
     this.d.daylight.set(0, REDUCED_MOTION ? 0 : 1.2);
@@ -177,7 +184,7 @@ export class Day01Mission {
       this.d.camp.setCentralLamp(0);
       MURALS.forEach((_, i) => this.d.camp.setInvite(i, false));
     }
-    this.d.onExit(this.done);
+    this.d.onExit(this.done, wantsNext);
   }
 
   /** Depois de concluído, o Globo fica aceso e os convites nos murais. */
@@ -263,6 +270,7 @@ export class Day01Mission {
       await this.talk('Tico', [...this.content.start, ...this.content.lantern]);
       await this.read('r1');
       await this.q('beforeLight');
+      await this.talk('Tico', this.content.creation.afterReading1);
       this.busy = false;
       this.set(complete(this.state, 'lantern'));
       this.d.hud.say('Siga os sons: sino, água e grilo. Cada um esconde uma faísca!', 7000);
@@ -297,10 +305,6 @@ export class Day01Mission {
       void this.globeStep();
       return true;
     }
-    if (o.npc === 'pedrito' && stepIndex(s.step) > stepIndex('pedrito')) {
-      void this.talk('Pedrito', [this.content.pedrito.after[0]]);
-      return true;
-    }
     return false;
   }
 
@@ -323,7 +327,7 @@ export class Day01Mission {
     sfx('yay');
     this.lampK = 0.001; // acende aos poucos em update()
     this.d.fx.puff(CENTRAL_LAMP.x, H(CENTRAL_LAMP.x, CENTRAL_LAMP.z) + 4.2, CENTRAL_LAMP.z, { n: 18, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2, s: 0.5, life: 0.9 });
-    await this.talk('Tico', this.content.phrase.done);
+    await this.talk('Tico', [...this.content.phrase.done, ...this.content.creation.afterLamp]);
     this.busy = false;
     this.set(complete(this.state, 'letThereBeLight'));
   }
@@ -333,7 +337,7 @@ export class Day01Mission {
     await this.read('r3');
     await this.d.task.sort(this.content.sort.prompt, this.content.sort.items);
     this.d.daylight.set(0, REDUCED_MOTION ? 0 : 6); // a luz do dia surge aos poucos
-    await this.talk('Tico', this.content.sort.done);
+    await this.talk('Tico', [...this.content.sort.done, ...this.content.creation.afterSort]);
     await this.q('lightName');
     this.busy = false;
     this.set(complete(this.state, 'dayNight'));
@@ -395,6 +399,7 @@ export class Day01Mission {
     orbit.want = null;
     orbit.setZoom(13);
     this.set(complete(this.state, 'globe'));
+    await this.d.task.recap(this.content.creation.recap);
     // recompensas
     const r = this.content.rewards;
     const save = this.d.save;
@@ -414,7 +419,7 @@ export class Day01Mission {
     const fb = await this.d.task.feedback();
     if (fb) save.update({ feedback: { ...save.data.feedback, day01: fb } });
     this.busy = false;
-    this.exit();
+    this.exit(fb?.wantsNext === true);
   }
 
   private animate(seconds: number, f: (k: number) => void) {
@@ -459,7 +464,10 @@ export class Day01Mission {
           this.d.fx.puff(m.position.x, m.position.y, m.position.z, { n: 14, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2.5, s: 0.5, life: 0.7 });
           this.set(foundSpark(s, i));
           const n = this.state.sparks.length;
-          if (this.state.step === 'pedrito') this.d.hud.say('Você achou as três faíscas! Agora ouça... alguém está com medo na clareira.', 7000);
+          if (this.state.step === 'pedrito') {
+            this.d.hud.hideTico();
+            void this.talk('Tico', ['Você achou as três faíscas!', ...this.content.creation.afterSparks, 'Agora ouça... alguém está com medo na clareira.']);
+          }
           else this.d.hud.say(`Faísca encontrada! Faltam ${SPARK_COUNT - n}.`, 3500);
         }
         return;
@@ -507,6 +515,8 @@ export class Day01Mission {
     pi.z = ped.root.position.z;
     pi.y = ped.root.position.y;
     pi.mesh?.position.set(pi.x, pi.y + 1.7, pi.z);
+    // acompanhando, o Pedrito só leva a faísca: não disputa o botão de ação com o que a criança procura
+    pi.off = si > stepIndex('pedrito');
 
     // lampião acende devagar
     if (this.lampK > 0 && this.lampK < 1) {

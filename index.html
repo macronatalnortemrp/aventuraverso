@@ -7,50 +7,46 @@
 <meta name="description" content="aventuráVerso: um universo de aventuras. Jogo do Clube de Aventureiros.">
 <title>aventuráVerso</title>
 <link rel="icon" href="./assets/official/web/a1.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
 </head>
 <body>
 <canvas id="c" tabindex="0" aria-label="Mundo 3D do aventuráVerso"></canvas>
 
-<div id="coins" class="hud" role="status" aria-live="polite"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#f2b632" stroke="#9b6a12" stroke-width="3"/><circle cx="20" cy="20" r="11" fill="#ffd65a" stroke="#c98c1c" stroke-width="2"/><path d="M20 13l2 4.3 4.7.6-3.4 3.2.9 4.6L20 23.5l-4.2 2.2.9-4.6-3.4-3.2 4.7-.6z" fill="#fff3c4"/></svg><span id="cn">0/0</span></div>
+<div id="coins" class="hud" role="status" aria-live="polite"><img id="coinimg" alt=""><span id="cn" class="num">0/0</span></div>
 
 <div id="top" class="hud">
- <button class="rb" id="bh" aria-label="Tico, me ajuda"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fff6df" stroke="#D7A64D" stroke-width="2.5"/><path d="M16 5l3.2 11L16 27l-3.2-11z" fill="#c63b4f"/><path d="M16 16l3.2 0L16 27l-3.2-11z" fill="#E9E1CF"/><circle cx="16" cy="16" r="2.2" fill="#172D49"/></svg></button>
- <button class="rb" id="bs" aria-label="Som" aria-pressed="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h5l7-6v20l-7-6H5z" fill="#fff6df"/><path d="M21 11c2 2.6 2 7.4 0 10M24.5 8c3.8 4.6 3.8 11.4 0 16" stroke="#D7A64D" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></button>
- <button class="rb" id="bc" aria-label="Joystick e botões A e B" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="26" height="15" rx="7.5" fill="#fff6df"/><path d="M10 13v7M6.5 16.5h7" stroke="#172D49" stroke-width="2.6" stroke-linecap="round"/><circle cx="21" cy="14.5" r="2" fill="#6E2638"/><circle cx="24.5" cy="18.5" r="2" fill="#D7A64D"/></svg></button>
+ <button class="rb" id="bh" aria-label="Tico, me ajuda"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 6.5l3.6 9.5H12.4z" fill="#ff6b7d"/><path d="M16 25.5l3.6-9.5H12.4z" fill="currentColor"/></svg></button>
+ <button class="rb" id="bs" aria-label="Som" aria-pressed="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12h5.5l7.5-6.5v21L9.5 20H4z" fill="currentColor"/><path class="on" d="M21 11c2 2.6 2 7.4 0 10M24.8 7.8c3.8 4.6 3.8 11.8 0 16.4" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/><path class="off" d="M21 12l8 8M29 12l-8 8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+ <button class="rb" id="bc" aria-label="Joystick e botões A e B" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 9h16a7 7 0 0 1 6.6 9.3l-1.4 4.2a3.5 3.5 0 0 1-6 1.1L20.5 21h-9l-2.7 2.6a3.5 3.5 0 0 1-6-1.1l-1.4-4.2A7 7 0 0 1 8 9z" fill="currentColor"/><path d="M10 13v6M7 16h6" stroke="#1a2b45" stroke-width="2.4" stroke-linecap="round"/><circle cx="21.5" cy="14.5" r="1.9" fill="#ff6b7d"/><circle cx="24.8" cy="17.8" r="1.9" fill="#ffd23f"/></svg></button>
 </div>
 
-<div id="breath" class="hud" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="rgba(160,220,255,.35)" stroke="#bfe8ff" stroke-width="2.5"/><circle cx="15.5" cy="17.5" r="3.4" fill="#fff"/><circle cx="31" cy="9" r="4" fill="rgba(160,220,255,.35)" stroke="#bfe8ff" stroke-width="2"/></svg></div>
-<div id="cmp" class="hud" aria-hidden="true"><svg viewBox="0 0 44 44" id="needle"><path d="M22 3l6 19H16z" fill="#c63b4f"/><path d="M22 41l6-19H16z" fill="#172D49"/><circle cx="22" cy="22" r="3.4" fill="#D7A64D"/></svg></div>
+<div id="breath" class="hud" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="rgba(160,220,255,.4)" stroke="#fff" stroke-width="2.5"/><circle cx="15.5" cy="17.5" r="3.4" fill="#fff"/><circle cx="31" cy="9" r="4" fill="rgba(160,220,255,.4)" stroke="#fff" stroke-width="2"/></svg></div>
+<div id="cmp" class="hud" aria-hidden="true"><svg viewBox="0 0 44 44" id="needle"><path d="M22 3l6.5 19h-13z" fill="#ff5a6e" stroke="#2b1d14" stroke-width="2" stroke-linejoin="round"/><path d="M22 41l6.5-19h-13z" fill="#fff" stroke="#2b1d14" stroke-width="2" stroke-linejoin="round"/><circle cx="22" cy="22" r="3.6" fill="#ffd23f" stroke="#2b1d14" stroke-width="2"/></svg></div>
 
-<div id="tico" class="hud" role="status" aria-live="polite"><div class="av"><svg viewBox="0 0 56 56" width="56" height="56" aria-hidden="true"><ellipse cx="12" cy="20" rx="8" ry="11" fill="#fff"/><ellipse cx="44" cy="20" rx="8" ry="11" fill="#fff"/><circle cx="28" cy="30" r="17" fill="#8a6a4e"/><ellipse cx="28" cy="34" rx="12" ry="11" fill="#e9c99b"/><circle cx="22" cy="30" r="4.6" fill="#fff"/><circle cx="34" cy="30" r="4.6" fill="#fff"/><circle cx="22.6" cy="30.8" r="3.2" fill="#2a1a12"/><circle cx="34.6" cy="30.8" r="3.2" fill="#2a1a12"/><circle cx="23.6" cy="29.6" r="1.2" fill="#fff"/><circle cx="35.6" cy="29.6" r="1.2" fill="#fff"/><path d="M23 39q5 4 10 0" stroke="#7a2a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M16 47h24l-12 8z" fill="#6E2638"/></svg></div><div class="tx"><b>Tico</b><span id="tt"></span><div class="bt" id="tb"></div></div></div>
+<div id="tico" class="hud bubble" role="status" aria-live="polite"><img class="av" id="ticoav" alt=""><div class="tx"><b class="tag">Tico</b><span id="tt"></span><div class="bt" id="tb"></div></div></div>
 
-<button id="act" class="hud"><span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z" fill="#fff"/></svg></span><span id="actl">Conversar</span></button>
+<button id="act" class="hud"><span id="actl">Conversar</span></button>
 
 <div id="joy" class="hud" aria-hidden="true"><div id="knob"></div></div>
 <button id="B" class="hud ab" aria-label="Botão B">B<small>ação</small></button>
 <button id="A" class="hud ab" aria-label="Botão A, pular">A<small>pular</small></button>
 
-<div id="title" class="ov show"><div>
- <svg class="cmp-logo" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#2a6fb5" stroke="#D7A64D" stroke-width="7"/><path d="M30 46c10-8 20-2 28-6s10 8 4 12-14 2-16 10-14 4-16-4zM68 74c8-4 16 0 20 6s-6 12-14 10-12-12-6-16z" fill="#66b85b"/><path d="M60 14l9 40-9 6-9-6z" fill="#c63b4f"/><path d="M60 106l9-40-9-6-9 6z" fill="#fff6df"/><circle cx="60" cy="60" r="8" fill="#ffc93c" stroke="#9b6a12" stroke-width="3"/><path d="M98 18l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#fff3b0"/></svg>
- <div class="logo"><h1>Aventurá<span>Verso</span></h1></div><br>
- <div class="ribbon">★ UM UNIVERSO DE AVENTURAS ★</div><br>
- <button class="btn go" id="go">Jogar</button>
+<div id="title" class="ov show"><div class="title-in">
+ <svg class="cmp-logo" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb3ff"/><stop offset="1" stop-color="#1f5fae"/></linearGradient></defs><g stroke="#172D49" stroke-width="4" stroke-linejoin="round"><circle cx="60" cy="60" r="50" fill="url(#tg1)"/><path d="M30 46c10-8 20-2 28-6s10 8 4 12-14 2-16 10-14 4-16-4zM68 74c8-4 16 0 20 6s-6 12-14 10-12-12-6-16z" fill="#6ed06a" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#ffc93c" stroke-width="7"/><path d="M60 16l10 40-10 6-10-6z" fill="#ff5a6e"/><path d="M60 104l10-40-10-6-10 6z" fill="#fff6df"/><circle cx="60" cy="60" r="8" fill="#ffd23f"/></g><path d="M100 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff3b0"/></svg>
+ <h1 class="logo">Aventurá<span>Verso</span></h1>
+ <div class="ribbon">UM UNIVERSO DE AVENTURAS</div>
+ <button class="btn big" id="go">Jogar</button>
 </div><div class="credit"><img id="macro" alt="Macro Natal Norte"><span>Macro Natal Norte · MRP</span></div></div>
 
 <div id="pick" class="ov"><div class="panel">
- <h2>Escolha seu Aventureiro</h2><p>Toque em um personagem. Dá para trocar depois.</p>
+ <div class="ph"><b class="tag">Aventureiro</b></div>
+ <h2>Escolha seu personagem</h2><p class="sub">Toque em um personagem. Dá para trocar depois.</p>
  <div class="avs" id="avs"></div>
- <label class="opt"><input type="checkbox" id="chk"><span>Usar joystick e botões <b>A</b> e <b>B</b> (opcional). Liga e desliga no botão do controle.</span></label>
- <button class="btn go" id="start" style="margin-top:0">Começar</button>
- <p style="font-size:14px;margin:12px 0 0;opacity:.8">Toque no chão para andar. Arraste a tela para girar a câmera. Teclado: WASD ou setas, Espaço (A), Shift (B), Q e E giram a câmera, Enter conversa.</p>
+ <label class="check"><input type="checkbox" id="chk"><span>Usar joystick e botões <b>A</b> e <b>B</b> (opcional). Liga e desliga no botão do controle.</span></label>
+ <div class="row center"><button class="btn big" id="start">Começar</button></div>
+ <p class="hint">Toque no chão para andar e arraste a tela para girar a câmera. No teclado: WASD ou setas, Espaço (A), Shift (B), Q e E giram a câmera, Enter conversa.</p>
 </div></div>
 
-<div id="dlg" class="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="panel"><span class="who" id="dw"></span><h2 id="dt"></h2><p id="dx"></p><div class="row" id="dr"></div></div></div>
+<div id="dlg" class="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="panel talk"><img class="av" id="dav" alt=""><div class="tx"><b class="tag" id="dw"></b><h2 id="dt"></h2><p id="dx"></p><div class="row" id="dr"></div></div></div></div>
 <div id="task" class="ov" role="dialog" aria-modal="true"><div id="taskp" class="panel"></div></div>
 <button id="goal" class="hud" aria-label="Missão atual. Toque para sair da missão"><span class="gi"></span><span id="goalt"></span></button>
 <div id="voice" aria-live="assertive"></div>

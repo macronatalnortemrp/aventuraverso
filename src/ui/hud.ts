@@ -20,6 +20,8 @@ interface DialogQueue {
 /** Interface em HTML por cima do canvas: moedas, fôlego, bússola, balão do Tico, diálogos. */
 export class Hud {
   private ticoTimer = 0;
+  /** retratos 3D de quem fala (nome -> imagem) */
+  portraits: Record<string, string> = {};
   private dq: DialogQueue | null = null;
   /** algum diálogo aberto (o jogo pausa) */
   get paused() {
@@ -107,6 +109,7 @@ export class Hud {
     const q = this.dq;
     if (!q) return;
     $('dw').textContent = q.who;
+    $<HTMLImageElement>('dav').src = this.portraits[q.who] ?? '';
     const dt = $('dt');
     dt.textContent = q.title === q.who ? '' : q.title;
     dt.style.display = q.title === q.who ? 'none' : '';

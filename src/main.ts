@@ -23,11 +23,13 @@ import { Task } from './ui/task';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
 import { Day01Mission, loadDay01 } from './game/day01/mission';
+import { journey, worldProgress } from './game/journey';
+import { renderPortraits } from './ui/render3d';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
 try {
-  await Promise.race([document.fonts.load('600 40px "Fredoka"'), new Promise((r) => setTimeout(r, 1800))]);
+  await Promise.race([Promise.all([document.fonts.load('40px "Lilita One"'), document.fonts.load('800 20px Nunito')]), new Promise((r) => setTimeout(r, 2000))]);
 } catch {
   /* segue com a fonte reserva */
 }
@@ -68,10 +70,12 @@ interface Npc {
   rig: Rig;
   lines: string[];
 }
-const sol = makeKid({ skin: 0xc68863, hair: 0x3a2216, style: 'long', la1: true, scale: 1.22, skirt: true });
+const SOL_LOOK = { skin: 0xc68863, hair: 0x3a2216, style: 'long', la1: true, skirt: true } as const;
+const PED_LOOK = { skin: 0xd9a47a, hair: 0x2b1a10, style: 'short', shirt: 0xd7a64d, pants: 0x5b6b8c, bare: true } as const;
+const sol = makeKid({ ...SOL_LOOK, scale: 1.22 });
 sol.root.position.set(6.5, H(6.5, 5.5), 5.5);
 sol.root.rotation.y = -0.6;
-const ped = makeKid({ skin: 0xd9a47a, hair: 0x2b1a10, style: 'short', shirt: 0xd7a64d, pants: 0x5b6b8c, bare: true });
+const ped = makeKid(PED_LOOK);
 const PED_HOME = { x: -21.6, y: WY + 0.49, z: 7.4, ry: -1.9 };
 ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
 ped.root.rotation.y = PED_HOME.ry;
@@ -99,6 +103,18 @@ for (const n of NPCS) {
   inter.add({ id: n.id + '-npc', x: p.x, z: p.z, y: p.y, w: 1.6, h: 3.4, name: n.name, label: 'Conversar', who: n.name, lines: n.lines, npc: n.id });
 }
 let talking: Npc | null = null;
+
+/* retratos 3D para o HUD e os balões (mesmos modelos do jogo) */
+try {
+  const pics = renderPortraits({ sol: SOL_LOOK, pedrito: PED_LOOK, camper: AV[1] });
+  $<HTMLImageElement>('coinimg').src = pics.coin;
+  $<HTMLImageElement>('ticoav').src = pics.tico;
+  const map = { Tico: pics.tico, 'Diretora Sol': pics.sol, Pedrito: pics.pedrito, Acampante: pics.camper };
+  hud.portraits = map;
+  task.portraits = map;
+} catch {
+  /* sem retratos: a interface funciona só com texto */
+}
 
 const tico = makeTico();
 scene.add(tico.root);
@@ -341,15 +357,18 @@ const events: PlayerEvents = {
 async function enterPortal() {
   if (!mission) return hud.dialog('Tico', 'Missão 1: A Luz no Acampamento', ['A missão ainda está carregando. Tente de novo em um instante!']);
   if (mission.active) return;
+  await openJourney();
+}
+/** Mostra os sete dias do Éden e começa o escolhido, de onde a criança parou. */
+async function openJourney() {
   const m = mission;
-  const resume = !!SAVE.data.day01 && !m.done && SAVE.data.day01.step !== 'lantern';
-  const ok = m.done
-    ? await task.confirm('Tico', 'Missão 1 concluída!', 'Você já acendeu o Globo do Éden. Quer jogar a missão de novo?', 'Jogar de novo', 'Agora não')
-    : await task.confirm('Tico', 'Missão 1: A Luz no Acampamento', resume ? 'Vamos continuar de onde você parou?' : 'Pronto para a primeira missão do Éden?', resume ? 'Continuar' : 'Começar', 'Agora não');
-  if (!ok) return;
+  if (!m || m.active) return;
+  const prog = { day01: SAVE.data.day01 };
+  const pick = await task.journey(journey(prog), worldProgress(prog));
+  if (!pick || pick.day !== 1) return;
   hud.fade(true);
   await new Promise((r) => setTimeout(r, REDUCED_MOTION ? 0 : 450));
-  m.start(m.done);
+  m.start(pick.replay);
   guideReset(GUIDE);
   clearHelp();
   hud.fade(false);
@@ -384,18 +403,19 @@ loadDay01()
           orbit.yaw = face + Math.PI;
           orbit.snap(P.x, P.y, P.z);
         },
-        onExit(done) {
+        onExit(done, wantsNext) {
           ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
           ped.root.rotation.y = PED_HOME.ry;
           ped.body.scale.y = 1;
           const pi = inter.byId('pedrito-npc');
           if (pi) {
-            Object.assign(pi, { x: PED_HOME.x, z: PED_HOME.z, y: PED_HOME.y });
+            Object.assign(pi, { x: PED_HOME.x, z: PED_HOME.z, y: PED_HOME.y, off: false });
             pi.mesh?.position.set(PED_HOME.x, PED_HOME.y + 1.7, PED_HOME.z);
           }
           guideReset(GUIDE);
           clearHelp();
-          hud.say(done ? 'Parabéns! O Globo do Éden está aceso. Continue explorando o acampamento!' : 'Tudo bem! Seu progresso ficou salvo.', 6000);
+          if (done && wantsNext) setTimeout(() => void openJourney(), REDUCED_MOTION ? 0 : 700);
+          else hud.say(done ? 'Parabéns! O Globo do Éden está aceso. Quando quiser continuar, é só voltar ao portal da missão.' : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
         },
       },
       content,
@@ -447,7 +467,10 @@ function step(dt: number) {
     P.vx = P.vz = 0;
     target = null;
     if (p.open) void enterPortal();
-    else hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', 'Ele vai abrir quando você terminar todas as missões do Éden.']);
+    else {
+      const w = worldProgress({ day01: SAVE.data.day01 });
+      hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', `Ele abre quando você terminar os ${w.total} dias do Éden. Você já concluiu ${w.done}!`]);
+    }
   }
 
   const best = inter.nearest(P.x, P.y, P.z);

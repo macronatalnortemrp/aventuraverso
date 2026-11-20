@@ -47,6 +47,15 @@ export function coinSpots(): [number, number, number][] {
 
 export const COINS_PER_STUMP = 3;
 
+/** Moeda com borda em relevo dos dois lados. */
+export const coinGeometry = () =>
+  mergeGeometries([
+    new THREE.CylinderGeometry(0.48, 0.48, 0.14, 24).rotateX(Math.PI / 2).toNonIndexed(),
+    new THREE.TorusGeometry(0.34, 0.05, 6, 24).translate(0, 0, 0.07).toNonIndexed(),
+    new THREE.TorusGeometry(0.34, 0.05, 6, 24).translate(0, 0, -0.07).toNonIndexed(),
+  ]);
+export const coinMaterial = () => new THREE.MeshStandardMaterial({ color: 0xffc83d, metalness: 0.75, roughness: 0.28, emissive: 0x7a4a00, emissiveIntensity: 0.35 });
+
 /** Todas as moedas em uma única malha instanciada. */
 export class Coins {
   list: Coin[];
@@ -58,13 +67,7 @@ export class Coins {
   constructor(scene: THREE.Scene, stumps: number, saved: readonly number[]) {
     this.list = coinSpots().map(([x, y, z], id) => ({ x, y, z, id, got: saved.includes(id), fly: false, vx: 0, vy: 0, vz: 0 }));
     this.total = this.list.length + stumps * COINS_PER_STUMP;
-    const geo = mergeGeometries([
-      new THREE.CylinderGeometry(0.48, 0.48, 0.14, 24).rotateX(Math.PI / 2).toNonIndexed(),
-      new THREE.TorusGeometry(0.34, 0.05, 6, 24).translate(0, 0, 0.07).toNonIndexed(),
-      new THREE.TorusGeometry(0.34, 0.05, 6, 24).translate(0, 0, -0.07).toNonIndexed(),
-    ]);
-    const mat = new THREE.MeshStandardMaterial({ color: 0xffc83d, metalness: 0.75, roughness: 0.28, emissive: 0x7a4a00, emissiveIntensity: 0.35 });
-    this.im = new THREE.InstancedMesh(geo, mat, this.total);
+    this.im = new THREE.InstancedMesh(coinGeometry(), coinMaterial(), this.total);
     this.im.castShadow = true;
     this.im.frustumCulled = false;
     scene.add(this.im);

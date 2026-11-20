@@ -16,7 +16,7 @@ export const EMB: Record<EmblemKey, { src: string; w: number; h: number }> = {
   macro: { src: 'assets/official/web/macro.webp', w: 215, h: 220 },
 };
 
-export const FONT = '"Fredoka","Trebuchet MS",sans-serif';
+export const FONT = '"Lilita One","Fredoka","Trebuchet MS",sans-serif';
 
 /** Onde decalques e placas entram quando nenhum pai é informado. */
 export const ROOT: { o: THREE.Object3D } = { o: new THREE.Object3D() };
@@ -86,10 +86,10 @@ export function plate(txt: string, w: number, h: number, bg: string, fg: string,
     g.fillStyle = fg;
     const lines = txt.split('\n');
     let fs = o.fs || ((Hh * 0.5) / lines.length) * 1.15;
-    g.font = `600 ${fs}px ${FONT}`;
+    g.font = `${fs}px ${FONT}`;
     while (lines.some((l) => g.measureText(l).width > W * 0.9) && fs > 8) {
       fs -= 2;
-      g.font = `600 ${fs}px ${FONT}`;
+      g.font = `${fs}px ${FONT}`;
     }
     g.textAlign = 'center';
     g.textBaseline = 'middle';

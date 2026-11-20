@@ -1,48 +1,133 @@
-/** Ícones desenhados em SVG (nada de emoji): objetos do dia e da noite, carinhas e temas do feedback. */
-const svg = (body: string) => `<svg viewBox="0 0 64 64" aria-hidden="true">${body}</svg>`;
+/**
+ * Ícones em SVG no estilo de adesivo de jogo: contorno escuro grosso, degradê e um brilho em cima.
+ * (Os ícones de moeda e dos personagens são renderizados em 3D, em ui/render3d.ts.)
+ */
+const INK = '#2b1d14';
+let uid = 0;
+
+/** degradê vertical com id único */
+function grad(c1: string, c2: string) {
+  const id = 'g' + uid++;
+  return { id, def: `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>` };
+}
+function icon(body: (g: typeof grad) => string, vb = '0 0 64 64') {
+  const defs: string[] = [];
+  const g = (a: string, b: string) => {
+    const r = grad(a, b);
+    defs.push(r.def);
+    return r;
+  };
+  const inner = body(g);
+  return `<svg viewBox="${vb}" aria-hidden="true"><defs>${defs.join('')}</defs><g stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${inner}</g></svg>`;
+}
+const shine = (x: number, y: number, rx: number, ry: number, rot = -20) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity=".55" stroke="none" transform="rotate(${rot} ${x} ${y})"/>`;
+const star = (x: number, y: number, r: number, fill: string) =>
+  `<path d="M${x} ${y - r}l${r * 0.29} ${r * 0.6} ${r * 0.66} ${r * 0.1}-${r * 0.48} ${r * 0.46} ${r * 0.12} ${r * 0.66}-${r * 0.59}-${r * 0.31}-${r * 0.59} ${r * 0.31} ${r * 0.12}-${r * 0.66}-${r * 0.48}-${r * 0.46} ${r * 0.66}-${r * 0.1}z" fill="${fill}"/>`;
 
 export const ICONS: Record<string, string> = {
-  sun: svg(
-    '<g stroke="#f5a623" stroke-width="5" stroke-linecap="round">' +
-      [0, 45, 90, 135, 180, 225, 270, 315].map((a) => `<line x1="32" y1="6" x2="32" y2="13" transform="rotate(${a} 32 32)"/>`).join('') +
-      '</g><circle cx="32" cy="32" r="15" fill="#ffd23f" stroke="#f5a623" stroke-width="3"/>',
+  sun: icon((g) => {
+    const a = g('#fff27a', '#ffb320');
+    const rays = [0, 45, 90, 135, 180, 225, 270, 315].map((r) => `<path d="M29 4h6l-3 9z" fill="#ffcf3a" transform="rotate(${r} 32 32)"/>`).join('');
+    return rays + `<circle cx="32" cy="32" r="15" fill="url(#${a.id})"/>` + shine(27, 26, 5, 3);
+  }),
+  sunflower: icon((g) => {
+    const p = g('#ffe066', '#f5a10f');
+    const petals = [0, 40, 80, 120, 160, 200, 240, 280, 320].map((r) => `<ellipse cx="32" cy="11" rx="5.5" ry="8" fill="url(#${p.id})" transform="rotate(${r} 32 24)"/>`).join('');
+    return `<path d="M32 36v24" stroke-width="5" stroke="#3f7a35"/><path d="M32 52c-7-7-14-5-16-2 4 3 10 5 16 2z" fill="#6bbf4e"/>` + petals + `<circle cx="32" cy="24" r="8.5" fill="#7a4a1c"/>` + shine(29, 21, 3, 2);
+  }),
+  butterfly: icon((g) => {
+    const a = g('#ffb3cf', '#f0679a'),
+      b = g('#bfe3ff', '#5aa8f0');
+    return `<path d="M30 30C20 10 6 14 8 26s14 8 22 4z" fill="url(#${a.id})"/><path d="M34 30c10-20 24-16 22-4s-14 8-22 4z" fill="url(#${a.id})"/><path d="M30 34c-12 2-18 14-10 18s10-8 10-18z" fill="url(#${b.id})"/><path d="M34 34c12 2 18 14 10 18s-10-8-10-18z" fill="url(#${b.id})"/><rect x="29" y="18" width="6" height="32" rx="3" fill="#4a3427"/><path d="M30 18l-5-9M34 18l5-9" fill="none"/>${shine(16, 20, 4, 2.5)}`;
+  }),
+  rainbow: icon(() =>
+    ['#ff5f5f', '#ffa53a', '#ffe14d', '#62d26f', '#4fa3ff', '#9b6bff']
+      .map((c, i) => `<path d="M${8 + i * 3.6} 50a${24 - i * 3.6} ${24 - i * 3.6} 0 0 1 ${48 - i * 7.2} 0" stroke="${c}" stroke-width="4.2" fill="none"/>`)
+      .join('') + `<ellipse cx="13" cy="51" rx="9" ry="5" fill="#fff"/><ellipse cx="51" cy="51" rx="9" ry="5" fill="#fff"/>`,
   ),
-  sunflower: svg(
-    '<path d="M32 40v20" stroke="#4f8a45" stroke-width="4"/><path d="M32 52c-6-6-12-4-14-2 4 2 9 4 14 2z" fill="#5f9a4c"/>' +
-      [0, 40, 80, 120, 160, 200, 240, 280, 320].map((a) => `<ellipse cx="32" cy="12" rx="5" ry="9" fill="#ffc83d" transform="rotate(${a} 32 26)"/>`).join('') +
-      '<circle cx="32" cy="26" r="8" fill="#7a4a1c"/>',
-  ),
-  butterfly: svg(
-    '<ellipse cx="20" cy="24" rx="12" ry="10" fill="#f29ab0"/><ellipse cx="44" cy="24" rx="12" ry="10" fill="#f29ab0"/><ellipse cx="22" cy="42" rx="9" ry="8" fill="#9ec9ff"/><ellipse cx="42" cy="42" rx="9" ry="8" fill="#9ec9ff"/><rect x="29" y="18" width="6" height="30" rx="3" fill="#3a2a1c"/><path d="M31 18l-5-8M33 18l5-8" stroke="#3a2a1c" stroke-width="2.5" stroke-linecap="round"/>',
-  ),
-  rainbow: svg(
-    ['#e94f4f', '#f5a623', '#ffd23f', '#5fbf5f', '#4a90e2', '#8e5fd8']
-      .map((c, i) => `<path d="M${6 + i * 3.5} 50a${26 - i * 3.5} ${26 - i * 3.5} 0 0 1 ${52 - i * 7} 0" stroke="${c}" stroke-width="3.6" fill="none"/>`)
-      .join(''),
-  ),
-  moon: svg('<path d="M40 8a24 24 0 1 0 16 38A20 20 0 0 1 40 8z" fill="#f6e7a8" stroke="#d7b95a" stroke-width="2.5"/><circle cx="30" cy="38" r="3" fill="#e6d48a"/><circle cx="22" cy="26" r="2" fill="#e6d48a"/>'),
-  stars: svg(
-    [[22, 24, 12], [44, 38, 9], [46, 14, 6]]
-      .map(([x, y, r]) => `<path d="M${x} ${y - r}l${r * 0.3} ${r * 0.7} ${r * 0.7} ${r * 0.3}-${r * 0.7} ${r * 0.3}-${r * 0.3} ${r * 0.7}-${r * 0.3}-${r * 0.7}-${r * 0.7}-${r * 0.3} ${r * 0.7}-${r * 0.3}z" fill="#ffe27a"/>`)
-      .join(''),
-  ),
-  owl: svg(
-    '<ellipse cx="32" cy="38" rx="18" ry="20" fill="#8a6a4e"/><path d="M16 22l6 8M48 22l-6 8" stroke="#8a6a4e" stroke-width="6" stroke-linecap="round"/><ellipse cx="32" cy="44" rx="10" ry="11" fill="#e9c99b"/><circle cx="25" cy="31" r="7" fill="#fff"/><circle cx="39" cy="31" r="7" fill="#fff"/><circle cx="25" cy="31" r="3.5" fill="#2a1a12"/><circle cx="39" cy="31" r="3.5" fill="#2a1a12"/><path d="M29 37l3 4 3-4z" fill="#f5a623"/>',
-  ),
-  firefly: svg(
-    '<circle cx="36" cy="42" r="14" fill="#fff59a" opacity=".55"/><circle cx="36" cy="42" r="7" fill="#e8f560"/><ellipse cx="26" cy="28" rx="9" ry="7" fill="#3a3a48"/><ellipse cx="20" cy="18" rx="7" ry="4" fill="#cfe8ff" opacity=".9" transform="rotate(-30 20 18)"/><ellipse cx="32" cy="17" rx="7" ry="4" fill="#cfe8ff" opacity=".9" transform="rotate(30 32 17)"/>',
-  ),
-  great: svg('<circle cx="32" cy="32" r="28" fill="#ffd23f" stroke="#c99a1c" stroke-width="3"/><circle cx="22" cy="26" r="4" fill="#3a2a1c"/><circle cx="42" cy="26" r="4" fill="#3a2a1c"/><path d="M18 38q14 16 28 0z" fill="#7a2a2a"/>'),
-  ok: svg('<circle cx="32" cy="32" r="28" fill="#cfe8ff" stroke="#6f97c4" stroke-width="3"/><circle cx="22" cy="26" r="4" fill="#3a2a1c"/><circle cx="42" cy="26" r="4" fill="#3a2a1c"/><path d="M20 42h24" stroke="#3a2a1c" stroke-width="4" stroke-linecap="round"/>'),
-  bad: svg('<circle cx="32" cy="32" r="28" fill="#e7dcc6" stroke="#9b8c6c" stroke-width="3"/><circle cx="22" cy="26" r="4" fill="#3a2a1c"/><circle cx="42" cy="26" r="4" fill="#3a2a1c"/><path d="M20 46q12-10 24 0" stroke="#3a2a1c" stroke-width="4" fill="none" stroke-linecap="round"/>'),
-  tico: svg('<ellipse cx="14" cy="24" rx="8" ry="11" fill="#fff"/><ellipse cx="50" cy="24" rx="8" ry="11" fill="#fff"/><circle cx="32" cy="34" r="18" fill="#8a6a4e"/><ellipse cx="32" cy="38" rx="12" ry="11" fill="#e9c99b"/><circle cx="26" cy="34" r="4" fill="#2a1a12"/><circle cx="38" cy="34" r="4" fill="#2a1a12"/><path d="M27 43q5 4 10 0" stroke="#7a2a2a" stroke-width="2.4" fill="none"/>'),
-  search: svg('<circle cx="27" cy="27" r="15" fill="#e6f3ff" stroke="#172D49" stroke-width="5"/><path d="M38 38l14 14" stroke="#172D49" stroke-width="7" stroke-linecap="round"/><path d="M22 22l3 6 6 2-6 2-3 6-3-6-6-2 6-2z" fill="#ffd23f"/>'),
-  questions: svg('<circle cx="32" cy="32" r="27" fill="#6E2638"/><path d="M24 25a8 8 0 1 1 12 7c-3 2-4 3-4 7" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="32" cy="47" r="3.5" fill="#fff"/>'),
-  globe: svg('<circle cx="32" cy="30" r="22" fill="#2a6fb5" stroke="#D7A64D" stroke-width="4"/><path d="M18 24c6-5 12-1 16-4s6 5 2 8-8 1-9 6-8 2-9-3zM38 38c5-2 9 0 11 3s-3 7-8 6-7-7-3-9z" fill="#66b85b"/><rect x="24" y="52" width="16" height="6" rx="2" fill="#D7A64D"/>'),
-  stories: svg('<path d="M8 14q12-4 24 2v38q-12-6-24-2z" fill="#fffaf0" stroke="#6E2638" stroke-width="3"/><path d="M56 14q-12-4-24 2v38q12-6 24-2z" fill="#fffaf0" stroke="#6E2638" stroke-width="3"/><path d="M14 24h12M14 32h12M38 24h12M38 32h12" stroke="#c9b48a" stroke-width="2.5"/>'),
-  people: svg('<circle cx="22" cy="20" r="8" fill="#f0c8a0"/><circle cx="42" cy="20" r="8" fill="#8d5a3b"/><path d="M8 54v-8a14 14 0 0 1 28 0v8z" fill="#fafafa" stroke="#172D49" stroke-width="2.5"/><path d="M28 54v-8a14 14 0 0 1 28 0v8z" fill="#fafafa" stroke="#172D49" stroke-width="2.5"/><path d="M16 34l6 6 6-6M36 34l6 6 6-6" fill="#6E2638"/>'),
-  badge: `<svg viewBox="0 0 120 140" aria-hidden="true"><path d="M30 92l-12 40 24-10 18 18 4-48zM90 92l12 40-24-10-18 18-4-48z" fill="#6E2638"/><circle cx="60" cy="60" r="52" fill="#172D49" stroke="#D7A64D" stroke-width="8"/><circle cx="60" cy="60" r="38" fill="#fff6df"/><path d="M60 26c10 12 16 22 16 32a16 16 0 0 1-32 0c0-10 6-20 16-32z" fill="#ffb02e"/><path d="M60 42c6 7 9 12 9 18a9 9 0 0 1-18 0c0-6 3-11 9-18z" fill="#fff1a8"/><path d="M38 86h44" stroke="#D7A64D" stroke-width="5" stroke-linecap="round"/></svg>`,
-  star: svg('<path d="M32 5l8 17 19 3-14 13 4 19-17-9-17 9 4-19L5 25l19-3z" fill="#ffd23f" stroke="#c99a1c" stroke-width="3" stroke-linejoin="round"/>'),
-  speaker: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h5l7-6v20l-7-6H5z" fill="currentColor"/><path d="M21 11c2 2.6 2 7.4 0 10M24.5 8c3.8 4.6 3.8 11.4 0 16" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>',
-  lantern: svg('<rect x="22" y="8" width="20" height="6" rx="2" fill="#3a2a1c"/><path d="M26 6a6 6 0 0 1 12 0" stroke="#3a2a1c" stroke-width="3" fill="none"/><rect x="20" y="14" width="24" height="34" rx="5" fill="#ffe7a0" stroke="#3a2a1c" stroke-width="3"/><path d="M32 22c4 5 6 9 6 12a6 6 0 0 1-12 0c0-3 2-7 6-12z" fill="#ffb02e"/><rect x="18" y="48" width="28" height="7" rx="2" fill="#3a2a1c"/>'),
+  moon: icon((g) => {
+    const a = g('#fff6c4', '#f0cf5a');
+    return `<path d="M40 7a25 25 0 1 0 17 39A21 21 0 0 1 40 7z" fill="url(#${a.id})"/><circle cx="28" cy="40" r="3.5" fill="#e3c25a" stroke="none"/><circle cx="20" cy="27" r="2.5" fill="#e3c25a" stroke="none"/>${shine(22, 18, 5, 3, -40)}`;
+  }),
+  stars: icon((g) => {
+    const a = g('#fff6b0', '#ffc928');
+    return star(24, 28, 15, `url(#${a.id})`) + star(47, 41, 10, `url(#${a.id})`) + star(48, 14, 7, `url(#${a.id})`);
+  }),
+  owl: icon((g) => {
+    const a = g('#a98262', '#6e4f37');
+    return `<path d="M14 14l8 10M50 14l-8 10" stroke-width="6" stroke="#6e4f37"/><ellipse cx="32" cy="38" rx="19" ry="21" fill="url(#${a.id})"/><ellipse cx="32" cy="45" rx="10" ry="11" fill="#f1d6aa"/><circle cx="24" cy="31" r="7.5" fill="#fff"/><circle cx="40" cy="31" r="7.5" fill="#fff"/><circle cx="25" cy="31" r="3.6" fill="${INK}" stroke="none"/><circle cx="39" cy="31" r="3.6" fill="${INK}" stroke="none"/><path d="M29 37l3 5 3-5z" fill="#ffad33"/>${shine(22, 22, 4, 2.5)}`;
+  }),
+  firefly: icon((g) => {
+    const a = g('#fbff9a', '#c6e83a');
+    return `<circle cx="37" cy="42" r="15" fill="#fff8a0" opacity=".5" stroke="none"/><ellipse cx="37" cy="42" rx="8" ry="9" fill="url(#${a.id})"/><ellipse cx="26" cy="29" rx="10" ry="8" fill="#3b3b4e"/><ellipse cx="19" cy="17" rx="8" ry="4.5" fill="#dff1ff" transform="rotate(-30 19 17)"/><ellipse cx="33" cy="16" rx="8" ry="4.5" fill="#dff1ff" transform="rotate(30 33 16)"/>`;
+  }),
+  great: icon((g) => {
+    const a = g('#ffe970', '#ffb81f');
+    return `<circle cx="32" cy="32" r="27" fill="url(#${a.id})"/><path d="M19 26q4-6 8 0M37 26q4-6 8 0" fill="none" stroke-width="3.5"/><path d="M17 36q15 18 30 0z" fill="#8a2a2a"/><path d="M24 44q8 5 16 0" fill="#ff7a8a" stroke="none"/>${shine(22, 15, 8, 4)}`;
+  }),
+  ok: icon((g) => {
+    const a = g('#e3f2ff', '#8fc3f0');
+    return `<circle cx="32" cy="32" r="27" fill="url(#${a.id})"/><circle cx="23" cy="27" r="4" fill="${INK}" stroke="none"/><circle cx="41" cy="27" r="4" fill="${INK}" stroke="none"/><path d="M21 42h22" stroke-width="4"/>${shine(22, 15, 8, 4)}`;
+  }),
+  bad: icon((g) => {
+    const a = g('#efe6d4', '#c6b392');
+    return `<circle cx="32" cy="32" r="27" fill="url(#${a.id})"/><circle cx="23" cy="27" r="4" fill="${INK}" stroke="none"/><circle cx="41" cy="27" r="4" fill="${INK}" stroke="none"/><path d="M21 46q11-10 22 0" fill="none" stroke-width="4"/>${shine(22, 15, 8, 4)}`;
+  }),
+  search: icon((g) => {
+    const a = g('#e8f6ff', '#9fd2f5');
+    return `<path d="M39 39l15 15" stroke-width="9" stroke="${INK}"/><path d="M39 39l15 15" stroke-width="4" stroke="#c98a3c"/><circle cx="27" cy="27" r="17" fill="url(#${a.id})" stroke-width="5"/>${star(27, 27, 8, '#ffd23f')}${shine(21, 19, 5, 3)}`;
+  }),
+  questions: icon((g) => {
+    const a = g('#b34560', '#6e2638');
+    return `<circle cx="32" cy="32" r="27" fill="url(#${a.id})"/><path d="M24 25a8 8 0 1 1 12 7c-3 2-4 3-4 7" stroke="#fff" stroke-width="6" fill="none"/><circle cx="32" cy="48" r="3.6" fill="#fff" stroke="none"/>${shine(22, 15, 8, 4)}`;
+  }),
+  globe: icon((g) => {
+    const a = g('#6fc3ff', '#2563b8'),
+      b = g('#ffe08a', '#d7a64d');
+    return `<rect x="22" y="50" width="20" height="8" rx="3" fill="url(#${b.id})"/><circle cx="32" cy="29" r="22" fill="url(#${a.id})"/><path d="M17 22c6-5 12-1 16-4s6 5 2 8-8 1-9 6-8 2-9-3zM38 36c5-2 9 0 11 3s-3 7-8 6-7-7-3-9z" fill="#6ed06a" stroke-width="2.5"/>${shine(24, 16, 7, 4)}`;
+  }),
+  stories: icon((g) => {
+    const a = g('#fffaf0', '#f0e2c4');
+    return `<path d="M6 14q13-5 26 2v40q-13-7-26-2z" fill="url(#${a.id})"/><path d="M58 14q-13-5-26 2v40q13-7 26-2z" fill="url(#${a.id})"/><path d="M12 25h13M12 33h13M39 25h13M39 33h13" stroke="#c9b48a" stroke-width="2.5"/><path d="M32 16v40" stroke="#6e2638" stroke-width="4"/>`;
+  }),
+  people: icon((g) => {
+    const a = g('#ffffff', '#dfe7f0');
+    return `<path d="M6 58v-8a14 14 0 0 1 28 0v8z" fill="url(#${a.id})"/><path d="M30 58v-8a14 14 0 0 1 28 0v8z" fill="url(#${a.id})"/><circle cx="20" cy="22" r="9" fill="#f0c8a0"/><circle cx="44" cy="22" r="9" fill="#8d5a3b"/><path d="M15 38l5 7 5-7M39 38l5 7 5-7" fill="#6e2638" stroke-width="2"/>`;
+  }),
+  star: icon((g) => {
+    const a = g('#fff27a', '#ffb320');
+    return star(32, 34, 27, `url(#${a.id})`) + shine(26, 20, 5, 3);
+  }),
+  lantern: icon((g) => {
+    const a = g('#fff4c2', '#ffc94d');
+    return `<path d="M25 9a7 7 0 0 1 14 0" fill="none"/><rect x="21" y="9" width="22" height="7" rx="2" fill="#4a3427"/><rect x="18" y="16" width="28" height="34" rx="6" fill="url(#${a.id})"/><path d="M32 23c5 6 7 10 7 13a7 7 0 0 1-14 0c0-3 2-7 7-13z" fill="#ff9a1f"/><rect x="16" y="50" width="32" height="8" rx="2" fill="#4a3427"/>${shine(24, 22, 3, 5, 0)}`;
+  }),
+  spark: icon((g) => {
+    const a = g('#fffbd0', '#ffc928');
+    return `<circle cx="32" cy="32" r="22" fill="#fff3a0" opacity=".45" stroke="none"/><path d="M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="url(#${a.id})"/>`;
+  }),
+  lamp: icon((g) => {
+    const a = g('#fff7cc', '#ffcf55');
+    return `<rect x="29" y="34" width="6" height="26" fill="#5e3d22"/><rect x="18" y="8" width="28" height="5" rx="2" fill="#3a2a1c"/><rect x="20" y="13" width="24" height="20" rx="4" fill="url(#${a.id})"/><rect x="18" y="33" width="28" height="5" rx="2" fill="#3a2a1c"/><path d="M8 23h6M50 23h6M12 10l4 4M52 10l-4 4" stroke="#ffb320" stroke-width="3"/>`;
+  }),
+  sunmoon: icon((g) => {
+    const a = g('#fff27a', '#ffb320'),
+      b = g('#4b6fb0', '#1b2f57');
+    return `<path d="M32 6a26 26 0 0 0 0 52z" fill="url(#${a.id})"/><path d="M32 6a26 26 0 0 1 0 52z" fill="url(#${b.id})"/><path d="M42 20a10 10 0 1 0 8 15 8 8 0 0 1-8-15z" fill="#fff3b0" stroke-width="2"/>${shine(20, 18, 5, 3)}`;
+  }),
+  lock: icon((g) => {
+    const a = g('#ffe08a', '#c9922c');
+    return `<path d="M20 30v-8a12 12 0 0 1 24 0v8" fill="none" stroke-width="6"/><rect x="14" y="28" width="36" height="28" rx="6" fill="url(#${a.id})"/><circle cx="32" cy="40" r="4" fill="${INK}" stroke="none"/><path d="M32 42v7" stroke-width="4"/>`;
+  }),
+  check: icon((g) => {
+    const a = g('#8ee07a', '#2f9e3a');
+    return `<circle cx="32" cy="32" r="26" fill="url(#${a.id})"/><path d="M19 33l9 9 18-19" stroke="#fff" stroke-width="7" fill="none"/>`;
+  }),
+  play: icon((g) => {
+    const a = g('#ffe57a', '#f0a91c');
+    return `<circle cx="32" cy="32" r="26" fill="url(#${a.id})"/><path d="M26 20l18 12-18 12z" fill="#fff"/>`;
+  }),
+  badge: `<svg viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="bdg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5287"/><stop offset="1" stop-color="#132643"/></linearGradient><linearGradient id="bdg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6a0"/><stop offset="1" stop-color="#d7a64d"/></linearGradient></defs><g stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"><path d="M30 92l-12 40 24-10 18 18 4-48zM90 92l12 40-24-10-18 18-4-48z" fill="#8a3449"/><circle cx="60" cy="60" r="52" fill="url(#bdg2)"/><circle cx="60" cy="60" r="40" fill="url(#bdg1)"/><path d="M60 26c11 13 17 23 17 33a17 17 0 0 1-34 0c0-10 6-20 17-33z" fill="#ffb02e"/><path d="M60 43c6 7 9 12 9 18a9 9 0 0 1-18 0c0-6 3-11 9-18z" fill="#fff1a8" stroke-width="2.5"/></g><ellipse cx="42" cy="30" rx="12" ry="6" fill="#fff" opacity=".35" transform="rotate(-30 42 30)"/></svg>`,
+  /* glifos brancos dos botões redondos (estilo controle de jogo) */
+  speaker: `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h5l7-6v20l-7-6H5z" fill="currentColor"/><path d="M21 11c2 2.6 2 7.4 0 10M24.5 8c3.8 4.6 3.8 11.4 0 16" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>`,
 };

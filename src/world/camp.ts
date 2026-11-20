@@ -312,7 +312,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
         ew = (eh * EMB.a1.w) / EMB.a1.h;
       if (a1.complete && a1.naturalWidth) g.drawImage(a1, 300 - ew / 2, 200 - eh / 2, ew, eh);
       g.fillStyle = '#fff';
-      g.font = `600 26px ${FONT}`;
+      g.font = `28px ${FONT}`;
       g.textAlign = 'right';
       g.fillText('NOME DO CLUBE', 585, 380);
       t.needsUpdate = true;
@@ -751,11 +751,11 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     g.lineWidth = 14;
     g.strokeRect(10, 10, 236, 300);
     g.fillStyle = '#6E2638';
-    g.font = `700 40px ${FONT}`;
+    g.font = `44px ${FONT}`;
     g.textAlign = 'center';
     g.fillText('Convite', 128, 90);
     g.fillStyle = '#172D49';
-    g.font = `600 26px ${FONT}`;
+    g.font = `800 26px Nunito, sans-serif`;
     ['Venha para o', 'Clube de', 'Aventureiros!'].forEach((l, i) => g.fillText(l, 128, 160 + i * 36));
     g.fillStyle = '#D7A64D';
     g.beginPath();
