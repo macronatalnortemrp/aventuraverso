@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { AV, makeKid } from '../world/builders/kid';
 import { sfx } from '../engine/audio';
 import { $ } from './hud';
+import { cleanNick } from '../persistence/save';
 
 /** Retratos dos seis avatares, gerados com o mesmo construtor do jogo. */
 export function portraits() {
@@ -44,7 +45,7 @@ export function pickAvatar(current: number, controls: boolean): Promise<{ avatar
       img.alt = '';
       img.src = imgs[i];
       const label = document.createElement('span');
-      label.textContent = a.n ?? '';
+      label.textContent = a.skirt ? 'Aventureira' : 'Aventureiro';
       b.append(img, label);
       b.onclick = () => {
         chosen = i;
@@ -61,5 +62,35 @@ export function pickAvatar(current: number, controls: boolean): Promise<{ avatar
       $('pick').classList.remove('show');
       resolve({ avatar: chosen, controls: chk.checked });
     };
+  });
+}
+
+/** Tela do apelido (opcional). O apelido fica só no aparelho; vazio = "Aventureiro" ou "Aventureira". */
+export function askNick(current: string, girl: boolean): Promise<string> {
+  return new Promise((resolve) => {
+    const inp = $<HTMLInputElement>('nkin');
+    inp.value = current;
+    inp.placeholder = girl ? 'Aventureira' : 'Aventureiro';
+    $('nktag').textContent = girl ? 'Aventureira' : 'Aventureiro';
+    $('nkh').textContent = girl ? 'Como você quer ser chamada?' : 'Como você quer ser chamado?';
+    $('nick').classList.add('show');
+    setTimeout(() => inp.focus(), 60);
+    const done = (v: string) => {
+      sfx('ui');
+      $('nick').classList.remove('show');
+      inp.onkeydown = null;
+      inp.blur();
+      resolve(cleanNick(v));
+    };
+    inp.oninput = () => {
+      const c = inp.value.replace(/[^\p{L}\p{N} '\-]/gu, '');
+      if (c !== inp.value) inp.value = c;
+    };
+    inp.onkeydown = (e) => {
+      e.stopPropagation();
+      if (e.key === 'Enter') done(inp.value);
+    };
+    $('nkok').onclick = () => done(inp.value);
+    $('nkskip').onclick = () => done('');
   });
 }

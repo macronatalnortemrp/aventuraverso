@@ -21,6 +21,9 @@
 - Roupas infantis podem seguir estilo explorador.
 - A trilha de visitante não muda a identidade do avatar.
 - Emblemas oficiais A1 e LA1 recebidos e incluídos em `public/assets/official/`. O A1 tem baixa resolução.
+- Premissa (20/11/2026): o Livro dos Sete Dias é o livro de histórias do acampamento; suas páginas desaparecem e são reconstruídas com a Bíblia como fonte. A Bíblia nunca muda nem se perde. Cada mundo é uma história bíblica; o Mundo 1 é a criação.
+- Personagens sem nome próprio (20/11/2026): a criança dá um apelido ao boneco escolhido, salvo só no aparelho. Toda fala com gênero tem versão masculina e feminina, conforme o boneco. (Não confundir com o "cadastro por apelido e código do clube" do pós-piloto, que envolve rede.)
+- Uso do lenço (20/11/2026): triângulo com o emblema nas costas; na frente, as duas pontas unidas por prendedor cilíndrico branco com emblema pequeno. Lenço de líder com listras nas cores das quatro classes. Detalhes em `LENCO.md`.
 - Recompensas passam a ser Distintivos do Acampamento (não oficiais) e Quadros dos Ideais.
 
 ## Fontes oficiais pesquisadas

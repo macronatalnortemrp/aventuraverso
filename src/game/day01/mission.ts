@@ -10,7 +10,7 @@ import { AV, Rig, animate, makeKid } from '../../world/builders/kid';
 import { H, LAKE, WY } from '../../world/terrain';
 import { Ambient, AmbientKind } from '../../engine/ambient';
 import { OrbitCamera } from '../../engine/camera';
-import { REDUCED_MOTION } from '../../engine/gfx';
+import { MOBILE, REDUCED_MOTION } from '../../engine/gfx';
 import { sfx } from '../../engine/audio';
 import { angLerp, lerp } from '../../engine/math';
 import { speak } from '../../engine/speech';
@@ -273,7 +273,12 @@ export class Day01Mission {
       await this.talk('Tico', this.content.creation.afterReading1);
       this.busy = false;
       this.set(complete(this.state, 'lantern'));
-      this.d.hud.say('Siga os sons: sino, água e grilo. Cada um esconde uma faísca!', 7000);
+      this.d.hud.say(
+        MOBILE
+          ? 'Siga os sons: sino, água e grilo. Cada um esconde uma faísca! Toque no chão para andar.'
+          : 'Siga os sons: sino, água e grilo. Cada um esconde uma faísca! Clique no chão para andar.',
+        8000,
+      );
     } else this.d.hud.say(`Vamos continuar: ${this.goalText.toLowerCase()}.`, 5000);
   }
 

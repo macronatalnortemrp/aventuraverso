@@ -19,13 +19,16 @@ import { createPlayer, pressA as playerA, pressB as playerB, releaseB as playerR
 import { newGuide, guideStep, guideProgress, guideReset, guideSnooze } from './game/guidance';
 import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
-import { pickAvatar } from './ui/screens';
+import { askNick, pickAvatar } from './ui/screens';
 import { Task } from './ui/task';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
 import { Day01Mission, loadDay01 } from './game/day01/mission';
 import { journey, worldProgress } from './game/journey';
 import { renderPortraits } from './ui/render3d';
+import { Intro, loadIntro, landmarks } from './game/intro';
+import { Assembly } from './world/assemble';
+import { Music } from './engine/music';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
@@ -51,7 +54,14 @@ const { renderer, scene, camera, sun, fog } = gfx;
 ROOT.o = scene;
 
 const fx = new Fx(scene);
+const beforeCamp = new Set(scene.children);
 const camp = buildCamp(scene, fx);
+/* peças soltas do cenário, para a montagem da abertura */
+const assembly = new Assembly(
+  scene.children.filter((o) => !beforeCamp.has(o)),
+  landmarks(),
+);
+const music = new Music();
 const { col, inter, portals, stumps } = camp;
 const coins = new Coins(scene, stumps.length, SAVE.data.coins);
 const critters = createCritters(scene);
@@ -106,11 +116,13 @@ for (const n of NPCS) {
 let talking: Npc | null = null;
 
 /* retratos 3D para o HUD e os balões (mesmos modelos do jogo) */
+let portraitMap: Record<string, string> = {};
 try {
   const pics = renderPortraits({ sol: SOL_LOOK, pedrito: PED_LOOK, camper: AV[1] });
   $<HTMLImageElement>('coinimg').src = pics.coin;
   $<HTMLImageElement>('ticoav').src = pics.tico;
   const map = { Tico: pics.tico, 'Diretora Sol': pics.sol, Pedrito: pics.pedrito, Acampante: pics.camper };
+  portraitMap = map;
   hud.portraits = map;
   task.portraits = map;
 } catch {
@@ -379,7 +391,7 @@ $('goal').onclick = async () => {
   const leave = await task.confirm('Tico', 'Sair da missão?', 'Seu progresso fica salvo. Para voltar, é só entrar no portal de novo.', 'Sair', 'Continuar');
   if (leave) mission.exit();
 };
-loadDay01()
+const missionReady = loadDay01()
   .then(({ content, bible }) => {
     mission = new Day01Mission(
       {
@@ -584,10 +596,12 @@ task.voice = () => sound;
 hud.voice = () => sound;
 let sound = SAVE.data.sound;
 setSoundEnabled(sound);
+music.setEnabled(sound);
 $('bs').setAttribute('aria-pressed', String(sound));
 $('bs').onclick = () => {
   sound = !sound;
   setSoundEnabled(sound);
+  music.setEnabled(sound);
   SAVE.update({ sound });
   $('bs').setAttribute('aria-pressed', String(sound));
   if (sound) sfx('ui');
@@ -605,7 +619,37 @@ $('bc').onclick = () => {
   if (on) hud.say('A pula. A e depois B: pulo alto (andando, vira mergulho no ar). Segure B no pulo: marretada no chão!', 8000);
 };
 $('act').onclick = () => near && interact(near);
-$('go').onclick = async () => {
+/* ---------- abertura (docs/INTRO_SEQUENCE.md) ---------- */
+let intro: Intro | null = null;
+const introReady = loadIntro()
+  .then((text) => {
+    intro = new Intro(
+      {
+        scene,
+        camera,
+        camp,
+        daylight,
+        fx,
+        assembly,
+        music,
+        player: () => player,
+        tico,
+        sol,
+        ground: (x, z) => H(x, z),
+        portraits: () => portraitMap,
+        sound: () => sound,
+        hidden: [coins.im],
+      },
+      text,
+    );
+  })
+  .catch(() => {
+    /* sem os textos da abertura, o jogo começa direto no acampamento */
+  });
+$<HTMLButtonElement>('rewatch').hidden = !SAVE.data.introSeen;
+
+/** Escolha do boneco, apelido e, na primeira vez (ou quando pedida), a abertura. */
+async function enter(forceIntro: boolean) {
   sfx('ui');
   $('title').classList.remove('show');
   const choice = await pickAvatar(avatar, SAVE.data.controls);
@@ -614,10 +658,31 @@ $('go').onclick = async () => {
   scene.remove(player.root);
   player = makeKid(AV[avatar]);
   scene.add(player.root);
+  const girl = !!AV[avatar].skirt;
+  const nick = await askNick(SAVE.data.nick, girl);
+  SAVE.update({ nick });
+  setControls(choice.controls);
+  await introReady;
+  if (intro && (forceIntro || !SAVE.data.introSeen)) {
+    for (const id of ['joy', 'A', 'B']) hud.show(id, false);
+    await intro.play(nick, girl);
+    SAVE.update({ introSeen: true });
+    $<HTMLButtonElement>('rewatch').hidden = false;
+    setControls(choice.controls);
+    begin(true);
+  } else begin(false);
+}
+
+const controlsTip = () =>
+  MOBILE
+    ? 'Toque no chão para andar e arraste a tela para olhar em volta.'
+    : 'Clique no chão para andar e arraste para olhar em volta.';
+
+/** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
+function begin(fromIntro: boolean) {
   document.body.classList.add('on');
   hud.show('coins');
   hud.show('top');
-  setControls(choice.controls);
   started = true;
   input.enabled = true;
   orbit.yaw = 0;
@@ -625,14 +690,34 @@ $('go').onclick = async () => {
   orbit.snap(P.x, P.y, P.z);
   $('c').focus();
   hud.coins(coins.collected, coins.total);
-  sfx('yay');
-  hud.say(
-    MOBILE
-      ? 'Oi! Eu sou o Tico. Toque no chão para andar e arraste a tela para olhar em volta. Vamos falar com a Diretora Sol?'
-      : 'Oi! Eu sou o Tico. Clique no chão para andar e arraste para olhar em volta. Vamos falar com a Diretora Sol?',
-    8000,
-  );
-};
+  if (!fromIntro) {
+    sfx('yay');
+    hud.say(`Oi! Eu sou o Tico. ${controlsTip()} Vamos falar com a Diretora Sol?`, 8000);
+    return;
+  }
+  void missionReady.then(() => {
+    if (mission && !mission.done) return mission.start(false);
+    // Dia 1 já concluído: volta ao acampamento de dia, com o Globo aceso
+    daylight.set(0, REDUCED_MOTION ? 0 : 1.2);
+    camp.setGlobe(mission?.done ? 1 : 0);
+    hud.say(`Bem-vindo de volta ao acampamento! ${controlsTip()}`, 7000);
+  });
+}
+$('go').onclick = () => void enter(false);
+$('rewatch').onclick = () => void enter(true);
+
+/** Cenário vivo durante a abertura (a câmera e os personagens ficam com a abertura). */
+function tickWorld(dt: number, t: number) {
+  uTime.value = t;
+  camp.update(dt, t);
+  fx.update(dt, t);
+  critters(dt, t, camera.position.x, camera.position.z);
+  fog.near = FOG.near;
+  fog.far = FOG.far;
+  fog.color.copy(FOG_COLOR);
+  sun.position.set(camera.position.x - 27.5, 38, camera.position.z + 11);
+  sun.target.position.set(camera.position.x, 0, camera.position.z - 12);
+}
 
 /* ---------- laço ---------- */
 const timer = new THREE.Timer();
@@ -644,6 +729,13 @@ renderer.setAnimationLoop(() => {
   timer.update();
   const dt = Math.min(Math.max(timer.getDelta(), 0), 0.05);
   clock += dt;
+  if (intro?.active) {
+    intro.update(dt);
+    tickWorld(dt, clock);
+    SEE.r.value = 0;
+    renderer.render(scene, camera);
+    return;
+  }
   orbit.yaw += input.turn() * dt * 2;
   if (!started) {
     orbit.attract(dt);
@@ -704,4 +796,5 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     releaseB,
   });
   Object.defineProperty(window, 'mission', { get: () => mission });
+  Object.defineProperty(window, 'intro', { get: () => intro });
 }

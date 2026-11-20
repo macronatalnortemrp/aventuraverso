@@ -39,3 +39,9 @@ Atue como engenheiro de jogos e frontend experiente. Implemente um jogo infantil
 
 ## Fluxo de trabalho
 Siga `docs/ROADMAP.md`. Cada fase termina com build funcionando, instruções para executar, limitações e pendências, e descrição do que foi realmente implementado.
+
+## Commits
+Cada commit deve dizer claramente o que foi implementado, para que o histórico sirva de registro do projeto:
+- Título curto e específico, em português (o que mudou para quem joga ou para o projeto), sem mensagens genéricas como "ajustes" ou "correções".
+- Corpo com a lista do que foi feito: telas, falas, regras, decisões aplicadas e documentos atualizados.
+- Um commit por assunto; não misturar mudanças sem relação.

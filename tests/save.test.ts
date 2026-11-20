@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { createSave, migrate, SAVE_KEY, SAVE_VERSION } from '../src/persistence/save';
+import { cleanNick, createSave, migrate, NICK_MAX, SAVE_KEY, SAVE_VERSION } from '../src/persistence/save';
 
 const mem = () => {
   const m = new Map<string, string>();
@@ -32,6 +32,13 @@ describe('progresso local', () => {
   test('feedback guarda só carinha, até dois ícones e a vontade de continuar', () => {
     const d = migrate({ feedback: { day01: { mood: 'great', liked: ['tico', 'globo', 'perguntas'], wantsNext: true, nome: 'X' }, hack: {} } });
     expect(d.feedback).toEqual({ day01: { mood: 'great', liked: ['tico', 'globo'], wantsNext: true } });
+  });
+  test('apelido é limpo e limitado; save da versão 2 começa sem apelido e sem abertura vista', () => {
+    expect(migrate({ v: 2, avatar: 1 })).toMatchObject({ nick: '', introSeen: false });
+    expect(migrate({ nick: '  Ana   Júlia <b>!! ' }).nick).toBe('Ana Júlia b');
+    expect(cleanNick('Maria-Eduarda dos Santos').length).toBeLessThanOrEqual(NICK_MAX);
+    expect(cleanNick(42)).toBe('');
+    expect(migrate({ introSeen: true }).introSeen).toBe(true);
   });
   test('sem armazenamento disponível o jogo segue', () => {
     const save = createSave(null);

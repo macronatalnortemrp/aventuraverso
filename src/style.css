@@ -208,6 +208,50 @@ img { -webkit-user-drag: none; }
 #voice.show { display: flex; animation: voice 3.2s ease-out forwards; }
 @keyframes voice { 0% { opacity: 0; transform: scale(0.9); } 20% { opacity: 1; transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; } }
 
+#rewatch { margin-top: 14px; font-size: 18px; }
+#rewatch[hidden] { display: none; }
+
+/* ---------- apelido ---------- */
+#nick { background: rgba(23, 45, 73, 0.6); }
+#nkin { display: block; width: 100%; box-sizing: border-box; margin: 6px 0 4px; padding: 12px 16px; font: 400 30px var(--display); color: var(--navy); text-align: center; border: 4px solid var(--ink); border-radius: 18px; background: #fffaf0; outline: none; user-select: text; -webkit-user-select: text; }
+#nkin:focus-visible { box-shadow: 0 0 0 4px var(--gold2); }
+
+/* ---------- abertura ---------- */
+#intro { position: fixed; inset: 0; z-index: 12; display: none; pointer-events: none; }
+#intro.show { display: block; }
+#intro button, #intro .panel { pointer-events: auto; }
+#ibig { position: absolute; left: 0; right: 0; top: 14%; display: none; justify-content: center; padding: 0 16px; text-align: center; font-family: var(--display); font-size: clamp(28px, min(8vw, 12vh), 92px); line-height: 1.05; color: #fff3d6; -webkit-text-stroke: 8px var(--ink); paint-order: stroke fill; text-shadow: 0 7px 0 var(--ink), 0 0 40px rgba(255, 210, 63, 0.8); }
+#ibig.show { display: flex; animation: bigpop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1); }
+@keyframes bigpop { from { transform: scale(0.3) rotate(-6deg); opacity: 0; } }
+#isub { position: absolute; left: 50%; translate: -50% 0; bottom: calc(86px + env(safe-area-inset-bottom)); width: min(760px, calc(100vw - 32px)); display: none; align-items: flex-end; }
+#isub.show { display: flex; animation: pop 0.25s; }
+#isub .tx { font-size: clamp(17px, 2.4vw, 21px); }
+#isub .av[hidden] { display: none; }
+#ictl { position: absolute; right: calc(16px + env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); display: flex; gap: 10px; }
+#ictl .btn { font-size: 18px; padding: 6px 16px 8px; }
+#ibook { position: absolute; width: 112px; height: 112px; margin: -56px 0 0 -56px; border-radius: 50%; border: 5px solid #fff3b0; background: rgba(255, 215, 106, 0.18); display: none; padding: 0; box-shadow: 0 0 0 6px rgba(255, 210, 63, 0.35), 0 0 30px rgba(255, 210, 63, 0.7); animation: ring 1s ease-in-out infinite alternate; }
+#ibook.show { display: block; }
+@keyframes ring { to { transform: scale(1.18); box-shadow: 0 0 0 12px rgba(255, 210, 63, 0.15), 0 0 46px rgba(255, 210, 63, 0.9); } }
+#iend { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: min(520px, calc(100vw - 32px)); box-sizing: border-box; display: none; text-align: center; }
+#iend.show { display: block; }
+#iend h2 { font-size: clamp(28px, 5vw, 38px); }
+#iend p { font-size: 20px; }
+@media (max-height: 520px) {
+  #ibig { top: 5%; -webkit-text-stroke: 6px var(--ink); }
+  #isub { bottom: calc(10px + env(safe-area-inset-bottom)); width: min(620px, calc(100vw - 230px)); left: calc(16px + env(safe-area-inset-left)); translate: none; }
+  #isub .av { width: 60px; height: 60px; }
+  #isub .tx { font-size: 15px; padding: 14px 14px 9px 20px; }
+  #iend { padding: 14px 16px 12px; }
+  #iend h2 { font-size: 26px; }
+  #iend p { font-size: 16px; margin: 4px 0 6px; }
+}
+@media (max-width: 560px) {
+  #isub { bottom: calc(76px + env(safe-area-inset-bottom)); }
+  #isub .av { width: 64px; height: 64px; }
+  #isub .tx { font-size: 16px; }
+}
+#igo { text-transform: uppercase; animation: glow 0.9s ease-in-out infinite alternate; }
+
 @media (max-height: 520px) and (orientation: landscape) {
   .bubble { bottom: calc(18px + env(safe-area-inset-bottom)); width: min(54vw, 480px); }
   .bubble .av { width: 70px; height: 70px; }
@@ -241,5 +285,5 @@ img { -webkit-user-drag: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #fade { transition: none; }
-  #coins.bump, #breath.low, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake { animation: none; }
+  #coins.bump, #breath.low, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake, #ibig.show, #ibook, #igo, #isub.show { animation: none; }
 }

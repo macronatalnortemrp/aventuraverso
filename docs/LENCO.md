@@ -20,10 +20,18 @@ O emblema central reforça valores essenciais do clube centrados em Jesus Cristo
 - **A entrega:** o lenço é entregue em uma cerimônia de admissão especial, depois que a criança cumpre os requisitos e demonstra que compreende os valores do clube.
 - **Como e quando é usado:** com o uniforme oficial em eventos, cultos de sábado e atividades, e também com orgulho no dia a dia (passeios com a família, escola ou parquinho), para testemunhar amizade, alegria e fé.
 
+## Como o lenço é usado (decisão de 20/11/2026)
+O lenço é um triângulo equilátero. O emblema fica entre duas arestas, perto da ponta; a aresta sem emblema é a **base**. A partir da base, o lenço é enrolado até sobrarem duas pontas, e vai ao pescoço assim:
+- **Costas:** aparece o triângulo, com a ponta para baixo e o emblema grande (A1 nas crianças, LA1 na Diretora Sol).
+- **Pescoço:** o rolo de tecido dá a volta.
+- **Frente:** as duas pontas descem e são unidas, na altura do pescoço, por um **prendedor cilíndrico branco**, proporcional às pontas, com um emblema pequeno.
+- **Lenço de líder (LA1):** listras nas quatro cores das classes junto à base, visíveis no triângulo das costas (`THEME_AVENTUREIROS.md`, seção 3). Ordem usada: Abelhinhas, Luminares, Edificadores, Mãos Ajudadoras, a partir da base **[validar a ordem]**.
+- Cabelos longos vão até os ombros, para não cobrir o triângulo.
+
 ## Como o jogo usa
 - O texto acima é a fonte. Não reescrever o significado: perguntas e falas devem seguir estas formulações.
 - **Dia 1:** Pedrito pergunta o que a cor vinho do lenço nos lembra.
 - **Dia 7 (Desafio Final):** perguntas sobre o formato triangular (Trindade e as três áreas) e sobre o emblema.
 - A cerimônia de entrega do lenço pode ser um momento especial no fim do Dia 7 (Pedrito recebe o seu) **[validar com a liderança]**.
 - As três áreas do lenço e as quatro áreas do Guia convivem: o lenço usa as três; o painel do jogo (pilares) usa as quatro. Não tratar como erro.
-- O emblema A1 vai sobre o canudo/passador do lenço, sempre a partir do arquivo oficial.
+- O emblema vai no triângulo das costas e, pequeno, no prendedor da frente, sempre a partir do arquivo oficial.

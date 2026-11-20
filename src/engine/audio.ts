@@ -1,5 +1,5 @@
 /** Efeitos sintetizados com Web Audio. Opcionais: o jogo nunca depende de som. */
-export type Sfx = 'coin' | 'jump' | 'jump2' | 'dive' | 'pound' | 'splash' | 'ui' | 'yay';
+export type Sfx = 'coin' | 'jump' | 'jump2' | 'dive' | 'pound' | 'splash' | 'ui' | 'yay' | 'plim' | 'page';
 
 let ctx: AudioContext | null = null;
 let enabled = true;
@@ -47,6 +47,8 @@ export function sfx(k: Sfx) {
     else if (k === 'splash') tone('sawtooth', 300, 80, 0.25, 0.05);
     else if (k === 'ui') tone('sine', 660, 880, 0.08, 0.08);
     else if (k === 'yay') tone('square', 523, 1046, 0.4, 0.06);
+    else if (k === 'plim') tone('sine', 1320, 1980, 0.16, 0.09);
+    else if (k === 'page') tone('triangle', 520, 1560, 0.5, 0.07);
   } catch {
     /* áudio indisponível */
   }

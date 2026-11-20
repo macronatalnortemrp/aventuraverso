@@ -27,7 +27,7 @@ Cards de seleção, diálogos, leitura, perguntas, HUD, Cartão do Acampamento, 
 
 ## Áudio
 - Narração e vozes: síntese de voz do aparelho no MVP, com tom por personagem. Gravações depois.
-- Música instrumental discreta: original ou licenciada **[definir]**.
+- Música instrumental discreta: original ou licenciada **[definir]**. A trilha da abertura é composta e tocada por código (`src/engine/music.ts`), sem arquivos.
 - Efeitos: Web Audio no MVP.
 
 ## Opcional depois

@@ -3,7 +3,7 @@
  * scripts/voices/); se faltar alguma frase, usa a voz do aparelho (SpeechSynthesis).
  * Todo texto falado também aparece na tela; o áudio é sempre opcional.
  */
-import { VoiceManifest, clipsFor } from './voiceText';
+import { VoiceManifest, clipsFor, lineKey, splitSentences, voiceOf } from './voiceText';
 
 const synthOk = () => typeof speechSynthesis !== 'undefined' && typeof SpeechSynthesisUtterance !== 'undefined';
 const audioOk = () => typeof Audio !== 'undefined';
@@ -77,6 +77,22 @@ export function speak(text: string, who = 'Tico', pitch = 1.05) {
 export function speakRecorded(text: string, who: string) {
   const files = audioOk() ? clipsFor(manifest, who, text) : null;
   if (!files) return false;
+  stopSpeaking();
+  playClips(files);
+  return true;
+}
+
+/**
+ * Fala as frases que têm áudio gravado e pula as outras (por exemplo, as que levam o apelido da criança).
+ * O texto inteiro continua na legenda.
+ */
+export function speakAvailable(text: string, who: string) {
+  const table = audioOk() ? manifest?.voices[voiceOf(who)] : null;
+  if (!table) return false;
+  const files = splitSentences(text)
+    .map((s) => table[lineKey(s)])
+    .filter((f): f is string => !!f);
+  if (!files.length) return false;
   stopSpeaking();
   playClips(files);
   return true;

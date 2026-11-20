@@ -180,6 +180,64 @@ function faceMesh(o: Look, w: number, h: number) {
   return { fm, face: new THREE.Mesh(new THREE.PlaneGeometry(w, h), fm) };
 }
 
+const WINE = 0x6e2638;
+/** Cores das quatro classes (THEME_AVENTUREIROS.md §3), da base do lenço para baixo: Abelhinhas, Luminares, Edificadores, Mãos Ajudadoras. */
+const CLASS_STRIPES = [0x7cc3e8, 0xf08a24, 0x1f3a7a, 0x9c3350];
+
+const woggles = new Map<string, THREE.CylinderGeometry>();
+function woggleGeo(r: number, h: number) {
+  const k = r + '_' + h;
+  let g = woggles.get(k);
+  if (!g) woggles.set(k, (g = new THREE.CylinderGeometry(r, r, h, 12)));
+  return g;
+}
+
+/** Triângulo de tecido com a base em cima (na nuca) e a ponta para baixo; face visível voltada para -z (costas). */
+function backTriangle(w: number, h: number, color: number) {
+  const sh = new THREE.Shape();
+  sh.moveTo(-w / 2, 0);
+  sh.lineTo(w / 2, 0);
+  sh.lineTo(0, -h);
+  sh.closePath();
+  const m = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.04, bevelEnabled: false }), mat(color));
+  m.castShadow = true;
+  return m;
+}
+
+/**
+ * Lenço do Aventureiro como é usado (docs/LENCO.md): triângulo enrolado a partir da base até virar duas pontas.
+ * Nas costas aparece o triângulo com o emblema; em volta do pescoço, o rolo; na frente, as duas pontas
+ * unidas por um prendedor cilíndrico branco com emblema pequeno. Líder (LA1): listras das quatro classes junto à base.
+ */
+function scarf(torso: THREE.Group, k: 'a1' | 'la1') {
+  // rolo em volta do pescoço
+  part(torso, 1.02, 0.15, 0.62, WINE, 0, 0.8, 0, 0.07);
+  // triângulo nas costas, com o emblema entre as duas arestas, perto da ponta
+  const back = backTriangle(0.92, 0.62, WINE);
+  back.position.set(0, 0.78, -0.33);
+  torso.add(back);
+  if (k === 'la1') {
+    CLASS_STRIPES.forEach((c, i) => {
+      const y = 0.72 - i * 0.045,
+        w = 0.92 * ((y - 0.16) / 0.62) - 0.06;
+      part(torso, w, 0.03, 0.012, c, 0, y, -0.338, 0.005);
+    });
+  }
+  const em = decal(k, k === 'la1' ? 0.22 : 0.24, 0, 0.44, -0.345, Math.PI, torso);
+  em.material.alphaTest = 0.1;
+  // frente: as duas pontas descem do pescoço e se juntam no prendedor
+  for (const s of [-1, 1]) {
+    part(torso, 0.1, 0.14, 0.05, WINE, s * 0.09, 0.74, 0.31, 0.03).rotation.z = s * 0.6;
+    part(torso, 0.1, 0.34, 0.04, WINE, s * 0.05, 0.47, 0.31, 0.03).rotation.z = s * 0.12;
+  }
+  const w = new THREE.Mesh(woggleGeo(0.095, 0.15), mat(0xe9e3d6, 0.45));
+  w.position.set(0, 0.66, 0.36);
+  w.castShadow = true;
+  torso.add(w);
+  const mini = decal(k, 0.11, 0, 0.66, 0.457, 0, torso);
+  mini.material.alphaTest = 0.1;
+}
+
 /** Aventureiro, Aventureira, Diretora Sol ou visitante, a partir de parâmetros. */
 export function makeKid(o: Look): Rig {
   const root = new THREE.Group(),
@@ -230,8 +288,9 @@ export function makeKid(o: Look): Rig {
   part(head, 1.1, 0.34, 1.04, h, 0, 0.42, -0.01, 0.14);
   part(head, 1.1, 0.24, 0.16, h, 0, 0.28, 0.46, 0.07);
   if (o.style === 'long') {
-    part(head, 1.1, 1.25, 0.32, h, 0, -0.18, -0.44, 0.12);
-    for (const s of [-1, 1]) part(head, 0.16, 0.9, 0.62, h, s * 0.55, -0.08, -0.12, 0.06);
+    // até os ombros, para não cobrir o triângulo do lenço nas costas
+    part(head, 1.1, 0.86, 0.32, h, 0, 0.02, -0.44, 0.12);
+    for (const s of [-1, 1]) part(head, 0.16, 0.8, 0.62, h, s * 0.55, -0.04, -0.12, 0.06);
   } else if (o.style === 'curly') {
     const tufts: [number, number, number][] = [[-0.36, 0.6, 0], [0, 0.66, 0.05], [0.36, 0.6, 0], [-0.2, 0.58, -0.38], [0.2, 0.6, -0.38], [-0.48, 0.4, -0.2], [0.48, 0.4, -0.2]];
     for (const [x, y, z] of tufts) part(head, 0.4, 0.36, 0.4, h, x, y, z, 0.16);
@@ -247,26 +306,7 @@ export function makeKid(o: Look): Rig {
     if (o.bow) part(pn, 0.56, 0.24, 0.14, 0x6e2638, 0, -0.04, 0.26, 0.06);
   } else part(head, 1.06, 0.5, 0.24, h, 0, 0.18, -0.44, 0.08);
 
-  if (!o.bare) {
-    // lenço vinho (triângulo) com canudo dourado e emblema oficial
-    const wine = 0x6e2638;
-    part(torso, 1.0, 0.16, 0.6, wine, 0, 0.8, 0, 0.06);
-    const tri = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.06, 3, 1), mat(wine));
-    tri.rotation.set(Math.PI / 2, 0, 0);
-    tri.scale.set(1, 1, 1.15);
-    tri.position.set(0, 0.55, 0.31);
-    tri.castShadow = true;
-    torso.add(tri);
-    if (o.la1) {
-      const border = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.05, 3, 1), mat(0xffffff));
-      border.rotation.copy(tri.rotation);
-      border.position.set(0, 0.53, 0.29);
-      torso.add(border);
-    }
-    part(torso, 0.2, 0.2, 0.1, 0xd7a64d, 0, 0.62, 0.36, 0.05, 0.4);
-    const em = decal(o.la1 ? 'la1' : 'a1', o.la1 ? 0.24 : 0.26, 0, 0.64, 0.42, 0, torso);
-    em.material.alphaTest = 0.1;
-  }
+  if (!o.bare) scarf(torso, o.la1 ? 'la1' : 'a1');
   if (o.scale) root.scale.setScalar(o.scale);
   return { root, body, torso, head, face, fm, legs, arms, o, ph: rnd() * 9, blink: rr(1, 4), mode: 'open' };
 }
@@ -301,11 +341,15 @@ export function makeTico(): Rig {
   const { fm, face } = faceMesh(look, 0.56, 0.52);
   face.position.set(0, -0.02, 0.36);
   head.add(face);
-  part(torso, 0.66, 0.12, 0.54, 0x6e2638, 0, 0.6, 0, 0.05);
-  const tri = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.04, 3), mat(0x6e2638));
-  tri.rotation.set(Math.PI / 2, 0, 0);
-  tri.position.set(0, 0.46, 0.27);
-  torso.add(tri);
+  // lencinho: triângulo nas costas, pontas e prendedor na frente (sem emblema)
+  part(torso, 0.66, 0.1, 0.54, WINE, 0, 0.6, 0, 0.05);
+  const tt = backTriangle(0.5, 0.34, WINE);
+  tt.position.set(0, 0.58, -0.25);
+  torso.add(tt);
+  const tw = new THREE.Mesh(woggleGeo(0.06, 0.1), mat(0xf4f1ea, 0.5));
+  tw.position.set(0, 0.5, 0.27);
+  torso.add(tw);
+  for (const sd of [-1, 1]) part(torso, 0.06, 0.16, 0.04, WINE, sd * 0.03, 0.38, 0.26, 0.02).rotation.z = sd * 0.15;
   const tail: THREE.Group[] = [];
   let p = piv(torso, 0, 0.08, -0.26);
   for (let i = 0; i < 8; i++) {
@@ -317,7 +361,7 @@ export function makeTico(): Rig {
   return { root, body, torso, head, face, fm, legs, arms, tail, o: look, ph: 0, blink: 2, mode: 'open' };
 }
 
-/** Seis avatares jogáveis (nomes provisórios, docs/CHARACTERS.md). */
+/** Seis avatares jogáveis. `n` é só identificador interno: no jogo, a criança dá o apelido (docs/CHARACTERS.md). */
 export const AV: Look[] = [
   { n: 'Aventureiro 1', skin: 0xf0c8a0, hair: 0x5a3a22, style: 'short' },
   { n: 'Aventureiro 2', skin: 0x8d5a3b, hair: 0x1b1b1b, style: 'afro' },
