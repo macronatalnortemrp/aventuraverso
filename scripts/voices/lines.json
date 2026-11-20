@@ -367,9 +367,21 @@
  },
  {
   "voice": "sol",
+  "key": "nela está a história de como deus criou o mundo",
+  "text": "Nela está a história de como Deus criou o mundo.",
+  "file": "sol/1e9a9f30.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "uma bolha de ar levou você para cima",
   "text": "Uma bolha de ar levou você para cima.",
   "file": "sol/210a9903.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "mas, de repente",
+  "text": "Mas, de repente...",
+  "file": "sol/315ba7ba.mp3"
  },
  {
   "voice": "sol",
@@ -391,9 +403,33 @@
  },
  {
   "voice": "sol",
+  "key": "seja bem-vindo ao acampamento do livro aberto, onde os aventureiros vivem as histórias da bíblia",
+  "text": "Seja bem-vindo ao Acampamento do Livro Aberto, onde os Aventureiros vivem as histórias da Bíblia.",
+  "file": "sol/60829393.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "que alegria ter você aqui!",
+  "text": "Que alegria ter você aqui!",
+  "file": "sol/632dffc5.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "as páginas do livro dos sete dias voaram para longe",
+  "text": "As páginas do Livro dos Sete Dias voaram para longe.",
+  "file": "sol/656a5c00.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "antes, explore o acampamento e junte as moedas!",
   "text": "Antes, explore o acampamento e junte as moedas!",
   "file": "sol/672651a3.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "a cada página, o globo do éden ganha vida de novo",
+  "text": "A cada página, o Globo do Éden ganha vida de novo.",
+  "file": "sol/6bd5c72c.mp3"
  },
  {
   "voice": "sol",
@@ -421,6 +457,12 @@
  },
  {
   "voice": "sol",
+  "key": "as páginas sumiram, mas a bíblia continua aqui, inteirinha!",
+  "text": "As páginas sumiram, mas a Bíblia continua aqui, inteirinha!",
+  "file": "sol/738a9ede.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "siga a bússola e a trilha de faíscas!",
   "text": "Siga a bússola e a trilha de faíscas!",
   "file": "sol/74e04ca8.mp3"
@@ -433,9 +475,21 @@
  },
  {
   "voice": "sol",
+  "key": "e o globo do éden se apagou!",
+  "text": "E o Globo do Éden se apagou!",
+  "file": "sol/84f06efb.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "siga a bússola e a trilha de faíscas até o portal!",
   "text": "Siga a bússola e a trilha de faíscas até o portal!",
   "file": "sol/87d8fbf5.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "um vento forte soprou!",
+  "text": "um vento forte soprou!",
+  "file": "sol/92e49c4a.mp3"
  },
  {
   "voice": "sol",
@@ -454,6 +508,12 @@
   "key": "o portal da primeira missão fica na colina do globo, ao norte",
   "text": "O portal da primeira missão fica na Colina do Globo, ao norte.",
   "file": "sol/b9dc84b6.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "seja bem-vinda ao acampamento do livro aberto, onde as aventureiras e os aventureiros vivem as histórias da bíblia",
+  "text": "Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia.",
+  "file": "sol/db13eabb.mp3"
  },
  {
   "voice": "sol",
@@ -481,6 +541,12 @@
  },
  {
   "voice": "sol",
+  "key": "vamos ler a bíblia e reconstruir o livro dos sete dias, uma página para cada dia da criação",
+  "text": "Vamos ler a Bíblia e reconstruir o Livro dos Sete Dias, uma página para cada dia da criação.",
+  "file": "sol/f6a53307.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "é só entrar no portal quando quiser",
   "text": "É só entrar no portal quando quiser.",
   "file": "sol/f9c6f8f4.mp3"
@@ -496,12 +562,6 @@
   "key": "sem forma, vazio e escuro",
   "text": "Sem forma, vazio e escuro",
   "file": "tico/03a94b77.mp3"
- },
- {
-  "voice": "tico",
-  "key": "está tudo escuro!",
-  "text": "está tudo escuro!",
-  "file": "tico/04aad1d1.mp3"
  },
  {
   "voice": "tico",
@@ -589,12 +649,6 @@
  },
  {
   "voice": "tico",
-  "key": "venha comigo",
-  "text": "Venha comigo.",
-  "file": "tico/1d66e0f0.mp3"
- },
- {
-  "voice": "tico",
   "key": "tudo separado!",
   "text": "Tudo separado!",
   "file": "tico/1f1643b0.mp3"
@@ -610,12 +664,6 @@
   "key": "tudo o que você fez hoje conta a história do primeiro dia da criação (gênesis 1:1-5)",
   "text": "Tudo o que você fez hoje conta a história do primeiro dia da criação (Gênesis 1:1-5).",
   "file": "tico/2143c0b7.mp3"
- },
- {
-  "voice": "tico",
-  "key": "por isso o acampamento ficou assim!",
-  "text": "Por isso o acampamento ficou assim!",
-  "file": "tico/21b15ad2.mp3"
  },
  {
   "voice": "tico",
@@ -649,12 +697,6 @@
  },
  {
   "voice": "tico",
-  "key": "vamos começar?",
-  "text": "Vamos começar?",
-  "file": "tico/2c28df01.mp3"
- },
- {
-  "voice": "tico",
   "key": "as páginas do livro dos sete dias sumiram!",
   "text": "As páginas do Livro dos Sete Dias sumiram!",
   "file": "tico/2eaf70a1.mp3"
@@ -679,15 +721,15 @@
  },
  {
   "voice": "tico",
-  "key": "você consegue encontrar as três faíscas escondidas pelo acampamento?",
-  "text": "Você consegue encontrar as três faíscas escondidas pelo acampamento?",
-  "file": "tico/2fdb6cea.mp3"
- },
- {
-  "voice": "tico",
   "key": "os murais ficam em volta da clareira",
   "text": "Os murais ficam em volta da clareira.",
   "file": "tico/316a0865.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "uau, como está escuro!",
+  "text": "Uau, como está escuro!",
+  "file": "tico/3173c3f4.mp3"
  },
  {
   "voice": "tico",
@@ -718,6 +760,12 @@
   "key": "tente de novo em um instante!",
   "text": "Tente de novo em um instante!",
   "file": "tico/3568b346.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "venha comigo, tenho uma coisa para você",
+  "text": "Venha comigo, tenho uma coisa para você.",
+  "file": "tico/36b2d10e.mp3"
  },
  {
   "voice": "tico",
@@ -775,6 +823,12 @@
  },
  {
   "voice": "tico",
+  "key": "eu adoro uma aventura, e esta vai ser incrível",
+  "text": "Eu adoro uma aventura, e esta vai ser incrível.",
+  "file": "tico/41f8f7b4.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "antes, explore o acampamento e junte as moedas!",
   "text": "Antes, explore o acampamento e junte as moedas!",
   "file": "tico/440cf212.mp3"
@@ -808,6 +862,12 @@
   "key": "agora ouça",
   "text": "Agora ouça...",
   "file": "tico/4878c628.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "toque no chão para andar",
+  "text": "Toque no chão para andar.",
+  "file": "tico/4cc1206a.mp3"
  },
  {
   "voice": "tico",
@@ -847,6 +907,18 @@
  },
  {
   "voice": "tico",
+  "key": "ela está em branco",
+  "text": "Ela está em branco...",
+  "file": "tico/51e0b7d0.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "pode contar comigo: vou estar sempre do seu lado!",
+  "text": "Pode contar comigo: vou estar sempre do seu lado!",
+  "file": "tico/532c54eb.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "siga a bússola e a trilha de faíscas!",
   "text": "Siga a bússola e a trilha de faíscas!",
   "file": "tico/53538a91.mp3"
@@ -883,6 +955,12 @@
  },
  {
   "voice": "tico",
+  "key": "esta é a página do primeiro dia da criação",
+  "text": "Esta é a página do primeiro dia da criação.",
+  "file": "tico/5b679898.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "jogue no seu ritmo: um dia por vez ou vários seguidos",
   "text": "Jogue no seu ritmo: um dia por vez ou vários seguidos.",
   "file": "tico/5e00cb84.mp3"
@@ -895,6 +973,12 @@
  },
  {
   "voice": "tico",
+  "key": "bem-vindo de volta ao acampamento!",
+  "text": "Bem-vindo de volta ao acampamento!",
+  "file": "tico/621d28f3.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "bem-vinda e bem-vindo ao acampamento do livro aberto!",
   "text": "Bem-vinda e bem-vindo ao Acampamento do Livro Aberto!",
   "file": "tico/647690d2.mp3"
@@ -904,6 +988,12 @@
   "key": "lua",
   "text": "Lua",
   "file": "tico/6631cf0a.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "toque no livro!",
+  "text": "Toque no Livro!",
+  "file": "tico/66f4a6ec.mp3"
  },
  {
   "voice": "tico",
@@ -1045,6 +1135,12 @@
  },
  {
   "voice": "tico",
+  "key": "vamos descobrir juntos o que deus fez no primeiro dia?",
+  "text": "Vamos descobrir juntos o que Deus fez no primeiro dia?",
+  "file": "tico/8d19f6f1.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o lampião central da clareira",
   "text": "O lampião central da clareira.",
   "file": "tico/967fd959.mp3"
@@ -1060,6 +1156,12 @@
   "key": "seu progresso fica salvo",
   "text": "Seu progresso fica salvo.",
   "file": "tico/98ca3ce7.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "psiu!",
+  "text": "Psiu!",
+  "file": "tico/99004346.mp3"
  },
  {
   "voice": "tico",
@@ -1111,6 +1213,18 @@
  },
  {
   "voice": "tico",
+  "key": "como você quer ser chamada?",
+  "text": "Como você quer ser chamada?",
+  "file": "tico/a708c1cd.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "como você quer ser chamado?",
+  "text": "Como você quer ser chamado?",
+  "file": "tico/a72b540f.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "acende no dia 3",
   "text": "Acende no Dia 3.",
   "file": "tico/a7b41660.mp3"
@@ -1159,6 +1273,12 @@
  },
  {
   "voice": "tico",
+  "key": "igualzinho ao acampamento agora!",
+  "text": "Igualzinho ao acampamento agora!",
+  "file": "tico/ae5c0f67.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "explore o acampamento à vontade",
   "text": "Explore o acampamento à vontade.",
   "file": "tico/b3755493.mp3"
@@ -1189,12 +1309,6 @@
  },
  {
   "voice": "tico",
-  "key": "mas olhe",
-  "text": "Mas olhe...",
-  "file": "tico/ba66f985.mp3"
- },
- {
-  "voice": "tico",
   "key": "girassol",
   "text": "Girassol",
   "file": "tico/bc9ab0d0.mp3"
@@ -1210,6 +1324,12 @@
   "key": "nade até o meio e aperte a para mergulhar!",
   "text": "Nade até o meio e aperte A para mergulhar!",
   "file": "tico/bd829926.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "clique no chão para andar",
+  "text": "Clique no chão para andar.",
+  "file": "tico/c6832261.mp3"
  },
  {
   "voice": "tico",
@@ -1258,6 +1378,12 @@
   "key": "vaga-lume",
   "text": "Vaga-lume",
   "file": "tico/d0cc15cd.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "eu sou o tico!",
+  "text": "Eu sou o Tico!",
+  "file": "tico/d168b406.mp3"
  },
  {
   "voice": "tico",
@@ -1339,9 +1465,9 @@
  },
  {
   "voice": "tico",
-  "key": "antes de procurar, vamos ler a primeira página",
-  "text": "Antes de procurar, vamos ler a primeira página.",
-  "file": "tico/e607f639.mp3"
+  "key": "olha!",
+  "text": "Olha!",
+  "file": "tico/e5c53157.mp3"
  },
  {
   "voice": "tico",
@@ -1390,6 +1516,12 @@
   "key": "para voltar, é só entrar no portal de novo",
   "text": "Para voltar, é só entrar no portal de novo.",
   "file": "tico/f0363853.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "agora vamos abrir a bíblia e ler como tudo começou",
+  "text": "Agora vamos abrir a Bíblia e ler como tudo começou.",
+  "file": "tico/f1efb957.mp3"
  },
  {
   "voice": "tico",
