@@ -66,7 +66,7 @@ Carregar o PNG como textura e aplicar em uma peça plana (decalque), **com a pro
 - Orientação: funcionar nas duas. Em retrato, aumentar o campo de visão e reposicionar o HUD.
 
 ## Persistência
-LocalStorage ou IndexedDB: versão do save, `avatarId`, dificuldade, dia/etapa concluídos, itens e distintivos, quadros acesos, preferências de áudio e qualidade, `feedback.dayNN`. Sem dados pessoais. Schema versionado com migração simples.
+LocalStorage ou IndexedDB: versão do save, `avatarId`, `apelido` (só no aparelho, editável e apagável), dificuldade, dia/etapa concluídos, itens e distintivos, quadros acesos, preferências de áudio e qualidade, `feedback.dayNN`. Sem outros dados pessoais. Schema versionado com migração simples.
 
 ## Piloto e feedback
 O jogo não envia dados por rede. O feedback do responsável abre formulário externo em nova aba (`src/config/pilot.ts`). Veja `PILOT_FEEDBACK.md`.

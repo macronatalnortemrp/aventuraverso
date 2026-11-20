@@ -3,12 +3,12 @@
 Todos os personagens são **bonecos de bloco gerados por código a partir de parâmetros** (modelo em `prototype/`). Um único "construtor de criança" produz os seis avatares, Pedrito, a Diretora Sol e os demais NPCs humanos.
 
 ## Seleção do jogador
-Primeira execução: seis personagens pré-definidos, três masculinos e três femininos, em cards grandes (Meninos e Meninas). Toque seleciona (borda de foco, o boneco acena), botão "Confirmar personagem", `avatarId` salvo no aparelho e alterável nas configurações. A escolha não altera dificuldade, conteúdo, recompensas nem acesso.
+Primeira execução: seis personagens pré-definidos, três masculinos e três femininos, em cards grandes (Meninos e Meninas). Toque seleciona (borda de foco, o boneco acena), botão "Confirmar personagem", `avatarId` salvo no aparelho e alterável nas configurações. Em seguida a criança digita um **apelido** (opcional; sem apelido, usa-se "Aventureiro" ou "Aventureira"). Os bonecos não têm nome próprio: as falas usam o apelido e a forma de gênero do boneco escolhido (`INTRO_SEQUENCE.md`). A escolha não altera dificuldade, conteúdo, recompensas nem acesso.
 
 ## Os seis avatares
 Todos com o uniforme padrão: camisa branca com plaquinha de nome, cinto, meias brancas, sapato preto e lenço vinho com emblema A1 no canudo. **Meninas: saia azul-marinho. Meninos: calça na mesma cor azul-marinho da saia.** Diferenciam-se por:
 
-| # | Nome provisório | Pele | Cabelo | Acessório |
+| # | Identificador interno (não aparece no jogo) | Pele | Cabelo | Acessório |
 |---|---|---|---|---|
 | 1 | Menino 1 | clara/média `#F0C8A0` | castanho `#5A3A22`, curto | — |
 | 2 | Menino 2 | escura `#8D5A3B` | preto `#1B1B1B`, crespo curto | — |
