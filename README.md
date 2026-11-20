@@ -23,13 +23,18 @@ Cada envio para `main` roda typecheck, testes e build no GitHub Actions e public
 ## Estrutura
 ```text
 src/
-  main.ts              mundo, jogador, câmera, entrada, HUD e laço (portado da demo; a dividir)
-  engine/              math.ts (utilitários e aleatório com semente), audio.ts (efeitos opcionais)
-  world/               terrain.ts (alturas, lago, colina, trilhas), textures.ts (emblemas, placas)
-  world/builders/      kid.ts (Aventureiros, Diretora Sol, Pedrito, Tico)
-  game/                guidance.ts (escada de ajuda), breath.ts (fôlego)
+  main.ts              liga tudo: personagens, interações, ajuda, moedas, telas e laço
+  engine/              gfx.ts (renderizador, luz, céu), camera.ts (órbita 360°), input.ts (toque,
+                       joystick, teclado), audio.ts (efeitos opcionais), math.ts (aleatório com semente)
+  world/               terrain.ts (alturas, lago, colina, trilhas), camp.ts (zonas do acampamento),
+                       batch.ts (geometria agrupada e furo de visão), colliders.ts, interactables.ts,
+                       coins.ts, vegetation.ts, critters.ts, fx.ts (partículas), textures.ts (emblemas, placas)
+  world/builders/      kid.ts (Aventureiros, Diretora Sol, Pedrito, Tico), props.ts (árvores, cercas, lampiões)
+  game/                player.ts (física: andar, pular, nadar, mergulhar), guidance.ts (escada de ajuda),
+                       breath.ts (fôlego)
   config/              guidance.ts (tempos da ajuda e do fôlego, a calibrar no piloto)
   persistence/         save.ts (progresso local versionado)
+  ui/                  hud.ts (moedas, fôlego, bússola, Tico, diálogos), screens.ts (escolha do avatar)
 tests/                 testes de unidade
 public/assets/official emblemas oficiais (originais) e web/ (cópias reduzidas, mesma proporção)
 docs/                  documentação de produção
@@ -44,7 +49,7 @@ prototype/             referências visuais antigas
 ## Estado atual (19/11/2026)
 - Mundo 1 explorável: acampamento completo, joystick e botões A/B opcionais, toque no chão, câmera 360°, nado, mergulho com fôlego, 49 moedas, ajuda do Tico com teletransporte ao portal, portais da Missão 1 e do Mundo 2 (trancado).
 - Ainda não há missões jogáveis. Quadros dos Ideais ficam apagados até existir `club-texts.json` conferido.
-- Pendências: `main.ts` e os construtores ainda usam `// @ts-nocheck` (código portado da demo); dividir em `world/builders` e tipar é o próximo passo técnico. Gerar `package-lock.json` no primeiro build.
+- Todo o código é TypeScript estrito. Pendências técnicas: mover o layout do acampamento para `public/data/world.json` e gerar `package-lock.json`.
 - Os PDFs de `docs/source/` não vão para o repositório público (estão no `.gitignore`); ficam no computador do responsável.
 
 ---
