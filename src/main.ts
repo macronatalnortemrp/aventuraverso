@@ -4,6 +4,7 @@ import { createGfx, MOBILE, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engi
 import { OrbitCamera } from './engine/camera';
 import { Input } from './engine/input';
 import { sfx, setSoundEnabled } from './engine/audio';
+import { stopSpeaking } from './engine/speech';
 import { angLerp, clamp, lerp } from './engine/math';
 import { H, WY, isDeep } from './world/terrain';
 import { EMB, ROOT } from './world/textures';
@@ -580,6 +581,7 @@ function draw(dt: number, t: number) {
 
 /* ---------- telas ---------- */
 task.voice = () => sound;
+hud.voice = () => sound;
 let sound = SAVE.data.sound;
 setSoundEnabled(sound);
 $('bs').setAttribute('aria-pressed', String(sound));
@@ -589,6 +591,7 @@ $('bs').onclick = () => {
   SAVE.update({ sound });
   $('bs').setAttribute('aria-pressed', String(sound));
   if (sound) sfx('ui');
+  else stopSpeaking();
 };
 function setControls(on: boolean) {
   SAVE.update({ controls: on });

@@ -1,5 +1,6 @@
 import { breathColor } from '../game/breath';
 import { sfx } from '../engine/audio';
+import { speakRecorded, stopSpeaking } from '../engine/speech';
 
 export const $ = <T extends HTMLElement = HTMLElement>(id: string) => {
   const e = document.getElementById(id);
@@ -22,6 +23,8 @@ export class Hud {
   private ticoTimer = 0;
   /** retratos 3D de quem fala (nome -> imagem) */
   portraits: Record<string, string> = {};
+  /** as falas gravadas só tocam com o som ligado */
+  voice = () => true;
   private dq: DialogQueue | null = null;
   /** algum diálogo aberto (o jogo pausa) */
   get paused() {
@@ -91,6 +94,7 @@ export class Hud {
       box.append(b);
     }
     this.show('tico');
+    if (this.voice()) speakRecorded(text, 'Tico');
     clearTimeout(this.ticoTimer);
     if (ms) this.ticoTimer = window.setTimeout(() => this.hideTico(), ms);
   }
@@ -114,6 +118,7 @@ export class Hud {
     dt.textContent = q.title === q.who ? '' : q.title;
     dt.style.display = q.title === q.who ? 'none' : '';
     $('dx').textContent = q.lines[q.i];
+    if (this.voice()) speakRecorded(q.lines[q.i], q.who);
     const row = $('dr');
     row.innerHTML = '';
     const b = document.createElement('button');
@@ -131,6 +136,7 @@ export class Hud {
     q.i++;
     if (q.i < q.lines.length) return this.line();
     this.dq = null;
+    stopSpeaking();
     this.show('dlg', false);
     this.onDialogClose();
     q.onEnd?.();

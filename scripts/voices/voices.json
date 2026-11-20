@@ -1,0 +1,8 @@
+{
+  "_como_ajustar": "voice: voz do Kokoro (pt-BR: pf_dora, pm_alex, pm_santa; 'a,b' mistura duas). pitch > 1 deixa a voz mais aguda e infantil (1.0 = original; acima de 1.5 começa a soar como desenho animado). speed: 1.0 = normal. Mudou um perfil? O workflow 'Vozes' regera só aquela voz.",
+  "narrador": { "voice": "pm_santa", "speed": 0.92, "pitch": 1.0, "quem": "Narrador e a Voz: homem adulto, calmo" },
+  "sol": { "voice": "pf_dora", "speed": 1.0, "pitch": 1.2, "quem": "Diretora Sol: voz feminina jovem e acolhedora" },
+  "pedrito": { "voice": "pm_alex", "speed": 1.0, "pitch": 1.42, "quem": "Pedrito: menino" },
+  "tico": { "voice": "pf_dora,pm_alex", "speed": 1.04, "pitch": 1.38, "quem": "Tico: mascote, voz infantil e animada" },
+  "acampante": { "voice": "pf_dora", "speed": 1.0, "pitch": 1.3, "quem": "Acampantes: crianças" }
+}

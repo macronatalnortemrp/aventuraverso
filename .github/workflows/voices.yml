@@ -1,0 +1,61 @@
+name: Vozes dos personagens (Kokoro)
+
+# Gera os MP3 das falas quando o texto do jogo ou os perfis de voz mudam,
+# commita em public/audio/voices/ e dispara um novo deploy.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/data/**'
+      - 'src/**'
+      - 'scripts/voices/**'
+      - '.github/workflows/voices.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: voices
+  cancel-in-progress: false
+
+jobs:
+  voices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ferramentas de sistema (só para gerar; não vão para o jogo)
+        run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
+      - name: Kokoro (PyTorch só CPU)
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9.4" soundfile numpy
+      - name: Coletar falas
+        run: node --experimental-strip-types scripts/voices/collect.ts
+      - name: Gerar áudios
+        run: python scripts/voices/generate.py
+      - name: Commitar áudios
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio/voices scripts/voices/lines.json
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -m "chore(vozes): atualiza falas gravadas [kokoro]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      # commits feitos com GITHUB_TOKEN não disparam workflows; o deploy precisa ser chamado
+      - name: Publicar de novo
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main

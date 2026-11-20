@@ -43,18 +43,18 @@ export class Task {
     this.open = false;
   }
 
-  private listen(t: string) {
+  private listen(t: string, who = 'Tico') {
     if (!canSpeak()) return null;
     const b = el('button', 'btn alt listen', ICONS.speaker + '<span>Ouvir</span>');
     b.setAttribute('aria-label', 'Ouvir o texto');
-    b.onclick = () => this.voice() && speak(t);
+    b.onclick = () => this.voice() && speak(t, who);
     return b;
   }
 
   private header(p: HTMLElement, who: string, title: string, read: string) {
     const top = el('div', 'thead');
     top.append(text('b', 'tag', who));
-    const l = this.listen(read);
+    const l = this.listen(read, who);
     if (l) top.append(l);
     p.append(top, text('h2', '', title));
   }
