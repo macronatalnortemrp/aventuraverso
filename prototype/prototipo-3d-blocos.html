@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acampamento do Livro Aberto — protótipo 3D</title>
+<style>
+:root{--ui:#fff8e6;--ink:#172D49;--bd:#D7A64D;--vin:#6E2638;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ui:#1d3556;--ink:#E9E1CF;color-scheme:dark}}
+:root[data-theme="dark"]{--ui:#1d3556;--ink:#E9E1CF;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:#172D49;font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;overflow:hidden}
+#stage{position:relative;height:100%;touch-action:none}
+canvas{display:block;width:100%;height:100%}
+.bar{position:absolute;left:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:center}
+.top{top:8px}.bot{bottom:8px}
+button{font:inherit;font-size:.9rem;color:var(--ink);background:var(--ui);border:3px solid var(--bd);border-radius:14px;min-width:48px;min-height:48px;padding:4px 10px;cursor:pointer}
+button[aria-pressed="true"]{border-color:var(--vin);background:var(--bd)}
+button:focus-visible{outline:3px solid var(--vin);outline-offset:2px}
+.msg{background:var(--ui);color:var(--ink);border:3px solid var(--bd);border-radius:14px;padding:6px 12px;font-size:.88rem;max-width:520px;text-align:center}
+</style>
+</head>
+<body>
+<div id="stage">
+<div class="bar top" id="pick" role="group" aria-label="Escolher personagem"></div>
+<div class="bar bot"><button id="dn" aria-pressed="false">🌙 Noite</button><div class="msg">Toque no chão para andar e no Globo para acendê-lo. O emblema oficial entra depois, como camada separada.</div></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const T=THREE,st=document.getElementById('stage');
+let R;try{R=new T.WebGLRenderer({antialias:true})}catch(e){st.insertAdjacentHTML('beforeend','<p class="msg" style="margin:80px auto">Este aparelho não conseguiu abrir o 3D.</p>');return}
+R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.shadowMap.enabled=true;st.insertBefore(R.domElement,st.firstChild);
+const S=new T.Scene(),C=new T.PerspectiveCamera(40,1,.1,200);
+const dayBg=new T.Color(0x9fd6ee),nightBg=new T.Color(0x172D49);S.background=dayBg.clone();
+const H=new T.HemisphereLight(0xfff4d6,0x66845B,.95);S.add(H);
+const Sun=new T.DirectionalLight(0xffffff,.8);Sun.position.set(-10,18,8);Sun.castShadow=true;Sun.shadow.mapSize.set(1024,1024);
+Object.assign(Sun.shadow.camera,{left:-24,right:24,top:24,bottom:-24});S.add(Sun);
+const mat=c=>new T.MeshLambertMaterial({color:c});
+function bx(w,h,d,c,x,y,z,p){const m=new T.Mesh(new T.BoxGeometry(w,h,d),mat(c));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;(p||S).add(m);return m}
+function pv(p,x,y){const g=new T.Group();g.position.set(x,y,0);p.add(g);return g}
+
+/* Cenário */
+const ground=bx(70,1,70,0x78a063,0,-.5,0);ground.castShadow=false;
+bx(3,.08,40,0xC9A66B,0,.02,0);bx(24,.08,3,0xC9A66B,-8,.03,4);
+bx(13,.1,10,0xE3CF95,-15,.03,-8);bx(11,.12,8,0x4aa3c7,-15,.05,-8);
+function tree(x,z,s){bx(.7,2*s,.7,0x4A4038,x,s,z);bx(2.6*s,2*s,2.6*s,0x3f7d4a,x,3*s,z);bx(1.7*s,1.4*s,1.7*s,0x4f9358,x,4.4*s,z)}
+[[8,-4,1],[11,2,1.2],[-9,6,1],[14,-9,1.1],[-20,4,1.2],[7,12,1],[-7,-14,1],[18,5,1],[-24,-2,1],[12,-16,1.2]].forEach(t=>tree(t[0],t[1],t[2]));
+function tent(x,z,c){const m=new T.Mesh(new T.ConeGeometry(2.4,2.6,4),mat(c));m.position.set(x,1.3,z);m.rotation.y=Math.PI/4;m.castShadow=true;S.add(m)}
+tent(-7,-1,0xD7A64D);tent(-10,2,0x6E2638);tent(8,-8,0xE9E1CF);tent(5,-11,0xD7A64D);
+const hill=new T.Mesh(new T.CylinderGeometry(4.5,5.5,1.2,8),mat(0x66845B));hill.position.set(0,.6,-15);hill.castShadow=hill.receiveShadow=true;S.add(hill);
+bx(1.8,.8,1.8,0x4A4038,0,1.6,-15);
+const core=new T.Mesh(new T.SphereGeometry(1.1,16,12),new T.MeshLambertMaterial({color:0xD7A64D,emissive:0xD7A64D,emissiveIntensity:0}));core.position.set(0,3.6,-15);S.add(core);
+const glass=new T.Mesh(new T.SphereGeometry(2,20,16),new T.MeshPhongMaterial({color:0xcfe8ff,transparent:true,opacity:.35,shininess:90}));glass.position.copy(core.position);S.add(glass);
+const gl=new T.PointLight(0xffd37a,0,28);gl.position.copy(core.position);S.add(gl);
+
+/* Personagens feitos de blocos, por parâmetros */
+function kid(o){
+const g=new T.Group(),sk=o.skin,legs=[],arms=[];
+[-.28,.28].forEach(x=>{const l=pv(g,x,.9);bx(.42,.5,.42,o.pants,0,-.25,0,l);bx(.42,.4,.42,o.long?o.pants:sk,0,-.7,0,l);bx(.46,.2,.56,0x4A4038,0,-.9,.06,l);legs.push(l)});
+bx(1.1,1.1,.6,o.shirt,0,1.45,0,g);
+if(o.pack)bx(.8,.9,.35,0x6b4a2e,0,1.5,-.46,g);
+[-1,1].forEach(s=>{const a=pv(g,s*.72,1.9);bx(.34,.45,.34,o.shirt,0,-.22,0,a);bx(.28,.5,.28,sk,0,-.65,0,a);arms.push(a)});
+bx(.95,.95,.9,sk,0,2.45,0,g);
+const h=o.hair;bx(1.02,.38,.98,h,0,2.92,0,g);bx(1.02,.3,.12,h,0,2.78,.45,g);
+if(o.style==='long'){bx(1.02,1.1,.3,h,0,2.35,-.46,g);bx(.14,.8,.7,h,.5,2.4,-.1,g);bx(.14,.8,.7,h,-.5,2.4,-.1,g)}
+else if(o.style==='curly')[-.4,-.13,.13,.4].forEach((x,i)=>bx(.38,.38,.38,h,x,3.15+(i%2)*.12,0,g));
+else if(o.style==='bun')bx(.45,.45,.45,h,0,3.3,-.25,g);
+[-.22,.22].forEach(x=>bx(.12,.2,.06,0x2a1a12,x,2.5,.46,g));
+bx(.34,.06,.06,0x7a2a2a,0,2.25,.46,g);
+[-.34,.34].forEach(x=>bx(.16,.1,.05,0xff8f9c,x,2.35,.46,g));
+if(o.glasses)[-.22,.22].forEach(x=>{[[0,.19,.4,.05],[0,-.19,.4,.05],[-.19,0,.05,.4],[.19,0,.05,.4]].forEach(r=>bx(r[2],r[3],.05,0x1f2a44,x+r[0],2.5+r[1],.47,g))});
+if(!o.bare){bx(1,.2,.7,0x6E2638,0,2.02,0,g);
+if(o.trim)bx(.78,.78,.08,0xffffff,0,1.72,.31,g).rotation.z=Math.PI/4;
+bx(.62,.62,.1,0x6E2638,0,1.72,.34,g).rotation.z=Math.PI/4;
+bx(.2,.2,.05,0xE9E1CF,0,1.82,.41,g)}
+if(o.scale)g.scale.setScalar(o.scale);
+return {g,legs,arms,ph:0}}
+function tico(){const g=new T.Group(),b=0x9a6a3e;
+bx(.8,.8,.6,b,0,.9,0,g);bx(.5,.5,.12,0xE9C99B,0,.9,.31,g);bx(.7,.7,.7,b,0,1.7,0,g);bx(.5,.4,.12,0xE9C99B,0,1.62,.36,g);
+[-.16,.16].forEach(x=>bx(.1,.14,.06,0x2a1a12,x,1.78,.38,g));[-.42,.42].forEach(x=>bx(.28,.28,.1,0xfff3dc,x,2.05,0,g));
+[-.22,.22].forEach(x=>bx(.22,.22,.3,b,x,.2,.1,g));bx(.74,.16,.64,0x6E2638,0,1.38,0,g);
+bx(.2,.9,.2,b,0,1,-.45,g);bx(.2,.2,.4,b,0,1.5,-.58,g);return g}
+const AV=[
+{n:'Menino 1',skin:0xf0c8a0,hair:0x5a3a22,style:'short',shirt:0xD9C8A0,pants:0x6b7a45},
+{n:'Menino 2',skin:0x8d5a3b,hair:0x1b1b1b,style:'curly',shirt:0x172D49,pants:0xC2A878},
+{n:'Menino 3',skin:0xf2cfb0,hair:0xC4501B,style:'curly',shirt:0x6b7a45,pants:0xC2A878,long:1,glasses:1},
+{n:'Menina 1',skin:0xeab98f,hair:0x4a2a1a,style:'long',shirt:0xEFE6D2,pants:0x6b7a45},
+{n:'Menina 2',skin:0x8d5a3b,hair:0x1b1b1b,style:'bun',shirt:0xEFE6D2,pants:0x172D49},
+{n:'Menina 3',skin:0xf2cfb0,hair:0xE3B85A,style:'long',shirt:0x172D49,pants:0xC2A878}];
+const ped=kid({skin:0xd9a47a,hair:0x2b1a10,style:'short',shirt:0xD7A64D,pants:0x5b6b8c,bare:1});ped.g.position.set(-4,0,-3);ped.g.rotation.y=.6;S.add(ped.g);
+const sol=kid({skin:0xc68863,hair:0x4a2a1a,style:'long',shirt:0xffffff,pants:0x172D49,long:1,trim:1,scale:1.18});sol.g.position.set(4,0,-5);sol.g.rotation.y=-.6;S.add(sol.g);
+const tg=tico();tg.position.set(2,0,2);tg.rotation.y=-.5;S.add(tg);
+
+/* Jogador, toque para andar */
+let P=null,lit=false,night=false,glow=0,nf=0,lastT=0;
+const target=new T.Vector3(0,0,8),ray=new T.Raycaster(),v2=new T.Vector2(),pk=document.getElementById('pick'),btns=[];
+function setAv(i){const old=P?P.g.position.clone():new T.Vector3(0,0,8);if(P)S.remove(P.g);P=kid(Object.assign({pack:1},AV[i]));P.g.position.copy(old);S.add(P.g);btns.forEach((b,j)=>b.setAttribute('aria-pressed',j===i))}
+AV.forEach((a,i)=>{const b=document.createElement('button');b.textContent=a.n;b.onclick=()=>setAv(i);pk.appendChild(b);btns.push(b)});
+setAv(0);
+const dn=document.getElementById('dn');dn.onclick=()=>{night=!night;dn.setAttribute('aria-pressed',night);dn.textContent=night?'☀️ Dia':'🌙 Noite'};
+R.domElement.addEventListener('pointerdown',e=>{const r=R.domElement.getBoundingClientRect();v2.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(v2,C);
+const h=ray.intersectObjects([glass,ground,hill],false)[0];if(!h)return;
+if(h.object===glass){lit=!lit;return}
+target.set(Math.max(-26,Math.min(26,h.point.x)),0,Math.max(-26,Math.min(26,h.point.z)))});
+function swing(c,mv){const s=mv?Math.sin(c.ph)*.7:0;c.legs[0].rotation.x=s;c.legs[1].rotation.x=-s;c.arms[0].rotation.x=-s;c.arms[1].rotation.x=s;c.g.position.y=mv?Math.abs(Math.sin(c.ph))*.1:0}
+function rs(){const w=st.clientWidth,h=st.clientHeight;R.setSize(w,h,false);C.aspect=w/h;C.fov=C.aspect<1?58:40;C.updateProjectionMatrix()}
+addEventListener('resize',rs);rs();
+function tick(now){requestAnimationFrame(tick);const dt=Math.min((now-lastT)/1000||0,.05);lastT=now;
+const p=P.g.position,d=target.clone().sub(p);d.y=0;const L=d.length(),mv=L>.12;
+if(mv){d.normalize();p.addScaledVector(d,Math.min(L,5*dt));let a=Math.atan2(d.x,d.z)-P.g.rotation.y;a=Math.atan2(Math.sin(a),Math.cos(a));P.g.rotation.y+=a*Math.min(1,dt*12);P.ph+=dt*11}
+swing(P,mv);tg.position.y=Math.abs(Math.sin(now/300))*.12;
+glow+=((lit?1:0)-glow)*Math.min(1,dt*2);core.material.emissiveIntensity=glow*1.6;gl.intensity=glow*1.5;
+nf+=((night?1:0)-nf)*Math.min(1,dt*2);S.background.copy(dayBg).lerp(nightBg,nf);H.intensity=.95-nf*.6;Sun.intensity=.8-nf*.65;
+C.position.lerp(new T.Vector3(p.x,13,p.z+13),Math.min(1,dt*4));C.lookAt(C.position.x,1,C.position.z-13);
+R.render(S,C)}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
