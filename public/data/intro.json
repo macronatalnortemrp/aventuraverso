@@ -1,0 +1,39 @@
+{
+  "_fontes": "docs/INTRO_SEQUENCE.md (Quadros 1 a 6, aprovados em 20/11/2026). {apelido} é trocado pelo apelido da criança; m/f = boneco escolhido (menino/menina). Frases com {apelido} não têm áudio gravado: aparecem só na legenda.",
+  "q1": {
+    "who": "Diretora Sol",
+    "line": {
+      "m": "Olá, {apelido}! Que alegria ter você aqui! Seja bem-vindo ao Acampamento do Livro Aberto, onde os Aventureiros vivem as histórias da Bíblia.",
+      "f": "Olá, {apelido}! Que alegria ter você aqui! Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia."
+    },
+    "_big": { "m": "Bem-vindo, {apelido}!", "f": "Bem-vinda, {apelido}!" }
+  },
+  "q2": {
+    "who": "Diretora Sol",
+    "line": "Mas, de repente... um vento forte soprou! As páginas do Livro dos Sete Dias voaram para longe. E o Globo do Éden se apagou!"
+  },
+  "q3": {
+    "who": "Diretora Sol",
+    "lines": [
+      "Não tenha medo, {apelido}. As páginas sumiram, mas a Bíblia continua aqui, inteirinha! Nela está a história de como Deus criou o mundo.",
+      "Vamos ler a Bíblia e reconstruir o Livro dos Sete Dias, uma página para cada dia da criação. A cada página, o Globo do Éden ganha vida de novo."
+    ]
+  },
+  "q4": {
+    "who": "Tico",
+    "line": "Psiu! Oi, {apelido}! Eu sou o Tico! Eu adoro uma aventura, e esta vai ser incrível. Pode contar comigo: vou estar sempre do seu lado!"
+  },
+  "q5": {
+    "who": "Tico",
+    "prompt": "Toque no Livro!",
+    "after": "Olha! Esta é a página do primeiro dia da criação. Ela está em branco... Vamos descobrir juntos o que Deus fez no primeiro dia?",
+    "_button": "Tocar no Livro dos Sete Dias",
+    "_page": "Dia 1"
+  },
+  "_q6": {
+    "kicker": "Dia 1",
+    "title": "A Luz no Acampamento",
+    "text": "Sua primeira missão: reconstruir a página do primeiro dia!",
+    "button": "Começar a aventura"
+  }
+}

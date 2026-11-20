@@ -4,7 +4,7 @@
  *
  *   node --experimental-strip-types scripts/voices/collect.ts
  *
- * Fontes: public/data/days/*.json, a Bíblia conferida e os textos fixos em src/**\/*.ts.
+ * Fontes: public/data/days/*.json, public/data/intro.json, a Bíblia conferida e os textos fixos em src/**\/*.ts.
  * Textos montados com ${...} entram só nas frases completas e fixas; o resto usa a voz do aparelho.
  */
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
@@ -18,6 +18,7 @@ const usedFiles = new Map<string, string>();
 
 function add(voice: VoiceId, text: string) {
   for (const s of splitSentences(text)) {
+    if (/[{}]/.test(s)) continue; // frase com apelido: só legenda
     const key = lineKey(s);
     const id = `${voice}|${key}`;
     if (!key || out.has(id)) continue;
@@ -58,6 +59,8 @@ for (const f of readdirSync(daysDir).filter((f) => f.endsWith('.json'))) {
     add('narrador', `Pegue uma Bíblia e leia, com a ajuda de um adulto, ${r.ref.replace('-', ' a ')}.`);
   }
 }
+// abertura narrada (docs/INTRO_SEQUENCE.md)
+walk(JSON.parse(readFileSync(join(ROOT, 'public/data/intro.json'), 'utf8')), []);
 const bible = JSON.parse(readFileSync(join(ROOT, 'public/data/content/bible-arc1898.json'), 'utf8'));
 for (const v of Object.values<string>(bible.verses ?? {})) add('narrador', v);
 

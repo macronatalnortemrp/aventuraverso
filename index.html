@@ -35,6 +35,7 @@
  <h1 class="logo">Aventurá<span>Verso</span></h1>
  <div class="ribbon">UM UNIVERSO DE AVENTURAS</div>
  <button class="btn big" id="go">Jogar</button>
+ <button class="btn alt" id="rewatch" hidden>Ver a abertura</button>
 </div><div class="credit"><img id="macro" alt="Macro Natal Norte"><span>Macro Natal Norte · MRP</span></div></div>
 
 <div id="pick" class="ov"><div class="panel">
@@ -45,6 +46,22 @@
  <div class="row center"><button class="btn big" id="start">Começar</button></div>
  <p class="hint">Toque no chão para andar e arraste a tela para girar a câmera. No teclado: WASD ou setas, Espaço (A), Shift (B), Q e E giram a câmera, Enter conversa.</p>
 </div></div>
+
+<div id="nick" class="ov"><div class="panel">
+ <div class="ph"><b class="tag" id="nktag">Aventureiro</b></div>
+ <h2 id="nkh">Como você quer ser chamado?</h2>
+ <p class="sub">Escreva um apelido. Ele fica só neste aparelho e dá para trocar depois.</p>
+ <input id="nkin" type="text" maxlength="14" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" aria-labelledby="nkh">
+ <div class="row center"><button class="btn alt" id="nkskip">Agora não</button><button class="btn big" id="nkok">Continuar</button></div>
+</div></div>
+
+<div id="intro" aria-label="Abertura">
+ <div id="ibig" aria-live="polite"></div>
+ <button id="ibook" aria-label="Tocar no Livro dos Sete Dias"><span></span></button>
+ <div id="isub" class="bubble" role="status" aria-live="polite"><img class="av" id="isav" alt=""><div class="tx"><b class="tag" id="iwho"></b><span id="itx"></span></div></div>
+ <div id="ictl"><button class="btn alt" id="irep">Repetir</button><button class="btn alt" id="iskip">Pular</button></div>
+ <div id="iend" class="panel" role="dialog" aria-labelledby="ih"><b class="tag" id="ik"></b><h2 id="ih"></h2><p id="ip"></p><div class="row center"><button class="btn big" id="igo"></button></div></div>
+</div>
 
 <div id="dlg" class="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="panel talk"><img class="av" id="dav" alt=""><div class="tx"><b class="tag" id="dw"></b><h2 id="dt"></h2><p id="dx"></p><div class="row" id="dr"></div></div></div></div>
 <div id="task" class="ov" role="dialog" aria-modal="true"><div id="taskp" class="panel"></div></div>

@@ -3,12 +3,11 @@
   "title": "Dia 1: A Luz no Acampamento",
   "_fontes": "docs/DAY_01.md, docs/QUIZ_MAP.md (respostas do Guia do Aspirante), docs/LENCO.md, docs/INTRO_SEQUENCE.md. Distratores são sugestões a revisar com a liderança.",
   "start": [
-    "Vamos começar? Você consegue encontrar as três faíscas escondidas pelo acampamento?",
-    "Mas olhe... está tudo escuro! Venha comigo."
+    "Uau, como está escuro! Venha comigo, tenho uma coisa para você."
   ],
   "lantern": [
     "Tome esta lanterna! Ela ilumina só um pedacinho do caminho, então vá com calma.",
-    "Antes de procurar, vamos ler a primeira página."
+    "Agora vamos abrir a Bíblia e ler como tudo começou."
   ],
   "readings": {
     "r1": {
@@ -214,7 +213,7 @@
   "creation": {
     "_revisar": "Paráfrases em linguagem infantil de Gênesis 1:1-5, sem citar o texto bíblico. Revisar com a liderança.",
     "afterReading1": [
-      "Lembra da leitura? No começo de tudo, antes da luz, estava tudo escuro. Por isso o acampamento ficou assim!"
+      "Lembra da leitura? No começo de tudo, antes da luz, estava tudo escuro. Igualzinho ao acampamento agora!"
     ],
     "afterSparks": [
       "Cada faísca é um pedacinho de luz. Mas a luz de verdade, a que ilumina o mundo inteiro, só Deus pode criar."

@@ -60,7 +60,7 @@ export const coinMaterial = () => new THREE.MeshStandardMaterial({ color: 0xffc8
 export class Coins {
   list: Coin[];
   readonly total: number;
-  private im: THREE.InstancedMesh;
+  readonly im: THREE.InstancedMesh;
   private o = new THREE.Object3D();
   private nextExtra = -1;
 

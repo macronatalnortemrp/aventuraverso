@@ -4,7 +4,8 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { rnd } from '../engine/math';
 
 const _o = new THREE.Object3D(),
-  _c = new THREE.Color();
+  _c = new THREE.Color(),
+  _v = new THREE.Vector3();
 const boxes = new Map<string, THREE.BufferGeometry>();
 
 /** Caixa (com cantos arredondados quando r > 0), sempre não indexada para poder agrupar. */
@@ -53,6 +54,12 @@ export class Batch {
       a[i * 3 + 2] = _c.b;
     }
     g.setAttribute('color', new THREE.BufferAttribute(a, 3));
+    // centro da peça: a abertura monta o acampamento peça por peça a partir dele
+    g.computeBoundingBox();
+    const c = g.boundingBox!.getCenter(_v),
+      pv = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) pv.set([c.x, g.boundingBox!.min.y, c.z], i * 3);
+    g.setAttribute('piv', new THREE.BufferAttribute(pv, 3));
     this.parts.push(g);
     return g;
   }
@@ -67,9 +74,53 @@ export class Batch {
     this.parts = [];
     const m = new THREE.Mesh(g, material);
     m.castShadow = m.receiveShadow = shadow;
+    if (shadow) m.customDepthMaterial = buildDepthMaterial();
     scene.add(m);
     return m;
   }
+}
+
+/**
+ * Montagem do acampamento (abertura, Quadro 1): cada peça cresce a partir do chão, com um pulinho,
+ * quando a onda (raio BUILD.r a partir de BUILD.o) passa por ela. Fora da abertura, BUILD.r é enorme e nada muda.
+ * Tudo no shader de vértices: nenhum custo extra no celular depois da abertura.
+ */
+export const BUILD = { r: { value: 1e6 }, o: { value: new THREE.Vector3(0, 0, 36) } };
+/** largura da onda: distância em que a peça vai de 0 ao tamanho final */
+export const BUILD_WIDTH = 6;
+
+/** Fator de escala (0 a ~1.1, com pulinho) de uma peça à distância d da origem da onda. */
+export function buildScale(r: number, d: number) {
+  const k = Math.min(1, Math.max(0, (r - d) / BUILD_WIDTH));
+  if (k <= 0) return 0;
+  const c1 = 1.70158,
+    c3 = c1 + 1;
+  return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2);
+}
+
+/** Acrescenta a montagem a um material cujo modelo tem o atributo `piv` (malhas de Batch). */
+export function withBuild<T extends THREE.Material>(m: T, prev?: (s: THREE.WebGLProgramParametersWithUniforms) => void): T {
+  m.onBeforeCompile = (s) => {
+    prev?.(s);
+    s.uniforms.uBuild = BUILD.r;
+    s.uniforms.uBuildO = BUILD.o;
+    s.vertexShader =
+      'attribute vec3 piv;uniform float uBuild;uniform vec3 uBuildO;\n' +
+      s.vertexShader.replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+ {float bk=clamp((uBuild-distance(piv.xz,uBuildO.xz))/${BUILD_WIDTH.toFixed(1)},0.,1.);
+  float bm=bk-1.;float be=bk<=0.?0.:1.+2.70158*bm*bm*bm+1.70158*bm*bm;
+  transformed=piv+(transformed-piv)*be;}`,
+      );
+  };
+  return m;
+}
+
+let depthMat: THREE.MeshDepthMaterial | null = null;
+/** Sombras seguem a montagem (peça ainda não montada não faz sombra). */
+function buildDepthMaterial() {
+  return (depthMat ??= withBuild(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking })));
 }
 
 /** Posição do jogador na tela: o que estiver na frente dele fica vazado. */
@@ -82,7 +133,7 @@ export const SEE = { p: { value: new THREE.Vector2() }, d: { value: 0 }, r: { va
  */
 export function staticMaterial() {
   const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.82, metalness: 0 });
-  m.onBeforeCompile = (s) => {
+  withBuild(m, (s) => {
     s.uniforms.uSeeP = SEE.p;
     s.uniforms.uSeeD = SEE.d;
     s.uniforms.uSeeR = SEE.r;
@@ -95,6 +146,6 @@ export function staticMaterial() {
  if(vViewPosition.z<1.8&&ign>(vViewPosition.z-.6)/1.2)discard;
  if(uSeeR>0.&&vViewPosition.z<uSeeD-1.1){float k=length(gl_FragCoord.xy-uSeeP)/uSeeR;if(k<1.&&ign>smoothstep(.45,1.,k)*1.05)discard;}`,
       );
-  };
+  });
   return m;
 }

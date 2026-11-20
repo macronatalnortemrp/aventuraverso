@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { Batch, geoBox, staticMaterial } from './batch';
+import { Batch, geoBox, staticMaterial, withBuild } from './batch';
 import { Colliders } from './colliders';
 import { Interactables } from './interactables';
 import { Fx, Sparkles } from './fx';
@@ -48,6 +48,15 @@ export const MURALS: [number, number, number][] = [
 /** Lampião central da clareira (acende no "Haja luz"). */
 export const CENTRAL_LAMP = { x: -3, z: 5.5 };
 export const GLOBE = { x: HILL.x, z: HILL.z - 1 };
+/** Livro dos Sete Dias, no suporte de madeira diante do Globo. */
+export const BOOK = { x: 0, z: HILL.z + 5 };
+/** Mastro da bandeira do Clube. */
+export const FLAG = { x: 9, z: 8 };
+/** Tenda da classe i (0 a 3) na Clareira. */
+export function tentSpot(i: number) {
+  const a = -0.95 + i * 0.633;
+  return { x: Math.sin(a) * 12.5, z: 2 - Math.cos(a) * 12.5, a };
+}
 
 export interface Camp {
   terrain: THREE.Mesh;
@@ -266,9 +275,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
 
   /* Clareira das Tendas: uma tenda por classe, com emblema oficial e placa */
   CLASSES.forEach((k, i) => {
-    const a = -0.95 + i * 0.633,
-      x = Math.sin(a) * 12.5,
-      z = 2 - Math.cos(a) * 12.5,
+    const { a, x, z } = tentSpot(i),
       ry = -a,
       y = H(x, z);
     B.add(new THREE.ConeGeometry(3, 3.1, 4, 1), k.c, x, y + 1.55, z, ry + Math.PI / 4, 0, 0, 1, 0.02);
@@ -289,8 +296,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
 
   /* mastro e bandeira do Clube (tremula no shader) */
   {
-    const x = 9,
-      z = 8,
+    const { x, z } = FLAG,
       y = H(x, z);
     B.box(0.9, 0.5, 0.9, STONE, x, y + 0.25, z, { r: 0.12 });
     B.box(0.22, 8.4, 0.22, 0xeeeeee, x, y + 4.4, z, { r: 0.08 });
@@ -490,8 +496,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     });
   }
   {
-    const x = 0,
-      z = HILL.z + 5,
+    const { x, z } = BOOK,
       y = H(x, z);
     B.box(0.5, 1.1, 0.5, WOOD_DARK, x, y + 0.55, z, { r: 0.06 });
     B.box(1.5, 0.12, 1, WOOD, x, y + 1.15, z, { rx: -0.35, r: 0.04 });
@@ -808,7 +813,7 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
 
   const mat = staticMaterial();
   B.mesh(scene, mat);
-  const glowMat = new THREE.MeshBasicMaterial({ vertexColors: true });
+  const glowMat = withBuild(new THREE.MeshBasicMaterial({ vertexColors: true }));
   GLOW.mesh(scene, glowMat, false);
   FAR.mesh(scene, mat, false);
 

@@ -5,7 +5,7 @@ import { Day01, migrateDay01 } from '../game/day01/state';
  * Se o armazenamento não existir (modo privado, iframe), o jogo segue sem salvar.
  */
 export const SAVE_KEY = 'aventuraverso.save';
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 
 /** Respostas da criança na tela de feedback do piloto (docs/PILOT_FEEDBACK.md). */
 export interface DayFeedback {
@@ -25,9 +25,26 @@ export interface SaveData {
   /** Distintivos do Acampamento (não oficiais) */
   badges: string[];
   feedback: Record<string, DayFeedback>;
+  /** apelido que a criança deu ao personagem (só neste aparelho; vazio = "Aventureiro/Aventureira") */
+  nick: string;
+  /** já assistiu à abertura narrada */
+  introSeen: boolean;
 }
 
-export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {} });
+export const NICK_MAX = 14;
+/** Só letras, números, espaço, hífen e apóstrofo; sem espaços sobrando; no máximo NICK_MAX caracteres. */
+export function cleanNick(s: unknown): string {
+  if (typeof s !== 'string') return '';
+  return s
+    .normalize('NFC')
+    .replace(/[^\p{L}\p{N} '\-]/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, NICK_MAX)
+    .trim();
+}
+
+export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {}, nick: '', introSeen: false });
 
 type KV = Pick<Storage, 'getItem' | 'setItem'>;
 
@@ -41,7 +58,7 @@ function safeStorage(): KV | null {
 
 const MOODS = ['great', 'ok', 'bad'];
 
-/** Migra saves antigos (v1 não tinha dias, distintivos nem feedback) para a versão atual. */
+/** Migra saves antigos (v1 não tinha dias, distintivos nem feedback; v2 não tinha apelido nem abertura) para a versão atual. */
 export function migrate(raw: unknown): SaveData {
   const d = defaults();
   if (!raw || typeof raw !== 'object') return d;
@@ -66,6 +83,8 @@ export function migrate(raw: unknown): SaveData {
     day01: r.day01 ? migrateDay01(r.day01) : null,
     badges: Array.isArray(r.badges) ? [...new Set(r.badges.filter((b) => typeof b === 'string'))] : [],
     feedback,
+    nick: cleanNick(r.nick),
+    introSeen: typeof r.introSeen === 'boolean' ? r.introSeen : false,
   };
 }
 

@@ -361,7 +361,7 @@ export function makeTico(): Rig {
   return { root, body, torso, head, face, fm, legs, arms, tail, o: look, ph: 0, blink: 2, mode: 'open' };
 }
 
-/** Seis avatares jogáveis (nomes provisórios, docs/CHARACTERS.md). */
+/** Seis avatares jogáveis. `n` é só identificador interno: no jogo, a criança dá o apelido (docs/CHARACTERS.md). */
 export const AV: Look[] = [
   { n: 'Aventureiro 1', skin: 0xf0c8a0, hair: 0x5a3a22, style: 'short' },
   { n: 'Aventureiro 2', skin: 0x8d5a3b, hair: 0x1b1b1b, style: 'afro' },

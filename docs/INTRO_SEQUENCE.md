@@ -13,9 +13,9 @@ Cada quadro cumpre uma função narrativa diferente, sem repetir informação do
 |---|---|---|
 | 1 — A chegada | Encantamento | Diretora Sol, fora de cena |
 | 2 — O problema | Mistério | Diretora Sol, fora de cena |
-| 3 | Propósito | Diretora Sol, em cena |
-| 4 | Companheirismo | Tico |
-| 5 | Participação | Tico |
+| 3 — A Diretora Sol | Propósito | Diretora Sol, em cena |
+| 4 — Tico aparece | Companheirismo | Tico |
+| 5 — O Livro | Participação | Tico |
 | 6 — Começar | Expectativa | texto na tela |
 
 A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
@@ -45,37 +45,56 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 **Áudio:** música alegre e marcante, que abaixa de volume sob a narração. Efeitos: portão rangendo, "plim" dos blocos, bandeira ao vento, pássaros.
 
 **Cuidados:**
-- Desempenho: blocos animados em geometria agrupada/instanciada. No modo leve, o acampamento aparece já montado, com uma animação curta.
+- Desempenho: a montagem acontece no shader de vértices da geometria agrupada, sem custo depois da abertura.
 - Redução de movimento: com `prefers-reduced-motion` ou a opção do jogo, trocar o sobrevoo por cortes suaves e não fazer a montagem bloco a bloco.
 - Sem flashes nem piscadas rápidas. O estouro de estrelinhas é suave e curto.
 
-## Quadros 2 a 6 — em revisão
-Os quadros abaixo ainda serão reescritos, um por vez. Já estão decididas as correções:
+## Quadro 2 — O problema (Mistério) · ~15 s
+**Visual:** a música alegre para de repente, numa nota suspensa, e sopra um vento forte. A câmera voa até a Colina: o Livro dos Sete Dias está aberto sobre o suporte de madeira. O vento vira as páginas, que se soltam e sobem em espiral até sumir no céu. O Globo do Éden pisca e se apaga; **três faíscas escapam dele** e se escondem em pontos diferentes do acampamento (os mesmos lugares das faíscas da etapa 2 do Dia 1). O pôr do sol vira noite e as estrelas aparecem. A câmera volta à criança, sozinha no escuro. Tom de mistério, sem susto: nada de barulho alto nem escuro repentino.
 
-| Inconsistência | Decisão |
-|---|---|
-| Manhã dourada x escuro total do Dia 1 | A chegada acontece ao pôr do sol (Quadro 1). No Quadro 2 a luz se apaga junto com o Globo: o escuro vira consequência da história e prepara o "Haja luz". |
-| Quem entrega a lanterna | A abertura não entrega a lanterna. Tico a entrega na etapa 1 do Dia 1 (`DAY_01.md`). |
-| "Leia a primeira página" | Sai da abertura. A leitura de Gênesis 1:1–2 acontece na etapa 1 do Dia 1. |
-| Tico e Sol explicando a mesma missão | Ordem nova: Sol apresenta o propósito (Quadro 3), Tico entra como companheiro e convida a participar (Quadros 4 e 5). |
-| Narrador dos Quadros 1 e 2 | Diretora Sol, fora de cena. |
-| Texto final fala só das faíscas | O Quadro 6 anuncia a missão do Dia 1 como um todo, por exemplo "Sua primeira missão: acender a luz no acampamento!" **[redação a definir]**. |
+**Narração da Diretora Sol (fora de cena):**
+"Mas, de repente... um vento forte soprou! As páginas do Livro dos Sete Dias voaram para longe. E o Globo do Éden se apagou!"
 
-### Texto anterior (referência para a revisão)
+O sumiço das páginas não tem causa nem vilão (decisão de 20/11/2026), para não entrar em terreno doutrinário.
 
-**Quadro 2 — O problema.** Visual: Livro dos Sete Dias aberto, páginas faltando; Globo do Éden vazio e apagado. Narração: "Mas temos um pequeno problema... As páginas do Livro dos Sete Dias desapareceram! E o Globo do Éden, que deveria estar cheio de vida, continua vazio e apagado."
+## Quadro 3 — A Diretora Sol (Propósito) · ~20 s
+**Visual:** a Sol chega com um lampião, se abaixa até a altura da criança e ergue uma Bíblia de blocos (um livro com a palavra "Bíblia" na capa, sem nenhum outro símbolo).
 
-**Quadro 3 — Tico aparece.** Visual: Tico surge perto do livro e acena para a criança. Narração de Tico: "Psiu! Aventureiro! Ainda bem que você chegou! Precisamos encontrar as pistas e recuperar as páginas. Mas não se preocupe: eu vou ajudar você!"
+**Fala da Diretora Sol** (em duas legendas):
+1. "Não tenha medo, {apelido}. As páginas sumiram, mas a Bíblia continua aqui, inteirinha! Nela está a história de como Deus criou o mundo."
+2. "Vamos ler a Bíblia e reconstruir o Livro dos Sete Dias, uma página para cada dia da criação. A cada página, o Globo do Éden ganha vida de novo."
 
-**Quadro 4 — Diretora Sol explica.** Visual: Diretora Sol aproxima-se do avatar, com o lenço de líder LA1. Narração da Diretora Sol: "Olá, Aventureiro! Nossa missão será explorar o acampamento, descobrir o que a Bíblia nos ensina, ajudar nossos amigos e recuperar cada página. A cada descoberta, o Globo do Éden ficará mais completo."
+## Quadro 4 — Tico aparece (Companheirismo) · ~10 s
+**Visual:** um galho balança. O Tico está pendurado de cabeça para baixo, diz "Psiu!", cai dando uma cambalhota, ajeita o lencinho e acena. A Sol sorri.
 
-**Quadro 5 — A primeira missão.** Visual: Sol entrega uma lanterna ao avatar; três faíscas aparecem em locais diferentes do acampamento. Narração de Tico: "Vamos começar? Pegue sua lanterna, leia a primeira página com atenção e siga as pistas. Você consegue encontrar as três faíscas escondidas pelo acampamento?"
+**Fala do Tico:**
+"Psiu! Oi, {apelido}! Eu sou o Tico! Eu adoro uma aventura, e esta vai ser incrível. Pode contar comigo: vou estar sempre do seu lado!"
 
-**Quadro 6 — Começar.** Texto na tela: "Sua primeira missão: encontre as três faíscas!" Botão: "COMEÇAR A AVENTURA". Ao confirmar, iniciar a etapa 1 do Dia 1.
+## Quadro 5 — O Livro (Participação) · ~15 s
+**A criança age pela primeira vez.** Todos aparecem diante do Livro. O Tico aponta e diz "Toque no Livro!". O Livro pulsa como ponto de toque (toque, clique ou Enter, com foco de teclado). Ao tocar, o Livro se abre na página do Dia 1, em branco, só com o título "Dia 1". Se a criança não tocar em cerca de 8 segundos, o Tico acena e repete o convite; a cena nunca trava.
+
+**Fala do Tico depois do toque:**
+"Olha! Esta é a página do primeiro dia da criação. Ela está em branco... Vamos descobrir juntos o que Deus fez no primeiro dia?"
+
+## Quadro 6 — Começar (Expectativa)
+**Na tela:** "Dia 1 — A Luz no Acampamento" e "Sua primeira missão: reconstruir a página do primeiro dia!". Música com tom de esperança. **Botão:** "COMEÇAR A AVENTURA". Ao tocar, começa a etapa 1 do Dia 1: o Tico entrega a lanterna.
+
+Não se usa "acender a luz no acampamento": no Dia 1 quem cria a luz é Deus ("Haja luz"). O Dia 1 termina dizendo "Você encontrou a primeira página do Livro dos Sete Dias", o que fecha com esta missão.
+
+## Coerência com o Dia 1
+- As faíscas que fogem do Globo no Quadro 2 são os "pedacinhos de luz" que a criança procura na etapa 2; na etapa 7 voltam ao Globo, a Voz diz "Haja luz" e a página do Dia 1 é recuperada.
+- A abertura não entrega a lanterna nem faz a leitura: o Tico entrega a lanterna e a leitura de Gênesis 1:1–2 acontece na etapa 1.
+- Falas do Tico ajustadas em `public/data/days/day01.json`: "Uau, como está escuro! Venha comigo, tenho uma coisa para você."; "Agora vamos abrir a Bíblia e ler como tudo começou."; "...estava tudo escuro. Igualzinho ao acampamento agora!".
+
+## Implementação
+- Textos em `public/data/intro.json`; cena em `src/game/intro.ts`; música em `src/engine/music.ts` (composta por código, sem arquivos nem licença de terceiros); montagem do acampamento no shader (`src/world/batch.ts`, `src/world/assemble.ts`).
+- Fluxo: título → escolha do boneco → apelido → abertura (só na primeira vez; depois, botão "Ver a abertura" na tela de título) → Dia 1, etapa 1.
+- Vozes: as frases sem apelido são gravadas pelo workflow de vozes; as frases com apelido aparecem só na legenda.
+- O acampamento se monta peça por peça no vertex shader; depois da abertura, o custo é zero. Com movimento reduzido, a montagem e os voos de câmera viram cortes.
 
 ## Direção de áudio e acessibilidade
 - Vozes acolhedoras, claras, sem infantilização exagerada.
-- Música: alegre e marcante na entrada (Quadro 1), acompanhando a emoção de cada quadro; sempre mais baixa sob a narração. Trilha sonora do jogo a definir (veja "Pendências").
+- Música: alegre e marcante na entrada (Quadro 1), mistério com vento (Quadro 2), acolhida (Quadros 3 a 5) e esperança (Quadro 6); sempre mais baixa sob a narração. Trilha do restante do jogo a definir (veja "Pendências").
 - Efeitos ambientais por Web Audio.
 - Legendas sempre visíveis.
 - Controle para desligar áudio (música e voz separadas).
@@ -85,5 +104,4 @@ Os quadros abaixo ainda serão reescritos, um por vez. Já estão decididas as c
 Os "quadros" da abertura são cenas 3D em blocos com câmera dirigida (sobrevoo do acampamento, aproximação do Livro e do Globo, do Tico e da Diretora Sol), sem ilustrações separadas. Tico e Sol aparecem com expressões e gestos de bloco. A bandeira do Clube e as tendas das classes devem estar visíveis no plano amplo do Quadro 1. Legendas e botões Pular e Repetir continuam em HTML.
 
 ## Pendências
-- Reescrever os Quadros 2 a 6.
-- Trilha sonora da abertura e do jogo: definir estilo de cada momento e origem (composição original ou música com licença livre, com crédito). Não usar o Hino sem autorização.
+- Trilha sonora do restante do jogo: definir estilo de cada momento e origem (composição original ou música com licença livre, com crédito). Não usar o Hino sem autorização. A trilha da abertura é provisória, composta por código, e pode ser trocada por música gravada.
