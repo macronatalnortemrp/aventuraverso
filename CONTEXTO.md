@@ -5,7 +5,7 @@ Atualizado em 19/11/2026. Resumo do pacote `biblia-visual-pack` v4 mais as decis
 ## 1. O que é
 - Jogo web infantil (6 a 9 anos), **mundo 3D de blocos**, com forte tema do Clube de Aventureiros. Piloto de teste da Macro Natal Norte (MRP). Roda em computador e celular, paisagem e retrato.
 - **Nome oficial do projeto e do jogo: aventuráVerso — "Um universo de aventuras"** (decidido em 19/11/2026). Os docs antigos ainda dizem "Bíblia Visual"; onde aparecer, ler como aventuráVerso. "Mundo 1: Éden: Os Sete Dias" é a primeira jornada. Repositório e `base` do Vite devem usar o novo nome.
-- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. Ainda sem missões.
+- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. A Missão 1 (Dia 1) está jogável, com leituras no modo "Bíblia na Mão" até o texto bíblico conferido entrar em `public/data/content/bible-arc1898.json`.
 
 ## 2. Premissa e loop
 Acampamento do Livro Aberto: as páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado. A criança explora, aprende o que a Bíblia ensina, ajuda amigos e recupera as páginas. Loop: **Explorar → Descobrir → Fazer/Servir → Contar**. 7 dias, 6 a 7 etapas cada, 10 a 15 min por dia, salvamento a cada etapa. Dia 1 ("A Luz no Acampamento"): escuro total com lanterna, três faíscas, Pedrito, "Haja luz", Globo.

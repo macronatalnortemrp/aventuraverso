@@ -25,6 +25,14 @@ describe('progresso local', () => {
     const d = migrate({ avatar: 99, controls: 'sim', coins: [1, -3, 'x', 2.5, 4] });
     expect(d).toMatchObject({ avatar: 0, controls: false, coins: [1, 4] });
   });
+  test('save da versão 1 ganha os campos novos sem perder moedas', () => {
+    const d = migrate({ v: 1, avatar: 2, controls: true, sound: false, coins: [3, 5] });
+    expect(d).toMatchObject({ v: SAVE_VERSION, avatar: 2, coins: [3, 5], day01: null, badges: [], feedback: {} });
+  });
+  test('feedback guarda só carinha, até dois ícones e a vontade de continuar', () => {
+    const d = migrate({ feedback: { day01: { mood: 'great', liked: ['tico', 'globo', 'perguntas'], wantsNext: true, nome: 'X' }, hack: {} } });
+    expect(d.feedback).toEqual({ day01: { mood: 'great', liked: ['tico', 'globo'], wantsNext: true } });
+  });
   test('sem armazenamento disponível o jogo segue', () => {
     const save = createSave(null);
     save.update({ sound: false });

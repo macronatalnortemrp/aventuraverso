@@ -25,18 +25,23 @@ Cada envio para `main` roda typecheck, testes e build no GitHub Actions e public
 src/
   main.ts              liga tudo: personagens, interações, ajuda, moedas, telas e laço
   engine/              gfx.ts (renderizador, luz, céu), camera.ts (órbita 360°), input.ts (toque,
-                       joystick, teclado), audio.ts (efeitos opcionais), math.ts (aleatório com semente)
+                       joystick, teclado), audio.ts (efeitos), ambient.ts (sons posicionais),
+                       speech.ts (leitura em voz), math.ts (aleatório com semente)
   world/               terrain.ts (alturas, lago, colina, trilhas), camp.ts (zonas do acampamento),
                        batch.ts (geometria agrupada e furo de visão), colliders.ts, interactables.ts,
-                       coins.ts, vegetation.ts, critters.ts, fx.ts (partículas), textures.ts (emblemas, placas)
+                       coins.ts, vegetation.ts, critters.ts, fx.ts (partículas), textures.ts (emblemas, placas),
+                       daylight.ts (dia, escuro total, estrelas e lanterna)
   world/builders/      kid.ts (Aventureiros, Diretora Sol, Pedrito, Tico), props.ts (árvores, cercas, lampiões)
   game/                player.ts (física: andar, pular, nadar, mergulhar), guidance.ts (escada de ajuda),
-                       breath.ts (fôlego)
+                       breath.ts (fôlego), quiz.ts (tentativas sem punição)
+  game/day01/          state.ts (etapas do Dia 1, puro e salvo), mission.ts (condução da missão)
   config/              guidance.ts (tempos da ajuda e do fôlego, a calibrar no piloto)
   persistence/         save.ts (progresso local versionado)
-  ui/                  hud.ts (moedas, fôlego, bússola, Tico, diálogos), screens.ts (escolha do avatar)
+  ui/                  hud.ts (moedas, fôlego, bússola, Tico, diálogos), screens.ts (escolha do avatar),
+                       task.ts (leitura, perguntas, frase, dia/noite, recompensa, feedback), icons.ts
 tests/                 testes de unidade
 public/assets/official emblemas oficiais (originais) e web/ (cópias reduzidas, mesma proporção)
+public/data/           days/day01.json (textos da missão), content/bible-arc1898.json (texto conferido)
 docs/                  documentação de produção
 prototype/             referências visuais antigas
 ```
@@ -46,10 +51,20 @@ prototype/             referências visuais antigas
 - Desenvolvimento: `vite`, `typescript`, `@types/three`, `vitest`. Nenhuma outra dependência.
 - Fonte Fredoka via Google Fonts (só a fonte; o jogo não envia dados).
 
-## Estado atual (19/11/2026)
-- Mundo 1 explorável: acampamento completo, joystick e botões A/B opcionais, toque no chão, câmera 360°, nado, mergulho com fôlego, 49 moedas, ajuda do Tico com teletransporte ao portal, portais da Missão 1 e do Mundo 2 (trancado).
-- Ainda não há missões jogáveis. Quadros dos Ideais ficam apagados até existir `club-texts.json` conferido.
-- Todo o código é TypeScript estrito. Pendências técnicas: mover o layout do acampamento para `public/data/world.json` e gerar `package-lock.json`.
+## Estado atual (20/11/2026)
+- **Mundo 1 explorável:** acampamento completo, toque no chão, joystick e botões A/B opcionais, câmera 360°, nado, mergulho com fôlego, 49 moedas, ajuda do Tico com teletransporte.
+- **Missão 1 "A Luz no Acampamento" jogável** (`docs/DAY_01.md`), pelo portal da Colina do Globo: escuro total com lanterna; três faíscas guiadas por sino, água e grilo (som posicional); Pedrito e a pergunta do lenço; "Haja luz" com blocos de palavras e o lampião central; separar dia e noite com o amanhecer; três convites nos murais com as perguntas do Clube; o Globo do Éden acende com a Voz. Recompensa: Distintivo do Acampamento "Primeira Luz" (não oficial), estrelas, lanterna aprimorada e missão real opcional. Termina com o feedback do piloto (`feedback.day01`, só no aparelho).
+- Salva a cada etapa e retoma de onde parou. Respostas erradas não tiram nada: acolhe, dá pista e, na terceira, mostra a resposta explicando.
+- Textos da missão em `public/data/days/day01.json`.
+
+## Pendências de conteúdo (precisam de conferência humana)
+- **Texto bíblico:** `public/data/content/bible-arc1898.json` está vazio. Enquanto não houver texto conferido, as leituras usam o modo "Bíblia na Mão" (referência para ler na Bíblia impressa). Quando o arquivo receber `"Gn 1:1"` a `"Gn 1:5"`, o jogo passa a mostrar o Pergaminho e a montar a frase com as palavras de Gn 1:3.
+- **Duas perguntas desligadas** em `day01.json` (`beforeLight` e `lightName`), porque a resposta depende do texto bíblico. Basta revisar e trocar `"enabled": false` por `true`.
+- **Distratores** das perguntas do Clube são sugestões a revisar com a liderança (`docs/QUIZ_MAP.md`).
+- `src/config/pilot.ts` ainda não existe com o endereço do formulário dos responsáveis.
+
+## Pendências técnicas
+- Mover o layout do acampamento para `public/data/world.json` e gerar `package-lock.json`.
 - Os PDFs de `docs/source/` não vão para o repositório público (estão no `.gitignore`); ficam no computador do responsável.
 
 ---

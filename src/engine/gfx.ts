@@ -18,6 +18,7 @@ export interface Gfx {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   sun: THREE.DirectionalLight;
+  hemi: THREE.HemisphereLight;
   fog: THREE.Fog;
   resize(): void;
   /** baixa a resolução quando o aparelho não aguenta (mínimo 1) */
@@ -46,7 +47,8 @@ export function createGfx(canvas: HTMLCanvasElement): Gfx {
   room.dispose();
   pm.dispose();
 
-  scene.add(new THREE.HemisphereLight(0xd8efff, 0x6f8a4e, 1.15));
+  const hemi = new THREE.HemisphereLight(0xd8efff, 0x6f8a4e, 1.15);
+  scene.add(hemi);
   const sun = new THREE.DirectionalLight(0xfff0d2, 2.7);
   sun.castShadow = true;
   const sm = MOBILE ? 1024 : 2048;
@@ -95,5 +97,5 @@ gl_FragColor=vec4(c,1.);
   };
   addEventListener('resize', resize);
   resize();
-  return { renderer, scene, camera, sun, fog, resize, degrade };
+  return { renderer, scene, camera, sun, hemi, fog, resize, degrade };
 }

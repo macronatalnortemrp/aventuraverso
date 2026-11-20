@@ -19,6 +19,10 @@ export interface Interactable {
   lines?: string[];
   /** id do personagem, quando é uma conversa */
   npc?: string;
+  /** id usado pelas missões para reconhecer o objeto */
+  id?: string;
+  /** desligado: não aparece nem responde ao toque */
+  off?: boolean;
   mesh?: THREE.Mesh;
 }
 
@@ -41,7 +45,11 @@ export class Interactables {
   }
 
   meshes() {
-    return this.list.flatMap((o) => (o.mesh ? [o.mesh] : []));
+    return this.list.flatMap((o) => (o.mesh && !o.off ? [o.mesh] : []));
+  }
+
+  byId(id: string) {
+    return this.list.find((o) => o.id === id);
   }
 
   /** O mais próximo dentro do alcance, na mesma altura aproximada. */
@@ -49,6 +57,7 @@ export class Interactables {
     let best: Interactable | null = null,
       bd = reach;
     for (const o of this.list) {
+      if (o.off) continue;
       const d = Math.hypot(x - o.x, z - o.z);
       if (d < bd && Math.abs(y - (o.y ?? H(o.x, o.z))) < 2.5) {
         bd = d;

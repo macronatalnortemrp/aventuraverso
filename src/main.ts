@@ -19,6 +19,10 @@ import { newGuide, guideStep, guideProgress, guideReset, guideSnooze } from './g
 import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
 import { pickAvatar } from './ui/screens';
+import { Task } from './ui/task';
+import { Daylight } from './world/daylight';
+import { Ambient } from './engine/ambient';
+import { Day01Mission, loadDay01 } from './game/day01/mission';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
@@ -53,6 +57,9 @@ const hud = new Hud(() => {
   $('c').focus();
 });
 const orbit = new OrbitCamera(camera);
+const daylight = new Daylight(gfx, camp);
+const ambient = new Ambient();
+const task = new Task();
 
 /* ---------- personagens ---------- */
 interface Npc {
@@ -65,8 +72,9 @@ const sol = makeKid({ skin: 0xc68863, hair: 0x3a2216, style: 'long', la1: true, 
 sol.root.position.set(6.5, H(6.5, 5.5), 5.5);
 sol.root.rotation.y = -0.6;
 const ped = makeKid({ skin: 0xd9a47a, hair: 0x2b1a10, style: 'short', shirt: 0xd7a64d, pants: 0x5b6b8c, bare: true });
-ped.root.position.set(-21.6, WY + 0.49, 7.4);
-ped.root.rotation.y = -1.9;
+const PED_HOME = { x: -21.6, y: WY + 0.49, z: 7.4, ry: -1.9 };
+ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
+ped.root.rotation.y = PED_HOME.ry;
 scene.add(sol.root, ped.root);
 const NPCS: Npc[] = [
   {
@@ -88,7 +96,7 @@ const NPCS: Npc[] = [
 ];
 for (const n of NPCS) {
   const p = n.rig.root.position;
-  inter.add({ x: p.x, z: p.z, y: p.y, w: 1.6, h: 3.4, name: n.name, label: 'Conversar', who: n.name, lines: n.lines, npc: n.id });
+  inter.add({ id: n.id + '-npc', x: p.x, z: p.z, y: p.y, w: 1.6, h: 3.4, name: n.name, label: 'Conversar', who: n.name, lines: n.lines, npc: n.id });
 }
 let talking: Npc | null = null;
 
@@ -119,9 +127,17 @@ let clock = 0;
 let saved = [...SAVE.data.coins];
 const GUIDE = newGuide();
 const OBJ = portals[0];
+let mission: Day01Mission | null = null;
+
+/** Para onde a ajuda aponta: o objetivo da missão ou, fora dela, o portal da Missão 1. */
+function objective(): { x: number; z: number; hint: string } | null {
+  if (mission?.active) return mission.objective();
+  if (mission?.done) return null;
+  return { x: OBJ.x, z: OBJ.z, hint: 'O portal da missão fica na Colina do Globo, ao norte. Está vendo as faíscas?' };
+}
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
-const paused = () => hud.paused;
+const paused = () => hud.paused || task.open || !!mission?.busy;
 
 /* ---------- interação ---------- */
 function interact(o: Interactable) {
@@ -138,6 +154,7 @@ function interact(o: Interactable) {
     orbit.want = Math.atan2(P.x - p.x, P.z - p.z) + 0.75; // mostra os dois rostos
   }
   input.clearMove();
+  if (mission?.onInteract(o)) return;
   hud.dialog(o.who, o.name, o.lines || [o.text ?? '']);
 }
 
@@ -220,19 +237,19 @@ const trail = (() => {
 
 function helpLevel(l: number) {
   GUIDE.lvl = Math.max(GUIDE.lvl, l);
-  if (l === 1) {
-    OBJ.sp.boost = 3;
-    hud.say('O portal da missão fica na Colina do Globo, ao norte. Está vendo as faíscas?', 6500);
-  }
+  const o = objective();
+  if (!o) return hud.say('Você já concluiu a missão! Explore o acampamento à vontade.', 5000);
+  const inMission = !!mission?.active;
+  if (!inMission) OBJ.sp.boost = 3;
+  if (l === 1) hud.say(o.hint, 6500);
   if (l === 2) {
-    OBJ.sp.boost = 3;
     trail.visible = true;
     hud.compass(0);
-    hud.say('Siga a bússola e a trilha de faíscas até o portal!', 6500);
+    hud.say(inMission ? 'Siga a bússola e a trilha de faíscas!' : 'Siga a bússola e a trilha de faíscas até o portal!', 6500);
   }
   if (l === 3)
-    hud.say('Quer que eu leve você até o portal da missão?', 0, [
-      ['Levar ao portal', teleport],
+    hud.say(inMission ? 'Quer que eu leve você até lá?' : 'Quer que eu leve você até o portal da missão?', 0, [
+      [inMission ? 'Me leve até lá' : 'Levar ao portal', teleport],
       ['Agora não', () => guideSnooze(GUIDE), true],
     ]);
 }
@@ -245,7 +262,8 @@ function teleport() {
   hud.fade(true);
   setTimeout(
     () => {
-      Object.assign(P, { x: OBJ.x, z: OBJ.z + 4.2, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face: Math.PI });
+      const o = objective() ?? { x: OBJ.x, z: OBJ.z };
+      Object.assign(P, { x: o.x, z: o.z + 3.2, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face: Math.PI });
       P.y = col.groundAt(P.x, P.z, 99);
       target = null;
       mark.visible = false;
@@ -255,7 +273,7 @@ function teleport() {
       guideReset(GUIDE);
       clearHelp();
       hud.fade(false);
-      hud.say('Chegamos! É só entrar no portal quando quiser.', 4500);
+      hud.say(mission?.active ? 'Chegamos! Olhe em volta.' : 'Chegamos! É só entrar no portal quando quiser.', 4500);
     },
     REDUCED_MOTION ? 0 : 480,
   );
@@ -319,6 +337,75 @@ const events: PlayerEvents = {
   },
 };
 
+/* ---------- Missão 1 ---------- */
+async function enterPortal() {
+  if (!mission) return hud.dialog('Tico', 'Missão 1: A Luz no Acampamento', ['A missão ainda está carregando. Tente de novo em um instante!']);
+  if (mission.active) return;
+  const m = mission;
+  const resume = !!SAVE.data.day01 && !m.done && SAVE.data.day01.step !== 'lantern';
+  const ok = m.done
+    ? await task.confirm('Tico', 'Missão 1 concluída!', 'Você já acendeu o Globo do Éden. Quer jogar a missão de novo?', 'Jogar de novo', 'Agora não')
+    : await task.confirm('Tico', 'Missão 1: A Luz no Acampamento', resume ? 'Vamos continuar de onde você parou?' : 'Pronto para a primeira missão do Éden?', resume ? 'Continuar' : 'Começar', 'Agora não');
+  if (!ok) return;
+  hud.fade(true);
+  await new Promise((r) => setTimeout(r, REDUCED_MOTION ? 0 : 450));
+  m.start(m.done);
+  guideReset(GUIDE);
+  clearHelp();
+  hud.fade(false);
+}
+$('goal').onclick = async () => {
+  if (!mission?.active || mission.busy || paused()) return;
+  const leave = await task.confirm('Tico', 'Sair da missão?', 'Seu progresso fica salvo. Para voltar, é só entrar no portal de novo.', 'Sair', 'Continuar');
+  if (leave) mission.exit();
+};
+loadDay01()
+  .then(({ content, bible }) => {
+    mission = new Day01Mission(
+      {
+        scene,
+        camp,
+        fx,
+        hud,
+        task,
+        daylight,
+        ambient,
+        orbit,
+        save: SAVE,
+        player: P,
+        ped,
+        sol,
+        place(x, z, face) {
+          Object.assign(P, { x, z, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face });
+          P.y = col.groundAt(x, z, 99);
+          Object.assign(TICO, { x: x + 1.2, z: z + 1 });
+          target = null;
+          mark.visible = false;
+          orbit.yaw = face + Math.PI;
+          orbit.snap(P.x, P.y, P.z);
+        },
+        onExit(done) {
+          ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
+          ped.root.rotation.y = PED_HOME.ry;
+          ped.body.scale.y = 1;
+          const pi = inter.byId('pedrito-npc');
+          if (pi) {
+            Object.assign(pi, { x: PED_HOME.x, z: PED_HOME.z, y: PED_HOME.y });
+            pi.mesh?.position.set(PED_HOME.x, PED_HOME.y + 1.7, PED_HOME.z);
+          }
+          guideReset(GUIDE);
+          clearHelp();
+          hud.say(done ? 'Parabéns! O Globo do Éden está aceso. Continue explorando o acampamento!' : 'Tudo bem! Seu progresso ficou salvo.', 6000);
+        },
+      },
+      content,
+      bible,
+    );
+  })
+  .catch(() => {
+    /* sem a missão, o acampamento continua jogável */
+  });
+
 /* ---------- passo do jogo ---------- */
 function step(dt: number) {
   let [ix, iz, m] = input.move(orbit.yaw);
@@ -359,7 +446,7 @@ function step(dt: number) {
     P.z = p.z + 3.2;
     P.vx = P.vz = 0;
     target = null;
-    if (p.open) hud.dialog('Tico', 'Missão 1: A Luz no Acampamento', ['Este é o portal da primeira missão do Éden!', 'Nesta demonstração a missão ainda está em construção. Em breve, ela começa aqui.']);
+    if (p.open) void enterPortal();
     else hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', 'Ele vai abrir quando você terminar todas as missões do Éden.']);
   }
 
@@ -369,13 +456,16 @@ function step(dt: number) {
     hud.action(near && P.st === 'ground' ? near.label + (near.npc ? ' com ' + near.name.replace('Diretora ', '') : '') : null);
   }
 
-  const gs = guideStep(GUIDE, dt, dist(OBJ));
-  gs.levels.forEach(helpLevel);
-  if (gs.arrived) {
-    clearHelp();
-    hud.hideTico();
-  }
-  if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(OBJ.x - P.x, OBJ.z - P.z) - orbit.yaw));
+  const obj = objective();
+  if (obj) {
+    const gs = guideStep(GUIDE, dt, dist(obj));
+    gs.levels.forEach(helpLevel);
+    if (gs.arrived) {
+      clearHelp();
+      hud.hideTico();
+    }
+    if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(obj.x - P.x, obj.z - P.z) - orbit.yaw));
+  } else if (hud.compassOn) clearHelp();
   hud.breath(P.breath, P.st === 'dive' || P.breath < 1);
 }
 
@@ -428,7 +518,11 @@ function draw(dt: number, t: number) {
 
   const nearSol = started && !talking && Math.hypot(P.x - sol.root.position.x, P.z - sol.root.position.z) < 6;
   animate(sol, dt, { wave: talking?.id === 'sol' || nearSol });
-  animate(ped, dt, { wave: talking?.id === 'pedrito', mode: talking?.id === 'pedrito' ? 'wow' : 'open' });
+  if (!mission?.drivesPedrito) animate(ped, dt, { wave: talking?.id === 'pedrito', mode: talking?.id === 'pedrito' ? 'wow' : 'open' });
+  mission?.update(dt, t);
+  daylight.update(dt, P.x, P.y, P.z, P.face);
+  ambient.enabled = sound;
+  ambient.update(P.x, P.z, orbit.yaw);
 
   uTime.value = t;
   camp.update(dt, t);
@@ -439,10 +533,11 @@ function draw(dt: number, t: number) {
     mark.scale.setScalar(lerp(mark.scale.x, 1, 0.15));
     mark.material.opacity = 0.6 + Math.sin(t * 6) * 0.3;
   }
-  if (trail.visible) {
+  const obj = objective();
+  if (trail.visible && obj) {
     const a = trail.geometry.attributes.position as THREE.BufferAttribute,
-      ox = OBJ.x - P.x,
-      oz = OBJ.z + 3 - P.z,
+      ox = obj.x - P.x,
+      oz = obj.z + 3 - P.z,
       L = Math.hypot(ox, oz) || 1,
       N = Math.max(1, Math.min(L, 22));
     for (let i = 0; i < a.count; i++) {
@@ -461,6 +556,7 @@ function draw(dt: number, t: number) {
 }
 
 /* ---------- telas ---------- */
+task.voice = () => sound;
 let sound = SAVE.data.sound;
 setSoundEnabled(sound);
 $('bs').setAttribute('aria-pressed', String(sound));
@@ -529,6 +625,10 @@ renderer.setAnimationLoop(() => {
     sun.target.position.set(0, 2, 4);
   } else {
     if (!paused()) step(dt);
+    else if (near) {
+      near = null;
+      hud.action(null);
+    }
     orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
@@ -570,9 +670,12 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     INTER: inter.list,
     helpLevel,
     interact,
+    task,
+    daylight,
     step,
     pressA,
     pressB,
     releaseB,
   });
+  Object.defineProperty(window, 'mission', { get: () => mission });
 }

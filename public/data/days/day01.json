@@ -1,0 +1,129 @@
+{
+  "id": "day01",
+  "title": "Dia 1: A Luz no Acampamento",
+  "_fontes": "docs/DAY_01.md, docs/QUIZ_MAP.md (respostas do Guia do Aspirante), docs/LENCO.md, docs/INTRO_SEQUENCE.md. Distratores são sugestões a revisar com a liderança.",
+
+  "start": [
+    "Vamos começar? Você consegue encontrar as três faíscas escondidas pelo acampamento?",
+    "Mas olhe... está tudo escuro! Venha comigo."
+  ],
+  "lantern": [
+    "Tome esta lanterna! Ela ilumina só um pedacinho do caminho, então vá com calma.",
+    "Antes de procurar, vamos ler a primeira página."
+  ],
+
+  "readings": {
+    "r1": { "ref": "Gênesis 1:1-2", "keys": ["Gn 1:1", "Gn 1:2"] },
+    "r2": { "ref": "Gênesis 1:3", "keys": ["Gn 1:3"] },
+    "r3": { "ref": "Gênesis 1:4-5", "keys": ["Gn 1:4", "Gn 1:5"] }
+  },
+
+  "questions": {
+    "beforeLight": {
+      "enabled": false,
+      "status": "aguardando conferência: resposta depende do texto bíblico conferido",
+      "who": "Tico",
+      "prompt": "Como estava tudo antes da luz?",
+      "options": ["Sem forma, vazio e escuro", "Cheio de flores", "Cheio de animais"],
+      "answer": 0,
+      "hint": "Lembre da leitura: ainda não existia luz.",
+      "explain": "A leitura conta que, no começo, tudo estava sem forma, vazio e escuro."
+    },
+    "scarf": {
+      "enabled": true,
+      "who": "Pedrito",
+      "prompt": "O que a cor vinho do lenço nos lembra?",
+      "options": ["O sangue de Jesus, que nos ama e nos salvou", "A cor de uma fruta", "Só uma cor bonita"],
+      "answer": 0,
+      "hint": "Pense em alguém que nos ama muito e deu a vida por nós.",
+      "explain": "A cor vinho representa o sangue de Jesus e o Seu sacrifício por amor, e lembra que cada criança é preciosa para Deus."
+    },
+    "lightName": {
+      "enabled": false,
+      "status": "aguardando conferência: resposta depende do texto bíblico conferido",
+      "who": "Tico",
+      "prompt": "Que nome Deus deu à luz?",
+      "options": ["Dia", "Noite", "Sol"],
+      "answer": 0,
+      "hint": "É quando está claro.",
+      "explain": "A leitura conta que Deus chamou a luz de Dia."
+    },
+    "invite1": {
+      "enabled": true,
+      "who": "Acampante",
+      "prompt": "O Clube de Aventureiros é para quem?",
+      "options": ["Crianças de 6 a 9 anos", "Só para adultos", "Só para bebês"],
+      "answer": 0,
+      "hint": "Você tem a idade certa para participar!",
+      "explain": "O Clube de Aventureiros é para crianças de 6 a 9 anos."
+    },
+    "invite2": {
+      "enabled": true,
+      "who": "Acampante",
+      "prompt": "Para que existe o Clube?",
+      "options": ["Para apoiar a família", "Para competir com outros clubes", "Para substituir a escola"],
+      "answer": 0,
+      "hint": "Pense em quem está sempre com você em casa.",
+      "explain": "O Clube existe para apoiar a família."
+    },
+    "invite3": {
+      "enabled": true,
+      "who": "Acampante",
+      "prompt": "Quais são as áreas do crescimento?",
+      "options": ["Física, mental, espiritual e social", "Só a física", "Correr, pular e nadar"],
+      "answer": 0,
+      "hint": "São quatro áreas: corpo, mente, fé e amigos.",
+      "explain": "As áreas do crescimento são física, mental, espiritual e social."
+    }
+  },
+
+  "pedrito": {
+    "afraid": ["Ai, que escuro! Eu tenho um pouco de medo...", "Ei, que lenço é esse no seu pescoço?"],
+    "after": ["Que legal! Agora não estou mais com tanto medo.", "Deixa que eu ajudo a carregar uma faísca!"]
+  },
+
+  "phrase": {
+    "_nota": "Com o versículo conferido (Gn 1:3), as palavras vêm do texto. Sem ele, usa-se só a fala da Voz prevista em DAY_01.md.",
+    "fallback": ["Haja", "luz"],
+    "distractors": ["noite", "água"],
+    "done": ["A lâmpada central acendeu!"]
+  },
+
+  "sort": {
+    "prompt": "Ajude a separar: o que combina com o dia e o que combina com a noite?",
+    "items": [
+      { "id": "sun", "name": "Sol", "group": "day" },
+      { "id": "sunflower", "name": "Girassol", "group": "day" },
+      { "id": "butterfly", "name": "Borboleta", "group": "day" },
+      { "id": "rainbow", "name": "Arco-íris", "group": "day" },
+      { "id": "moon", "name": "Lua", "group": "night" },
+      { "id": "stars", "name": "Estrelas", "group": "night" },
+      { "id": "owl", "name": "Coruja", "group": "night" },
+      { "id": "firefly", "name": "Vaga-lume", "group": "night" }
+    ],
+    "done": ["Muito bem! Olhe, o dia está chegando..."]
+  },
+
+  "invites": {
+    "sol": ["Bom dia! Que bom ver o acampamento claro de novo.", "Leve estes três convites e pendure nos murais. Os acampantes vão fazer uma pergunta sobre o Clube."],
+    "hung": "Convite pendurado!"
+  },
+
+  "globe": {
+    "go": "Agora leve as três faíscas até o Globo do Éden, na colina!",
+    "voice": "Haja luz.",
+    "after": ["O Globo do Éden acendeu!", "Você encontrou a primeira página do Livro dos Sete Dias."]
+  },
+
+  "rewards": {
+    "badge": "Primeira Luz",
+    "badgeNote": "Distintivo do Acampamento (não é uma especialidade oficial).",
+    "lantern": "Sua lanterna ficou mais forte!",
+    "stars": 3
+  },
+
+  "realMission": {
+    "text": "À noite, observe com sua família como a luz ajuda no dia a dia e agradeça a Deus por ela.",
+    "adult": "Um adulto confirma que a missão foi feita"
+  }
+}

@@ -1,0 +1,401 @@
+import { Question, judge, shuffled } from '../game/quiz';
+import { DayFeedback } from '../persistence/save';
+import { sfx } from '../engine/audio';
+import { canSpeak, speak, stopSpeaking } from '../engine/speech';
+import { ICONS } from './icons';
+import { $ } from './hud';
+
+/* Atividades em HTML por cima do jogo. Cada uma devolve uma Promise que resolve quando termina.
+   Nenhuma tem tempo limite e nenhum erro tira progresso. */
+
+const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls = '', html = '') => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html) e.innerHTML = html;
+  return e;
+};
+const text = <K extends keyof HTMLElementTagNameMap>(tag: K, cls: string, t: string) => {
+  const e = el(tag, cls);
+  e.textContent = t;
+  return e;
+};
+
+export class Task {
+  open = false;
+  /** a leitura em voz só funciona com o som ligado */
+  voice = () => true;
+
+  private panel() {
+    const root = $('task'),
+      p = $('taskp');
+    p.innerHTML = '';
+    root.classList.add('show');
+    this.open = true;
+    return p;
+  }
+
+  private close() {
+    stopSpeaking();
+    $('task').classList.remove('show');
+    this.open = false;
+  }
+
+  private listen(t: string) {
+    if (!canSpeak()) return null;
+    const b = el('button', 'btn alt listen', ICONS.speaker + '<span>Ouvir</span>');
+    b.setAttribute('aria-label', 'Ouvir o texto');
+    b.onclick = () => this.voice() && speak(t);
+    return b;
+  }
+
+  private header(p: HTMLElement, who: string, title: string, read: string) {
+    const top = el('div', 'thead');
+    top.append(text('span', 'who', who));
+    const l = this.listen(read);
+    if (l) top.append(l);
+    p.append(top, text('h2', '', title));
+  }
+
+  private button(label: string, alt = false) {
+    const b = text('button', 'btn' + (alt ? ' alt' : ''), label);
+    return b;
+  }
+
+  /** Leitura bíblica. Com o texto conferido: Pergaminho da Palavra. Sem ele: Bíblia na Mão. */
+  reading(ref: string, verses: string[] | null): Promise<void> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel scroll';
+      if (verses?.length) {
+        this.header(p, 'Pergaminho da Palavra', ref, `${ref}. ${verses.join(' ')}`);
+        const box = el('div', 'verses');
+        for (const v of verses) box.append(text('p', '', v));
+        p.append(box);
+      } else {
+        const msg = `Pegue uma Bíblia e leia, com a ajuda de um adulto, ${ref.replace('-', ' a ')}.`;
+        this.header(p, 'Bíblia na Mão', ref, msg);
+        const box = el('div', 'bible-hand', ICONS.stories);
+        box.append(text('p', '', msg));
+        p.append(box);
+      }
+      const ok = this.button('Já li');
+      ok.onclick = () => {
+        sfx('ui');
+        this.close();
+        done();
+      };
+      const row = el('div', 'row');
+      row.append(ok);
+      p.append(row);
+      setTimeout(() => ok.focus(), 40);
+    });
+  }
+
+  /** Pergunta com três tentativas: acolhe, dá pista e, por fim, mostra a resposta explicando. */
+  quiz(q: Question): Promise<void> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel quiz';
+      const { options, answer } = shuffled(q);
+      this.header(p, q.who, q.prompt, `${q.prompt} ${options.join('. ')}.`);
+      const list = el('div', 'opts');
+      const msg = el('p', 'msg');
+      msg.setAttribute('role', 'status');
+      const row = el('div', 'row');
+      const confirm = this.button('Confirmar');
+      confirm.disabled = true;
+      let chosen = -1,
+        wrong = 0;
+      const btns = options.map((o, i) => {
+        const b = el('button', 'opt');
+        b.append(text('span', 'mark', String.fromCharCode(65 + i)), text('span', '', o));
+        b.setAttribute('aria-pressed', 'false');
+        b.onclick = () => {
+          chosen = i;
+          btns.forEach((x, j) => x.setAttribute('aria-pressed', String(j === i)));
+          confirm.disabled = false;
+          sfx('ui');
+        };
+        list.append(b);
+        return b;
+      });
+      const finish = (t: string) => {
+        msg.textContent = t;
+        msg.className = 'msg good';
+        btns.forEach((b) => (b.disabled = true));
+        btns[answer].classList.add('right');
+        confirm.textContent = 'Continuar';
+        confirm.disabled = false;
+        confirm.onclick = () => {
+          this.close();
+          done();
+        };
+        confirm.focus();
+      };
+      confirm.onclick = () => {
+        const r = judge({ answer }, chosen, wrong);
+        if (r === 'right') {
+          sfx('yay');
+          return finish(`Isso mesmo! ${q.explain}`);
+        }
+        btns[chosen].classList.add('wrong');
+        btns[chosen].disabled = true;
+        wrong++;
+        if (r === 'retry') msg.textContent = 'Quase! Pense mais um pouquinho e tente de novo.';
+        else if (r === 'hint') msg.textContent = `Dica do Tico: ${q.hint}`;
+        else return finish(`A resposta é: ${options[answer]}. ${q.explain}`);
+        msg.className = 'msg';
+        chosen = -1;
+        confirm.disabled = true;
+        btns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      };
+      row.append(confirm);
+      p.append(list, msg, row);
+      setTimeout(() => btns[0].focus(), 40);
+    });
+  }
+
+  /** Montar a frase tocando nos blocos na ordem certa. */
+  words(title: string, phrase: string[], distractors: string[]): Promise<void> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel words';
+      this.header(p, 'Tico', title, `${title} Toque nas palavras na ordem certa.`);
+      p.append(text('p', 'sub', 'Toque nas palavras na ordem certa.'));
+      const slots = el('div', 'slots');
+      const slotEls = phrase.map(() => {
+        const s = el('span', 'slot');
+        slots.append(s);
+        return s;
+      });
+      const pool = el('div', 'pool');
+      const msg = el('p', 'msg');
+      msg.setAttribute('role', 'status');
+      let pos = 0;
+      const all = [...phrase.map((w, i) => ({ w, i })), ...distractors.map((w) => ({ w, i: -1 }))];
+      shuffled({ options: all, answer: 0 }).options.forEach(({ w, i }) => {
+        const b = text('button', 'word', w);
+        b.onclick = () => {
+          if (i === pos) {
+            sfx('coin');
+            slotEls[pos].textContent = w;
+            slotEls[pos].classList.add('filled');
+            b.disabled = true;
+            b.classList.add('used');
+            pos++;
+            msg.textContent = '';
+            if (pos === phrase.length) {
+              msg.className = 'msg good';
+              msg.textContent = 'Muito bem!';
+              setTimeout(() => {
+                this.close();
+                done();
+              }, 900);
+            }
+          } else {
+            sfx('ui');
+            b.classList.remove('shake');
+            void b.offsetWidth;
+            b.classList.add('shake');
+            msg.className = 'msg';
+            msg.textContent = i < 0 ? 'Essa palavra não faz parte da frase. Tente outra!' : 'Essa vem depois. Qual vem antes?';
+          }
+        };
+        pool.append(b);
+      });
+      p.append(slots, pool, msg);
+    });
+  }
+
+  /** Separar objetos em dia e noite: toque no objeto e depois no lado certo. */
+  sort(prompt: string, items: { id: string; name: string; group: string }[]): Promise<void> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel sort';
+      this.header(p, 'Tico', 'Dia ou noite?', prompt);
+      p.append(text('p', 'sub', prompt));
+      const tray = el('div', 'tray');
+      const bins = el('div', 'bins');
+      const msg = el('p', 'msg');
+      msg.setAttribute('role', 'status');
+      let selected: { id: string; group: string; b: HTMLButtonElement } | null = null;
+      let left = items.length;
+      const mkBin = (group: string, label: string, icon: string) => {
+        const b = el('button', 'bin ' + group, ICONS[icon]);
+        b.append(text('span', 'bl', label));
+        const got = el('div', 'got');
+        b.append(got);
+        b.onclick = () => {
+          if (!selected) {
+            msg.className = 'msg';
+            msg.textContent = 'Primeiro toque em um objeto.';
+            return;
+          }
+          if (selected.group === group) {
+            sfx('coin');
+            got.append(el('span', 'mini', ICONS[selected.id]));
+            selected.b.remove();
+            selected = null;
+            msg.textContent = '';
+            if (--left === 0) {
+              msg.className = 'msg good';
+              msg.textContent = 'Tudo separado!';
+              setTimeout(() => {
+                this.close();
+                done();
+              }, 900);
+            }
+          } else {
+            sfx('ui');
+            msg.className = 'msg';
+            msg.textContent = `Hum... ${selected.b.textContent} combina mais com ${group === 'day' ? 'a noite' : 'o dia'}. Tente de novo!`;
+            selected.b.setAttribute('aria-pressed', 'false');
+            selected = null;
+          }
+        };
+        bins.append(b);
+      };
+      for (const it of shuffled({ options: items, answer: 0 }).options) {
+        const b = el('button', 'thing', ICONS[it.id]);
+        b.append(text('span', '', it.name));
+        b.setAttribute('aria-pressed', 'false');
+        b.onclick = () => {
+          tray.querySelectorAll('.thing').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+          b.setAttribute('aria-pressed', 'true');
+          selected = { id: it.id, group: it.group, b };
+          sfx('ui');
+        };
+        tray.append(b);
+      }
+      mkBin('day', 'Dia', 'sun');
+      mkBin('night', 'Noite', 'moon');
+      p.append(tray, bins, msg);
+    });
+  }
+
+  /** Recompensas do dia e missão real opcional (confirmada por um adulto). */
+  reward(o: { title: string; badge: string; note: string; lantern: string; stars: number; real: string; adult: string; realDone: boolean }): Promise<{ realMission: boolean }> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel reward';
+      p.append(text('span', 'who', 'Dia concluído'), text('h2', '', o.title));
+      const b = el('div', 'badge', ICONS.badge);
+      b.append(text('strong', '', o.badge), text('small', '', o.note));
+      const stars = el('div', 'stars', ICONS.star.repeat(o.stars));
+      const lant = el('p', 'lant', ICONS.lantern);
+      lant.append(text('span', '', o.lantern));
+      const real = el('div', 'real');
+      real.append(text('b', '', 'Missão real (opcional)'), text('p', '', o.real));
+      const lab = el('label', 'opt');
+      const chk = el('input');
+      chk.type = 'checkbox';
+      chk.checked = o.realDone;
+      lab.append(chk, text('span', '', o.adult));
+      real.append(lab);
+      const ok = this.button('Continuar');
+      ok.onclick = () => {
+        this.close();
+        done({ realMission: chk.checked });
+      };
+      p.append(b, stars, lant, real, el('div', 'row'));
+      p.lastElementChild!.append(ok);
+      setTimeout(() => ok.focus(), 40);
+    });
+  }
+
+  /** Feedback da criança: carinhas, até dois ícones e se quer continuar. Sempre com "Pular". */
+  feedback(): Promise<DayFeedback | null> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel feedback';
+      const f: DayFeedback = { mood: null, liked: [], wantsNext: null };
+      const finish = (r: DayFeedback | null) => {
+        this.close();
+        done(r);
+      };
+      const skip = this.button('Pular', true);
+      skip.onclick = () => finish(null);
+      const q = (t: string) => {
+        p.innerHTML = '';
+        const top = el('div', 'thead');
+        top.append(text('span', 'who', 'Tico'));
+        const l = this.listen(t);
+        if (l) top.append(l);
+        p.append(top, text('h2', '', t));
+      };
+      const moods = () => {
+        q('Como foi hoje?');
+        const row = el('div', 'faces');
+        for (const [k, label] of [['great', 'Gostei muito'], ['ok', 'Mais ou menos'], ['bad', 'Não gostei']] as const) {
+          const b = el('button', 'face', ICONS[k]);
+          b.append(text('span', '', label));
+          b.onclick = () => {
+            f.mood = k;
+            sfx('ui');
+            liked();
+          };
+          row.append(b);
+        }
+        p.append(row, el('div', 'row'));
+        p.lastElementChild!.append(skip);
+      };
+      const liked = () => {
+        q('O que você mais gostou? Escolha até dois.');
+        const grid = el('div', 'likes');
+        const opts: [string, string][] = [['tico', 'Tico'], ['search', 'Procurar coisas'], ['questions', 'Perguntas'], ['globe', 'Globo'], ['stories', 'Histórias'], ['people', 'Personagens']];
+        for (const [k, label] of opts) {
+          const b = el('button', 'like', ICONS[k]);
+          b.append(text('span', '', label));
+          b.setAttribute('aria-pressed', 'false');
+          b.onclick = () => {
+            const i = f.liked.indexOf(k);
+            if (i >= 0) f.liked.splice(i, 1);
+            else if (f.liked.length < 2) f.liked.push(k);
+            grid.querySelectorAll('.like').forEach((x, j) => x.setAttribute('aria-pressed', String(f.liked.includes(opts[j][0]))));
+            sfx('ui');
+          };
+          grid.append(b);
+        }
+        const next = this.button('Próximo');
+        next.onclick = () => next3();
+        p.append(grid, el('div', 'row'));
+        p.lastElementChild!.append(skip, next);
+      };
+      const next3 = () => {
+        q('Quer jogar o próximo dia?');
+        const row = el('div', 'row big');
+        const yes = this.button('Sim!'),
+          later = this.button('Mais tarde', true);
+        yes.onclick = () => finish({ ...f, wantsNext: true });
+        later.onclick = () => finish({ ...f, wantsNext: false });
+        row.append(later, yes);
+        p.append(row);
+      };
+      moods();
+    });
+  }
+
+  /** Pergunta simples de sim ou não. */
+  confirm(who: string, title: string, body: string, yes: string, no: string): Promise<boolean> {
+    return new Promise((done) => {
+      const p = this.panel();
+      p.className = 'panel';
+      this.header(p, who, title, body);
+      p.append(text('p', '', body));
+      const row = el('div', 'row');
+      const n = this.button(no, true),
+        y = this.button(yes);
+      n.onclick = () => {
+        this.close();
+        done(false);
+      };
+      y.onclick = () => {
+        this.close();
+        done(true);
+      };
+      row.append(n, y);
+      p.append(row);
+      setTimeout(() => y.focus(), 40);
+    });
+  }
+}

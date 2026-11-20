@@ -39,6 +39,16 @@ export const OBS_STEPS: [number, number, number][] = [
   [-3.4, 0, 4],
 ];
 
+/** Murais onde os convites do Dia 1 são pendurados. */
+export const MURALS: [number, number, number][] = [
+  [-11, -1, 0.9],
+  [11, -1, -0.9],
+  [-5.5, 14, 0.5],
+];
+/** Lampião central da clareira (acende no "Haja luz"). */
+export const CENTRAL_LAMP = { x: -3, z: 5.5 };
+export const GLOBE = { x: HILL.x, z: HILL.z - 1 };
+
 export interface Camp {
   terrain: THREE.Mesh;
   water: THREE.Mesh;
@@ -47,6 +57,12 @@ export interface Camp {
   portals: Portal[];
   stumps: Stump[];
   update(dt: number, t: number): void;
+  /** 0 = dia, 1 = escuro total */
+  setNight(n: number): void;
+  /** 0 = apagado, 1 = aceso */
+  setGlobe(k: number): void;
+  setCentralLamp(k: number): void;
+  setInvite(i: number, on: boolean): void;
 }
 
 const CLASSES: { k: EmblemKey; n: string; age: number; c: number; d: string }[] = [
@@ -121,16 +137,17 @@ function buildWater(scene: THREE.Scene) {
       fc: { value: FOG_COLOR },
       fn: { value: FOG.near },
       ff: { value: FOG.far },
+      lit: { value: 1 },
     },
     vertexShader: `attribute float depth;varying float vD;varying vec3 vP;uniform float uT;
 void main(){vD=depth;vec4 w=modelMatrix*vec4(position,1.);w.y+=sin(w.x*.9+uT*1.4)*.03+cos(w.z*.8+uT*1.1)*.03;vP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
-    fragmentShader: `uniform float uT,fn,ff;uniform vec3 sh,dp,fm,sk,fc;varying float vD;varying vec3 vP;
+    fragmentShader: `uniform float uT,fn,ff,lit;uniform vec3 sh,dp,fm,sk,fc;varying float vD;varying vec3 vP;
 void main(){if(vD<-.05)discard;vec2 q=vP.xz;
 float n=sin(q.x*1.3+uT)*sin(q.y*1.1-uT*.8)+.5*sin((q.x+q.y)*2.3+uT*1.7)+.35*sin(q.x*3.7-q.y*2.9-uT*2.);
 float d=clamp(vD/2.6,0.,1.);vec3 c=mix(sh,dp,smoothstep(0.,1.,d));
 float fo=1.-smoothstep(.0,.28+.07*n,vD);c=mix(c,fm,fo*.9);c+=vec3(1.)*pow(max(0.,n*.55),5.)*.6*(1.-fo);
 vec3 V=normalize(cameraPosition-vP);float fr=pow(1.-clamp(V.y,0.,1.),3.);c=mix(c,sk,fr*.55);
-float a=mix(.5,.86,d);a=max(a,fo*.95);c=mix(c,fc,smoothstep(fn,ff,length(cameraPosition-vP)));
+float a=mix(.5,.86,d);a=max(a,fo*.95);c*=lit;c=mix(c,fc,smoothstep(fn,ff,length(cameraPosition-vP)));
 gl_FragColor=vec4(c,a);
 #include <tonemapping_fragment>
 #include <colorspace_fragment>
@@ -139,7 +156,7 @@ gl_FragColor=vec4(c,a);
   const w = new THREE.Mesh(g, m);
   w.renderOrder = 2;
   scene.add(w);
-  return w;
+  return { mesh: w, uniforms: m.uniforms };
 }
 
 export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
@@ -150,8 +167,10 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     inter = new Interactables(scene),
     kit: Kit = { B, GLOW, col };
   const terrain = buildTerrain(scene),
-    water = buildWater(scene);
+    { mesh: water, uniforms: waterU } = buildWater(scene);
   const animated: ((dt: number, t: number) => void)[] = [];
+  let fireFlame: THREE.Group | null = null,
+    fireLight: THREE.PointLight | null = null;
 
   /* portão de entrada com o emblema A1 */
   {
@@ -345,7 +364,9 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
       flame.add(m);
     }
     scene.add(flame);
+    fireFlame = flame;
     const light = new THREE.PointLight(0xffa040, 6, 10, 1.6);
+    fireLight = light;
     light.position.set(0, y + 1.4, 1);
     scene.add(light);
     for (const [x, z, side] of [[0, 4.3, false], [-3.3, 1, true], [3.3, 1, true]] as [number, number, boolean][]) {
@@ -356,6 +377,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
       col.solid(x, z, w, d, yy + 0.55);
     }
     animated.push((_dt, t) => {
+      if (!flame.visible) return (light.intensity = 0);
       flame.children.forEach((f, i) => f.scale.set(1 + Math.sin(t * 9 + i) * 0.08, 1 + Math.sin(t * 11 + i * 2) * 0.15, 1 + Math.cos(t * 8 + i) * 0.08));
       light.intensity = 5.5 + Math.sin(t * 13) * 0.8 + Math.sin(t * 7.3) * 0.6;
     });
@@ -379,7 +401,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
       B.box(0.22, 0.28, 0.22, [0x6e2638, 0x25aae1, 0xf26522, 0x66845b][i], px + 0.1, y + 1.3, z + 0.35, { r: 0.05 });
     }
     B.box(0.5, 0.4, 0.4, 0xd9a24c, x, y + 1.36, z, { r: 0.12 });
-    inter.add({ x, z, w: 4.6, h: 2, name: 'Mesa da Família', label: 'Ver a mesa', who: 'Clube de Aventureiros', text: 'Na Mesa da Família acontecem as missões feitas junto com a família.' });
+    inter.add({ id: 'table', x, z, w: 4.6, h: 2, name: 'Mesa da Família', label: 'Ver a mesa', who: 'Clube de Aventureiros', text: 'Na Mesa da Família acontecem as missões feitas junto com a família.' });
   }
 
   /* placas das quatro trilhas */
@@ -431,6 +453,8 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     }
   }
 
+  let globeLit = 0,
+    globeSet: (k: number) => void = () => {};
   /* Colina do Globo: Globo (apagado), Livro dos Sete Dias e Quadros dos Ideais */
   const HY = H(HILL.x, HILL.z);
   {
@@ -443,18 +467,24 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     scene.add(g);
     const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.85, 2), new THREE.MeshStandardMaterial({ color: 0xd7a64d, emissive: 0xd7a64d, emissiveIntensity: 0.15, roughness: 0.4 }));
     g.add(core);
-    g.add(
-      new THREE.Mesh(
-        new THREE.SphereGeometry(1.75, 40, 24),
-        new THREE.MeshStandardMaterial({ color: 0xcfe8ff, transparent: true, opacity: 0.28, roughness: 0.05, metalness: 0.1, envMapIntensity: 2.2, depthWrite: false }),
-      ),
-    );
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0xcfe8ff, emissive: 0xfff1b0, emissiveIntensity: 0, transparent: true, opacity: 0.28, roughness: 0.05, metalness: 0.1, envMapIntensity: 2.2, depthWrite: false });
+    g.add(new THREE.Mesh(new THREE.SphereGeometry(1.75, 40, 24), glassMat));
+    const glow = new THREE.PointLight(0xffe7a0, 0, 26, 1.2);
+    glow.visible = false;
+    g.add(glow);
+    globeSet = (k) => {
+      globeLit = k;
+      glassMat.emissiveIntensity = k * 0.9;
+      glassMat.opacity = 0.28 + k * 0.3;
+      glow.intensity = k * 30;
+      glow.visible = k > 0;
+    };
     const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.07, 8, 64), new THREE.MeshStandardMaterial({ color: 0xd7a64d, roughness: 0.35, metalness: 0.6 }));
     ring.rotation.x = Math.PI / 2.4;
     g.add(ring);
-    inter.add({ x, z, w: 3.6, h: 6, y: HY, name: 'Globo do Éden', label: 'Ver o Globo', who: 'Tico', text: 'O Globo do Éden está apagado. Ele vai se acender aos poucos, a cada dia da jornada.' });
+    inter.add({ id: 'globe', x, z, w: 3.6, h: 6, y: HY, name: 'Globo do Éden', label: 'Ver o Globo', who: 'Tico', text: 'O Globo do Éden está apagado. Ele vai se acender aos poucos, a cada dia da jornada.' });
     animated.push((dt, t) => {
-      core.material.emissiveIntensity = 0.12 + Math.sin(t * 1.5) * 0.06;
+      core.material.emissiveIntensity = 0.12 + Math.sin(t * 1.5) * 0.06 + globeLit * 2.2;
       ring.rotation.z += dt * 0.3;
       g.rotation.y += dt * 0.15;
     });
@@ -468,7 +498,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     for (const s of [-1, 1]) B.box(0.66, 0.08, 0.84, 0xfaf6ea, x + s * 0.36, y + 1.27, z + 0.02, { rx: -0.35, rz: s * 0.1, r: 0.03 });
     B.box(0.06, 0.1, 0.86, 0x6e2638, x, y + 1.27, z + 0.02, { rx: -0.35 });
     col.solid(x, z, 0.6, 0.6, y + 1.2);
-    inter.add({ x, z, w: 1.6, h: 2.2, name: 'Livro dos Sete Dias', label: 'Ver o Livro', who: 'Tico', text: 'As páginas do Livro dos Sete Dias sumiram! Cada missão vai ajudar a encontrá-las de novo.' });
+    inter.add({ id: 'book', x, z, w: 1.6, h: 2.2, name: 'Livro dos Sete Dias', label: 'Ver o Livro', who: 'Tico', text: 'As páginas do Livro dos Sete Dias sumiram! Cada missão vai ajudar a encontrá-las de novo.' });
   }
   /* Quadros apagados: os textos só entram de arquivo conferido (club-texts.json). */
   const ideals: [string, string][] = [['Voto', 'Acende no Dia 2.'], ['Lei', 'Acende no Dia 3.'], ['Voto à Bíblia', 'Acende no Dia 7.'], ['Hino', 'Em breve.']];
@@ -692,12 +722,69 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
   });
   animated.push((_dt, t) => stumps.forEach((s) => s.used || s.ring.scale.setScalar(1 + Math.sin(t * 4) * 0.08)));
 
+  /* lampião central (Dia 1, etapa 4) */
+  const lampMat = new THREE.MeshStandardMaterial({ color: 0xfff1c0, emissive: 0xffd27a, emissiveIntensity: 0, roughness: 0.4 });
+  const lampLight = new THREE.PointLight(0xffd690, 0, 20, 1.3);
+  lampLight.visible = false;
+  {
+    const { x, z } = CENTRAL_LAMP,
+      y = H(x, z);
+    B.box(0.5, 0.4, 0.5, STONE, x, y + 0.2, z, { r: 0.1 });
+    B.box(0.26, 3.6, 0.26, WOOD_DARK, x, y + 2, z, { r: 0.06 });
+    B.box(0.9, 0.16, 0.9, 0x3a2a1c, x, y + 4.62, z, { r: 0.05 });
+    B.box(0.9, 0.14, 0.9, 0x3a2a1c, x, y + 3.82, z, { r: 0.05 });
+    const glass = new THREE.Mesh(geoBox(0.7, 0.66, 0.7, 0.08), lampMat);
+    glass.position.set(x, y + 4.22, z);
+    scene.add(glass);
+    lampLight.position.set(x, y + 4.2, z);
+    scene.add(lampLight);
+    col.circle(x, z, 0.3, y + 4.7);
+    inter.add({ id: 'lamp', off: true, x, z, w: 1.6, h: 5, name: 'Lampião central', label: 'Ver o lampião', who: 'Tico', text: 'O lampião central da clareira.' });
+  }
+
+  /* murais para os convites */
+  const inviteMeshes: THREE.Mesh[] = [];
+  const inviteTex = canvasTex(256, 320, (g) => {
+    g.fillStyle = '#fffaf0';
+    g.fillRect(0, 0, 256, 320);
+    g.strokeStyle = '#6E2638';
+    g.lineWidth = 14;
+    g.strokeRect(10, 10, 236, 300);
+    g.fillStyle = '#6E2638';
+    g.font = `700 40px ${FONT}`;
+    g.textAlign = 'center';
+    g.fillText('Convite', 128, 90);
+    g.fillStyle = '#172D49';
+    g.font = `600 26px ${FONT}`;
+    ['Venha para o', 'Clube de', 'Aventureiros!'].forEach((l, i) => g.fillText(l, 128, 160 + i * 36));
+    g.fillStyle = '#D7A64D';
+    g.beginPath();
+    g.arc(128, 278, 14, 0, Math.PI * 2);
+    g.fill();
+  });
+  MURALS.forEach(([x, z, ry], mi) => {
+    const y = H(x, z);
+    inter.add({ id: 'mural' + mi, off: true, x: x + Math.sin(ry) * 1.2, z: z + Math.cos(ry) * 1.2, w: 2.8, h: 3, name: 'Mural ' + (mi + 1), label: 'Pendurar o convite', who: 'Acampante', text: '' });
+    B.box(0.22, 2.6, 0.22, WOOD_DARK, x - Math.cos(ry) * 1.1, y + 1.3, z + Math.sin(ry) * 1.1);
+    B.box(0.22, 2.6, 0.22, WOOD_DARK, x + Math.cos(ry) * 1.1, y + 1.3, z - Math.sin(ry) * 1.1);
+    B.box(2.5, 1.7, 0.14, 0xc9a46c, x, y + 1.75, z, { ry, r: 0.05 });
+    B.box(2.7, 0.18, 0.3, 0x7a5634, x, y + 2.68, z, { ry, r: 0.05 });
+    col.solid(x, z, 2.4, 0.5, y + 2.6);
+    const inv = new THREE.Mesh(new THREE.PlaneGeometry(0.85, 1.06), new THREE.MeshStandardMaterial({ map: inviteTex, roughness: 0.8 }));
+    inv.position.set(x + Math.sin(ry) * 0.09, y + 1.75, z + Math.cos(ry) * 0.09);
+    inv.rotation.set(0, ry, 0.04);
+    inv.visible = false;
+    scene.add(inv);
+    inviteMeshes.push(inv);
+  });
+
   buildVegetation(scene, free);
 
   /* nuvens */
+  let cloudMatRef: THREE.MeshStandardMaterial | null = null;
   const clouds: THREE.Group[] = [];
   setSeed(4);
-  const cloudMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, emissive: 0xffffff, emissiveIntensity: 0.25 });
+  const cloudMat = (cloudMatRef = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, emissive: 0xffffff, emissiveIntensity: 0.25 }));
   for (let i = 0; i < 11; i++) {
     const g = new THREE.Group();
     for (let k = 0; k < 4; k++) {
@@ -721,7 +808,8 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
 
   const mat = staticMaterial();
   B.mesh(scene, mat);
-  GLOW.mesh(scene, new THREE.MeshBasicMaterial({ vertexColors: true }), false);
+  const glowMat = new THREE.MeshBasicMaterial({ vertexColors: true });
+  GLOW.mesh(scene, glowMat, false);
   FAR.mesh(scene, mat, false);
 
   return {
@@ -733,6 +821,24 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     stumps,
     update(dt, t) {
       for (const f of animated) f(dt, t);
+    },
+    setNight(n) {
+      waterU.lit.value = 1 - n * 0.88;
+      waterU.fn.value = FOG.near;
+      waterU.ff.value = FOG.far;
+      glowMat.color.setScalar(1 - n * 0.85); // lampiões quase apagados no escuro total
+      if (fireFlame) fireFlame.visible = n < 0.5; // fogueira apagada à noite
+      if (fireLight) fireLight.visible = n < 0.5;
+      if (cloudMatRef) cloudMatRef.emissiveIntensity = 0.25 * (1 - n);
+    },
+    setGlobe: (k) => globeSet(k),
+    setCentralLamp(k) {
+      lampMat.emissiveIntensity = k * 3;
+      lampLight.intensity = k * 22;
+      lampLight.visible = k > 0;
+    },
+    setInvite(i, on) {
+      if (inviteMeshes[i]) inviteMeshes[i].visible = on;
     },
   };
 }

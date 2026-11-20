@@ -1,9 +1,18 @@
+import { Day01, migrateDay01 } from '../game/day01/state';
+
 /**
  * Progresso local e versionado. Nada sai do aparelho.
  * Se o armazenamento não existir (modo privado, iframe), o jogo segue sem salvar.
  */
 export const SAVE_KEY = 'aventuraverso.save';
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
+
+/** Respostas da criança na tela de feedback do piloto (docs/PILOT_FEEDBACK.md). */
+export interface DayFeedback {
+  mood: 'great' | 'ok' | 'bad' | null;
+  liked: string[];
+  wantsNext: boolean | null;
+}
 
 export interface SaveData {
   v: number;
@@ -11,9 +20,14 @@ export interface SaveData {
   controls: boolean;
   sound: boolean;
   coins: number[];
+  /** Dia 1 em andamento ou concluído */
+  day01: Day01 | null;
+  /** Distintivos do Acampamento (não oficiais) */
+  badges: string[];
+  feedback: Record<string, DayFeedback>;
 }
 
-export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [] });
+export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {} });
 
 type KV = Pick<Storage, 'getItem' | 'setItem'>;
 
@@ -25,17 +39,33 @@ function safeStorage(): KV | null {
   }
 }
 
-/** Migra saves antigos para a versão atual. */
+const MOODS = ['great', 'ok', 'bad'];
+
+/** Migra saves antigos (v1 não tinha dias, distintivos nem feedback) para a versão atual. */
 export function migrate(raw: unknown): SaveData {
   const d = defaults();
   if (!raw || typeof raw !== 'object') return d;
   const r = raw as Partial<SaveData>;
+  const feedback: Record<string, DayFeedback> = {};
+  if (r.feedback && typeof r.feedback === 'object') {
+    for (const [k, f] of Object.entries(r.feedback)) {
+      if (!/^day\d\d$/.test(k) || !f || typeof f !== 'object') continue;
+      feedback[k] = {
+        mood: MOODS.includes(f.mood as string) ? f.mood : null,
+        liked: Array.isArray(f.liked) ? f.liked.filter((x) => typeof x === 'string').slice(0, 2) : [],
+        wantsNext: typeof f.wantsNext === 'boolean' ? f.wantsNext : null,
+      };
+    }
+  }
   return {
     v: SAVE_VERSION,
     avatar: Number.isInteger(r.avatar) && (r.avatar as number) >= 0 && (r.avatar as number) < 6 ? (r.avatar as number) : d.avatar,
     controls: typeof r.controls === 'boolean' ? r.controls : d.controls,
     sound: typeof r.sound === 'boolean' ? r.sound : d.sound,
     coins: Array.isArray(r.coins) ? r.coins.filter((n) => Number.isInteger(n) && n >= 0) : [],
+    day01: r.day01 ? migrateDay01(r.day01) : null,
+    badges: Array.isArray(r.badges) ? [...new Set(r.badges.filter((b) => typeof b === 'string'))] : [],
+    feedback,
   };
 }
 
@@ -64,3 +94,4 @@ export function createSave(storage: KV | null = safeStorage()) {
     },
   };
 }
+export type Save = ReturnType<typeof createSave>;
