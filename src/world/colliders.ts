@@ -8,6 +8,8 @@ export interface Box {
   z0: number;
   z1: number;
   top: number;
+  /** base de uma plataforma flutuante: quem está embaixo passa livre */
+  bottom?: number;
 }
 
 /** Tronco de árvore, poste: bloqueio redondo. */
@@ -27,6 +29,8 @@ export interface Body {
 /** degrau que o personagem sobe sem pular */
 export const STEP_UP = 0.42;
 export const BODY_RADIUS = 0.42;
+/** altura do corpo (para passar por baixo de plataformas flutuantes) */
+export const BODY_HEIGHT = 2.4;
 
 export class Colliders {
   boxes: Box[] = [];
@@ -34,6 +38,11 @@ export class Colliders {
 
   solid(x: number, z: number, w: number, d: number, top: number) {
     this.boxes.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2, top });
+  }
+
+  /** Tira caixas (plataformas que somem). */
+  removeBoxes(list: Box[]) {
+    this.boxes = this.boxes.filter((b) => !list.includes(b));
   }
 
   circle(x: number, z: number, r: number, top: number) {
@@ -53,6 +62,7 @@ export class Colliders {
   pushOut(p: Body, r = BODY_RADIUS) {
     for (const c of this.boxes) {
       if (p.y >= c.top - 0.05) continue;
+      if (c.bottom !== undefined && p.y + BODY_HEIGHT < c.bottom) continue;
       const nx = clamp(p.x, c.x0, c.x1),
         nz = clamp(p.z, c.z0, c.z1),
         dx = p.x - nx,
@@ -93,6 +103,7 @@ export class Colliders {
     let m = y;
     const ground = H(x, z);
     for (const c of this.boxes) {
+      if (c.bottom !== undefined && m < c.bottom - 0.3) continue; // por baixo de plataforma flutuante
       if (x > c.x0 - 0.4 && x < c.x1 + 0.4 && z > c.z0 - 0.4 && z < c.z1 + 0.4 && m < c.top + 0.6 && c.top - ground < 7) m = c.top + 0.6;
     }
     return m;

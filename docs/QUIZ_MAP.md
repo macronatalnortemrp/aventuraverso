@@ -5,9 +5,6 @@ Fonte: `source/Guia do Aspirante - Clube de Aventureiros - Macro Natal Norte.pdf
 | Dia | Quem pergunta | Pergunta | Resposta certa | Fonte |
 |---|---|---|---|---|
 | 1, etapa 3 | Pedrito | O que a cor vinho do lenço nos lembra? | O sangue de Jesus, que nos ama e nos salvou | `LENCO.md` (texto do responsável) |
-| 1, etapa 6, cartaz 1 | Acampante | O Clube de Aventureiros é para quem? | Crianças de 6 a 9 anos | pág. 2 |
-| 1, etapa 6, cartaz 2 | Acampante | Para que existe o Clube? | Para apoiar a família | pág. 2 |
-| 1, etapa 6, cartaz 3 | Acampante | Quais são as áreas do crescimento? | Física, mental, espiritual e social | pág. 2 |
 | 2 | Pedrito | Complete o Voto: "Por amor a Jesus, farei sempre o meu ___". | melhor | pág. 5 |
 | 2 | Pedrito | "Por amor" quer dizer que a gente faz porque... | o motivo vem de dentro do coração | pág. 5 |
 | 3 | Pedrito | Complete a Lei: "Jesus me ajuda a ser: obediente, puro, reverente, ___ e colaborador." | bondoso | pág. 5 |
@@ -22,6 +19,8 @@ Fonte: `source/Guia do Aspirante - Clube de Aventureiros - Macro Natal Norte.pdf
 | 7 | Pedrito | O que o formato triangular do lenço lembra? | A Santa Trindade e o crescimento da criança em três áreas | `LENCO.md` |
 | 7 | Pedrito | Quais são as três áreas do lenço? | Física, mental e espiritual | `LENCO.md` |
 | 7 | Pedrito | Desafio final: ordenar ou completar Voto, Lei e Voto à Bíblia | texto exato do Guia | págs. 5 e 6 |
+
+As perguntas dos acampantes do Dia 1 (para quem é o Clube, para que existe e as áreas do crescimento) **saíram do jogo** em 21/11/2026, por não serem pertinentes para crianças. No lugar entram os desafios do Caminho da Luz (`CAMINHO_DA_LUZ.md`).
 
 Classes (pág. 4), para consulta: Abelhinhas, 6 anos, azul-claro; Luminares, 7, laranja; Edificadores, 8, azul-escuro; Mãos Ajudadoras, 9, vinho.
 

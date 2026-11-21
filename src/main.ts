@@ -29,6 +29,7 @@ import { renderPortraits } from './ui/render3d';
 import { Intro, loadIntro, landmarks } from './game/intro';
 import { Assembly } from './world/assemble';
 import { Music } from './engine/music';
+import { cueFor } from './game/musicCue';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
@@ -62,6 +63,9 @@ const assembly = new Assembly(
   landmarks(),
 );
 const music = new Music();
+let musicCtx: 'normal' | 'speech' | 'reading' = 'normal';
+/* aba escondida: a trilha pausa junto com o jogo */
+document.addEventListener('visibilitychange', () => music.pause(document.hidden));
 const { col, inter, portals, stumps } = camp;
 const coins = new Coins(scene, stumps.length, SAVE.data.coins);
 const critters = createCritters(scene);
@@ -152,6 +156,7 @@ let started = false;
 let target: { x: number; z: number } | null = null;
 let pendingInter: Interactable | null = null;
 let near: Interactable | null = null;
+let shownAction: string | null = null;
 let clock = 0;
 let saved = [...SAVE.data.coins];
 const GUIDE = newGuide();
@@ -416,6 +421,14 @@ const missionReady = loadDay01()
           orbit.yaw = face + Math.PI;
           orbit.snap(P.x, P.y, P.z);
         },
+        camera,
+        forceControls(on) {
+          const show = on || SAVE.data.controls;
+          for (const id of ['joy', 'A', 'B']) hud.show(id, show);
+          document.body.classList.toggle('ctl', show);
+        },
+        banner: (text, ms) => hud.banner(text, ms),
+        sting: (id) => music.sting(id),
         onExit(done, wantsNext) {
           ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
           ped.root.rotation.y = PED_HOME.ry;
@@ -487,9 +500,13 @@ function step(dt: number) {
   }
 
   const best = inter.nearest(P.x, P.y, P.z);
-  if (best !== near) {
+  // o rótulo pode mudar sem trocar de objeto (Caminho da Luz: pegar, encaixar, girar)
+  const want = best && P.st === 'ground' ? (best.rotate ? '\u27f2' : best.label + (best.npc ? ' com ' + best.name.replace('Diretora ', '') : '')) : null;
+  if (best !== near || want !== shownAction) {
     near = best;
-    hud.action(near && P.st === 'ground' ? near.label + (near.npc ? ' com ' + near.name.replace('Diretora ', '') : '') : null);
+    shownAction = want;
+    hud.action(want && !best?.rotate ? want : null);
+    hud.show('rot', !!best?.rotate && P.st === 'ground');
   }
 
   const obj = objective();
@@ -593,15 +610,24 @@ function draw(dt: number, t: number) {
 
 /* ---------- telas ---------- */
 task.voice = () => sound;
+task.onRight = () => music.sting('faisca');
 hud.voice = () => sound;
 let sound = SAVE.data.sound;
 setSoundEnabled(sound);
-music.setEnabled(sound);
+music.setEnabled(SAVE.data.music);
 $('bs').setAttribute('aria-pressed', String(sound));
+$('bm').setAttribute('aria-pressed', String(SAVE.data.music));
+/* botão Música: só a trilha (vozes e efeitos seguem o botão Som) */
+$('bm').onclick = () => {
+  const on = !SAVE.data.music;
+  SAVE.update({ music: on });
+  music.setEnabled(on);
+  $('bm').setAttribute('aria-pressed', String(on));
+  sfx('ui');
+};
 $('bs').onclick = () => {
   sound = !sound;
   setSoundEnabled(sound);
-  music.setEnabled(sound);
   SAVE.update({ sound });
   $('bs').setAttribute('aria-pressed', String(sound));
   if (sound) sfx('ui');
@@ -610,6 +636,7 @@ $('bs').onclick = () => {
 function setControls(on: boolean) {
   SAVE.update({ controls: on });
   for (const id of ['joy', 'A', 'B']) hud.show(id, on);
+  document.body.classList.toggle('ctl', on); // o botão de ação e o balão sobem acima dos controles
   $('bc').setAttribute('aria-pressed', String(on));
 }
 $('bc').onclick = () => {
@@ -619,6 +646,8 @@ $('bc').onclick = () => {
   if (on) hud.say('A pula. A e depois B: pulo alto (andando, vira mergulho no ar). Segure B no pulo: marretada no chão!', 8000);
 };
 $('act').onclick = () => near && interact(near);
+$('rotl').onclick = () => near?.rotate?.(-1);
+$('rotr').onclick = () => near?.rotate?.(1);
 /* ---------- abertura (docs/INTRO_SEQUENCE.md) ---------- */
 let intro: Intro | null = null;
 const introReady = loadIntro()
@@ -651,6 +680,7 @@ $<HTMLButtonElement>('rewatch').hidden = !SAVE.data.introSeen;
 /** Escolha do boneco, apelido e, na primeira vez (ou quando pedida), a abertura. */
 async function enter(forceIntro: boolean) {
   sfx('ui');
+  music.play('festa'); // primeiro toque: a trilha pode começar
   $('title').classList.remove('show');
   const choice = await pickAvatar(avatar, SAVE.data.controls);
   avatar = choice.avatar;
@@ -729,6 +759,12 @@ renderer.setAnimationLoop(() => {
   timer.update();
   const dt = Math.min(Math.max(timer.getDelta(), 0), 0.05);
   clock += dt;
+  if (started) {
+    // música de fundo do momento e volume (leitura/pergunta bem baixo, falas mais baixo)
+    music.play(cueFor({ started, night: daylight.night > 0.5 }));
+    const ctx = task.open ? 'reading' : hud.paused || mission?.busy ? 'speech' : 'normal';
+    if (ctx !== musicCtx) music.setContext((musicCtx = ctx));
+  }
   if (intro?.active) {
     intro.update(dt);
     tickWorld(dt, clock);
@@ -745,9 +781,11 @@ renderer.setAnimationLoop(() => {
     if (!paused()) step(dt);
     else if (near) {
       near = null;
+      shownAction = null;
       hud.action(null);
+      hud.show('rot', false);
     }
-    orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
+    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
   }
@@ -779,6 +817,8 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
   Object.assign(window, {
     R: renderer,
     scene,
+    camp,
+    music,
     P,
     CAM: orbit,
     PORT: portals,

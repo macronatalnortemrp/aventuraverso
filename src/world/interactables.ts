@@ -24,6 +24,8 @@ export interface Interactable {
   /** desligado: não aparece nem responde ao toque */
   off?: boolean;
   mesh?: THREE.Mesh;
+  /** objeto que gira (espelho do Caminho da Luz): mostra os botões ⟲ ⟳ no lugar da ação */
+  rotate?: (dir: 1 | -1) => void;
 }
 
 const pickMat = new THREE.MeshBasicMaterial({ visible: false });

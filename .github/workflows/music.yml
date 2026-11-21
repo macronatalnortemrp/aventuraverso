@@ -1,0 +1,52 @@
+name: Trilha sonora (FluidSynth)
+
+# Gera os MP3 da trilha quando a partitura ou o gerador mudam,
+# commita em public/audio/music/ e dispara um novo deploy.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/data/music/**'
+      - 'src/engine/musicScore.ts'
+      - 'scripts/music/**'
+      - '.github/workflows/music.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: music
+  cancel-in-progress: false
+
+jobs:
+  music:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ferramentas de sistema (só para gerar; não vão para o jogo)
+        run: sudo apt-get update -q && sudo apt-get install -y -q fluidsynth fluid-soundfont-gm ffmpeg
+      - name: Gerar a trilha
+        run: node --experimental-strip-types scripts/music/render.ts
+      - name: Commitar áudios
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio/music
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -m "chore(trilha): atualiza a trilha sonora gerada [fluidsynth]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      # commits feitos com GITHUB_TOKEN não disparam workflows; o deploy precisa ser chamado
+      - name: Publicar de novo
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main

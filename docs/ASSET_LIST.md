@@ -26,8 +26,8 @@ Emblemas A1 e LA1, emblemas das quatro classes, logo da Macro, referência do un
 Cards de seleção, diálogos, leitura, perguntas, HUD, Cartão do Acampamento, mapa, pausa, configurações, tela de feedback (carinhas e ícones), área dos responsáveis.
 
 ## Áudio
-- Narração e vozes: síntese de voz do aparelho no MVP, com tom por personagem. Gravações depois.
-- Música instrumental discreta: original ou licenciada **[definir]**. A trilha da abertura é composta e tocada por código (`src/engine/music.ts`), sem arquivos.
+- Narração e vozes: gravadas com Kokoro no workflow de vozes, uma voz por personagem. Nunca a voz do aparelho.
+- Trilha sonora original (tema Festa da Luz e oito variações), gerada da partitura com o banco de sons FluidR3_GM (MIT) no workflow `music.yml`; ~1,3 MB em MP3.
 - Efeitos: Web Audio no MVP.
 
 ## Opcional depois

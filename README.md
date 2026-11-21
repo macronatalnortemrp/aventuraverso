@@ -51,6 +51,7 @@ prototype/             referências visuais antigas
 ## Dependências
 - `three`: motor 3D (stack definida em `docs/TECH_ARCHITECTURE.md`).
 - Desenvolvimento: `vite`, `typescript`, `@types/three`, `vitest`. Nenhuma outra dependência.
+- **Trilha sonora (só na geração, fora do jogo):** FluidSynth com o banco de sons **FluidR3_GM** (Frank Wen, licença MIT) e ffmpeg, instalados apenas no workflow `music.yml`. O jogo recebe só os MP3 prontos.
 - **Vozes (só na geração, fora do jogo):** Kokoro-82M (pesos Apache 2.0) com PyTorch, espeak-ng e ffmpeg, instalados apenas no workflow `voices.yml`. O jogo recebe só os MP3 prontos; nada é baixado de fora nem processado no aparelho.
 - Fontes Lilita One e Nunito embutidas em `src/assets/fonts` (licença OFL, arquivos de licença ao lado). Nenhum recurso é baixado de servidores externos.
 
@@ -62,10 +63,16 @@ prototype/             referências visuais antigas
 - Salva a cada etapa e retoma de onde parou. Respostas erradas não tiram nada: acolhe, dá pista e, na terceira, mostra a resposta explicando.
 - Textos da missão em `public/data/days/day01.json`.
 
+## Trilha sonora
+- Tema único, a **Festa da Luz**, em oito variações (`festa`, `misterio`, `acolhida`, `esperanca`, `explorar`, `escuro`, `faisca`, `vitoria`). Partitura em `public/data/music/theme.json`; design em `docs/superpowers/specs/2026-11-21-trilha-sonora-design.md`.
+- O workflow **Trilha sonora** gera os MP3 (`public/audio/music/`) quando a partitura muda. À mão: `node --experimental-strip-types scripts/music/render.ts` (precisa de fluidsynth, fluid-soundfont-gm e ffmpeg).
+- No jogo: loop sem emenda, troca suave entre momentos, vinhetas por cima, volume mais baixo sob falas (40%) e bem baixo na leitura e nas perguntas (15%). Botão **Música** separado do botão **Som**. Sem os arquivos, a mesma partitura é sintetizada.
+- Crédito: banco de sons FluidR3_GM, de Frank Wen, licença MIT.
+
 ## Vozes dos personagens
 - Falas gravadas em `public/audio/voices/` (MP3 por frase), geradas pelo workflow **Vozes dos personagens** com o Kokoro. Ele roda sozinho quando algum texto muda em `public/data/` ou `src/`, commita os áudios e publica de novo.
 - Perfis em `scripts/voices/voices.json`: Narrador e a Voz (homem adulto), Diretora Sol (feminina jovem), Pedrito e acampantes (infantis), Tico (mascote). O tom infantil vem do campo `pitch`; ajuste e o workflow regera só aquela voz.
-- Diálogos e balões do Tico falam sozinhos com o som ligado, só quando existe o áudio gravado. O botão "Ouvir" usa o áudio gravado e, se faltar alguma frase (textos com números variáveis), a voz do aparelho.
+- Diálogos e balões do Tico falam sozinhos com o som ligado, só quando existe o áudio gravado. O botão "Ouvir" só aparece quando existe áudio gravado e toca só as frases gravadas; o jogo nunca usa a voz do aparelho.
 - Para rodar à mão: `node --experimental-strip-types scripts/voices/collect.ts` e `python scripts/voices/generate.py` (ver o cabeçalho do script).
 
 ## Pendências de conteúdo (precisam de conferência humana)

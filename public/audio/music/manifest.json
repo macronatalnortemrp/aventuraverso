@@ -1,0 +1,62 @@
+{
+ "version": 1,
+ "soundfont": "FluidR3_GM (MIT)",
+ "cues": {
+  "festa": {
+   "file": "festa.mp3",
+   "seconds": 15.2381,
+   "loop": true,
+   "loopStart": 15.2381,
+   "hash": "2911e41fc2d4"
+  },
+  "misterio": {
+   "file": "misterio.mp3",
+   "seconds": 13.3333,
+   "loop": true,
+   "loopStart": 13.3333,
+   "hash": "c4e38ca01960"
+  },
+  "acolhida": {
+   "file": "acolhida.mp3",
+   "seconds": 20.8696,
+   "loop": true,
+   "loopStart": 20.8696,
+   "hash": "1977764b8d5d"
+  },
+  "esperanca": {
+   "file": "esperanca.mp3",
+   "seconds": 10.7143,
+   "loop": false,
+   "loopStart": 0,
+   "hash": "3e90ed509ab0"
+  },
+  "explorar": {
+   "file": "explorar.mp3",
+   "seconds": 19.2,
+   "loop": true,
+   "loopStart": 19.2,
+   "hash": "0417d68c2988"
+  },
+  "escuro": {
+   "file": "escuro.mp3",
+   "seconds": 14.5455,
+   "loop": true,
+   "loopStart": 14.5455,
+   "hash": "42c3447ca601"
+  },
+  "faisca": {
+   "file": "faisca.mp3",
+   "seconds": 3.6,
+   "loop": false,
+   "loopStart": 0,
+   "hash": "5950dbe5f535"
+  },
+  "vitoria": {
+   "file": "vitoria.mp3",
+   "seconds": 16.3636,
+   "loop": false,
+   "loopStart": 0,
+   "hash": "b4253a5cc1c4"
+  }
+ }
+}

@@ -2,7 +2,7 @@ import { Question, judge, shuffled } from '../game/quiz';
 import { DayFeedback } from '../persistence/save';
 import { JourneyEntry } from '../game/journey';
 import { sfx } from '../engine/audio';
-import { canSpeak, speak, stopSpeaking } from '../engine/speech';
+import { hasVoice, speak, stopSpeaking } from '../engine/speech';
 import { ICONS } from './icons';
 import { $ } from './hud';
 
@@ -25,6 +25,8 @@ export class Task {
   open = false;
   /** a leitura em voz só funciona com o som ligado */
   voice = () => true;
+  /** resposta certa (vinheta da trilha) */
+  onRight: () => void = () => {};
   /** retratos 3D (nome -> imagem) para usar nos cartões */
   portraits: Record<string, string> = {};
 
@@ -44,7 +46,7 @@ export class Task {
   }
 
   private listen(t: string, who = 'Tico') {
-    if (!canSpeak()) return null;
+    if (!hasVoice(t, who)) return null; // sem gravação, sem botão (nunca a voz do aparelho)
     const b = el('button', 'btn alt listen', ICONS.speaker + '<span>Ouvir</span>');
     b.setAttribute('aria-label', 'Ouvir o texto');
     b.onclick = () => this.voice() && speak(t, who);
@@ -139,6 +141,7 @@ export class Task {
         const r = judge({ answer }, chosen, wrong);
         if (r === 'right') {
           sfx('yay');
+          this.onRight();
           return finish(`Isso mesmo! ${q.explain}`);
         }
         btns[chosen].classList.add('wrong');

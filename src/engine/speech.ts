@@ -1,13 +1,11 @@
 /**
- * Vozes dos personagens. Primeiro tenta os áudios gravados (gerados com Kokoro, ver
- * scripts/voices/); se faltar alguma frase, usa a voz do aparelho (SpeechSynthesis).
+ * Vozes dos personagens: só os áudios gravados do jogo (gerados com Kokoro, ver scripts/voices/).
+ * Decisão de 21/11/2026: nunca usar a voz do aparelho (SpeechSynthesis, VoiceOver, TalkBack).
  * Todo texto falado também aparece na tela; o áudio é sempre opcional.
  */
 import { VoiceManifest, clipsFor, lineKey, splitSentences, voiceOf } from './voiceText';
 
-const synthOk = () => typeof speechSynthesis !== 'undefined' && typeof SpeechSynthesisUtterance !== 'undefined';
 const audioOk = () => typeof Audio !== 'undefined';
-export const canSpeak = () => synthOk() || audioOk();
 
 const BASE = `${import.meta.env?.BASE_URL ?? '/'}audio/voices/`;
 let manifest: VoiceManifest | null = null;
@@ -16,19 +14,8 @@ if (audioOk() && typeof fetch !== 'undefined') {
     .then((r) => (r.ok ? r.json() : null))
     .then((m) => (manifest = m))
     .catch(() => {
-      /* sem áudios gravados: fica a voz do aparelho */
+      /* sem áudios gravados: o texto segue só na tela */
     });
-}
-
-let voice: SpeechSynthesisVoice | null = null;
-function pickVoice() {
-  if (!synthOk()) return;
-  const vs = speechSynthesis.getVoices();
-  voice = vs.find((v) => v.lang === 'pt-BR') || vs.find((v) => v.lang.startsWith('pt')) || null;
-}
-if (synthOk()) {
-  pickVoice();
-  speechSynthesis.addEventListener?.('voiceschanged', pickVoice);
 }
 
 /* um único elemento de áudio: depois do primeiro toque, o iOS deixa tocar os seguintes */
@@ -51,26 +38,30 @@ function playClips(files: string[]) {
   next();
 }
 
-function synth(text: string, pitch: number) {
-  if (!synthOk()) return;
-  try {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'pt-BR';
-    if (voice) u.voice = voice;
-    u.rate = 0.95;
-    u.pitch = pitch;
-    speechSynthesis.speak(u);
-  } catch {
-    /* sem voz: o texto segue na tela */
-  }
+/** arquivos gravados das frases do texto que têm áudio (as outras ficam só na tela) */
+function available(text: string, who: string): string[] {
+  const table = audioOk() ? manifest?.voices[voiceOf(who)] : null;
+  if (!table) return [];
+  return splitSentences(text)
+    .map((s) => table[lineKey(s)])
+    .filter((f): f is string => !!f);
 }
 
-/** Fala o texto com a voz de quem fala. Sem áudio gravado, usa a voz do aparelho. */
-export function speak(text: string, who = 'Tico', pitch = 1.05) {
+/** Há alguma frase gravada para este texto? (o botão "Ouvir" só aparece quando há) */
+export function hasVoice(text: string, who = 'Tico') {
+  return available(text, who).length > 0;
+}
+
+/**
+ * Fala o texto com as vozes gravadas do jogo. Nunca usa a voz do aparelho
+ * (SpeechSynthesis / leitor do celular): o que não tem gravação fica só na tela.
+ */
+export function speak(text: string, who = 'Tico') {
+  const files = available(text, who);
+  if (!files.length) return false;
   stopSpeaking();
-  const files = audioOk() ? clipsFor(manifest, who, text) : null;
-  if (files) playClips(files);
-  else synth(text, pitch);
+  playClips(files);
+  return true;
 }
 
 /** Só fala se houver áudio gravado (falas automáticas dos diálogos, sem voz robótica). */
@@ -82,21 +73,8 @@ export function speakRecorded(text: string, who: string) {
   return true;
 }
 
-/**
- * Fala as frases que têm áudio gravado e pula as outras (por exemplo, as que levam o apelido da criança).
- * O texto inteiro continua na legenda.
- */
-export function speakAvailable(text: string, who: string) {
-  const table = audioOk() ? manifest?.voices[voiceOf(who)] : null;
-  if (!table) return false;
-  const files = splitSentences(text)
-    .map((s) => table[lineKey(s)])
-    .filter((f): f is string => !!f);
-  if (!files.length) return false;
-  stopSpeaking();
-  playClips(files);
-  return true;
-}
+/** Mesmo que `speak` (mantido para a abertura). */
+export const speakAvailable = speak;
 
 export function stopSpeaking() {
   token++;
@@ -104,5 +82,4 @@ export function stopSpeaking() {
     player.onended = null;
     player.pause();
   }
-  if (synthOk()) speechSynthesis.cancel();
 }

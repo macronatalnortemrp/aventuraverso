@@ -7,7 +7,8 @@ import { HILL, H } from '../world/terrain';
 import { plate } from '../world/textures';
 import { Rig, animate, part, Pose } from '../world/builders/kid';
 import { SPARKS } from './day01/mission';
-import { Music, Theme } from '../engine/music';
+import { Music } from '../engine/music';
+import type { CueId } from '../engine/musicScore';
 import { REDUCED_MOTION } from '../engine/gfx';
 import { sfx } from '../engine/audio';
 import { angLerp, lerp } from '../engine/math';
@@ -189,7 +190,7 @@ export class Intro {
     this.d.assembly.done();
     this.d.daylight.setWarm(0);
     this.d.daylight.auraBoost = 1;
-    this.d.music.stop(1.5);
+    this.d.music.setContext('normal');
     const s = this.d.sol;
     s.root.position.copy(this.solHome.p);
     s.root.rotation.y = this.solHome.ry;
@@ -227,7 +228,6 @@ export class Intro {
     this.d.daylight.auraBoost = 1;
     this.globe = { k: 0.35, flicker: 0 };
     this.d.camp.setGlobe(0.35);
-    this.d.music.stop(0.1);
     const p = this.d.player(),
       t = this.d.tico,
       s = this.d.sol;
@@ -325,8 +325,10 @@ export class Intro {
     this.d.music.duck(false);
   }
 
-  private music(t: Theme) {
-    if (this.d.sound()) this.d.music.play(t);
+  private music(t: 'joy' | 'mystery' | 'warm' | 'hope') {
+    const cue: Record<typeof t, CueId> = { joy: 'festa', mystery: 'misterio', warm: 'acolhida', hope: 'acolhida' };
+    this.d.music.play(cue[t]);
+    if (t === 'hope') this.d.music.sting('esperanca');
   }
 
   /* ---------- roteiro ---------- */

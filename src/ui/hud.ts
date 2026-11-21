@@ -142,6 +142,18 @@ export class Hud {
     q.onEnd?.();
   }
 
+  private bannerTimer = 0;
+  /** Mensagem grande e curta (desafio concluído). */
+  banner(text: string, ms = 2600) {
+    const b = $('banner');
+    b.textContent = text;
+    b.classList.remove('show');
+    void b.offsetWidth;
+    b.classList.add('show');
+    clearTimeout(this.bannerTimer);
+    this.bannerTimer = window.setTimeout(() => b.classList.remove('show'), ms);
+  }
+
   fade(on: boolean) {
     $('fade').style.opacity = on ? '1' : '0';
   }

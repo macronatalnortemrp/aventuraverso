@@ -45,6 +45,9 @@ img { -webkit-user-drag: none; }
 #bs[aria-pressed='false'] .on { display: none; }
 #bs[aria-pressed='false'] .off { display: inline; }
 #bc[aria-pressed='false'] svg { opacity: 0.55; }
+#bm .off { display: none; }
+#bm[aria-pressed='false'] .off { display: inline; }
+#bm[aria-pressed='false'] svg { opacity: 0.75; }
 
 /* fôlego */
 #breath { top: calc(12px + env(safe-area-inset-top)); left: 50%; translate: -50% 0; width: 78px; height: 78px; border-radius: 50%; align-items: center; justify-content: center; background: conic-gradient(var(--c, #3aa0e0) calc(var(--p, 100) * 1%), rgba(12, 24, 44, 0.45) 0); box-shadow: 0 0 0 4px #fff, 0 6px 14px rgba(0, 0, 0, 0.3); }
@@ -252,6 +255,20 @@ img { -webkit-user-drag: none; }
 }
 #igo { text-transform: uppercase; animation: glow 0.9s ease-in-out infinite alternate; }
 
+/* botões de girar o espelho (Caminho da Luz): ocupam o lugar do botão de ação */
+#rot { left: 50%; translate: -50% 0; bottom: calc(30px + env(safe-area-inset-bottom)); align-items: center; gap: 8px; border: 4px solid var(--ink); border-radius: 999px; padding: 6px; background: linear-gradient(#ffe57a, #f0a91c); box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.5), 0 5px 0 var(--ink); }
+#rot.show { display: flex; }
+#rot span { font-family: var(--display); font-size: 20px; color: #fff; -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill; padding: 0 4px; }
+#rot button { width: 58px; height: 58px; border-radius: 50%; border: 3px solid var(--ink); background: #fff; color: var(--ink); font-size: 34px; font-weight: 900; line-height: 1; padding: 0; display: grid; place-items: center; }
+#rot button:active { transform: scale(0.92); }
+#banner { position: fixed; left: 0; right: 0; top: 22%; z-index: 14; display: none; justify-content: center; padding: 0 16px; text-align: center; pointer-events: none; font-family: var(--display); font-size: clamp(34px, min(8vw, 11vh), 84px); line-height: 1.05; color: #fff3d6; -webkit-text-stroke: 7px var(--ink); paint-order: stroke fill; text-shadow: 0 6px 0 var(--ink), 0 0 36px rgba(255, 210, 63, 0.85); }
+#banner.show { display: flex; animation: bigpop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+/* Com joystick e botões A/B ligados, o botão de ação e o balão do Tico ficam acima dos controles
+   quando não há espaço entre eles (retrato e telas estreitas). */
+@media (max-width: 760px) and (min-height: 521px) {
+  body.ctl #act, body.ctl #rot { bottom: calc(192px + env(safe-area-inset-bottom)); }
+  body.ctl .bubble { bottom: calc(262px + env(safe-area-inset-bottom)); }
+}
 @media (max-height: 520px) and (orientation: landscape) {
   .bubble { bottom: calc(18px + env(safe-area-inset-bottom)); width: min(54vw, 480px); }
   .bubble .av { width: 70px; height: 70px; }
@@ -260,7 +277,10 @@ img { -webkit-user-drag: none; }
   #knob { left: 31px; top: 31px; }
   #A { right: calc(108px + env(safe-area-inset-right)); }
   #B { bottom: calc(70px + env(safe-area-inset-bottom)); }
-  #act { bottom: calc(112px + env(safe-area-inset-bottom)); }
+  /* deitado: o botão de ação fica à direita (acima de A e B), livre do balão do Tico no centro */
+  #act { left: auto; translate: none; right: calc(16px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); }
+  #rot { left: auto; translate: none; right: calc(16px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); }
+  body.ctl #act, body.ctl #rot { bottom: calc(160px + env(safe-area-inset-bottom)); }
 }
 @media (max-height: 520px) {
   .cmp-logo { width: 56px; }
@@ -285,5 +305,5 @@ img { -webkit-user-drag: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #fade { transition: none; }
-  #coins.bump, #breath.low, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake, #ibig.show, #ibook, #igo, #isub.show { animation: none; }
+  #coins.bump, #breath.low, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake, #ibig.show, #ibook, #igo, #isub.show, #banner.show { animation: none; }
 }

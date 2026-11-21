@@ -23,8 +23,8 @@ Leitura de Gênesis 1:3. Montar a frase com blocos de palavras. A lâmpada centr
 Leitura de Gênesis 1:4–5. Classificar oito objetos em dia/noite.
 Pergunta: “Que nome Deus deu à luz?”
 
-### 6. Convites
-Pendurar três convites em quadros do acampamento. Cada acampante faz uma pergunta diferente sobre o Clube: para quem é (6 a 9 anos), para que existe (apoiar a família) e quais são as áreas do crescimento (física, mental, espiritual e social). As respostas seguem o Guia do Aspirante, sem inventar definições (veja `QUIZ_MAP.md`).
+### 6. Convites: o Caminho da Luz
+A Diretora Sol entrega três convites. Cada um dos três acampantes, perto dos murais, propõe um desafio: "Se você completar o meu desafio, eu aceito o convite!". Ao aceitar, surge sobre o lago uma ilha suspensa; a criança sobe pelas plataformas e, no topo, encaixa e gira espelhos até a luz chegar ao cristal. Concluído o desafio, o acampante aceita o convite, que é pendurado no mural dele. Os três desafios têm dificuldade crescente (1, 2 e 3 espelhos), na ordem em que a criança os faz, qualquer que seja o acampante. Detalhes em `CAMINHO_DA_LUZ.md`. Substitui as perguntas sobre o Clube (decisão de 21/11/2026).
 
 ### 7. Globo do Éden
 Levar as três faíscas ao globo e tocar nele. A Voz diz: “Haja luz”. O globo se ilumina e alterna dia/noite.
