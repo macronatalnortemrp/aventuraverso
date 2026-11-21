@@ -51,6 +51,7 @@ prototype/             referências visuais antigas
 ## Dependências
 - `three`: motor 3D (stack definida em `docs/TECH_ARCHITECTURE.md`).
 - Desenvolvimento: `vite`, `typescript`, `@types/three`, `vitest`. Nenhuma outra dependência.
+- **Trilha sonora (só na geração, fora do jogo):** FluidSynth com o banco de sons **FluidR3_GM** (Frank Wen, licença MIT) e ffmpeg, instalados apenas no workflow `music.yml`. O jogo recebe só os MP3 prontos.
 - **Vozes (só na geração, fora do jogo):** Kokoro-82M (pesos Apache 2.0) com PyTorch, espeak-ng e ffmpeg, instalados apenas no workflow `voices.yml`. O jogo recebe só os MP3 prontos; nada é baixado de fora nem processado no aparelho.
 - Fontes Lilita One e Nunito embutidas em `src/assets/fonts` (licença OFL, arquivos de licença ao lado). Nenhum recurso é baixado de servidores externos.
 
@@ -61,6 +62,12 @@ prototype/             referências visuais antigas
 - No fim do dia, um resumo liga cada ação do jogo ao primeiro dia da criação (textos em `creation` no `day01.json`, para revisão).
 - Salva a cada etapa e retoma de onde parou. Respostas erradas não tiram nada: acolhe, dá pista e, na terceira, mostra a resposta explicando.
 - Textos da missão em `public/data/days/day01.json`.
+
+## Trilha sonora
+- Tema único, a **Festa da Luz**, em oito variações (`festa`, `misterio`, `acolhida`, `esperanca`, `explorar`, `escuro`, `faisca`, `vitoria`). Partitura em `public/data/music/theme.json`; design em `docs/superpowers/specs/2026-11-21-trilha-sonora-design.md`.
+- O workflow **Trilha sonora** gera os MP3 (`public/audio/music/`) quando a partitura muda. À mão: `node --experimental-strip-types scripts/music/render.ts` (precisa de fluidsynth, fluid-soundfont-gm e ffmpeg).
+- No jogo: loop sem emenda, troca suave entre momentos, vinhetas por cima, volume mais baixo sob falas (40%) e bem baixo na leitura e nas perguntas (15%). Botão **Música** separado do botão **Som**. Sem os arquivos, a mesma partitura é sintetizada.
+- Crédito: banco de sons FluidR3_GM, de Frank Wen, licença MIT.
 
 ## Vozes dos personagens
 - Falas gravadas em `public/audio/voices/` (MP3 por frase), geradas pelo workflow **Vozes dos personagens** com o Kokoro. Ele roda sozinho quando algum texto muda em `public/data/` ou `src/`, commita os áudios e publica de novo.

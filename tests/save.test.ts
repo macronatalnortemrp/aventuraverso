@@ -40,6 +40,11 @@ describe('progresso local', () => {
     expect(cleanNick(42)).toBe('');
     expect(migrate({ introSeen: true }).introSeen).toBe(true);
   });
+  test('save da versão 3 começa com a música ligada; a escolha é guardada', () => {
+    expect(migrate({ v: 3, avatar: 1, nick: 'Lulu' })).toMatchObject({ v: SAVE_VERSION, music: true, nick: 'Lulu' });
+    expect(migrate({ music: false }).music).toBe(false);
+    expect(migrate({ music: 'não' }).music).toBe(true);
+  });
   test('sem armazenamento disponível o jogo segue', () => {
     const save = createSave(null);
     save.update({ sound: false });

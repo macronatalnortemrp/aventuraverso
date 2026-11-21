@@ -104,4 +104,4 @@ Não se usa "acender a luz no acampamento": no Dia 1 quem cria a luz é Deus ("H
 Os "quadros" da abertura são cenas 3D em blocos com câmera dirigida (sobrevoo do acampamento, aproximação do Livro e do Globo, do Tico e da Diretora Sol), sem ilustrações separadas. Tico e Sol aparecem com expressões e gestos de bloco. A bandeira do Clube e as tendas das classes devem estar visíveis no plano amplo do Quadro 1. Legendas e botões Pular e Repetir continuam em HTML.
 
 ## Pendências
-- Trilha sonora do restante do jogo: definir estilo de cada momento e origem (composição original ou música com licença livre, com crédito). Não usar o Hino sem autorização. A trilha da abertura é provisória, composta por código, e pode ser trocada por música gravada.
+- Trilha sonora: a abertura usa o tema do jogo — festa (Quadro 1), mistério com vento (Quadro 2), acolhida (Quadros 3 a 5) e a vinheta esperança (Quadro 6). Não usar o Hino sem autorização.

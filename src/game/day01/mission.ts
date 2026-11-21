@@ -103,6 +103,8 @@ export interface MissionDeps {
   forceControls(on: boolean): void;
   /** mensagem grande e curta no centro da tela */
   banner(text: string, ms?: number): void;
+  /** vinheta da trilha por cima da música de fundo */
+  sting(id: 'faisca' | 'vitoria'): void;
 }
 
 export class Day01Mission {
@@ -378,6 +380,7 @@ export class Day01Mission {
     const words = verse ? verse.replace(/[.,;:!?]/g, '').split(/\s+/).filter(Boolean) : this.content.phrase.fallback;
     await this.d.task.words('Monte a frase', words, this.content.phrase.distractors);
     sfx('yay');
+    this.d.sting('vitoria');
     this.lampK = 0.001; // acende aos poucos em update()
     this.d.fx.puff(CENTRAL_LAMP.x, H(CENTRAL_LAMP.x, CENTRAL_LAMP.z) + 4.2, CENTRAL_LAMP.z, { n: 18, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2, s: 0.5, life: 0.9 });
     await this.talk('Tico', [...this.content.phrase.done, ...this.content.creation.afterLamp]);
@@ -462,6 +465,7 @@ export class Day01Mission {
     this.d.banner(last ? t.final : t.done, last ? 3600 : 2600);
     this.d.camp.setInvite(i, true);
     sfx('coin');
+    this.d.sting(last ? 'vitoria' : 'faisca');
     this.set(hungInvite(this.state, i));
     await this.wait(last ? 3.2 : 2.2);
     await this.talk(t.who, [t.thanks]);
@@ -520,6 +524,7 @@ export class Day01Mission {
     v.classList.add('show');
     speak(this.content.globe.voice, 'A Voz');
     sfx('yay');
+    this.d.sting('vitoria');
     await this.animate(2.2, (k) => {
       this.globeK = k;
       this.d.camp.setGlobe(k);
@@ -599,6 +604,7 @@ export class Day01Mission {
         m.position.set(sp.x, H(sp.x, sp.z) + 1 + Math.sin(t * 2.4 + i) * 0.2, sp.z);
         if (s.step === 'sparks' && Math.hypot(p.x - sp.x, p.z - sp.z) < 1.6 && Math.abs(p.y + 1 - m.position.y) < 2.2) {
           sfx('coin');
+          this.d.sting('faisca');
           this.d.fx.puff(m.position.x, m.position.y, m.position.z, { n: 14, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2.5, s: 0.5, life: 0.7 });
           this.set(foundSpark(s, i));
           const n = this.state.sparks.length;

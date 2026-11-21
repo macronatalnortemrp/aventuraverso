@@ -71,7 +71,7 @@ Variações (o "quem toca" é ponto de partida para o construtor afinar de ouvid
 - No workflow: FluidSynth renderiza cada MIDI com o banco de sons **FluidR3_GM** (licença MIT, pacote `fluid-soundfont-gm`) **[conferir a licença do pacote no momento de implementar]**; ffmpeg normaliza e converte para MP3 (~96 kbps, mono ou estéreo leve).
 - Saída: `public/audio/music/<cue>.mp3` + `public/audio/music/manifest.json` com, por cue: arquivo, duração, `loopStart` e `loopEnd` em segundos (calculados da partitura, não do MP3) e um hash da entrada, para só regerar o que mudou.
 - Dispara quando muda `public/data/music/**`, `scripts/music/**` ou o próprio workflow; commita os arquivos e dispara o deploy, como `voices.yml`.
-- Meta de tamanho: cada loop ≤ 350 KB, vinhetas ≤ 80 KB, total ≤ 2 MB.
+- Meta de tamanho: cada loop ≤ 350 KB, vinhetas ≤ 80 KB (a vitória, com o tema inteiro, ≤ 130 KB), total ≤ 2 MB. Resultado: ~1,3 MB em MP3 mono a 48 kbps.
 
 ### 3. Tocador no jogo — `src/engine/music.ts` (evolução do atual)
 - API: `play(cue)`, `stop()`, `duck(nível)`, `setEnabled(bool)`. A abertura passa a chamar cues (`festa`, `misterio`, `acolhida`, `esperanca`) no lugar dos temas atuais.

@@ -27,7 +27,7 @@ Cards de seleção, diálogos, leitura, perguntas, HUD, Cartão do Acampamento, 
 
 ## Áudio
 - Narração e vozes: gravadas com Kokoro no workflow de vozes, uma voz por personagem. Nunca a voz do aparelho.
-- Música instrumental discreta: original ou licenciada **[definir]**. A trilha da abertura é composta e tocada por código (`src/engine/music.ts`), sem arquivos.
+- Trilha sonora original (tema Festa da Luz e oito variações), gerada da partitura com o banco de sons FluidR3_GM (MIT) no workflow `music.yml`; ~1,3 MB em MP3.
 - Efeitos: Web Audio no MVP.
 
 ## Opcional depois

@@ -1,0 +1,82 @@
+{
+  "_fonte": "Tema 'Festa da Luz', escolhido pelo responsável em 21/11/2026 (docs/superpowers/specs/2026-11-21-trilha-sonora-design.md). Melodia: [nota MIDI ou null (pausa), duração em tempos]. Acordes: [nome, tempos]. Instrumentos: números General MIDI (FluidR3_GM).",
+  "theme": {
+    "beatsPerBar": 4,
+    "melody": [
+      [76, 0.5], [79, 0.5], [null, 0.5], [79, 0.5], [81, 0.5], [79, 0.5], [76, 1],
+      [74, 0.5], [76, 0.5], [null, 0.5], [76, 0.5], [74, 0.5], [72, 0.5], [74, 1],
+      [76, 0.5], [79, 0.5], [null, 0.5], [79, 0.5], [81, 0.5], [84, 0.5], [81, 1],
+      [79, 1.5], [76, 0.5], [74, 2],
+      [76, 0.5], [79, 0.5], [null, 0.5], [79, 0.5], [81, 0.5], [79, 0.5], [76, 1],
+      [74, 0.5], [76, 0.5], [null, 0.5], [77, 0.5], [76, 0.5], [74, 0.5], [72, 1],
+      [69, 0.5], [72, 0.5], [null, 0.5], [74, 0.5], [76, 0.5], [79, 0.5], [76, 1],
+      [74, 1], [76, 0.5], [74, 0.5], [72, 2]
+    ],
+    "chords": [["C", 4], ["G", 4], ["Am", 4], ["G", 4], ["C", 4], ["G", 4], ["F", 4], ["G", 2], ["C", 2]]
+  },
+  "chordNotes": {
+    "C": [48, 52, 55], "G": [43, 47, 50], "Am": [45, 48, 52], "F": [41, 45, 48], "Em": [40, 43, 47], "E": [40, 44, 47], "D": [38, 42, 45]
+  },
+  "cues": {
+    "festa": {
+      "_onde": "tela de título; abertura, Quadro 1",
+      "loop": true, "bpm": 126, "bars": [1, 8], "transpose": 0,
+      "lead": { "program": 13, "vel": 100 },
+      "lead2": { "program": 24, "vel": 60, "octave": 0 },
+      "chords": { "program": 24, "style": "offbeat", "vel": 55, "octave": 1 },
+      "bass": { "program": 32, "style": "bounce", "vel": 90 },
+      "drums": { "style": "party" }
+    },
+    "misterio": {
+      "_onde": "abertura, Quadro 2 (o vento continua sintetizado)",
+      "loop": true, "bpm": 72, "bars": [1, 4], "transpose": 0,
+      "chordOverride": ["Am", "Em", "F", "Em"],
+      "lead": { "program": 8, "vel": 60, "octave": -1, "sparse": true },
+      "chords": { "program": 48, "style": "pad", "vel": 45, "octave": 0 },
+      "bass": { "program": 32, "style": "long", "vel": 55 }
+    },
+    "acolhida": {
+      "_onde": "abertura, Quadros 3 a 5",
+      "loop": true, "bpm": 92, "bars": [1, 8], "transpose": 0,
+      "lead": { "program": 73, "vel": 75 },
+      "chords": { "program": 24, "style": "arp", "vel": 55, "octave": 1 },
+      "bass": { "program": 32, "style": "root", "vel": 60 }
+    },
+    "esperanca": {
+      "_onde": "abertura, Quadro 6 (vinheta; depois segue 'acolhida' baixinho)",
+      "loop": false, "bpm": 112, "bars": [5, 8], "transpose": 0, "ending": "C",
+      "lead": { "program": 73, "vel": 85 },
+      "lead2": { "program": 9, "vel": 55, "octave": 1 },
+      "chords": { "program": 48, "style": "pad", "vel": 55, "octave": 1 },
+      "bass": { "program": 32, "style": "root", "vel": 70 }
+    },
+    "explorar": {
+      "_onde": "acampamento de dia, fora e dentro das missões",
+      "loop": true, "bpm": 100, "bars": [1, 8], "transpose": 0,
+      "lead": { "program": 13, "vel": 70 },
+      "chords": { "program": 24, "style": "arp", "vel": 45, "octave": 1 },
+      "bass": { "program": 32, "style": "root", "vel": 50 }
+    },
+    "escuro": {
+      "_onde": "Dia 1 no escuro (etapas 1 a 3)",
+      "loop": true, "bpm": 66, "bars": [1, 4], "transpose": 0,
+      "lead": { "program": 9, "vel": 50, "sparse": true },
+      "chords": { "program": 89, "style": "pad", "vel": 40, "octave": 0 }
+    },
+    "faisca": {
+      "_onde": "faísca encontrada, resposta certa, convite aceito, espelho que acende o cristal",
+      "loop": false, "bpm": 150, "bars": [1, 2], "transpose": 0, "ending": "C", "endingBeats": 1,
+      "lead": { "program": 13, "vel": 105 },
+      "lead2": { "program": 9, "vel": 60, "octave": 1 }
+    },
+    "vitoria": {
+      "_onde": "'Haja luz', Globo aceso, fim do dia, último cristal",
+      "loop": false, "bpm": 132, "bars": [1, 8], "transpose": 2, "ending": "C",
+      "lead": { "program": 56, "vel": 95 },
+      "lead2": { "program": 13, "vel": 80, "octave": 1 },
+      "chords": { "program": 48, "style": "offbeat", "vel": 65, "octave": 1 },
+      "bass": { "program": 32, "style": "bounce", "vel": 95 },
+      "drums": { "style": "party" }
+    }
+  }
+}

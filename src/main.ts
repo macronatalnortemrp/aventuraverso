@@ -29,6 +29,7 @@ import { renderPortraits } from './ui/render3d';
 import { Intro, loadIntro, landmarks } from './game/intro';
 import { Assembly } from './world/assemble';
 import { Music } from './engine/music';
+import { cueFor } from './game/musicCue';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
@@ -62,6 +63,9 @@ const assembly = new Assembly(
   landmarks(),
 );
 const music = new Music();
+let musicCtx: 'normal' | 'speech' | 'reading' = 'normal';
+/* aba escondida: a trilha pausa junto com o jogo */
+document.addEventListener('visibilitychange', () => music.pause(document.hidden));
 const { col, inter, portals, stumps } = camp;
 const coins = new Coins(scene, stumps.length, SAVE.data.coins);
 const critters = createCritters(scene);
@@ -424,6 +428,7 @@ const missionReady = loadDay01()
           document.body.classList.toggle('ctl', show);
         },
         banner: (text, ms) => hud.banner(text, ms),
+        sting: (id) => music.sting(id),
         onExit(done, wantsNext) {
           ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
           ped.root.rotation.y = PED_HOME.ry;
@@ -605,15 +610,24 @@ function draw(dt: number, t: number) {
 
 /* ---------- telas ---------- */
 task.voice = () => sound;
+task.onRight = () => music.sting('faisca');
 hud.voice = () => sound;
 let sound = SAVE.data.sound;
 setSoundEnabled(sound);
-music.setEnabled(sound);
+music.setEnabled(SAVE.data.music);
 $('bs').setAttribute('aria-pressed', String(sound));
+$('bm').setAttribute('aria-pressed', String(SAVE.data.music));
+/* botão Música: só a trilha (vozes e efeitos seguem o botão Som) */
+$('bm').onclick = () => {
+  const on = !SAVE.data.music;
+  SAVE.update({ music: on });
+  music.setEnabled(on);
+  $('bm').setAttribute('aria-pressed', String(on));
+  sfx('ui');
+};
 $('bs').onclick = () => {
   sound = !sound;
   setSoundEnabled(sound);
-  music.setEnabled(sound);
   SAVE.update({ sound });
   $('bs').setAttribute('aria-pressed', String(sound));
   if (sound) sfx('ui');
@@ -666,6 +680,7 @@ $<HTMLButtonElement>('rewatch').hidden = !SAVE.data.introSeen;
 /** Escolha do boneco, apelido e, na primeira vez (ou quando pedida), a abertura. */
 async function enter(forceIntro: boolean) {
   sfx('ui');
+  music.play('festa'); // primeiro toque: a trilha pode começar
   $('title').classList.remove('show');
   const choice = await pickAvatar(avatar, SAVE.data.controls);
   avatar = choice.avatar;
@@ -744,6 +759,12 @@ renderer.setAnimationLoop(() => {
   timer.update();
   const dt = Math.min(Math.max(timer.getDelta(), 0), 0.05);
   clock += dt;
+  if (started) {
+    // música de fundo do momento e volume (leitura/pergunta bem baixo, falas mais baixo)
+    music.play(cueFor({ started, night: daylight.night > 0.5 }));
+    const ctx = task.open ? 'reading' : hud.paused || mission?.busy ? 'speech' : 'normal';
+    if (ctx !== musicCtx) music.setContext((musicCtx = ctx));
+  }
   if (intro?.active) {
     intro.update(dt);
     tickWorld(dt, clock);
@@ -797,6 +818,7 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     R: renderer,
     scene,
     camp,
+    music,
     P,
     CAM: orbit,
     PORT: portals,

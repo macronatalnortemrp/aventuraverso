@@ -66,7 +66,7 @@ Carregar o PNG como textura e aplicar em uma peça plana (decalque), **com a pro
 - Orientação: funcionar nas duas. Em retrato, aumentar o campo de visão e reposicionar o HUD.
 
 ## Persistência
-LocalStorage ou IndexedDB: versão do save, `avatarId`, `nick` (apelido, só no aparelho, editável e apagável), `introSeen` (abertura já vista), dificuldade, dia/etapa concluídos, itens e distintivos, quadros acesos, preferências de áudio e qualidade, `feedback.dayNN`. Sem outros dados pessoais. Schema versionado com migração simples.
+LocalStorage ou IndexedDB: versão do save, `avatarId`, `nick` (apelido, só no aparelho, editável e apagável), `introSeen` (abertura já vista), `music` (trilha ligada), dificuldade, dia/etapa concluídos, itens e distintivos, quadros acesos, preferências de áudio e qualidade, `feedback.dayNN`. Sem outros dados pessoais. Schema versionado com migração simples.
 
 ## Piloto e feedback
 O jogo não envia dados por rede. O feedback do responsável abre formulário externo em nova aba (`src/config/pilot.ts`). Veja `PILOT_FEEDBACK.md`.
@@ -75,7 +75,7 @@ O jogo não envia dados por rede. O feedback do responsável abre formulário ex
 - Só vozes gravadas do jogo (Kokoro, `scripts/voices/`), tocadas após o primeiro toque (exigência do iOS). **Nunca a voz do aparelho** (SpeechSynthesis, VoiceOver, TalkBack), decisão de 21/11/2026: o que não tem gravação fica só na tela, e o botão "Ouvir" só aparece quando há gravação.
 - Efeitos simples com Web Audio (sino, água, grilo, brilho), opcionais. No Dia 1, som posicional ajuda a achar as faíscas.
 - Nunca depender de áudio para informação essencial.
-- Abertura: trilha composta por código com Web Audio (`src/engine/music.ts`), que abaixa sob a narração. Frases com o apelido da criança não têm áudio gravado e ficam só na legenda.
+- Trilha: partitura (`public/data/music/theme.json`) → eventos (`src/engine/musicScore.ts`) → MP3 gerados no workflow `music.yml`; tocador em `src/engine/music.ts` (loop sem emenda, fade cruzado, vinhetas, volumes por momento, síntese reserva). Botão Música próprio, salvo em `music`. Frases com o apelido da criança não têm áudio gravado e ficam só na legenda.
 
 ## Testes
 - Chrome Android, Safari iOS e Chromium no computador, em paisagem e retrato.

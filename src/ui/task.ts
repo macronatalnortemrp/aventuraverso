@@ -25,6 +25,8 @@ export class Task {
   open = false;
   /** a leitura em voz só funciona com o som ligado */
   voice = () => true;
+  /** resposta certa (vinheta da trilha) */
+  onRight: () => void = () => {};
   /** retratos 3D (nome -> imagem) para usar nos cartões */
   portraits: Record<string, string> = {};
 
@@ -139,6 +141,7 @@ export class Task {
         const r = judge({ answer }, chosen, wrong);
         if (r === 'right') {
           sfx('yay');
+          this.onRight();
           return finish(`Isso mesmo! ${q.explain}`);
         }
         btns[chosen].classList.add('wrong');
