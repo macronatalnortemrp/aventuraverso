@@ -7,7 +7,8 @@
 - Tecnologia: Three.js + TypeScript + Vite (substitui Phaser).
 - Natureza: **piloto de teste** para a Macro. Feedback ao fim de cada dia nesta fase inicial; depois entram ranking, código do clube e demais ideias (veja `ROADMAP.md`).
 - Voz: só vozes gravadas do jogo (Kokoro). **Nunca a voz do aparelho** (SpeechSynthesis, VoiceOver, TalkBack), decisão de 21/11/2026.
-- Tradução bíblica do MVP: Almeida Revista e Corrigida (1898), trocável depois.
+- Tradução bíblica do MVP (21/11/2026): Almeida Corrigida Fiel (ACF), 2007, no lugar da Revista e Corrigida de 1898 (sem texto digital de domínio público encontrado; a ARC digital atual é da SBB, com direitos). Fonte: github.com/ameisehaufen/BibleMarkdown, `original/bible-acf2007.csv`, commit a59ab8f. Trocável depois.
+- Leitura no próprio jogo (21/11/2026): o texto bíblico aparece e é lido no jogo, porque nem toda criança tem Bíblia em casa. Substitui o ciclo que alternava com a Bíblia impressa.
 - Ideais do Clube: apenas Voto, Lei, Hino e Voto à Bíblia.
 - Representação da Trindade: Voz, luz e silhuetas, sem rosto (validada pela liderança).
 - Plataformas: celular e desktop.
@@ -41,7 +42,7 @@ Material oficial OMA 006/2017 consultado anteriormente informa que a cor vinho r
 - Confirmar se o regulamento 2020 continua vigente na Associação/Missão local.
 - Baixar e selecionar os arquivos oficiais A1 e LA1 no pacote oficial.
 - Confirmar detalhes exatos do lenço de líder e posicionamento do LA1.
-- Confirmar tradução bíblica e condições de uso da edição ARC 1898.
+- Pedir à Sociedade Bíblica Trinitariana do Brasil autorização para usar o texto da ACF no jogo (publicado no GitHub Pages).
 - Validar a fala sobre significado do lenço antes de colocá-la na boca de Pedrito. Por ora ele pergunta só a cor.
 - Confirmar autorização para reproduzir a letra e a gravação do Hino.
 - Criar o formulário externo do piloto e preencher `src/config/pilot.ts`.

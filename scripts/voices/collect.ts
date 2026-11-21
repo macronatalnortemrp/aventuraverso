@@ -61,7 +61,7 @@ for (const f of readdirSync(daysDir).filter((f) => f.endsWith('.json'))) {
 }
 // abertura narrada (docs/INTRO_SEQUENCE.md)
 walk(JSON.parse(readFileSync(join(ROOT, 'public/data/intro.json'), 'utf8')), []);
-const bible = JSON.parse(readFileSync(join(ROOT, 'public/data/content/bible-arc1898.json'), 'utf8'));
+const bible = JSON.parse(readFileSync(join(ROOT, 'public/data/content/bible-acf2007.json'), 'utf8'));
 for (const v of Object.values<string>(bible.verses ?? {})) add('narrador', v);
 
 /* ---------- textos fixos no código ---------- */

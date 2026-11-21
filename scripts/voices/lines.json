@@ -73,9 +73,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia quinto",
+  "text": "E foi a tarde e a manhã, o dia quinto.",
+  "file": "narrador/0926a802.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos",
+  "text": "E disse Deus: Haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos.",
+  "file": "narrador/09591733.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produza a terra erva verde, erva que dê semente, árvore frutífera que dê fruto segundo a sua espécie, cuja semente está nela sobre a terra; e assim foi",
+  "text": "E disse Deus: Produza a terra erva verde, erva que dê semente, árvore frutífera que dê fruto segundo a sua espécie, cuja semente está nela sobre a terra; e assim foi.",
+  "file": "narrador/13a2c5b7.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus os pôs na expansão dos céus para iluminar a terra,",
+  "text": "E Deus os pôs na expansão dos céus para iluminar a terra,",
+  "file": "narrador/162c4897.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "assim os céus, a terra e todo o seu exército foram acabados",
+  "text": "ASSIM os céus, a terra e todo o seu exército foram acabados.",
+  "file": "narrador/17598cab.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "jogue no seu ritmo: um dia por vez ou vários seguidos",
   "text": "Jogue no seu ritmo: um dia por vez ou vários seguidos.",
   "file": "narrador/1f522c9c.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e sejam para luminares na expansão dos céus, para iluminar a terra; e assim foi",
+  "text": "E sejam para luminares na expansão dos céus, para iluminar a terra; e assim foi.",
+  "file": "narrador/21e46c0a.mp3"
  },
  {
   "voice": "narrador",
@@ -91,6 +127,18 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: eis que vos tenho dado toda a erva que dê semente, que está sobre a face de toda a terra; e toda a árvore, em que há fruto que dê semente, ser-vos-á para mantimento",
+  "text": "E disse Deus: Eis que vos tenho dado toda a erva que dê semente, que está sobre a face de toda a terra; e toda a árvore, em que há fruto que dê semente, ser-vos-á para mantimento.",
+  "file": "narrador/2f0bffb5.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e fez deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas",
+  "text": "E fez Deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas.",
+  "file": "narrador/31188105.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:1-2",
   "text": "Gênesis 1:1-2.",
   "file": "narrador/4b6c19b4.mp3"
@@ -103,9 +151,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia terceiro",
+  "text": "E foi a tarde e a manhã, o dia terceiro.",
+  "file": "narrador/4e42a563.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "isso mesmo!",
   "text": "Isso mesmo!",
   "file": "narrador/52e86fe0.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e fez deus as feras da terra conforme a sua espécie, e o gado conforme a sua espécie, e todo o réptil da terra conforme a sua espécie; e viu deus que era bom",
+  "text": "E fez Deus as feras da terra conforme a sua espécie, e o gado conforme a sua espécie, e todo o réptil da terra conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/537f2b70.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a todo o animal da terra, e a toda a ave dos céus, e a todo o réptil da terra, em que há alma vivente, toda a erva verde será para mantimento; e assim foi",
+  "text": "E a todo o animal da terra, e a toda a ave dos céus, e a todo o réptil da terra, em que há alma vivente, toda a erva verde será para mantimento; e assim foi.",
+  "file": "narrador/5663b944.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: façamos o homem à nossa imagem, conforme a nossa semelhança; e domine sobre os peixes do mar, e sobre as aves dos céus, e sobre o gado, e sobre toda a terra, e sobre todo o réptil que se move sobre a terra",
+  "text": "E disse Deus: Façamos o homem à nossa imagem, conforme a nossa semelhança; e domine sobre os peixes do mar, e sobre as aves dos céus, e sobre o gado, e sobre toda a terra, e sobre todo o réptil que se move sobre a terra.",
+  "file": "narrador/5afbd4c5.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produza a terra alma vivente conforme a sua espécie; gado, e répteis e feras da terra conforme a sua espécie; e assim foi",
+  "text": "E disse Deus: Produza a terra alma vivente conforme a sua espécie; gado, e répteis e feras da terra conforme a sua espécie; e assim foi.",
+  "file": "narrador/5b0e8d17.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e criou deus o homem à sua imagem; à imagem de deus o criou; homem e mulher os criou",
+  "text": "E criou Deus o homem à sua imagem; à imagem de Deus o criou; homem e mulher os criou.",
+  "file": "narrador/5ebd8ae7.mp3"
  },
  {
   "voice": "narrador",
@@ -115,9 +199,27 @@
  },
  {
   "voice": "narrador",
+  "key": "e abençoou deus o dia sétimo, e o santificou; porque nele descansou de toda a sua obra que deus criara e fizera",
+  "text": "E abençoou Deus o dia sétimo, e o santificou; porque nele descansou de toda a sua obra que Deus criara e fizera.",
+  "file": "narrador/6c9de196.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "dia",
   "text": "Dia.",
   "file": "narrador/6d5c325e.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia primeiro",
+  "text": "E foi a tarde e a manhã, o dia primeiro.",
+  "file": "narrador/757706ef.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e para governar o dia e a noite, e para fazer separação entre a luz e as trevas; e viu deus que era bom",
+  "text": "E para governar o dia e a noite, e para fazer separação entre a luz e as trevas; e viu Deus que era bom.",
+  "file": "narrador/792ec631.mp3"
  },
  {
   "voice": "narrador",
@@ -127,9 +229,39 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: haja uma expansão no meio das águas, e haja separação entre águas e águas",
+  "text": "E disse Deus: Haja uma expansão no meio das águas, e haja separação entre águas e águas.",
+  "file": "narrador/8459db8b.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus criou as grandes baleias, e todo o réptil de alma vivente que as águas abundantemente produziram conforme as suas espécies; e toda a ave de asas conforme a sua espécie; e viu deus que era bom",
+  "text": "E Deus criou as grandes baleias, e todo o réptil de alma vivente que as águas abundantemente produziram conforme as suas espécies; e toda a ave de asas conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/85e20205.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:3",
   "text": "Gênesis 1:3.",
   "file": "narrador/8ec1bcbd.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus os abençoou, dizendo: frutificai e multiplicai-vos, e enchei as águas nos mares; e as aves se multipliquem na terra",
+  "text": "E Deus os abençoou, dizendo: Frutificai e multiplicai-vos, e enchei as águas nos mares; e as aves se multipliquem na terra.",
+  "file": "narrador/8f5e178e.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus",
+  "text": "E disse Deus: Produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus.",
+  "file": "narrador/905652ac.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a terra produziu erva, erva dando semente conforme a sua espécie, e a árvore frutífera, cuja semente está nela conforme a sua espécie; e viu deus que era bom",
+  "text": "E a terra produziu erva, erva dando semente conforme a sua espécie, e a árvore frutífera, cuja semente está nela conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/9a7aa001.mp3"
  },
  {
   "voice": "narrador",
@@ -157,9 +289,21 @@
  },
  {
   "voice": "narrador",
+  "key": "e deus os abençoou, e deus lhes disse: frutificai e multiplicai-vos, e enchei a terra, e sujeitai-a; e dominai sobre os peixes do mar e sobre as aves dos céus, e sobre todo o animal que se move sobre a terra",
+  "text": "E Deus os abençoou, e Deus lhes disse: Frutificai e multiplicai-vos, e enchei a terra, e sujeitai-a; e dominai sobre os peixes do mar e sobre as aves dos céus, e sobre todo o animal que se move sobre a terra.",
+  "file": "narrador/af583bb9.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "pense mais um pouquinho e tente de novo",
   "text": "Pense mais um pouquinho e tente de novo.",
   "file": "narrador/afbc7185.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e viu deus que era boa a luz; e fez deus separação entre a luz e as trevas",
+  "text": "E viu Deus que era boa a luz; e fez Deus separação entre a luz e as trevas.",
+  "file": "narrador/b751e9fa.mp3"
  },
  {
   "voice": "narrador",
@@ -169,9 +313,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e fez deus a expansão, e fez separação entre as águas que estavam debaixo da expansão e as águas que estavam sobre a expansão; e assim foi",
+  "text": "E fez Deus a expansão, e fez separação entre as águas que estavam debaixo da expansão e as águas que estavam sobre a expansão; e assim foi.",
+  "file": "narrador/c0965bcd.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e chamou deus à porção seca terra; e ao ajuntamento das águas chamou mares; e viu deus que era bom",
+  "text": "E chamou Deus à porção seca Terra; e ao ajuntamento das águas chamou Mares; e viu Deus que era bom.",
+  "file": "narrador/c1a3d2d9.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "no princípio criou deus os céus e a terra",
+  "text": "No princípio criou Deus os céus e a terra.",
+  "file": "narrador/c2ccb6cb.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "aqui vai aparecer o nome do seu clube",
   "text": "Aqui vai aparecer o nome do seu clube.",
   "file": "narrador/c556aea6.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e havendo deus acabado no dia sétimo a obra que fizera, descansou no sétimo dia de toda a sua obra, que tinha feito",
+  "text": "E havendo Deus acabado no dia sétimo a obra que fizera, descansou no sétimo dia de toda a sua obra, que tinha feito.",
+  "file": "narrador/c63c0a39.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e viu deus tudo quanto tinha feito, e eis que era muito bom; e foi a tarde e a manhã, o dia sexto",
+  "text": "E viu Deus tudo quanto tinha feito, e eis que era muito bom; e foi a tarde e a manhã, o dia sexto.",
+  "file": "narrador/cb3a4992.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: haja luz; e houve luz",
+  "text": "E disse Deus: Haja luz; e houve luz.",
+  "file": "narrador/cb712c3f.mp3"
  },
  {
   "voice": "narrador",
@@ -181,9 +361,27 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: ajuntem-se as águas debaixo dos céus num lugar; e apareça a porção seca; e assim foi",
+  "text": "E disse Deus: Ajuntem-se as águas debaixo dos céus num lugar; e apareça a porção seca; e assim foi.",
+  "file": "narrador/cd14efaa.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "na mesa da família acontecem as missões feitas junto com a família",
   "text": "Na Mesa da Família acontecem as missões feitas junto com a família.",
   "file": "narrador/cd34b4fa.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia quarto",
+  "text": "E foi a tarde e a manhã, o dia quarto.",
+  "file": "narrador/d0734866.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o espírito de deus se movia sobre a face das águas",
+  "text": "E a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o Espírito de Deus se movia sobre a face das águas.",
+  "file": "narrador/e3292941.mp3"
  },
  {
   "voice": "narrador",
@@ -193,9 +391,21 @@
  },
  {
   "voice": "narrador",
+  "key": "e deus chamou à luz dia; e às trevas chamou noite",
+  "text": "E Deus chamou à luz Dia; e às trevas chamou Noite.",
+  "file": "narrador/eb0eb342.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "dia 1: a luz no acampamento",
   "text": "Dia 1: A Luz no Acampamento",
   "file": "narrador/eed4bbc2.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e chamou deus à expansão céus, e foi a tarde e a manhã, o dia segundo",
+  "text": "E chamou Deus à expansão Céus, e foi a tarde e a manhã, o dia segundo.",
+  "file": "narrador/eef06fab.mp3"
  },
  {
   "voice": "narrador",

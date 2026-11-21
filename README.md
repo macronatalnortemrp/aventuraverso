@@ -43,7 +43,7 @@ src/
                        icons.ts (ícones SVG), render3d.ts (moeda e rostos renderizados em 3D)
 tests/                 testes de unidade
 public/assets/official emblemas oficiais (originais) e web/ (cópias reduzidas, mesma proporção)
-public/data/           days/day01.json (textos da missão), content/bible-arc1898.json (texto conferido)
+public/data/           days/day01.json (textos da missão), content/bible-acf2007.json (texto conferido)
 docs/                  documentação de produção
 prototype/             referências visuais antigas
 ```
@@ -76,7 +76,7 @@ prototype/             referências visuais antigas
 - Para rodar à mão: `node --experimental-strip-types scripts/voices/collect.ts` e `python scripts/voices/generate.py` (ver o cabeçalho do script).
 
 ## Pendências de conteúdo (precisam de conferência humana)
-- **Texto bíblico:** `public/data/content/bible-arc1898.json` está vazio. Enquanto não houver texto conferido, as leituras usam o modo "Bíblia na Mão" (referência para ler na Bíblia impressa). Quando o arquivo receber `"Gn 1:1"` a `"Gn 1:5"`, o jogo passa a mostrar o Pergaminho e a montar a frase com as palavras de Gn 1:3.
+- **Texto bíblico:** `public/data/content/bible-acf2007.json` tem os 34 versículos de Gn 1:1 a 2:3 na Almeida Corrigida Fiel (2007), copiados sem alteração de uma fonte pública (origem registrada no arquivo). Com ele, as leituras aparecem no próprio jogo (Pergaminho da Palavra) e a frase do lampião usa as palavras de Gn 1:3. **Falta:** uma pessoa da liderança conferir com uma Bíblia ACF impressa e preencher `checkedBy`; e a autorização formal da Sociedade Bíblica Trinitariana do Brasil.
 - **Duas perguntas desligadas** em `day01.json` (`beforeLight` e `lightName`), porque a resposta depende do texto bíblico. Basta revisar e trocar `"enabled": false` por `true`.
 - **Distratores** das perguntas do Clube são sugestões a revisar com a liderança (`docs/QUIZ_MAP.md`).
 - **Revisão geral das perguntas do Dia 1** (dificuldade equilibrada) e das falas que ligam o jogo à criação (`creation` em `day01.json`).

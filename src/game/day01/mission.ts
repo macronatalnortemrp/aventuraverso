@@ -66,7 +66,7 @@ const url = (p: string) => new URL(p, document.baseURI).toString();
 export async function loadDay01() {
   const [content, bible] = await Promise.all([
     fetch(url('data/days/day01.json')).then((r) => r.json() as Promise<Day01Content>),
-    fetch(url('data/content/bible-arc1898.json'))
+    fetch(url('data/content/bible-acf2007.json'))
       .then((r) => r.json() as Promise<Bible>)
       .catch(() => ({ verses: {} })),
   ]);
