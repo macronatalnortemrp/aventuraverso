@@ -7,8 +7,48 @@
 <meta name="description" content="aventuráVerso: um universo de aventuras. Jogo do Clube de Aventureiros.">
 <title>aventuráVerso</title>
 <link rel="icon" href="./assets/official/web/a1.webp">
+<link rel="preload" href="./assets/official/web/macro-hd.webp" as="image" type="image/webp">
+<link rel="preload" href="./src/assets/fonts/lilita-one.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+/* Fontes e tela de carregamento: ficam no HTML para aparecerem no primeiro quadro, antes do código do jogo. */
+@font-face { font-family: 'Lilita One'; src: url('./src/assets/fonts/lilita-one.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Nunito'; src: url('./src/assets/fonts/nunito.ttf') format('truetype'); font-weight: 200 1000; font-display: swap; }
+html, body { margin: 0; height: 100%; background: #1d6fc4; }
+#splash { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px; text-align: center; color: #fff; overflow: hidden;
+  background: radial-gradient(circle at 50% 46%, #fff3b0 0, #ffd23f 14%, #ff9f2e 34%, rgba(255, 120, 60, 0) 58%), linear-gradient(#3fa7ff, #1d6fc4 55%, #0f4a8c);
+  font-family: 'Nunito', 'Trebuchet MS', system-ui, sans-serif; font-weight: 900; transition: opacity 0.6s ease, visibility 0s linear 0.6s; }
+#splash::before { content: ''; position: absolute; left: 50%; top: 46%; width: 220vmax; height: 220vmax; translate: -50% -50%; pointer-events: none;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.16) 0 9deg, rgba(255, 255, 255, 0) 9deg 22.5deg); mask: radial-gradient(circle, #000 8%, transparent 42%); -webkit-mask: radial-gradient(circle, #000 8%, transparent 42%); animation: sp-rays 24s linear infinite; }
+#splash > * { position: relative; }
+#splash .by { font-size: clamp(15px, 2.4vh, 20px); letter-spacing: 3px; text-transform: uppercase; color: #fff6df; text-shadow: 0 2px 0 #12233b; opacity: 0; animation: sp-in 0.5s ease 0.15s forwards; }
+#splash .who { margin: 0; font-family: 'Lilita One', 'Trebuchet MS', system-ui, sans-serif; font-weight: 400; font-size: clamp(30px, min(8vw, 6.5vh), 54px); line-height: 1.05; color: #fff; -webkit-text-stroke: 7px #12233b; paint-order: stroke fill; text-shadow: 0 5px 0 #12233b; opacity: 0; animation: sp-in 0.5s ease 0.35s forwards; }
+#splash .ig { font-size: clamp(14px, 2.2vh, 18px); color: #12233b; background: rgba(255, 255, 255, 0.85); border-radius: 999px; padding: 2px 14px 3px; opacity: 0; animation: sp-in 0.5s ease 0.55s forwards; }
+#splash .mk { width: min(46vw, 34vh, 230px); aspect-ratio: 400 / 409; margin: 18px 0 14px; filter: drop-shadow(0 0 22px rgba(255, 236, 150, 0.95)) drop-shadow(0 8px 0 rgba(18, 35, 59, 0.35)); animation: sp-spin 1.3s cubic-bezier(0.2, 0.9, 0.3, 1.15) 0.2s both, sp-float 2.4s ease-in-out 1.6s infinite alternate; }
+#splash .mk img { width: 100%; height: 100%; display: block; }
+#splash .dots { display: flex; gap: 10px; }
+#splash .dots i { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid #12233b; animation: sp-dot 0.9s ease-in-out infinite alternate; }
+#splash .dots i:nth-child(2) { animation-delay: 0.15s; background: #ffd23f; }
+#splash .dots i:nth-child(3) { animation-delay: 0.3s; background: #ff6b7d; }
+body.ready #splash { opacity: 0; visibility: hidden; pointer-events: none; }
+@keyframes sp-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes sp-spin { from { transform: scale(0.1) rotate(-720deg); opacity: 0; } 70% { opacity: 1; } to { transform: scale(1) rotate(0); opacity: 1; } }
+@keyframes sp-float { to { transform: translateY(-8px) scale(1.03); } }
+@keyframes sp-dot { to { transform: translateY(-8px); } }
+@keyframes sp-rays { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) {
+  #splash::before, #splash .mk, #splash .dots i { animation: none; }
+  #splash .by, #splash .who, #splash .ig { animation-duration: 0.01s; animation-delay: 0s; }
+}
+</style>
 </head>
 <body>
+<div id="splash" role="status" aria-live="polite" aria-label="Carregando o aventuráVerso. Criado por Macro Natal Norte 02">
+ <span class="by" aria-hidden="true">Criado por</span>
+ <p class="who" aria-hidden="true">Macro Natal Norte 02</p>
+ <span class="ig" aria-hidden="true">@Macro2avtrn</span>
+ <div class="mk"><img src="./assets/official/web/macro-hd.webp" width="400" height="409" alt=""></div>
+ <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+</div>
 <canvas id="c" tabindex="0" aria-label="Mundo 3D do aventuráVerso"></canvas>
 
 <div id="coins" class="hud" role="status" aria-live="polite"><img id="coinimg" alt=""><span id="cn" class="num">0/0</span></div>
@@ -34,12 +74,19 @@
 <button id="A" class="hud ab" aria-label="Botão A, pular">A<small>pular</small></button>
 
 <div id="title" class="ov show"><div class="title-in">
- <svg class="cmp-logo" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb3ff"/><stop offset="1" stop-color="#1f5fae"/></linearGradient></defs><g stroke="#172D49" stroke-width="4" stroke-linejoin="round"><circle cx="60" cy="60" r="50" fill="url(#tg1)"/><path d="M30 46c10-8 20-2 28-6s10 8 4 12-14 2-16 10-14 4-16-4zM68 74c8-4 16 0 20 6s-6 12-14 10-12-12-6-16z" fill="#6ed06a" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#ffc93c" stroke-width="7"/><path d="M60 16l10 40-10 6-10-6z" fill="#ff5a6e"/><path d="M60 104l10-40-10-6-10 6z" fill="#fff6df"/><circle cx="60" cy="60" r="8" fill="#ffd23f"/></g><path d="M100 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff3b0"/></svg>
- <h1 class="logo">Aventurá<span>Verso</span></h1>
- <div class="ribbon">UM UNIVERSO DE AVENTURAS</div>
- <button class="btn big" id="go">Jogar</button>
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="leaf" viewBox="0 0 40 24"><path d="M2 12C10 0 30-1 38 12 30 25 10 24 2 12z" fill="#4cc04a" stroke="#1d5e2a" stroke-width="2.5" stroke-linejoin="round"/><path d="M4 12h30" stroke="#1d5e2a" stroke-width="2" stroke-linecap="round"/><path d="M10 6c8-3 16-3 22 1" stroke="#9be86f" stroke-width="2" fill="none" stroke-linecap="round"/></symbol></defs></svg>
+ <div class="sign">
+  <svg class="cmp-logo" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb3ff"/><stop offset="1" stop-color="#1f5fae"/></linearGradient></defs><g stroke="#172D49" stroke-width="4" stroke-linejoin="round"><circle cx="60" cy="60" r="50" fill="url(#tg1)"/><path d="M30 46c10-8 20-2 28-6s10 8 4 12-14 2-16 10-14 4-16-4zM68 74c8-4 16 0 20 6s-6 12-14 10-12-12-6-16z" fill="#6ed06a" stroke-width="3"/><circle cx="60" cy="60" r="50" fill="none" stroke="#ffc93c" stroke-width="7"/><path d="M60 16l10 40-10 6-10-6z" fill="#ff5a6e"/><path d="M60 104l10-40-10-6-10 6z" fill="#fff6df"/><circle cx="60" cy="60" r="8" fill="#ffd23f"/></g><path d="M100 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff3b0"/></svg>
+  <svg class="lf lf1" aria-hidden="true"><use href="#leaf"/></svg><svg class="lf lf2" aria-hidden="true"><use href="#leaf"/></svg><svg class="lf lf3" aria-hidden="true"><use href="#leaf"/></svg><svg class="lf lf4" aria-hidden="true"><use href="#leaf"/></svg>
+  <div class="plank"><h1 class="logo">Aventurá<span>Verso</span></h1></div>
+  <div class="ribbon"><span>Um Universo de Aventuras</span></div>
+ </div>
+ <div class="gobox">
+  <svg class="lf lf5" aria-hidden="true"><use href="#leaf"/></svg><svg class="lf lf6" aria-hidden="true"><use href="#leaf"/></svg>
+  <button class="btn big gold" id="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#fff" stroke="#12233b" stroke-width="2.6" stroke-linejoin="round"/></svg>Jogar</button>
+ </div>
  <button class="btn alt" id="rewatch" hidden>Ver a abertura</button>
-</div><div class="credit"><img id="macro" alt="Macro Natal Norte"><span>Macro Natal Norte · MRP</span></div></div>
+</div><div class="credit"><img id="macro" alt="Logo da Macro Natal Norte 02"><span class="cn">Macro Natal Norte 02 · MRP</span><span class="ci">@Macro2avtrn</span></div></div>
 
 <div id="pick" class="ov"><div class="panel">
  <div class="ph"><b class="tag">Aventureiro</b></div>
@@ -73,6 +120,10 @@
 <div id="fade"></div>
 <div id="err"></div>
 
+<script>
+/* reserva: se o jogo não abrir em 30 s, a tela de carregamento sai para mostrar a mensagem de erro */
+setTimeout(function () { document.body.classList.add('ready'); }, 30000);
+</script>
 <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

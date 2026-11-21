@@ -8,3 +8,4 @@ Regras: nunca redesenhar, recolorir, distorcer ou estilizar. Aplicar sempre mant
 ## Recebidos depois
 - `emblema-classe-abelhinhas.png` (azul-claro), `emblema-classe-luminares.png` (laranja), `emblema-classe-edificadores.png` (azul-escuro) e `emblema-classe-maos-ajudadoras.png` (vinho): 3492 px (a de Mãos Ajudadoras tem tamanho próprio). Usar como textura reduzida, com proporção original.
 - `logo-macro-natal-norte-mrp.png`: logo da Macro, para título e créditos.
+- `web/macro-hd.webp`: a mesma logo da Macro reduzida para 400x409 (proporção original), usada na tela de carregamento.

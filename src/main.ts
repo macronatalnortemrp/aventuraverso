@@ -49,6 +49,7 @@ try {
   const err = $('err');
   err.style.display = 'flex';
   err.textContent = 'Este aparelho não conseguiu abrir o 3D.';
+  document.body.classList.add('ready');
   throw e;
 }
 const { renderer, scene, camera, sun, fog } = gfx;
@@ -811,6 +812,13 @@ renderer.setAnimationLoop(() => {
   }
 });
 if (SAVE.data.controls) setControls(true);
+
+/* Tela de carregamento: sai só depois que o acampamento já foi desenhado (dois quadros, com os shaders
+   compilados) e a logo da Macro terminou de entrar girando. Assim o título nunca aparece sem o fundo. */
+const SPLASH_MIN_MS = REDUCED_MOTION ? 500 : 1900;
+requestAnimationFrame(() =>
+  requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), Math.max(0, SPLASH_MIN_MS - performance.now()))),
+);
 
 /* ---------- depuração: ?debug expõe o estado para testes ---------- */
 if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
