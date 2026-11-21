@@ -39,8 +39,8 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 7. **O nome em destaque.** Surge o texto grande "Bem-vindo, {apelido}!" ou "Bem-vinda, {apelido}!", com um estouro de estrelinhas douradas.
 
 **Narração da Diretora Sol (fora de cena):**
-- Menino: "Olá, {apelido}! Que alegria ter você aqui! Seja bem-vindo ao Acampamento do Livro Aberto, onde os Aventureiros vivem as histórias da Bíblia."
-- Menina: "Olá, {apelido}! Que alegria ter você aqui! Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia."
+- Menino: "Olá, {apelido}! Bem-vindo ao Acampamento do Livro Aberto!"
+- Menina: "Olá, {apelido}! Bem-vinda ao Acampamento do Livro Aberto!"
 
 **Áudio:** música alegre e marcante, que abaixa de volume sob a narração. Efeitos: portão rangendo, "plim" dos blocos, bandeira ao vento, pássaros.
 
@@ -53,7 +53,7 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 **Visual:** a música alegre para de repente, numa nota suspensa, e sopra um vento forte. A câmera voa até a Colina: o Livro dos Sete Dias está aberto sobre o suporte de madeira. O vento vira as páginas, que se soltam e sobem em espiral até sumir no céu. O Globo do Éden pisca e se apaga; **três faíscas escapam dele** e se escondem em pontos diferentes do acampamento (os mesmos lugares das faíscas da etapa 2 do Dia 1). O pôr do sol vira noite e as estrelas aparecem. A câmera volta à criança, sozinha no escuro. Tom de mistério, sem susto: nada de barulho alto nem escuro repentino.
 
 **Narração da Diretora Sol (fora de cena):**
-"Mas, de repente... um vento forte soprou! As páginas do Livro dos Sete Dias voaram para longe. E o Globo do Éden se apagou!"
+"Mas um vento forte soprou! As páginas do Livro sumiram. E o Globo do Éden se apagou!"
 
 O sumiço das páginas não tem causa nem vilão (decisão de 20/11/2026), para não entrar em terreno doutrinário.
 
@@ -61,23 +61,23 @@ O sumiço das páginas não tem causa nem vilão (decisão de 20/11/2026), para 
 **Visual:** a Sol chega com um lampião, se abaixa até a altura da criança e ergue uma Bíblia de blocos (um livro com a palavra "Bíblia" na capa, sem nenhum outro símbolo).
 
 **Fala da Diretora Sol** (em duas legendas):
-1. "Não tenha medo, {apelido}. As páginas sumiram, mas a Bíblia continua aqui, inteirinha! Nela está a história de como Deus criou o mundo."
-2. "Vamos ler a Bíblia e reconstruir o Livro dos Sete Dias, uma página para cada dia da criação. A cada página, o Globo do Éden ganha vida de novo."
+1. "Calma! A Bíblia continua aqui, inteirinha."
+2. "Com ela, vamos refazer o Livro dos Sete Dias!"
 
 ## Quadro 4 — Tico aparece (Companheirismo) · ~10 s
 **Visual:** um galho balança. O Tico está pendurado de cabeça para baixo, diz "Psiu!", cai dando uma cambalhota, ajeita o lencinho e acena. A Sol sorri.
 
 **Fala do Tico:**
-"Psiu! Oi, {apelido}! Eu sou o Tico! Eu adoro uma aventura, e esta vai ser incrível. Pode contar comigo: vou estar sempre do seu lado!"
+"Psiu! Eu sou o Tico. Vou estar sempre do seu lado!"
 
 ## Quadro 5 — O Livro (Participação) · ~15 s
 **A criança age pela primeira vez.** Todos aparecem diante do Livro. O Tico aponta e diz "Toque no Livro!". O Livro pulsa como ponto de toque (toque, clique ou Enter, com foco de teclado). Ao tocar, o Livro se abre na página do Dia 1, em branco, só com o título "Dia 1". Se a criança não tocar em cerca de 8 segundos, o Tico acena e repete o convite; a cena nunca trava.
 
 **Fala do Tico depois do toque:**
-"Olha! Esta é a página do primeiro dia da criação. Ela está em branco... Vamos descobrir juntos o que Deus fez no primeiro dia?"
+"Esta é a página do primeiro dia. Está em branco! Vamos descobrir o que Deus fez?"
 
 ## Quadro 6 — Começar (Expectativa)
-**Na tela:** "Dia 1 — A Luz no Acampamento" e "Sua primeira missão: reconstruir a página do primeiro dia!". Música com tom de esperança. **Botão:** "COMEÇAR A AVENTURA". Ao tocar, começa a etapa 1 do Dia 1: o Tico entrega a lanterna.
+**Na tela:** "Dia 1 — A Luz no Acampamento" e "Sua missão: refazer a página do primeiro dia!". Música com tom de esperança. **Botão:** "COMEÇAR A AVENTURA". Ao tocar, começa a etapa 1 do Dia 1: o Tico entrega a lanterna.
 
 Não se usa "acender a luz no acampamento": no Dia 1 quem cria a luz é Deus ("Haja luz"). O Dia 1 termina dizendo "Você encontrou a primeira página do Livro dos Sete Dias", o que fecha com esta missão.
 

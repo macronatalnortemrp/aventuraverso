@@ -17,6 +17,7 @@ import { Interactable } from './world/interactables';
 import { AV, Rig, animate, makeKid, makeTico } from './world/builders/kid';
 import { createPlayer, pressA as playerA, pressB as playerB, releaseB as playerRelease, stepPlayer, PlayerEvents } from './game/player';
 import { newGuide, guideStep, guideProgress, guideReset, guideSnooze } from './game/guidance';
+import { GUIDANCE } from './config/guidance';
 import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
 import { askNick, pickAvatar } from './ui/screens';
@@ -103,8 +104,7 @@ const NPCS: Npc[] = [
     rig: sol,
     lines: [
       'Bem-vinda e bem-vindo ao Acampamento do Livro Aberto!',
-      'As páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado.',
-      'O portal da primeira missão fica na Colina do Globo, ao norte. Antes, explore o acampamento e junte as moedas!',
+      'O portal da missão fica na colina. Siga a luz!',
     ],
   },
   {
@@ -163,12 +163,14 @@ let saved = [...SAVE.data.coins];
 const GUIDE = newGuide();
 const OBJ = portals[0];
 let mission: Day01Mission | null = null;
+/** As moedas só aparecem depois do Dia 1: antes, nada compete com a missão (teste do piloto, 21/11/2026). */
+const coinsOpen = () => SAVE.data.day01?.step === 'done';
 
 /** Para onde a ajuda aponta: o objetivo da missão ou, fora dela, o portal da Missão 1. */
 function objective(): { x: number; z: number; hint: string } | null {
   if (mission?.active) return mission.objective();
   if (mission?.done) return null;
-  return { x: OBJ.x, z: OBJ.z, hint: 'O portal da missão fica na Colina do Globo, ao norte. Está vendo as faíscas?' };
+  return { x: OBJ.x, z: OBJ.z, hint: 'O portal da missão fica na colina. Siga a luz!' };
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
@@ -190,7 +192,8 @@ function interact(o: Interactable) {
   }
   input.clearMove();
   if (mission?.onInteract(o)) return;
-  hud.dialog(o.who, o.name, o.lines || [o.text ?? '']);
+  const lines = o.lines && o.npc === 'pedrito' && !coinsOpen() ? o.lines.slice(0, 1) : o.lines; // a dica das moedas só depois do Dia 1
+  hud.dialog(o.who, o.name, lines || [o.text ?? '']);
 }
 
 function showMark(x: number, z: number) {
@@ -260,6 +263,17 @@ const input = new Input($('c'), $('joy'), $('knob'), $('A'), $('B'), {
 });
 
 /* ---------- ajuda de orientação ---------- */
+/** Coluna de luz sobre o próximo objetivo da missão: quem ainda não lê segue a luz (teste do piloto, 21/11/2026). */
+const beacon = (() => {
+  const m = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.7, 1.3, 18, 20, 1, true),
+    new THREE.MeshBasicMaterial({ color: 0xfff1b0, transparent: true, opacity: 0.32, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false }),
+  );
+  m.frustumCulled = false;
+  m.visible = false;
+  scene.add(m);
+  return m;
+})();
 const trail = (() => {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(24 * 3), 3));
@@ -336,7 +350,7 @@ function onCollect(c: Coin) {
       setTimeout(() => fx.puff(P.x, P.y + 2, P.z, { n: 24, tex: dustTex, color, sp: 5, up: 6, g: 9, s: 0.3, life: 1.4, grow: 0 }), i * 180),
     );
     hud.say('Uau! Você juntou todas as moedas do acampamento!', 6000);
-  } else if (got === 1) hud.say('Sua primeira moeda! Tem moedas no alto do Observatório e no fundo do lago também.', 5500);
+  } else if (got === 1) hud.say('Sua primeira moeda! Tem mais no lago e no Observatório.', 5500);
 }
 
 /* ---------- eventos da física ---------- */
@@ -355,7 +369,7 @@ const events: PlayerEvents = {
     fx.puff(x, y + 0.1, z, { n: 14, sp: 4.5, up: 1, s: 0.6 });
     sfx('pound');
     orbit.shake = 0.35;
-    for (const s of stumps) if (!s.used && Math.hypot(x - s.x, z - s.z) < 1.3 && Math.abs(y - s.y) < 0.1) coins.popFrom(s);
+    if (coinsOpen()) for (const s of stumps) if (!s.used && Math.hypot(x - s.x, z - s.z) < 1.3 && Math.abs(y - s.y) < 0.1) coins.popFrom(s);
   },
   step(x, y, z, wet) {
     if (wet) fx.puff(x, WY + 0.05, z, { n: 3, color: 0xffffff, sp: 1, up: 1.2, g: 3, s: 0.3 });
@@ -442,7 +456,12 @@ const missionReady = loadDay01()
           guideReset(GUIDE);
           clearHelp();
           if (done && wantsNext) setTimeout(() => void openJourney(), REDUCED_MOTION ? 0 : 700);
-          else hud.say(done ? 'Parabéns! O Globo do Éden está aceso. Quando quiser continuar, é só voltar ao portal da missão.' : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
+          if (done) {
+            // fim do Dia 1: as moedas aparecem pelo acampamento
+            hud.show('coins');
+            hud.coins(coins.collected, coins.total);
+          }
+          if (!(done && wantsNext)) hud.say(done ? 'Parabéns! Agora apareceram moedas no acampamento. Vamos pegar?' : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
         },
       },
       content,
@@ -486,7 +505,7 @@ function step(dt: number) {
       P.z = p.z + (dz / d) * 0.9;
     }
   }
-  coins.step(dt, col, P.x, P.y, P.z, onCollect);
+  if (coinsOpen()) coins.step(dt, col, P.x, P.y, P.z, onCollect);
 
   for (const p of portals) {
     if (paused() || dist(p) >= 1.8 || Math.abs(P.y - p.y) >= 2) continue;
@@ -580,7 +599,10 @@ function draw(dt: number, t: number) {
 
   uTime.value = t;
   camp.update(dt, t);
-  coins.draw(t);
+  const open = coinsOpen();
+  coins.im.visible = open;
+  for (const s of stumps) s.ring.visible = open && !s.used;
+  if (open) coins.draw(t);
   fx.update(dt, t);
   critters(dt, t, P.x, P.z);
   if (mark.visible) {
@@ -588,6 +610,14 @@ function draw(dt: number, t: number) {
     mark.material.opacity = 0.6 + Math.sin(t * 6) * 0.3;
   }
   const obj = objective();
+  // a luz e a trilha mostram o próximo objetivo (missão ou portal) desde o começo, sem esperar a ajuda por tempo
+  const guideOn = !!obj && started && !paused() && dist(obj) > GUIDANCE.arrived;
+  beacon.visible = guideOn;
+  if (guideOn && obj) {
+    beacon.position.set(obj.x, Math.max(H(obj.x, obj.z), WY) + 9, obj.z);
+    beacon.material.opacity = 0.4 + Math.sin(t * 3) * 0.1;
+  }
+  trail.visible = guideOn || hud.compassOn;
   if (trail.visible && obj) {
     const a = trail.geometry.attributes.position as THREE.BufferAttribute,
       ox = obj.x - P.x,
@@ -712,7 +742,7 @@ const controlsTip = () =>
 /** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
 function begin(fromIntro: boolean) {
   document.body.classList.add('on');
-  hud.show('coins');
+  hud.show('coins', coinsOpen());
   hud.show('top');
   started = true;
   input.enabled = true;
@@ -723,7 +753,7 @@ function begin(fromIntro: boolean) {
   hud.coins(coins.collected, coins.total);
   if (!fromIntro) {
     sfx('yay');
-    hud.say(`Oi! Eu sou o Tico. ${controlsTip()} Vamos falar com a Diretora Sol?`, 8000);
+    hud.say(coinsOpen() ? `Oi! ${controlsTip()}` : `Oi! ${controlsTip()} Vamos ao portal da missão?`, 8000);
     return;
   }
   void missionReady.then(() => {
