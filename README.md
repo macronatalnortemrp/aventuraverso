@@ -76,8 +76,7 @@ prototype/             referências visuais antigas
 - Para rodar à mão: `node --experimental-strip-types scripts/voices/collect.ts` e `python scripts/voices/generate.py` (ver o cabeçalho do script).
 
 ## Pendências de conteúdo (precisam de conferência humana)
-- **Texto bíblico:** `public/data/content/bible-acf2007.json` tem os 34 versículos de Gn 1:1 a 2:3 na Almeida Corrigida Fiel (2007), copiados sem alteração de uma fonte pública (origem registrada no arquivo). Com ele, as leituras aparecem no próprio jogo (Pergaminho da Palavra) e a frase do lampião usa as palavras de Gn 1:3. **Falta:** uma pessoa da liderança conferir com uma Bíblia ACF impressa e preencher `checkedBy`; e a autorização formal da Sociedade Bíblica Trinitariana do Brasil.
-- **Duas perguntas desligadas** em `day01.json` (`beforeLight` e `lightName`), porque a resposta depende do texto bíblico. Basta revisar e trocar `"enabled": false` por `true`.
+- **Texto bíblico:** `public/data/content/bible-acf2007.json` tem os 34 versículos de Gn 1:1 a 2:3 na Almeida Corrigida Fiel (2007), copiados sem alteração de uma fonte pública (origem registrada no arquivo). Com ele, as leituras aparecem no próprio jogo (Pergaminho da Palavra) e a frase do lampião usa as palavras de Gn 1:3. Conferido pelo responsável do projeto e com uso validado junto à Sociedade Bíblica Trinitariana do Brasil (21/11/2026).
 - **Distratores** das perguntas do Clube são sugestões a revisar com a liderança (`docs/QUIZ_MAP.md`).
 - **Revisão geral das perguntas do Dia 1** (dificuldade equilibrada) e das falas que ligam o jogo à criação (`creation` em `day01.json`).
 - `src/config/pilot.ts` ainda não existe com o endereço do formulário dos responsáveis.

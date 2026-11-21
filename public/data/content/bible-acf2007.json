@@ -1,9 +1,9 @@
 {
   "translation": "Almeida Corrigida Fiel (ACF), 2007",
-  "status": "aguardando conferência: texto copiado do arquivo de origem sem nenhuma alteração; uma pessoa da liderança confere com uma Bíblia ACF impressa e preenche checkedBy",
-  "rights": "Texto da Sociedade Bíblica Trinitariana do Brasil (SBTB). Uso decidido pelo responsável do projeto em 21/11/2026; autorização formal da SBTB pendente.",
+  "status": "conferido: os 34 versículos foram revisados pelo responsável do projeto em 21/11/2026",
+  "rights": "Texto da Sociedade Bíblica Trinitariana do Brasil (SBTB). Uso no jogo validado com a SBTB pelo responsável do projeto (21/11/2026).",
   "source": "https://github.com/ameisehaufen/BibleMarkdown, arquivo original/bible-acf2007.csv (commit a59ab8f), sha256 28d3e85255236c566fb8b7b6840abfad6308a5afd7337102803cbb889bed95f9",
-  "checkedBy": "",
+  "checkedBy": "Responsável do projeto (Macro Natal Norte 02), 21/11/2026",
   "verses": {
     "Gn 1:1": "No princípio criou Deus os céus e a terra.",
     "Gn 1:2": "E a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o Espírito de Deus se movia sobre a face das águas.",

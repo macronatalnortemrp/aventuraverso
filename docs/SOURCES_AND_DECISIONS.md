@@ -7,7 +7,7 @@
 - Tecnologia: Three.js + TypeScript + Vite (substitui Phaser).
 - Natureza: **piloto de teste** para a Macro. Feedback ao fim de cada dia nesta fase inicial; depois entram ranking, código do clube e demais ideias (veja `ROADMAP.md`).
 - Voz: só vozes gravadas do jogo (Kokoro). **Nunca a voz do aparelho** (SpeechSynthesis, VoiceOver, TalkBack), decisão de 21/11/2026.
-- Tradução bíblica do MVP (21/11/2026): Almeida Corrigida Fiel (ACF), 2007, no lugar da Revista e Corrigida de 1898 (sem texto digital de domínio público encontrado; a ARC digital atual é da SBB, com direitos). Fonte: github.com/ameisehaufen/BibleMarkdown, `original/bible-acf2007.csv`, commit a59ab8f. Trocável depois.
+- Tradução bíblica do MVP (21/11/2026): Almeida Corrigida Fiel (ACF), 2007, no lugar da Revista e Corrigida de 1898 (sem texto digital de domínio público encontrado; a ARC digital atual é da SBB, com direitos). Fonte: github.com/ameisehaufen/BibleMarkdown, `original/bible-acf2007.csv`, commit a59ab8f. Trocável depois. Os 34 versículos foram conferidos pelo responsável e o uso foi validado com a Sociedade Bíblica Trinitariana do Brasil (21/11/2026).
 - Leitura no próprio jogo (21/11/2026): o texto bíblico aparece e é lido no jogo, porque nem toda criança tem Bíblia em casa. Substitui o ciclo que alternava com a Bíblia impressa.
 - Ideais do Clube: apenas Voto, Lei, Hino e Voto à Bíblia.
 - Representação da Trindade: Voz, luz e silhuetas, sem rosto (validada pela liderança).
@@ -42,11 +42,9 @@ Material oficial OMA 006/2017 consultado anteriormente informa que a cor vinho r
 - Confirmar se o regulamento 2020 continua vigente na Associação/Missão local.
 - Baixar e selecionar os arquivos oficiais A1 e LA1 no pacote oficial.
 - Confirmar detalhes exatos do lenço de líder e posicionamento do LA1.
-- Pedir à Sociedade Bíblica Trinitariana do Brasil autorização para usar o texto da ACF no jogo (publicado no GitHub Pages).
 - Validar a fala sobre significado do lenço antes de colocá-la na boca de Pedrito. Por ora ele pergunta só a cor.
 - Confirmar autorização para reproduzir a letra e a gravação do Hino.
 - Criar o formulário externo do piloto e preencher `src/config/pilot.ts`.
-- Conferir à mão os 34 versículos (Gn 1:1 a 2:3) no arquivo JSON.
 
 - Aprovar o desenho definitivo de Tico e os seis avatares antes de produzir animações.
 - Validar os itens marcados em `THEME_AVENTUREIROS.md` (uniforme, posição do emblema, cores das trilhas, hasteamento, nomes).
