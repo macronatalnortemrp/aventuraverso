@@ -26,6 +26,10 @@ export interface Day01Content {
   title: string;
   start: string[];
   lantern: string[];
+  /** left[0]: falta uma; left[1]: faltam duas */
+  sparks: { left: string[]; done: string[] };
+  /** dica curta do Tico logo depois de cada etapa: para onde ir agora */
+  next: { lamp: string; table: string; sol: string };
   readings: Record<'r1' | 'r2' | 'r3', { ref: string; keys: string[] }>;
   questions: Record<'beforeLight' | 'scarf' | 'lightName', Question>;
   pedrito: { afraid: string[]; after: string[] };
@@ -49,10 +53,6 @@ export interface Day01Content {
   rewards: { badge: string; badgeNote: string; lantern: string; stars: number };
   realMission: { text: string; adult: string };
   creation: {
-    afterReading1: string[];
-    afterSparks: string[];
-    afterLamp: string[];
-    afterSort: string[];
     recap: { title: string; intro: string; items: { icon: string; game: string; creation: string }[]; close: string };
   };
 }
@@ -66,7 +66,7 @@ const url = (p: string) => new URL(p, document.baseURI).toString();
 export async function loadDay01() {
   const [content, bible] = await Promise.all([
     fetch(url('data/days/day01.json')).then((r) => r.json() as Promise<Day01Content>),
-    fetch(url('data/content/bible-arc1898.json'))
+    fetch(url('data/content/bible-acf2007.json'))
       .then((r) => r.json() as Promise<Bible>)
       .catch(() => ({ verses: {} })),
   ]);
@@ -262,15 +262,15 @@ export class Day01Mission {
     this.campers.forEach((c) => (c.root.visible = this.active && s.step === 'invites'));
     const goals: Partial<Record<Step, string>> = {
       lantern: 'Fale com o Tico',
-      sparks: `Siga os sons e ache as faíscas (${s.sparks.length}/3)`,
-      pedrito: 'Ajude o Pedrito na clareira',
-      letThereBeLight: 'Leve as faíscas ao lampião central',
+      sparks: `Ache as faíscas (${s.sparks.length}/3)`,
+      pedrito: 'Ajude o Pedrito',
+      letThereBeLight: 'Acenda o lampião',
       dayNight: 'Vá até a Mesa da Família',
       invites:
         s.challenge !== null
-          ? 'Suba a ilha suspensa e leve a luz até o cristal'
+          ? 'Leve a luz até o cristal'
           : `Leve os convites aos acampantes (${s.invites.length}/3)`,
-      globe: 'Leve as faíscas ao Globo do Éden',
+      globe: 'Leve as faíscas ao Globo',
     };
     this.goalText = goals[s.step] ?? '';
     $('goalt').textContent = this.goalText;
@@ -287,18 +287,18 @@ export class Day01Mission {
         SPARKS.forEach((sp, i) => {
           if (!s.sparks.includes(i) && (!best || Math.hypot(sp.x - p.x, sp.z - p.z) < Math.hypot(best.x - p.x, best.z - p.z))) best = sp;
         });
-        return best ? { ...(best as { x: number; z: number }), hint: 'Escute: sino, água e grilo. Cada som esconde uma faísca!' } : null;
+        return best ? { ...(best as { x: number; z: number }), hint: 'Siga a luz até a faísca!' } : null;
       }
       case 'pedrito':
-        return { ...PEDRITO_SPOT, hint: 'O Pedrito está na clareira, com medo do escuro.' };
+        return { ...PEDRITO_SPOT, hint: 'O Pedrito está com medo. Vamos lá!' };
       case 'letThereBeLight':
-        return { ...CENTRAL_LAMP, hint: 'O lampião central fica na clareira, perto da fogueira.' };
+        return { ...CENTRAL_LAMP, hint: this.content.next.lamp };
       case 'dayNight':
-        return { x: -9, z: 8, hint: 'A Mesa da Família fica na clareira.' };
+        return { x: -9, z: 8, hint: this.content.next.table };
       case 'invites': {
         if (s.challenge !== null) return { x: ISLE_STEPS[0].x, z: ISLE_STEPS[0].z, hint: this.content.challenge.instruction };
         const i = [0, 1, 2].find((k) => !s.invites.includes(k));
-        return i === undefined ? null : { x: MURALS[i][0], z: MURALS[i][1], hint: 'Os murais ficam em volta da clareira.' };
+        return i === undefined ? null : { x: MURALS[i][0], z: MURALS[i][1], hint: 'Leve o convite ao acampante!' };
       }
       case 'globe':
         return { x: GLOBE.x, z: GLOBE.z + 4, hint: this.content.globe.go };
@@ -316,18 +316,12 @@ export class Day01Mission {
   private async run() {
     if (this.state.step === 'lantern') {
       this.busy = true;
-      await this.talk('Tico', [...this.content.start, ...this.content.lantern]);
-      await this.read('r1');
-      await this.q('beforeLight');
-      await this.talk('Tico', this.content.creation.afterReading1);
+      // primeiro fazer, depois falar: uma fala curta e a criança já sai andando;
+      // a primeira leitura vem quando ela acha a primeira faísca
+      await this.talk('Tico', this.content.start);
       this.busy = false;
       this.set(complete(this.state, 'lantern'));
-      this.d.hud.say(
-        MOBILE
-          ? 'Siga os sons: sino, água e grilo. Cada um esconde uma faísca! Toque no chão para andar.'
-          : 'Siga os sons: sino, água e grilo. Cada um esconde uma faísca! Clique no chão para andar.',
-        8000,
-      );
+      this.d.hud.say(this.content.lantern[0], 7000);
     } else this.d.hud.say(`Vamos continuar: ${this.goalText.toLowerCase()}.`, 5000);
   }
 
@@ -363,6 +357,16 @@ export class Day01Mission {
     return false;
   }
 
+  /** Primeira faísca: a leitura de Gn 1:1-2 (o escuro antes da luz) e a pergunta. */
+  private async firstSpark() {
+    this.busy = true;
+    await this.wait(0.9);
+    await this.read('r1');
+    await this.q('beforeLight');
+    this.busy = false;
+    this.d.hud.say(this.content.sparks.left[1], 6000);
+  }
+
   private async pedritoStep() {
     this.busy = true;
     await this.talk('Pedrito', this.content.pedrito.afraid);
@@ -371,6 +375,7 @@ export class Day01Mission {
     this.busy = false;
     sfx('yay');
     this.set(complete(this.state, 'pedrito'));
+    this.d.hud.say(this.content.next.lamp, 6000);
   }
 
   private async lampStep() {
@@ -383,9 +388,10 @@ export class Day01Mission {
     this.d.sting('vitoria');
     this.lampK = 0.001; // acende aos poucos em update()
     this.d.fx.puff(CENTRAL_LAMP.x, H(CENTRAL_LAMP.x, CENTRAL_LAMP.z) + 4.2, CENTRAL_LAMP.z, { n: 18, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2, s: 0.5, life: 0.9 });
-    await this.talk('Tico', [...this.content.phrase.done, ...this.content.creation.afterLamp]);
+    await this.talk('Tico', this.content.phrase.done);
     this.busy = false;
     this.set(complete(this.state, 'letThereBeLight'));
+    this.d.hud.say(this.content.next.table, 6000);
   }
 
   private async dayNightStep() {
@@ -393,11 +399,11 @@ export class Day01Mission {
     await this.read('r3');
     await this.d.task.sort(this.content.sort.prompt, this.content.sort.items);
     this.d.daylight.set(0, REDUCED_MOTION ? 0 : 6); // a luz do dia surge aos poucos
-    await this.talk('Tico', [...this.content.sort.done, ...this.content.creation.afterSort]);
+    await this.talk('Tico', this.content.sort.done);
     await this.q('lightName');
     this.busy = false;
     this.set(complete(this.state, 'dayNight'));
-    this.d.hud.say('A Diretora Sol tem uma tarefa para você!', 5000);
+    this.d.hud.say(this.content.next.sol, 6000);
   }
 
   /** O acampante propõe o desafio do Caminho da Luz; ao aceitar, a ilha suspensa aparece. */
@@ -449,7 +455,7 @@ export class Day01Mission {
       await L.play([tour[0], tour[tour.length - 1]]);
     }
     const t = this.content.challenge;
-    await this.talk(t.who, [t.instruction, t.controls]);
+    await this.talk(t.who, [`${t.instruction} ${t.controls}`]);
     const { orbit, player: p } = this.d;
     await L.play([L.backTo(p.x, p.y, p.z, orbit.yaw, orbit.dist, orbit.pitch)]);
     this.refresh();
@@ -610,9 +616,9 @@ export class Day01Mission {
           const n = this.state.sparks.length;
           if (this.state.step === 'pedrito') {
             this.d.hud.hideTico();
-            void this.talk('Tico', ['Você achou as três faíscas!', ...this.content.creation.afterSparks, 'Agora ouça... alguém está com medo na clareira.']);
-          }
-          else this.d.hud.say(`Faísca encontrada! Faltam ${SPARK_COUNT - n}.`, 3500);
+            void this.talk('Tico', this.content.sparks.done);
+          } else if (n === 1) void this.firstSpark();
+          else this.d.hud.say(this.content.sparks.left[SPARK_COUNT - n - 1], 4000);
         }
         return;
       }

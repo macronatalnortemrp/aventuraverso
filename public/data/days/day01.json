@@ -1,14 +1,28 @@
 {
   "id": "day01",
   "title": "Dia 1: A Luz no Acampamento",
-  "_fontes": "docs/DAY_01.md, docs/QUIZ_MAP.md (respostas do Guia do Aspirante), docs/LENCO.md, docs/INTRO_SEQUENCE.md. Distratores são sugestões a revisar com a liderança.",
+  "_fontes": "docs/DAY_01.md, docs/QUIZ_MAP.md (respostas do Guia do Aspirante), docs/LENCO.md, docs/INTRO_SEQUENCE.md. Distratores são sugestões a revisar com a liderança. Falas reescritas curtas em 21/11/2026 (teste do piloto: criança de 5 anos achou cansativo); revisar com a liderança.",
   "start": [
-    "Uau, como está escuro! Venha comigo, tenho uma coisa para você."
+    "Tá escuro! Pegue esta lanterna."
   ],
   "lantern": [
-    "Tome esta lanterna! Ela ilumina só um pedacinho do caminho, então vá com calma.",
-    "Agora vamos abrir a Bíblia e ler como tudo começou."
+    "Siga a luz e ache as faíscas!"
   ],
+  "sparks": {
+    "_nota": "left[0] quando falta uma, left[1] quando faltam duas.",
+    "left": [
+      "Falta só uma!",
+      "Faltam duas! Siga a luz."
+    ],
+    "done": [
+      "Três faíscas! Só Deus cria a luz de verdade. Ouça: alguém está com medo!"
+    ]
+  },
+  "next": {
+    "lamp": "O lampião fica perto da fogueira!",
+    "table": "Agora vá até a mesa da família!",
+    "sol": "A Diretora Sol chama você!"
+  },
   "readings": {
     "r1": {
       "ref": "Gênesis 1:1-2",
@@ -33,18 +47,17 @@
   },
   "questions": {
     "beforeLight": {
-      "enabled": false,
-      "status": "aguardando conferência: resposta depende do texto bíblico conferido",
+      "enabled": true,
       "who": "Tico",
-      "prompt": "Como estava tudo antes da luz?",
+      "prompt": "Como era tudo antes da luz?",
       "options": [
-        "Sem forma, vazio e escuro",
+        "Escuro e vazio",
         "Cheio de flores",
-        "Cheio de animais"
+        "Cheio de bichos"
       ],
       "answer": 0,
-      "hint": "Lembre da leitura: ainda não existia luz.",
-      "explain": "A leitura conta que, no começo, tudo estava sem forma, vazio e escuro."
+      "hint": "Lembre: ainda não tinha luz.",
+      "explain": "A Bíblia conta: tudo era sem forma, vazio e escuro."
     },
     "scarf": {
       "enabled": true,
@@ -56,12 +69,11 @@
         "Só uma cor bonita"
       ],
       "answer": 0,
-      "hint": "Pense em alguém que nos ama muito e deu a vida por nós.",
-      "explain": "A cor vinho representa o sangue de Jesus e o Seu sacrifício por amor, e lembra que cada criança é preciosa para Deus."
+      "hint": "Pense em Jesus, que nos ama muito.",
+      "explain": "A cor vinho lembra o sangue de Jesus, dado por amor. Cada criança é preciosa para Deus."
     },
     "lightName": {
-      "enabled": false,
-      "status": "aguardando conferência: resposta depende do texto bíblico conferido",
+      "enabled": true,
       "who": "Tico",
       "prompt": "Que nome Deus deu à luz?",
       "options": [
@@ -71,17 +83,15 @@
       ],
       "answer": 0,
       "hint": "É quando está claro.",
-      "explain": "A leitura conta que Deus chamou a luz de Dia."
+      "explain": "Deus chamou a luz de Dia, e a escuridão, de Noite."
     }
   },
   "pedrito": {
     "afraid": [
-      "Ai, que escuro! Eu tenho um pouco de medo...",
-      "Ei, que lenço é esse no seu pescoço?"
+      "Ai, que escuro! Tenho medo... Que lenço é esse?"
     ],
     "after": [
-      "Que legal! Agora não estou mais com tanto medo.",
-      "Deixa que eu ajudo a carregar uma faísca!"
+      "Não tenho mais medo! Vamos acender o lampião?"
     ]
   },
   "phrase": {
@@ -95,11 +105,11 @@
       "água"
     ],
     "done": [
-      "A lâmpada central acendeu!"
+      "O lampião acendeu! Deus falou, e a luz apareceu!"
     ]
   },
   "sort": {
-    "prompt": "Ajude a separar: o que combina com o dia e o que combina com a noite?",
+    "prompt": "Separe: o que é do dia? O que é da noite?",
     "items": [
       {
         "id": "sun",
@@ -143,13 +153,12 @@
       }
     ],
     "done": [
-      "Muito bem! Olhe, o dia está chegando..."
+      "O dia chegou!"
     ]
   },
   "invites": {
     "sol": [
-      "Bom dia! Que bom ver o acampamento claro de novo.",
-      "Leve estes três convites aos acampantes perto dos murais. Cada um vai propor um desafio."
+      "Bom dia! Leve estes convites aos acampantes."
     ],
     "hung": "Convite aceito!"
   },
@@ -157,27 +166,26 @@
     "_fonte": "Caminho da Luz (pedido do responsável, 21/11/2026): desafios de habilidade e raciocínio, sem narrativa.",
     "who": "Acampante",
     "title": "Topa um desafio?",
-    "ask": "Se você completar o meu desafio, eu aceito o convite!",
+    "ask": "Complete o meu desafio e eu aceito o convite!",
     "accept": "Aceitar o desafio",
     "later": "Agora não",
-    "instruction": "Suba pelas plataformas suspensas e alcance o topo. Lá, encaixe os espelhos e direcione a luz até o cristal!",
-    "controls": "Use o joystick para andar e o botão A para pular.",
+    "instruction": "Suba até o topo. Use os espelhos para levar a luz ao cristal!",
+    "controls": "Joystick para andar. Botão A para pular.",
     "done": "Desafio concluído!",
-    "final": "Parabéns! Você concluiu os três desafios!",
-    "thanks": "Você conseguiu! Eu aceito o convite!",
+    "final": "Você venceu os três desafios!",
+    "thanks": "Você conseguiu! Aceito o convite!",
     "tico": {
       "who": "Tico",
-      "busy": "Termine primeiro o desafio da ilha suspensa!",
-      "waiting": "A ilha suspensa está esperando por você!",
-      "next": "Desça da ilha e fale com outro acampante."
+      "busy": "Primeiro, termine o desafio da ilha!",
+      "waiting": "A ilha está esperando você!",
+      "next": "Agora fale com outro acampante!"
     }
   },
   "globe": {
-    "go": "Agora leve as três faíscas até o Globo do Éden, na colina!",
+    "go": "Agora leve as faíscas ao Globo, na colina!",
     "voice": "Haja luz.",
     "after": [
-      "O Globo do Éden acendeu!",
-      "Você encontrou a primeira página do Livro dos Sete Dias."
+      "O Globo acendeu! Você achou a primeira página do Livro dos Sete Dias!"
     ]
   },
   "rewards": {
@@ -191,22 +199,10 @@
     "adult": "Um adulto confirma que a missão foi feita"
   },
   "creation": {
-    "_revisar": "Paráfrases em linguagem infantil de Gênesis 1:1-5, sem citar o texto bíblico. Revisar com a liderança.",
-    "afterReading1": [
-      "Lembra da leitura? No começo de tudo, antes da luz, estava tudo escuro. Igualzinho ao acampamento agora!"
-    ],
-    "afterSparks": [
-      "Cada faísca é um pedacinho de luz. Mas a luz de verdade, a que ilumina o mundo inteiro, só Deus pode criar."
-    ],
-    "afterLamp": [
-      "Foi assim no primeiro dia da criação: Deus falou, e a luz apareceu!"
-    ],
-    "afterSort": [
-      "Deus separou a luz da escuridão. A luz Ele chamou de Dia, e a escuridão, de Noite."
-    ],
+    "_revisar": "Resumo do fim do dia, em linguagem infantil, sem citar o texto bíblico. Revisar com a liderança.",
     "recap": {
       "title": "O primeiro dia da criação",
-      "intro": "Tudo o que você fez hoje conta a história do primeiro dia da criação (Gênesis 1:1-5).",
+      "intro": "O que você fez hoje conta o primeiro dia da criação (Gênesis 1:1-5).",
       "items": [
         {
           "icon": "lantern",
@@ -234,7 +230,7 @@
           "creation": "Assim terminou o primeiro dia da criação."
         }
       ],
-      "close": "O Livro dos Sete Dias ainda guarda seis páginas. Quando quiser, volte ao portal para o próximo dia!"
+      "close": "Faltam seis páginas. Volte ao portal para o próximo dia!"
     }
   }
 }

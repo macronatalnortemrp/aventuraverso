@@ -72,10 +72,13 @@ export class Task {
       const p = this.panel();
       p.className = 'panel scroll';
       if (verses?.length) {
-        this.header(p, 'Pergaminho da Palavra', ref, `${ref}. ${verses.join(' ')}`);
+        // o narrador lê os versículos sozinho ao abrir (a criança pode não saber ler); "Ouvir" repete
+        const spoken = verses.join(' ');
+        this.header(p, 'Pergaminho da Palavra', ref, spoken);
         const box = el('div', 'verses');
         for (const v of verses) box.append(text('p', '', v));
         p.append(box);
+        setTimeout(() => this.open && this.voice() && speak(spoken, 'Pergaminho da Palavra'), 450);
       } else {
         const msg = `Pegue uma Bíblia e leia, com a ajuda de um adulto, ${ref.replace('-', ' a ')}.`;
         this.header(p, 'Bíblia na Mão', ref, msg);
@@ -83,7 +86,7 @@ export class Task {
         box.append(text('p', '', msg));
         p.append(box);
       }
-      const ok = this.button('Já li');
+      const ok = this.button(verses?.length ? 'Continuar' : 'Já li');
       ok.onclick = () => {
         sfx('ui');
         this.close();

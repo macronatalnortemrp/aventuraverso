@@ -1,17 +1,22 @@
 # DAY_01.md — A Luz no Acampamento
 
 ## Base bíblica
-Gênesis 1:1–5. Usar a tradução definida pelo projeto somente após confirmar fonte digital e condições de uso. A leitura deve ser breve, em doses de 1–2 versículos.
+Gênesis 1:1–5, na Almeida Corrigida Fiel (2007), lido no próprio jogo pelo narrador. A leitura deve ser breve, em doses de 1–2 versículos.
+
+## Ritmo (teste do piloto, 21/11/2026)
+Uma criança de 5 anos, que ainda não lê, achou o começo cansativo e foi atrás das moedas. Por isso:
+- **Primeiro fazer, depois falar:** cada fala é curta (uma frase ou duas) e a criança logo volta a andar.
+- **Siga a luz:** uma coluna de luz e uma trilha de faíscas mostram o próximo objetivo desde o começo; a ajuda por tempo só reforça.
+- **Moedas só depois do Dia 1:** antes disso elas ficam escondidas, para nada competir com a missão.
+- Os textos ficam em `public/data/days/day01.json` e foram encurtados; revisar com a liderança.
 
 ## Etapas do roteiro
 
 ### 1. A lanterna
-Tico entrega uma lanterna. Leitura de Gênesis 1:1–2.
-Pergunta: “Como estava tudo antes da luz?”
-A resposta deve estar diretamente apoiada no trecho lido.
+Tico entrega uma lanterna em uma fala curta, e a criança já sai andando.
 
 ### 2. Três faíscas
-A criança encontra três faíscas seguindo sons: sino, água corrente e grilo, em três lugares do acampamento.
+A criança encontra três faíscas seguindo a luz (e os sons: sino, água corrente e grilo), em três lugares do acampamento. **Na primeira faísca**, leitura de Gênesis 1:1–2 e a pergunta “Como era tudo antes da luz?”, com a resposta apoiada no trecho lido.
 
 ### 3. Pedrito
 Pedrito está com medo do escuro e estranha o lenço da criança. Ele pergunta: "O que a cor vinho do lenço nos lembra?" (resposta: o sangue de Jesus, que nos ama e nos salvou), conforme `LENCO.md` e `QUIZ_MAP.md`. Após responder, Pedrito ajuda a carregar uma faísca.

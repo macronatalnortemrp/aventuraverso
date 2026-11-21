@@ -39,9 +39,9 @@ Dois modos:
 1. Pergaminho da Palavra: texto curto no jogo e áudio.
 2. Bíblia na Mão: referência e dica para a criança ler em Bíblia impressa.
 
-Cada leitura termina com pergunta de compreensão respondível pelo texto. Ciclo previsto no roteiro: dias 1–3 pergaminho; dias 4–5 Bíblia impressa; pergaminho recarrega após o dia 5; dias 6–7 pergaminho.
+Cada leitura termina com pergunta de compreensão respondível pelo texto. O ciclo do roteiro v1 (dias 4–5 com Bíblia impressa) foi substituído em 21/11/2026: todos os dias usam o Pergaminho da Palavra.
 
-Tradução aprovada para o MVP: Almeida Revista e Corrigida, edição de 1898 (pode ser trocada por uma mais moderna depois). Antes de incorporar o texto, verificar a fonte digital, a edição exata e as condições de uso. O texto fica em arquivo JSON conferido por uma pessoa (Gn 1:1 a 2:3 = 34 versículos).
+Tradução do MVP (decisão de 21/11/2026, no lugar da Revista e Corrigida de 1898, que não tem texto digital de domínio público): **Almeida Corrigida Fiel (ACF), 2007**. O texto fica em `public/data/content/bible-acf2007.json` (Gn 1:1 a 2:3 = 34 versículos), copiado sem alteração da fonte registrada no arquivo, e precisa ser conferido por uma pessoa. A leitura no jogo (Pergaminho da Palavra) vale para todos os dias, porque nem toda criança tem Bíblia em casa; a Bíblia na Mão fica só como reserva, se o texto faltar.
 
 ## Respostas e ajuda
 - Pergunta e opções lidas automaticamente, quando áudio ativado.

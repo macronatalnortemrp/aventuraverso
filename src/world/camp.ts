@@ -522,7 +522,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     inter.add({ x, z, w: 2.4, h: 2.6, name: 'Quadro: ' + t, label: 'Ver o quadro', who: 'Quadros dos Ideais', text: `Este quadro ainda está apagado. ${w} Quando acender, você poderá ler e ouvir o texto aqui.` });
   });
 
-  /* portais: Missão 1 (aberto) e Mundo 2 (trancado) */
+  /* portais: Jornada do Éden (aberto, leva aos sete dias) e Mundo 2 (trancado) */
   const portal = (x: number, z: number, c1: number, c2: number, title: string, open: boolean): Portal => {
     const y = H(x, z),
       g = new THREE.Group();
@@ -569,7 +569,7 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     }
     return { x, z, y, open, sp };
   };
-  const portals = [portal(-9, -19, 0x7fd4ff, 0xfff1a8, 'Missão 1: A Luz', true), portal(10, -19, 0xf2c46d, 0xc98a3c, 'Mundo 2', false)];
+  const portals = [portal(-9, -19, 0x7fd4ff, 0xfff1a8, 'Jornada do Éden', true), portal(10, -19, 0xf2c46d, 0xc98a3c, 'Mundo 2', false)];
   {
     // miniatura do próximo mundo: pirâmide e palmeira
     const x = 14.2,

@@ -29,7 +29,7 @@ public/
   data/
     world.json         props, zonas, obstáculos, hotspots
     days/day01.json    etapas do dia
-    content/           bible-arc1898.json, quiz.json, club-texts.json
+    content/           bible-acf2007.json, quiz.json, club-texts.json
 docs/
 prototype/             referência visual
 ```
@@ -45,7 +45,7 @@ prototype/             referência visual
 `world.json` descreve o mundo (props, zonas, obstáculos, hotspots, pontos de NPC por dia). `dayNN.json` descreve as etapas (tipo, condições, diálogo, recompensa, trilha e pilar). Adicionar um dia deve ser, em boa parte, adicionar JSON.
 
 ## Conteúdo sensível em arquivo
-- `bible-arc1898.json`: versículos de Gn 1:1 a 2:3 conferidos por uma pessoa. O agente não escreve versículos de memória.
+- `bible-acf2007.json`: versículos de Gn 1:1 a 2:3 conferidos por uma pessoa. O agente não escreve versículos de memória.
 - `club-texts.json`: Voto, Lei e Voto à Bíblia exatamente como no Guia.
 - `quiz.json`: perguntas e respostas de `QUIZ_MAP.md`, com explicação e fonte.
 

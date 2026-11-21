@@ -5,7 +5,7 @@ Atualizado em 19/11/2026. Resumo do pacote `biblia-visual-pack` v4 mais as decis
 ## 1. O que é
 - Jogo web infantil (6 a 9 anos), **mundo 3D de blocos**, com forte tema do Clube de Aventureiros. Piloto de teste da Macro Natal Norte (MRP). Roda em computador e celular, paisagem e retrato.
 - **Nome oficial do projeto e do jogo: aventuráVerso — "Um universo de aventuras"** (decidido em 19/11/2026). Os docs antigos ainda dizem "Bíblia Visual"; onde aparecer, ler como aventuráVerso. "Mundo 1: Éden: Os Sete Dias" é a primeira jornada. Repositório e `base` do Vite devem usar o novo nome.
-- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. A Missão 1 (Dia 1) está jogável, com leituras no modo "Bíblia na Mão" até o texto bíblico conferido entrar em `public/data/content/bible-arc1898.json`.
+- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. A Missão 1 (Dia 1) está jogável, com as leituras dentro do jogo, usando a Almeida Corrigida Fiel em `public/data/content/bible-acf2007.json` (conferida; uso validado com a SBTB).
 
 ## 2. Premissa e loop
 Acampamento do Livro Aberto: as páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado. A criança explora, aprende o que a Bíblia ensina, ajuda amigos e recupera as páginas. Loop: **Explorar → Descobrir → Fazer/Servir → Contar**. 7 dias, 6 a 7 etapas cada, 10 a 15 min por dia, salvamento a cada etapa. Dia 1 ("A Luz no Acampamento"): escuro total com lanterna, três faíscas, Pedrito, "Haja luz", Globo.
@@ -46,7 +46,7 @@ Fase 0 fundação, 1 mundo base e identidade (gate de desempenho em celular), 2 
 ## 8. Pendências abertas
 - Relação entre os nomes aventuráVerso e Bíblia Visual; nome do repositório (docs dizem `biblia-visual`) e `base` do Vite.
 - Para que servem as moedas e como se chamam; mergulho no Dia 1 (escuro total); teletransporte automático ou só com aceite; favicon/identidade (ver `favicon.svg`) e emblemas oficiais de Desbravadores.
-- Do pacote: A1 em alta resolução, emblema MRP, uniforme masculino, tradução ARC 1898 e conferência dos 34 versículos (Gn 1:1 a 2:3), autorização do Hino, formulário externo do piloto, validações do `THEME_AVENTUREIROS.md` seção 14.
+- Do pacote: A1 em alta resolução, emblema MRP, uniforme masculino, autorização do Hino, formulário externo do piloto, validações do `THEME_AVENTUREIROS.md` seção 14.
 
 ## 9. Mapa dos arquivos (abrir só se precisar)
 | Preciso de... | Abrir |

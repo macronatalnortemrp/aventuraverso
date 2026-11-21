@@ -1,33 +1,27 @@
 [
  {
   "voice": "acampante",
-  "key": "lá, encaixe os espelhos e direcione a luz até o cristal!",
-  "text": "Lá, encaixe os espelhos e direcione a luz até o cristal!",
-  "file": "acampante/131e5e97.mp3"
+  "key": "use os espelhos para levar a luz ao cristal!",
+  "text": "Use os espelhos para levar a luz ao cristal!",
+  "file": "acampante/1303d9fc.mp3"
  },
  {
   "voice": "acampante",
-  "key": "suba pelas plataformas suspensas e alcance o topo",
-  "text": "Suba pelas plataformas suspensas e alcance o topo.",
-  "file": "acampante/363cf4ad.mp3"
+  "key": "suba até o topo",
+  "text": "Suba até o topo.",
+  "file": "acampante/1b8656a1.mp3"
  },
  {
   "voice": "acampante",
-  "key": "eu aceito o convite!",
-  "text": "Eu aceito o convite!",
-  "file": "acampante/4bdb9956.mp3"
+  "key": "aceito o convite!",
+  "text": "Aceito o convite!",
+  "file": "acampante/54b7277a.mp3"
  },
  {
   "voice": "acampante",
-  "key": "parabéns!",
-  "text": "Parabéns!",
-  "file": "acampante/79156eca.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "se você completar o meu desafio, eu aceito o convite!",
-  "text": "Se você completar o meu desafio, eu aceito o convite!",
-  "file": "acampante/aee4a1ea.mp3"
+  "key": "você venceu os três desafios!",
+  "text": "Você venceu os três desafios!",
+  "file": "acampante/8a0bd4eb.mp3"
  },
  {
   "voice": "acampante",
@@ -37,9 +31,9 @@
  },
  {
   "voice": "acampante",
-  "key": "use o joystick para andar e o botão a para pular",
-  "text": "Use o joystick para andar e o botão A para pular.",
-  "file": "acampante/be17b8cd.mp3"
+  "key": "complete o meu desafio e eu aceito o convite!",
+  "text": "Complete o meu desafio e eu aceito o convite!",
+  "file": "acampante/b88dee09.mp3"
  },
  {
   "voice": "acampante",
@@ -49,15 +43,21 @@
  },
  {
   "voice": "acampante",
-  "key": "você concluiu os três desafios!",
-  "text": "Você concluiu os três desafios!",
-  "file": "acampante/d4d12c57.mp3"
+  "key": "botão a para pular",
+  "text": "Botão A para pular.",
+  "file": "acampante/d207bb13.mp3"
  },
  {
   "voice": "acampante",
   "key": "você conseguiu!",
   "text": "Você conseguiu!",
   "file": "acampante/e1f0299e.mp3"
+ },
+ {
+  "voice": "acampante",
+  "key": "joystick para andar",
+  "text": "Joystick para andar.",
+  "file": "acampante/f285121b.mp3"
  },
  {
   "voice": "acampante",
@@ -73,9 +73,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia quinto",
+  "text": "E foi a tarde e a manhã, o dia quinto.",
+  "file": "narrador/0926a802.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos",
+  "text": "E disse Deus: Haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos.",
+  "file": "narrador/09591733.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produza a terra erva verde, erva que dê semente, árvore frutífera que dê fruto segundo a sua espécie, cuja semente está nela sobre a terra; e assim foi",
+  "text": "E disse Deus: Produza a terra erva verde, erva que dê semente, árvore frutífera que dê fruto segundo a sua espécie, cuja semente está nela sobre a terra; e assim foi.",
+  "file": "narrador/13a2c5b7.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus os pôs na expansão dos céus para iluminar a terra,",
+  "text": "E Deus os pôs na expansão dos céus para iluminar a terra,",
+  "file": "narrador/162c4897.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "assim os céus, a terra e todo o seu exército foram acabados",
+  "text": "ASSIM os céus, a terra e todo o seu exército foram acabados.",
+  "file": "narrador/17598cab.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "jogue no seu ritmo: um dia por vez ou vários seguidos",
   "text": "Jogue no seu ritmo: um dia por vez ou vários seguidos.",
   "file": "narrador/1f522c9c.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e sejam para luminares na expansão dos céus, para iluminar a terra; e assim foi",
+  "text": "E sejam para luminares na expansão dos céus, para iluminar a terra; e assim foi.",
+  "file": "narrador/21e46c0a.mp3"
  },
  {
   "voice": "narrador",
@@ -91,6 +127,18 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: eis que vos tenho dado toda a erva que dê semente, que está sobre a face de toda a terra; e toda a árvore, em que há fruto que dê semente, ser-vos-á para mantimento",
+  "text": "E disse Deus: Eis que vos tenho dado toda a erva que dê semente, que está sobre a face de toda a terra; e toda a árvore, em que há fruto que dê semente, ser-vos-á para mantimento.",
+  "file": "narrador/2f0bffb5.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e fez deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas",
+  "text": "E fez Deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas.",
+  "file": "narrador/31188105.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:1-2",
   "text": "Gênesis 1:1-2.",
   "file": "narrador/4b6c19b4.mp3"
@@ -103,9 +151,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia terceiro",
+  "text": "E foi a tarde e a manhã, o dia terceiro.",
+  "file": "narrador/4e42a563.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "isso mesmo!",
   "text": "Isso mesmo!",
   "file": "narrador/52e86fe0.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e fez deus as feras da terra conforme a sua espécie, e o gado conforme a sua espécie, e todo o réptil da terra conforme a sua espécie; e viu deus que era bom",
+  "text": "E fez Deus as feras da terra conforme a sua espécie, e o gado conforme a sua espécie, e todo o réptil da terra conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/537f2b70.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a todo o animal da terra, e a toda a ave dos céus, e a todo o réptil da terra, em que há alma vivente, toda a erva verde será para mantimento; e assim foi",
+  "text": "E a todo o animal da terra, e a toda a ave dos céus, e a todo o réptil da terra, em que há alma vivente, toda a erva verde será para mantimento; e assim foi.",
+  "file": "narrador/5663b944.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: façamos o homem à nossa imagem, conforme a nossa semelhança; e domine sobre os peixes do mar, e sobre as aves dos céus, e sobre o gado, e sobre toda a terra, e sobre todo o réptil que se move sobre a terra",
+  "text": "E disse Deus: Façamos o homem à nossa imagem, conforme a nossa semelhança; e domine sobre os peixes do mar, e sobre as aves dos céus, e sobre o gado, e sobre toda a terra, e sobre todo o réptil que se move sobre a terra.",
+  "file": "narrador/5afbd4c5.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produza a terra alma vivente conforme a sua espécie; gado, e répteis e feras da terra conforme a sua espécie; e assim foi",
+  "text": "E disse Deus: Produza a terra alma vivente conforme a sua espécie; gado, e répteis e feras da terra conforme a sua espécie; e assim foi.",
+  "file": "narrador/5b0e8d17.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e criou deus o homem à sua imagem; à imagem de deus o criou; homem e mulher os criou",
+  "text": "E criou Deus o homem à sua imagem; à imagem de Deus o criou; homem e mulher os criou.",
+  "file": "narrador/5ebd8ae7.mp3"
  },
  {
   "voice": "narrador",
@@ -115,9 +199,27 @@
  },
  {
   "voice": "narrador",
+  "key": "e abençoou deus o dia sétimo, e o santificou; porque nele descansou de toda a sua obra que deus criara e fizera",
+  "text": "E abençoou Deus o dia sétimo, e o santificou; porque nele descansou de toda a sua obra que Deus criara e fizera.",
+  "file": "narrador/6c9de196.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "dia",
   "text": "Dia.",
   "file": "narrador/6d5c325e.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia primeiro",
+  "text": "E foi a tarde e a manhã, o dia primeiro.",
+  "file": "narrador/757706ef.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e para governar o dia e a noite, e para fazer separação entre a luz e as trevas; e viu deus que era bom",
+  "text": "E para governar o dia e a noite, e para fazer separação entre a luz e as trevas; e viu Deus que era bom.",
+  "file": "narrador/792ec631.mp3"
  },
  {
   "voice": "narrador",
@@ -127,9 +229,39 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: haja uma expansão no meio das águas, e haja separação entre águas e águas",
+  "text": "E disse Deus: Haja uma expansão no meio das águas, e haja separação entre águas e águas.",
+  "file": "narrador/8459db8b.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus criou as grandes baleias, e todo o réptil de alma vivente que as águas abundantemente produziram conforme as suas espécies; e toda a ave de asas conforme a sua espécie; e viu deus que era bom",
+  "text": "E Deus criou as grandes baleias, e todo o réptil de alma vivente que as águas abundantemente produziram conforme as suas espécies; e toda a ave de asas conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/85e20205.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:3",
   "text": "Gênesis 1:3.",
   "file": "narrador/8ec1bcbd.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e deus os abençoou, dizendo: frutificai e multiplicai-vos, e enchei as águas nos mares; e as aves se multipliquem na terra",
+  "text": "E Deus os abençoou, dizendo: Frutificai e multiplicai-vos, e enchei as águas nos mares; e as aves se multipliquem na terra.",
+  "file": "narrador/8f5e178e.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus",
+  "text": "E disse Deus: Produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus.",
+  "file": "narrador/905652ac.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a terra produziu erva, erva dando semente conforme a sua espécie, e a árvore frutífera, cuja semente está nela conforme a sua espécie; e viu deus que era bom",
+  "text": "E a terra produziu erva, erva dando semente conforme a sua espécie, e a árvore frutífera, cuja semente está nela conforme a sua espécie; e viu Deus que era bom.",
+  "file": "narrador/9a7aa001.mp3"
  },
  {
   "voice": "narrador",
@@ -157,9 +289,21 @@
  },
  {
   "voice": "narrador",
+  "key": "e deus os abençoou, e deus lhes disse: frutificai e multiplicai-vos, e enchei a terra, e sujeitai-a; e dominai sobre os peixes do mar e sobre as aves dos céus, e sobre todo o animal que se move sobre a terra",
+  "text": "E Deus os abençoou, e Deus lhes disse: Frutificai e multiplicai-vos, e enchei a terra, e sujeitai-a; e dominai sobre os peixes do mar e sobre as aves dos céus, e sobre todo o animal que se move sobre a terra.",
+  "file": "narrador/af583bb9.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "pense mais um pouquinho e tente de novo",
   "text": "Pense mais um pouquinho e tente de novo.",
   "file": "narrador/afbc7185.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e viu deus que era boa a luz; e fez deus separação entre a luz e as trevas",
+  "text": "E viu Deus que era boa a luz; e fez Deus separação entre a luz e as trevas.",
+  "file": "narrador/b751e9fa.mp3"
  },
  {
   "voice": "narrador",
@@ -169,9 +313,45 @@
  },
  {
   "voice": "narrador",
+  "key": "e fez deus a expansão, e fez separação entre as águas que estavam debaixo da expansão e as águas que estavam sobre a expansão; e assim foi",
+  "text": "E fez Deus a expansão, e fez separação entre as águas que estavam debaixo da expansão e as águas que estavam sobre a expansão; e assim foi.",
+  "file": "narrador/c0965bcd.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e chamou deus à porção seca terra; e ao ajuntamento das águas chamou mares; e viu deus que era bom",
+  "text": "E chamou Deus à porção seca Terra; e ao ajuntamento das águas chamou Mares; e viu Deus que era bom.",
+  "file": "narrador/c1a3d2d9.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "no princípio criou deus os céus e a terra",
+  "text": "No princípio criou Deus os céus e a terra.",
+  "file": "narrador/c2ccb6cb.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "aqui vai aparecer o nome do seu clube",
   "text": "Aqui vai aparecer o nome do seu clube.",
   "file": "narrador/c556aea6.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e havendo deus acabado no dia sétimo a obra que fizera, descansou no sétimo dia de toda a sua obra, que tinha feito",
+  "text": "E havendo Deus acabado no dia sétimo a obra que fizera, descansou no sétimo dia de toda a sua obra, que tinha feito.",
+  "file": "narrador/c63c0a39.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e viu deus tudo quanto tinha feito, e eis que era muito bom; e foi a tarde e a manhã, o dia sexto",
+  "text": "E viu Deus tudo quanto tinha feito, e eis que era muito bom; e foi a tarde e a manhã, o dia sexto.",
+  "file": "narrador/cb3a4992.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e disse deus: haja luz; e houve luz",
+  "text": "E disse Deus: Haja luz; e houve luz.",
+  "file": "narrador/cb712c3f.mp3"
  },
  {
   "voice": "narrador",
@@ -181,9 +361,27 @@
  },
  {
   "voice": "narrador",
+  "key": "e disse deus: ajuntem-se as águas debaixo dos céus num lugar; e apareça a porção seca; e assim foi",
+  "text": "E disse Deus: Ajuntem-se as águas debaixo dos céus num lugar; e apareça a porção seca; e assim foi.",
+  "file": "narrador/cd14efaa.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "na mesa da família acontecem as missões feitas junto com a família",
   "text": "Na Mesa da Família acontecem as missões feitas junto com a família.",
   "file": "narrador/cd34b4fa.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e foi a tarde e a manhã, o dia quarto",
+  "text": "E foi a tarde e a manhã, o dia quarto.",
+  "file": "narrador/d0734866.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o espírito de deus se movia sobre a face das águas",
+  "text": "E a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o Espírito de Deus se movia sobre a face das águas.",
+  "file": "narrador/e3292941.mp3"
  },
  {
   "voice": "narrador",
@@ -193,9 +391,21 @@
  },
  {
   "voice": "narrador",
+  "key": "e deus chamou à luz dia; e às trevas chamou noite",
+  "text": "E Deus chamou à luz Dia; e às trevas chamou Noite.",
+  "file": "narrador/eb0eb342.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "dia 1: a luz no acampamento",
   "text": "Dia 1: A Luz no Acampamento",
   "file": "narrador/eed4bbc2.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e chamou deus à expansão céus, e foi a tarde e a manhã, o dia segundo",
+  "text": "E chamou Deus à expansão Céus, e foi a tarde e a manhã, o dia segundo.",
+  "file": "narrador/eef06fab.mp3"
  },
  {
   "voice": "narrador",
@@ -217,27 +427,21 @@
  },
  {
   "voice": "pedrito",
-  "key": "ei, que lenço é esse no seu pescoço?",
-  "text": "Ei, que lenço é esse no seu pescoço?",
-  "file": "pedrito/0803fbf4.mp3"
+  "key": "a cor vinho lembra o sangue de jesus, dado por amor",
+  "text": "A cor vinho lembra o sangue de Jesus, dado por amor.",
+  "file": "pedrito/33abee19.mp3"
  },
  {
   "voice": "pedrito",
-  "key": "deixa que eu ajudo a carregar uma faísca!",
-  "text": "Deixa que eu ajudo a carregar uma faísca!",
-  "file": "pedrito/24a58dee.mp3"
+  "key": "pense em jesus, que nos ama muito",
+  "text": "Pense em Jesus, que nos ama muito.",
+  "file": "pedrito/3e34ec19.mp3"
  },
  {
   "voice": "pedrito",
-  "key": "a cor vinho representa o sangue de jesus e o seu sacrifício por amor, e lembra que cada criança é preciosa para deus",
-  "text": "A cor vinho representa o sangue de Jesus e o Seu sacrifício por amor, e lembra que cada criança é preciosa para Deus.",
-  "file": "pedrito/311c8e2b.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "agora não estou mais com tanto medo",
-  "text": "Agora não estou mais com tanto medo.",
-  "file": "pedrito/33ac9fda.mp3"
+  "key": "tenho medo",
+  "text": "Tenho medo...",
+  "file": "pedrito/462a37a7.mp3"
  },
  {
   "voice": "pedrito",
@@ -247,15 +451,9 @@
  },
  {
   "voice": "pedrito",
-  "key": "eu tenho um pouco de medo",
-  "text": "Eu tenho um pouco de medo...",
-  "file": "pedrito/634423a4.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "pense em alguém que nos ama muito e deu a vida por nós",
-  "text": "Pense em alguém que nos ama muito e deu a vida por nós.",
-  "file": "pedrito/70393ed9.mp3"
+  "key": "vamos acender o lampião?",
+  "text": "Vamos acender o lampião?",
+  "file": "pedrito/5eebab15.mp3"
  },
  {
   "voice": "pedrito",
@@ -268,12 +466,6 @@
   "key": "vi umas moedas brilhando lá no fundo do lago",
   "text": "Vi umas moedas brilhando lá no fundo do lago...",
   "file": "pedrito/7a33ec31.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "que legal!",
-  "text": "Que legal!",
-  "file": "pedrito/90ae3ded.mp3"
  },
  {
   "voice": "pedrito",
@@ -295,15 +487,39 @@
  },
  {
   "voice": "pedrito",
+  "key": "cada criança é preciosa para deus",
+  "text": "Cada criança é preciosa para Deus.",
+  "file": "pedrito/b7b56238.mp3"
+ },
+ {
+  "voice": "pedrito",
   "key": "eu sou o pedrito",
   "text": "Eu sou o Pedrito.",
   "file": "pedrito/c0018641.mp3"
  },
  {
   "voice": "pedrito",
+  "key": "não tenho mais medo!",
+  "text": "Não tenho mais medo!",
+  "file": "pedrito/d674b7cc.mp3"
+ },
+ {
+  "voice": "pedrito",
   "key": "o que a cor vinho do lenço nos lembra?",
   "text": "O que a cor vinho do lenço nos lembra?",
   "file": "pedrito/e571c2c5.mp3"
+ },
+ {
+  "voice": "pedrito",
+  "key": "que lenço é esse?",
+  "text": "Que lenço é esse?",
+  "file": "pedrito/f85aa740.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "bem-vinda ao acampamento do livro aberto!",
+  "text": "Bem-vinda ao Acampamento do Livro Aberto!",
+  "file": "sol/00c8d8c5.mp3"
  },
  {
   "voice": "sol",
@@ -331,21 +547,27 @@
  },
  {
   "voice": "sol",
-  "key": "nela está a história de como deus criou o mundo",
-  "text": "Nela está a história de como Deus criou o mundo.",
-  "file": "sol/1e9a9f30.mp3"
- },
- {
-  "voice": "sol",
   "key": "uma bolha de ar levou você para cima",
   "text": "Uma bolha de ar levou você para cima.",
   "file": "sol/210a9903.mp3"
  },
  {
   "voice": "sol",
-  "key": "mas, de repente",
-  "text": "Mas, de repente...",
-  "file": "sol/315ba7ba.mp3"
+  "key": "mas um vento forte soprou!",
+  "text": "Mas um vento forte soprou!",
+  "file": "sol/212c6367.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "as páginas do livro sumiram",
+  "text": "As páginas do Livro sumiram.",
+  "file": "sol/33c6654b.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "a bíblia continua aqui, inteirinha",
+  "text": "A Bíblia continua aqui, inteirinha.",
+  "file": "sol/360456fb.mp3"
  },
  {
   "voice": "sol",
@@ -361,45 +583,15 @@
  },
  {
   "voice": "sol",
+  "key": "tem mais no lago e no observatório",
+  "text": "Tem mais no lago e no Observatório.",
+  "file": "sol/546fb7ec.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "chegamos!",
   "text": "Chegamos!",
   "file": "sol/555595db.mp3"
- },
- {
-  "voice": "sol",
-  "key": "seja bem-vindo ao acampamento do livro aberto, onde os aventureiros vivem as histórias da bíblia",
-  "text": "Seja bem-vindo ao Acampamento do Livro Aberto, onde os Aventureiros vivem as histórias da Bíblia.",
-  "file": "sol/60829393.mp3"
- },
- {
-  "voice": "sol",
-  "key": "que alegria ter você aqui!",
-  "text": "Que alegria ter você aqui!",
-  "file": "sol/632dffc5.mp3"
- },
- {
-  "voice": "sol",
-  "key": "as páginas do livro dos sete dias voaram para longe",
-  "text": "As páginas do Livro dos Sete Dias voaram para longe.",
-  "file": "sol/656a5c00.mp3"
- },
- {
-  "voice": "sol",
-  "key": "antes, explore o acampamento e junte as moedas!",
-  "text": "Antes, explore o acampamento e junte as moedas!",
-  "file": "sol/672651a3.mp3"
- },
- {
-  "voice": "sol",
-  "key": "a cada página, o globo do éden ganha vida de novo",
-  "text": "A cada página, o Globo do Éden ganha vida de novo.",
-  "file": "sol/6bd5c72c.mp3"
- },
- {
-  "voice": "sol",
-  "key": "está vendo as faíscas?",
-  "text": "Está vendo as faíscas?",
-  "file": "sol/6c3e8b9b.mp3"
  },
  {
   "voice": "sol",
@@ -415,12 +607,6 @@
  },
  {
   "voice": "sol",
-  "key": "as páginas sumiram, mas a bíblia continua aqui, inteirinha!",
-  "text": "As páginas sumiram, mas a Bíblia continua aqui, inteirinha!",
-  "file": "sol/738a9ede.mp3"
- },
- {
-  "voice": "sol",
   "key": "siga a bússola e a trilha de faíscas!",
   "text": "Siga a bússola e a trilha de faíscas!",
   "file": "sol/74e04ca8.mp3"
@@ -430,6 +616,12 @@
   "key": "quer que eu leve você até o portal da missão?",
   "text": "Quer que eu leve você até o portal da missão?",
   "file": "sol/76bc5e2c.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "leve estes convites aos acampantes",
+  "text": "Leve estes convites aos acampantes.",
+  "file": "sol/77b5fb5c.mp3"
  },
  {
   "voice": "sol",
@@ -445,15 +637,9 @@
  },
  {
   "voice": "sol",
-  "key": "um vento forte soprou!",
-  "text": "um vento forte soprou!",
-  "file": "sol/92e49c4a.mp3"
- },
- {
-  "voice": "sol",
-  "key": "o portal da missão fica na colina do globo, ao norte",
-  "text": "O portal da missão fica na Colina do Globo, ao norte.",
-  "file": "sol/987d6905.mp3"
+  "key": "com ela, vamos refazer o livro dos sete dias!",
+  "text": "Com ela, vamos refazer o Livro dos Sete Dias!",
+  "file": "sol/8cdcd201.mp3"
  },
  {
   "voice": "sol",
@@ -463,33 +649,15 @@
  },
  {
   "voice": "sol",
-  "key": "leve estes três convites aos acampantes perto dos murais",
-  "text": "Leve estes três convites aos acampantes perto dos murais.",
-  "file": "sol/a9b96786.mp3"
+  "key": "o portal da missão fica na colina",
+  "text": "O portal da missão fica na colina.",
+  "file": "sol/9fa36d79.mp3"
  },
  {
   "voice": "sol",
-  "key": "o portal da primeira missão fica na colina do globo, ao norte",
-  "text": "O portal da primeira missão fica na Colina do Globo, ao norte.",
-  "file": "sol/b9dc84b6.mp3"
- },
- {
-  "voice": "sol",
-  "key": "cada um vai propor um desafio",
-  "text": "Cada um vai propor um desafio.",
-  "file": "sol/d7cd713f.mp3"
- },
- {
-  "voice": "sol",
-  "key": "seja bem-vinda ao acampamento do livro aberto, onde as aventureiras e os aventureiros vivem as histórias da bíblia",
-  "text": "Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia.",
-  "file": "sol/db13eabb.mp3"
- },
- {
-  "voice": "sol",
-  "key": "que bom ver o acampamento claro de novo",
-  "text": "Que bom ver o acampamento claro de novo.",
-  "file": "sol/e665f250.mp3"
+  "key": "siga a luz!",
+  "text": "Siga a luz!",
+  "file": "sol/a7c2aeee.mp3"
  },
  {
   "voice": "sol",
@@ -499,15 +667,9 @@
  },
  {
   "voice": "sol",
-  "key": "tem moedas no alto do observatório e no fundo do lago também",
-  "text": "Tem moedas no alto do Observatório e no fundo do lago também.",
-  "file": "sol/ee42d611.mp3"
- },
- {
-  "voice": "sol",
-  "key": "vamos ler a bíblia e reconstruir o livro dos sete dias, uma página para cada dia da criação",
-  "text": "Vamos ler a Bíblia e reconstruir o Livro dos Sete Dias, uma página para cada dia da criação.",
-  "file": "sol/f6a53307.mp3"
+  "key": "calma!",
+  "text": "Calma!",
+  "file": "sol/f0eed3da.mp3"
  },
  {
   "voice": "sol",
@@ -517,21 +679,9 @@
  },
  {
   "voice": "sol",
-  "key": "as páginas do livro dos sete dias sumiram e o globo do éden está apagado",
-  "text": "As páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado.",
-  "file": "sol/fb126727.mp3"
- },
- {
-  "voice": "tico",
-  "key": "sem forma, vazio e escuro",
-  "text": "Sem forma, vazio e escuro",
-  "file": "tico/03a94b77.mp3"
- },
- {
-  "voice": "tico",
-  "key": "escute: sino, água e grilo",
-  "text": "Escute: sino, água e grilo.",
-  "file": "tico/04f5a056.mp3"
+  "key": "bem-vindo ao acampamento do livro aberto!",
+  "text": "Bem-vindo ao Acampamento do Livro Aberto!",
+  "file": "sol/fdb72577.mp3"
  },
  {
   "voice": "tico",
@@ -541,15 +691,9 @@
  },
  {
   "voice": "tico",
-  "key": "está vendo as faíscas?",
-  "text": "Está vendo as faíscas?",
-  "file": "tico/064b56d8.mp3"
- },
- {
-  "voice": "tico",
-  "key": "faísca encontrada!",
-  "text": "Faísca encontrada!",
-  "file": "tico/0827948d.mp3"
+  "key": "pegue esta lanterna",
+  "text": "Pegue esta lanterna.",
+  "file": "tico/08e1d630.mp3"
  },
  {
   "voice": "tico",
@@ -559,21 +703,15 @@
  },
  {
   "voice": "tico",
-  "key": "a mesa da família fica na clareira",
-  "text": "A Mesa da Família fica na clareira.",
-  "file": "tico/0b1da85a.mp3"
- },
- {
-  "voice": "tico",
   "key": "quase!",
   "text": "Quase!",
   "file": "tico/0d1b781c.mp3"
  },
  {
   "voice": "tico",
-  "key": "o pedrito está na clareira, com medo do escuro",
-  "text": "O Pedrito está na clareira, com medo do escuro.",
-  "file": "tico/10bfe767.mp3"
+  "key": "o dia chegou!",
+  "text": "O dia chegou!",
+  "file": "tico/10f7b095.mp3"
  },
  {
   "voice": "tico",
@@ -583,9 +721,21 @@
  },
  {
   "voice": "tico",
+  "key": "você achou a primeira página do livro dos sete dias!",
+  "text": "Você achou a primeira página do Livro dos Sete Dias!",
+  "file": "tico/149db056.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "deus separou a luz da escuridão: o dia e a noite",
   "text": "Deus separou a luz da escuridão: o Dia e a Noite.",
   "file": "tico/157fa256.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "ouça: alguém está com medo!",
+  "text": "Ouça: alguém está com medo!",
+  "file": "tico/1721ee0b.mp3"
  },
  {
   "voice": "tico",
@@ -601,15 +751,21 @@
  },
  {
   "voice": "tico",
+  "key": "siga a luz!",
+  "text": "Siga a luz!",
+  "file": "tico/18583b07.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "escolha até dois",
   "text": "Escolha até dois.",
   "file": "tico/187eb2b2.mp3"
  },
  {
   "voice": "tico",
-  "key": "tome esta lanterna!",
-  "text": "Tome esta lanterna!",
-  "file": "tico/1bdbd1fc.mp3"
+  "key": "faltam seis páginas",
+  "text": "Faltam seis páginas.",
+  "file": "tico/18be29f2.mp3"
  },
  {
   "voice": "tico",
@@ -625,15 +781,21 @@
  },
  {
   "voice": "tico",
-  "key": "tudo o que você fez hoje conta a história do primeiro dia da criação (gênesis 1:1-5)",
-  "text": "Tudo o que você fez hoje conta a história do primeiro dia da criação (Gênesis 1:1-5).",
-  "file": "tico/2143c0b7.mp3"
- },
- {
-  "voice": "tico",
   "key": "água",
   "text": "água",
   "file": "tico/21e0d29a.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "tem mais no lago e no observatório",
+  "text": "Tem mais no lago e no Observatório.",
+  "file": "tico/23301697.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "como era tudo antes da luz?",
+  "text": "Como era tudo antes da luz?",
+  "file": "tico/234ab8d2.mp3"
  },
  {
   "voice": "tico",
@@ -643,15 +805,21 @@
  },
  {
   "voice": "tico",
-  "key": "jesus como direção e guia que ilumina e brilha na vida da criança",
-  "text": "Jesus como direção e guia que ilumina e brilha na vida da criança.",
-  "file": "tico/27506c34.mp3"
+  "key": "vamos descobrir o que deus fez?",
+  "text": "Vamos descobrir o que Deus fez?",
+  "file": "tico/26b37144.mp3"
  },
  {
   "voice": "tico",
-  "key": "ajude a separar: o que combina com o dia e o que combina com a noite?",
-  "text": "Ajude a separar: o que combina com o dia e o que combina com a noite?",
-  "file": "tico/280b6bc3.mp3"
+  "key": "siga a luz até a faísca!",
+  "text": "Siga a luz até a faísca!",
+  "file": "tico/26deef7b.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "jesus como direção e guia que ilumina e brilha na vida da criança",
+  "text": "Jesus como direção e guia que ilumina e brilha na vida da criança.",
+  "file": "tico/27506c34.mp3"
  },
  {
   "voice": "tico",
@@ -661,15 +829,27 @@
  },
  {
   "voice": "tico",
-  "key": "as páginas do livro dos sete dias sumiram!",
-  "text": "As páginas do Livro dos Sete Dias sumiram!",
-  "file": "tico/2eaf70a1.mp3"
+  "key": "agora leve as faíscas ao globo, na colina!",
+  "text": "Agora leve as faíscas ao Globo, na colina!",
+  "file": "tico/2b4ca9d1.mp3"
  },
  {
   "voice": "tico",
-  "key": "cada faísca é um pedacinho de luz",
-  "text": "Cada faísca é um pedacinho de luz.",
-  "file": "tico/2ebb1500.mp3"
+  "key": "vamos lá!",
+  "text": "Vamos lá!",
+  "file": "tico/2bde79ec.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "leve o convite ao acampante!",
+  "text": "Leve o convite ao acampante!",
+  "file": "tico/2da47510.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "as páginas do livro dos sete dias sumiram!",
+  "text": "As páginas do Livro dos Sete Dias sumiram!",
+  "file": "tico/2eaf70a1.mp3"
  },
  {
   "voice": "tico",
@@ -682,30 +862,6 @@
   "key": "tudo bem!",
   "text": "Tudo bem!",
   "file": "tico/2fcb56a9.mp3"
- },
- {
-  "voice": "tico",
-  "key": "os murais ficam em volta da clareira",
-  "text": "Os murais ficam em volta da clareira.",
-  "file": "tico/316a0865.mp3"
- },
- {
-  "voice": "tico",
-  "key": "uau, como está escuro!",
-  "text": "Uau, como está escuro!",
-  "file": "tico/3173c3f4.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a diretora sol tem uma tarefa para você!",
-  "text": "A Diretora Sol tem uma tarefa para você!",
-  "file": "tico/319a3aa4.mp3"
- },
- {
-  "voice": "tico",
-  "key": "siga os sons: sino, água e grilo",
-  "text": "Siga os sons: sino, água e grilo.",
-  "file": "tico/323b4b5a.mp3"
  },
  {
   "voice": "tico",
@@ -727,27 +883,9 @@
  },
  {
   "voice": "tico",
-  "key": "venha comigo, tenho uma coisa para você",
-  "text": "Venha comigo, tenho uma coisa para você.",
-  "file": "tico/36b2d10e.mp3"
- },
- {
-  "voice": "tico",
-  "key": "o globo do éden acendeu!",
-  "text": "O Globo do Éden acendeu!",
-  "file": "tico/3738bc47.mp3"
- },
- {
-  "voice": "tico",
   "key": "cheio de flores",
   "text": "Cheio de flores",
   "file": "tico/3773f858.mp3"
- },
- {
-  "voice": "tico",
-  "key": "vamos falar com a diretora sol?",
-  "text": "Vamos falar com a Diretora Sol?",
-  "file": "tico/3b538479.mp3"
  },
  {
   "voice": "tico",
@@ -757,15 +895,27 @@
  },
  {
   "voice": "tico",
-  "key": "a lâmpada central acendeu!",
-  "text": "A lâmpada central acendeu!",
-  "file": "tico/3ca11507.mp3"
+  "key": "tá escuro!",
+  "text": "Tá escuro!",
+  "file": "tico/3c73e9f5.mp3"
  },
  {
   "voice": "tico",
   "key": "ele vai se acender aos poucos, a cada dia da jornada",
   "text": "Ele vai se acender aos poucos, a cada dia da jornada.",
   "file": "tico/3cf27b20.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "primeiro, termine o desafio da ilha!",
+  "text": "Primeiro, termine o desafio da ilha!",
+  "file": "tico/3d0b5df1.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "volte ao portal para o próximo dia!",
+  "text": "Volte ao portal para o próximo dia!",
+  "file": "tico/3d47e0a0.mp3"
  },
  {
   "voice": "tico",
@@ -787,33 +937,9 @@
  },
  {
   "voice": "tico",
-  "key": "desça da ilha e fale com outro acampante",
-  "text": "Desça da ilha e fale com outro acampante.",
-  "file": "tico/40a62d4e.mp3"
- },
- {
-  "voice": "tico",
-  "key": "eu adoro uma aventura, e esta vai ser incrível",
-  "text": "Eu adoro uma aventura, e esta vai ser incrível.",
-  "file": "tico/41f8f7b4.mp3"
- },
- {
-  "voice": "tico",
-  "key": "antes, explore o acampamento e junte as moedas!",
-  "text": "Antes, explore o acampamento e junte as moedas!",
-  "file": "tico/440cf212.mp3"
- },
- {
-  "voice": "tico",
   "key": "o portal do próximo mundo está aberto!",
   "text": "O portal do próximo mundo está aberto!",
   "file": "tico/45ccd8de.mp3"
- },
- {
-  "voice": "tico",
-  "key": "o livro dos sete dias ainda guarda seis páginas",
-  "text": "O Livro dos Sete Dias ainda guarda seis páginas.",
-  "file": "tico/4666c551.mp3"
  },
  {
   "voice": "tico",
@@ -829,30 +955,6 @@
  },
  {
   "voice": "tico",
-  "key": "agora ouça",
-  "text": "Agora ouça...",
-  "file": "tico/4878c628.mp3"
- },
- {
-  "voice": "tico",
-  "key": "toque no chão para andar",
-  "text": "Toque no chão para andar.",
-  "file": "tico/4cc1206a.mp3"
- },
- {
-  "voice": "tico",
-  "key": "você encontrou a primeira página do livro dos sete dias",
-  "text": "Você encontrou a primeira página do Livro dos Sete Dias.",
-  "file": "tico/4e6e7932.mp3"
- },
- {
-  "voice": "tico",
-  "key": "cada som esconde uma faísca!",
-  "text": "Cada som esconde uma faísca!",
-  "file": "tico/4e798ab0.mp3"
- },
- {
-  "voice": "tico",
   "key": "quatro retângulos iguais, dois vinho e dois brancos, com o emblema no centro e o nome do clube no canto",
   "text": "Quatro retângulos iguais, dois vinho e dois brancos, com o emblema no centro e o nome do Clube no canto.",
   "file": "tico/4eab138a.mp3"
@@ -865,27 +967,9 @@
  },
  {
   "voice": "tico",
-  "key": "tem moedas no alto do observatório e no fundo do lago também",
-  "text": "Tem moedas no alto do Observatório e no fundo do lago também.",
-  "file": "tico/507525fa.mp3"
- },
- {
-  "voice": "tico",
-  "key": "deus separou a luz da escuridão",
-  "text": "Deus separou a luz da escuridão.",
-  "file": "tico/511fe0aa.mp3"
- },
- {
-  "voice": "tico",
-  "key": "ela está em branco",
-  "text": "Ela está em branco...",
-  "file": "tico/51e0b7d0.mp3"
- },
- {
-  "voice": "tico",
-  "key": "pode contar comigo: vou estar sempre do seu lado!",
-  "text": "Pode contar comigo: vou estar sempre do seu lado!",
-  "file": "tico/532c54eb.mp3"
+  "key": "separe: o que é do dia?",
+  "text": "Separe: o que é do dia?",
+  "file": "tico/50faa17f.mp3"
  },
  {
   "voice": "tico",
@@ -907,27 +991,21 @@
  },
  {
   "voice": "tico",
-  "key": "lembre da leitura: ainda não existia luz",
-  "text": "Lembre da leitura: ainda não existia luz.",
-  "file": "tico/569a329b.mp3"
- },
- {
-  "voice": "tico",
   "key": "sim!",
   "text": "Sim!",
   "file": "tico/56fc9b36.mp3"
  },
  {
   "voice": "tico",
-  "key": "mas a luz de verdade, a que ilumina o mundo inteiro, só deus pode criar",
-  "text": "Mas a luz de verdade, a que ilumina o mundo inteiro, só Deus pode criar.",
-  "file": "tico/57d1798e.mp3"
+  "key": "o lampião acendeu!",
+  "text": "O lampião acendeu!",
+  "file": "tico/5db1aca0.mp3"
  },
  {
   "voice": "tico",
-  "key": "esta é a página do primeiro dia da criação",
-  "text": "Esta é a página do primeiro dia da criação.",
-  "file": "tico/5b679898.mp3"
+  "key": "agora fale com outro acampante!",
+  "text": "Agora fale com outro acampante!",
+  "file": "tico/5db5805d.mp3"
  },
  {
   "voice": "tico",
@@ -943,9 +1021,39 @@
  },
  {
   "voice": "tico",
+  "key": "a bíblia conta: tudo era sem forma, vazio e escuro",
+  "text": "A Bíblia conta: tudo era sem forma, vazio e escuro.",
+  "file": "tico/61bf3772.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "bem-vindo de volta ao acampamento!",
   "text": "Bem-vindo de volta ao acampamento!",
   "file": "tico/621d28f3.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o portal da missão fica na colina",
+  "text": "O portal da missão fica na colina.",
+  "file": "tico/63356964.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "está em branco!",
+  "text": "Está em branco!",
+  "file": "tico/6392290b.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "lembre: ainda não tinha luz",
+  "text": "Lembre: ainda não tinha luz.",
+  "file": "tico/63ebc941.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "vou estar sempre do seu lado!",
+  "text": "Vou estar sempre do seu lado!",
+  "file": "tico/63ee70ba.mp3"
  },
  {
   "voice": "tico",
@@ -967,6 +1075,12 @@
  },
  {
   "voice": "tico",
+  "key": "esta é a página do primeiro dia",
+  "text": "Esta é a página do primeiro dia.",
+  "file": "tico/67519b37.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "este aparelho não conseguiu abrir o 3d",
   "text": "Este aparelho não conseguiu abrir o 3D.",
   "file": "tico/675943f7.mp3"
@@ -979,21 +1093,9 @@
  },
  {
   "voice": "tico",
-  "key": "o globo do éden está aceso",
-  "text": "O Globo do Éden está aceso.",
-  "file": "tico/6aacdcd3.mp3"
- },
- {
-  "voice": "tico",
   "key": "quer que eu leve você até o portal da missão?",
   "text": "Quer que eu leve você até o portal da missão?",
   "file": "tico/6af95d15.mp3"
- },
- {
-  "voice": "tico",
-  "key": "agora leve as três faíscas até o globo do éden, na colina!",
-  "text": "Agora leve as três faíscas até o Globo do Éden, na colina!",
-  "file": "tico/6e1a13d8.mp3"
  },
  {
   "voice": "tico",
@@ -1021,6 +1123,12 @@
  },
  {
   "voice": "tico",
+  "key": "o globo acendeu!",
+  "text": "O Globo acendeu!",
+  "file": "tico/75e3390c.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "primeira luz",
   "text": "Primeira Luz",
   "file": "tico/777b8228.mp3"
@@ -1039,15 +1147,27 @@
  },
  {
   "voice": "tico",
-  "key": "como estava tudo antes da luz?",
-  "text": "Como estava tudo antes da luz?",
-  "file": "tico/7ea2e212.mp3"
+  "key": "vamos ao portal da missão?",
+  "text": "Vamos ao portal da missão?",
+  "file": "tico/7b6cbb3c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o lampião fica perto da fogueira!",
+  "text": "O lampião fica perto da fogueira!",
+  "file": "tico/7e42ea03.mp3"
  },
  {
   "voice": "tico",
   "key": "noite",
   "text": "Noite",
   "file": "tico/80a2b4c9.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "vamos pegar?",
+  "text": "Vamos pegar?",
+  "file": "tico/81618eb6.mp3"
  },
  {
   "voice": "tico",
@@ -1063,6 +1183,12 @@
  },
  {
   "voice": "tico",
+  "key": "deus falou, e a luz apareceu!",
+  "text": "Deus falou, e a luz apareceu!",
+  "file": "tico/8771c858.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "aventureiros!",
   "text": "Aventureiros!",
   "file": "tico/87e4200a.mp3"
@@ -1075,27 +1201,15 @@
  },
  {
   "voice": "tico",
-  "key": "o lampião central fica na clareira, perto da fogueira",
-  "text": "O lampião central fica na clareira, perto da fogueira.",
-  "file": "tico/88e768c7.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a luz ele chamou de dia, e a escuridão, de noite",
-  "text": "A luz Ele chamou de Dia, e a escuridão, de Noite.",
-  "file": "tico/890ae9d5.mp3"
- },
- {
-  "voice": "tico",
-  "key": "cheio de animais",
-  "text": "Cheio de animais",
-  "file": "tico/89548b4d.mp3"
- },
- {
-  "voice": "tico",
   "key": "sol",
   "text": "Sol",
   "file": "tico/8a0fd91e.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito está com medo",
+  "text": "O Pedrito está com medo.",
+  "file": "tico/8abee1c1.mp3"
  },
  {
   "voice": "tico",
@@ -1105,9 +1219,21 @@
  },
  {
   "voice": "tico",
-  "key": "vamos descobrir juntos o que deus fez no primeiro dia?",
-  "text": "Vamos descobrir juntos o que Deus fez no primeiro dia?",
-  "file": "tico/8d19f6f1.mp3"
+  "key": "deus chamou a luz de dia, e a escuridão, de noite",
+  "text": "Deus chamou a luz de Dia, e a escuridão, de Noite.",
+  "file": "tico/90195414.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "só deus cria a luz de verdade",
+  "text": "Só Deus cria a luz de verdade.",
+  "file": "tico/90c7abf6.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "escuro e vazio",
+  "text": "Escuro e vazio",
+  "file": "tico/9591b465.mp3"
  },
  {
   "voice": "tico",
@@ -1117,15 +1243,9 @@
  },
  {
   "voice": "tico",
-  "key": "foi assim no primeiro dia da criação: deus falou, e a luz apareceu!",
-  "text": "Foi assim no primeiro dia da criação: Deus falou, e a luz apareceu!",
-  "file": "tico/976f42aa.mp3"
- },
- {
-  "voice": "tico",
-  "key": "termine primeiro o desafio da ilha suspensa!",
-  "text": "Termine primeiro o desafio da ilha suspensa!",
-  "file": "tico/98b3ab1b.mp3"
+  "key": "siga a luz",
+  "text": "Siga a luz.",
+  "file": "tico/985d991c.mp3"
  },
  {
   "voice": "tico",
@@ -1141,6 +1261,12 @@
  },
  {
   "voice": "tico",
+  "key": "a diretora sol chama você!",
+  "text": "A Diretora Sol chama você!",
+  "file": "tico/99a94ce8.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "parabéns!",
   "text": "Parabéns!",
   "file": "tico/99ee95ef.mp3"
@@ -1153,15 +1279,15 @@
  },
  {
   "voice": "tico",
-  "key": "a ilha suspensa está esperando por você!",
-  "text": "A ilha suspensa está esperando por você!",
-  "file": "tico/9b99ed99.mp3"
- },
- {
-  "voice": "tico",
   "key": "este portal leva a um novo mundo, com outra história e outro cenário",
   "text": "Este portal leva a um novo mundo, com outra história e outro cenário.",
   "file": "tico/9cdbf4bd.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "siga a luz e ache as faíscas!",
+  "text": "Siga a luz e ache as faíscas!",
+  "file": "tico/a0d2b5e3.mp3"
  },
  {
   "voice": "tico",
@@ -1219,6 +1345,12 @@
  },
  {
   "voice": "tico",
+  "key": "falta só uma!",
+  "text": "Falta só uma!",
+  "file": "tico/a90260d2.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "daqui de cima dá para ver o acampamento inteiro!",
   "text": "Daqui de cima dá para ver o acampamento inteiro!",
   "file": "tico/a93d19c1.mp3"
@@ -1249,27 +1381,15 @@
  },
  {
   "voice": "tico",
-  "key": "as páginas do livro dos sete dias sumiram e o globo do éden está apagado",
-  "text": "As páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado.",
-  "file": "tico/ae492d6c.mp3"
- },
- {
-  "voice": "tico",
-  "key": "igualzinho ao acampamento agora!",
-  "text": "Igualzinho ao acampamento agora!",
-  "file": "tico/ae5c0f67.mp3"
+  "key": "o que você fez hoje conta o primeiro dia da criação (gênesis 1:1-5)",
+  "text": "O que você fez hoje conta o primeiro dia da criação (Gênesis 1:1-5).",
+  "file": "tico/b314b67f.mp3"
  },
  {
   "voice": "tico",
   "key": "explore o acampamento à vontade",
   "text": "Explore o acampamento à vontade.",
   "file": "tico/b3755493.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a leitura conta que, no começo, tudo estava sem forma, vazio e escuro",
-  "text": "A leitura conta que, no começo, tudo estava sem forma, vazio e escuro.",
-  "file": "tico/b3a0884f.mp3"
  },
  {
   "voice": "tico",
@@ -1285,9 +1405,9 @@
  },
  {
   "voice": "tico",
-  "key": "o portal da missão fica na colina do globo, ao norte",
-  "text": "O portal da missão fica na Colina do Globo, ao norte.",
-  "file": "tico/b7b2a27e.mp3"
+  "key": "faltam duas!",
+  "text": "Faltam duas!",
+  "file": "tico/b7d6dc79.mp3"
  },
  {
   "voice": "tico",
@@ -1309,33 +1429,21 @@
  },
  {
   "voice": "tico",
-  "key": "clique no chão para andar",
-  "text": "Clique no chão para andar.",
-  "file": "tico/c6832261.mp3"
+  "key": "agora vá até a mesa da família!",
+  "text": "Agora vá até a mesa da família!",
+  "file": "tico/c3cc2547.mp3"
  },
  {
   "voice": "tico",
-  "key": "o portal da primeira missão fica na colina do globo, ao norte",
-  "text": "O portal da primeira missão fica na Colina do Globo, ao norte.",
-  "file": "tico/c6f8b40b.mp3"
+  "key": "a ilha está esperando você!",
+  "text": "A ilha está esperando você!",
+  "file": "tico/c481a276.mp3"
  },
  {
   "voice": "tico",
   "key": "segure b no pulo: marretada no chão!",
   "text": "Segure B no pulo: marretada no chão!",
   "file": "tico/c8a85d6a.mp3"
- },
- {
-  "voice": "tico",
-  "key": "olhe, o dia está chegando",
-  "text": "Olhe, o dia está chegando...",
-  "file": "tico/c8cddb5b.mp3"
- },
- {
-  "voice": "tico",
-  "key": "cada um esconde uma faísca!",
-  "text": "Cada um esconde uma faísca!",
-  "file": "tico/cc129cb9.mp3"
  },
  {
   "voice": "tico",
@@ -1360,18 +1468,6 @@
   "key": "vaga-lume",
   "text": "Vaga-lume",
   "file": "tico/d0cc15cd.mp3"
- },
- {
-  "voice": "tico",
-  "key": "eu sou o tico!",
-  "text": "Eu sou o Tico!",
-  "file": "tico/d168b406.mp3"
- },
- {
-  "voice": "tico",
-  "key": "ela ilumina só um pedacinho do caminho, então vá com calma",
-  "text": "Ela ilumina só um pedacinho do caminho, então vá com calma.",
-  "file": "tico/d3d20c73.mp3"
  },
  {
   "voice": "tico",
@@ -1417,12 +1513,6 @@
  },
  {
   "voice": "tico",
-  "key": "você achou as três faíscas!",
-  "text": "Você achou as três faíscas!",
-  "file": "tico/de011654.mp3"
- },
- {
-  "voice": "tico",
   "key": "é quando está claro",
   "text": "É quando está claro.",
   "file": "tico/de388311.mp3"
@@ -1435,15 +1525,15 @@
  },
  {
   "voice": "tico",
-  "key": "quando quiser, volte ao portal para o próximo dia!",
-  "text": "Quando quiser, volte ao portal para o próximo dia!",
-  "file": "tico/e0d5fe6b.mp3"
+  "key": "o que é da noite?",
+  "text": "O que é da noite?",
+  "file": "tico/e2f381d4.mp3"
  },
  {
   "voice": "tico",
-  "key": "olha!",
-  "text": "Olha!",
-  "file": "tico/e5c53157.mp3"
+  "key": "três faíscas!",
+  "text": "Três faíscas!",
+  "file": "tico/e3af38be.mp3"
  },
  {
   "voice": "tico",
@@ -1453,9 +1543,9 @@
  },
  {
   "voice": "tico",
-  "key": "a leitura conta que deus chamou a luz de dia",
-  "text": "A leitura conta que Deus chamou a luz de Dia.",
-  "file": "tico/e8360fe6.mp3"
+  "key": "cheio de bichos",
+  "text": "Cheio de bichos",
+  "file": "tico/e83b38fb.mp3"
  },
  {
   "voice": "tico",
@@ -1495,15 +1585,9 @@
  },
  {
   "voice": "tico",
-  "key": "agora vamos abrir a bíblia e ler como tudo começou",
-  "text": "Agora vamos abrir a Bíblia e ler como tudo começou.",
-  "file": "tico/f1efb957.mp3"
- },
- {
-  "voice": "tico",
-  "key": "quando quiser continuar, é só voltar ao portal da missão",
-  "text": "Quando quiser continuar, é só voltar ao portal da missão.",
-  "file": "tico/f390ec9c.mp3"
+  "key": "agora apareceram moedas no acampamento",
+  "text": "Agora apareceram moedas no acampamento.",
+  "file": "tico/f399f801.mp3"
  },
  {
   "voice": "tico",
@@ -1522,18 +1606,6 @@
   "key": "convite aceito!",
   "text": "Convite aceito!",
   "file": "tico/f4b96170.mp3"
- },
- {
-  "voice": "tico",
-  "key": "no começo de tudo, antes da luz, estava tudo escuro",
-  "text": "No começo de tudo, antes da luz, estava tudo escuro.",
-  "file": "tico/f5471ed0.mp3"
- },
- {
-  "voice": "tico",
-  "key": "lembra da leitura?",
-  "text": "Lembra da leitura?",
-  "file": "tico/f821cd31.mp3"
  },
  {
   "voice": "tico",

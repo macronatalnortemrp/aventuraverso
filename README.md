@@ -43,7 +43,7 @@ src/
                        icons.ts (ícones SVG), render3d.ts (moeda e rostos renderizados em 3D)
 tests/                 testes de unidade
 public/assets/official emblemas oficiais (originais) e web/ (cópias reduzidas, mesma proporção)
-public/data/           days/day01.json (textos da missão), content/bible-arc1898.json (texto conferido)
+public/data/           days/day01.json (textos da missão), content/bible-acf2007.json (texto conferido)
 docs/                  documentação de produção
 prototype/             referências visuais antigas
 ```
@@ -57,8 +57,8 @@ prototype/             referências visuais antigas
 
 ## Estado atual (20/11/2026)
 - **Mundo 1 explorável:** acampamento completo, toque no chão, joystick e botões A/B opcionais, câmera 360°, nado, mergulho com fôlego, 49 moedas, ajuda do Tico com teletransporte.
-- **Missão 1 "A Luz no Acampamento" jogável** (`docs/DAY_01.md`), pelo portal da Colina do Globo: escuro total com lanterna; três faíscas guiadas por sino, água e grilo (som posicional); Pedrito e a pergunta do lenço; "Haja luz" com blocos de palavras e o lampião central; separar dia e noite com o amanhecer; três convites nos murais com as perguntas do Clube; o Globo do Éden acende com a Voz. Recompensa: Distintivo do Acampamento "Primeira Luz" (não oficial), estrelas, lanterna aprimorada e missão real opcional. Termina com o feedback do piloto (`feedback.day01`, só no aparelho).
-- **Jornada do Éden** no portal da missão: mostra os sete dias, o que já foi feito e o que dá para jogar agora. A criança joga quantos dias quiser, quando quiser, e continua de onde parou. O portal do Mundo 2 abre com os sete dias concluídos.
+- **Missão 1 "A Luz no Acampamento" jogável** (`docs/DAY_01.md`), pelo portal "Jornada do Éden", na Colina do Globo: escuro total com lanterna; três faíscas guiadas por sino, água e grilo (som posicional); Pedrito e a pergunta do lenço; "Haja luz" com blocos de palavras e o lampião central; separar dia e noite com o amanhecer; três convites nos murais com as perguntas do Clube; o Globo do Éden acende com a Voz. Recompensa: Distintivo do Acampamento "Primeira Luz" (não oficial), estrelas, lanterna aprimorada e missão real opcional. Termina com o feedback do piloto (`feedback.day01`, só no aparelho).
+- **Jornada do Éden** no portal de mesmo nome: mostra os sete dias, o que já foi feito e o que dá para jogar agora. A criança joga quantos dias quiser, quando quiser, e continua de onde parou. O portal do Mundo 2 abre com os sete dias concluídos.
 - No fim do dia, um resumo liga cada ação do jogo ao primeiro dia da criação (textos em `creation` no `day01.json`, para revisão).
 - Salva a cada etapa e retoma de onde parou. Respostas erradas não tiram nada: acolhe, dá pista e, na terceira, mostra a resposta explicando.
 - Textos da missão em `public/data/days/day01.json`.
@@ -76,8 +76,7 @@ prototype/             referências visuais antigas
 - Para rodar à mão: `node --experimental-strip-types scripts/voices/collect.ts` e `python scripts/voices/generate.py` (ver o cabeçalho do script).
 
 ## Pendências de conteúdo (precisam de conferência humana)
-- **Texto bíblico:** `public/data/content/bible-arc1898.json` está vazio. Enquanto não houver texto conferido, as leituras usam o modo "Bíblia na Mão" (referência para ler na Bíblia impressa). Quando o arquivo receber `"Gn 1:1"` a `"Gn 1:5"`, o jogo passa a mostrar o Pergaminho e a montar a frase com as palavras de Gn 1:3.
-- **Duas perguntas desligadas** em `day01.json` (`beforeLight` e `lightName`), porque a resposta depende do texto bíblico. Basta revisar e trocar `"enabled": false` por `true`.
+- **Texto bíblico:** `public/data/content/bible-acf2007.json` tem os 34 versículos de Gn 1:1 a 2:3 na Almeida Corrigida Fiel (2007), copiados sem alteração de uma fonte pública (origem registrada no arquivo). Com ele, as leituras aparecem no próprio jogo (Pergaminho da Palavra) e a frase do lampião usa as palavras de Gn 1:3. Conferido pelo responsável do projeto e com uso validado junto à Sociedade Bíblica Trinitariana do Brasil (21/11/2026).
 - **Distratores** das perguntas do Clube são sugestões a revisar com a liderança (`docs/QUIZ_MAP.md`).
 - **Revisão geral das perguntas do Dia 1** (dificuldade equilibrada) e das falas que ligam o jogo à criação (`creation` em `day01.json`).
 - `src/config/pilot.ts` ainda não existe com o endereço do formulário dos responsáveis.
