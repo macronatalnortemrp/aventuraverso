@@ -152,6 +152,7 @@ let started = false;
 let target: { x: number; z: number } | null = null;
 let pendingInter: Interactable | null = null;
 let near: Interactable | null = null;
+let shownAction: string | null = null;
 let clock = 0;
 let saved = [...SAVE.data.coins];
 const GUIDE = newGuide();
@@ -416,6 +417,13 @@ const missionReady = loadDay01()
           orbit.yaw = face + Math.PI;
           orbit.snap(P.x, P.y, P.z);
         },
+        camera,
+        forceControls(on) {
+          const show = on || SAVE.data.controls;
+          for (const id of ['joy', 'A', 'B']) hud.show(id, show);
+          document.body.classList.toggle('ctl', show);
+        },
+        banner: (text, ms) => hud.banner(text, ms),
         onExit(done, wantsNext) {
           ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
           ped.root.rotation.y = PED_HOME.ry;
@@ -487,9 +495,13 @@ function step(dt: number) {
   }
 
   const best = inter.nearest(P.x, P.y, P.z);
-  if (best !== near) {
+  // o rótulo pode mudar sem trocar de objeto (Caminho da Luz: pegar, encaixar, girar)
+  const want = best && P.st === 'ground' ? (best.rotate ? '\u27f2' : best.label + (best.npc ? ' com ' + best.name.replace('Diretora ', '') : '')) : null;
+  if (best !== near || want !== shownAction) {
     near = best;
-    hud.action(near && P.st === 'ground' ? near.label + (near.npc ? ' com ' + near.name.replace('Diretora ', '') : '') : null);
+    shownAction = want;
+    hud.action(want && !best?.rotate ? want : null);
+    hud.show('rot', !!best?.rotate && P.st === 'ground');
   }
 
   const obj = objective();
@@ -620,6 +632,8 @@ $('bc').onclick = () => {
   if (on) hud.say('A pula. A e depois B: pulo alto (andando, vira mergulho no ar). Segure B no pulo: marretada no chão!', 8000);
 };
 $('act').onclick = () => near && interact(near);
+$('rotl').onclick = () => near?.rotate?.(-1);
+$('rotr').onclick = () => near?.rotate?.(1);
 /* ---------- abertura (docs/INTRO_SEQUENCE.md) ---------- */
 let intro: Intro | null = null;
 const introReady = loadIntro()
@@ -746,9 +760,11 @@ renderer.setAnimationLoop(() => {
     if (!paused()) step(dt);
     else if (near) {
       near = null;
+      shownAction = null;
       hud.action(null);
+      hud.show('rot', false);
     }
-    orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
+    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
   }
@@ -780,6 +796,7 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
   Object.assign(window, {
     R: renderer,
     scene,
+    camp,
     P,
     CAM: orbit,
     PORT: portals,

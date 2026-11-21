@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-import { Day01, SPARK_COUNT, complete, foundSpark, hungInvite, isNight, newDay01, stepIndex, Step } from './state';
+import { Day01, SPARK_COUNT, acceptChallenge, complete, foundSpark, hungInvite, isNight, newDay01, stepIndex, Step } from './state';
+import { LightPath } from '../light/lightPath';
+import { STEPS as ISLE_STEPS, ISLAND } from '../../world/island';
 import { Question } from '../quiz';
 import { Player } from '../player';
 import { Camp, CENTRAL_LAMP, GLOBE, MURALS } from '../../world/camp';
@@ -25,11 +27,24 @@ export interface Day01Content {
   start: string[];
   lantern: string[];
   readings: Record<'r1' | 'r2' | 'r3', { ref: string; keys: string[] }>;
-  questions: Record<'beforeLight' | 'scarf' | 'lightName' | 'invite1' | 'invite2' | 'invite3', Question>;
+  questions: Record<'beforeLight' | 'scarf' | 'lightName', Question>;
   pedrito: { afraid: string[]; after: string[] };
   phrase: { fallback: string[]; distractors: string[]; done: string[] };
   sort: { prompt: string; items: { id: string; name: string; group: string }[]; done: string[] };
   invites: { sol: string[]; hung: string };
+  challenge: {
+    who: string;
+    title: string;
+    ask: string;
+    accept: string;
+    later: string;
+    instruction: string;
+    controls: string;
+    done: string;
+    final: string;
+    thanks: string;
+    tico: { busy: string; waiting: string; next: string };
+  };
   globe: { go: string; voice: string; after: string[] };
   rewards: { badge: string; badgeNote: string; lantern: string; stars: number };
   realMission: { text: string; adult: string };
@@ -83,6 +98,11 @@ export interface MissionDeps {
   place(x: number, z: number, face: number): void;
   /** volta ao acampamento normal (fim ou saída da missão) */
   onExit(done: boolean, wantsNext: boolean): void;
+  camera: THREE.PerspectiveCamera;
+  /** liga o joystick e o botão A só durante o Caminho da Luz (false volta à preferência salva) */
+  forceControls(on: boolean): void;
+  /** mensagem grande e curta no centro da tela */
+  banner(text: string, ms?: number): void;
 }
 
 export class Day01Mission {
@@ -96,6 +116,9 @@ export class Day01Mission {
   private lampK = 0;
   private globeK = 0;
   private goalText = '';
+  /** Caminho da Luz: ilha suspensa e puzzles de espelhos (etapa dos convites) */
+  readonly light: LightPath;
+  private releaseControlsOnGround = false;
 
   constructor(
     private d: MissionDeps,
@@ -125,6 +148,8 @@ export class Day01Mission {
       d.scene.add(k.root);
       this.campers.push(k);
     });
+    this.light = new LightPath({ scene: d.scene, camera: d.camera, col: d.camp.col, inter: d.camp.inter, fx: d.fx, player: () => d.player });
+    this.light.onSolved = (stage) => void this.challengeDone(stage);
     if (this.done) this.applyDone();
   }
 
@@ -168,7 +193,22 @@ export class Day01Mission {
     const p = this.d.player;
     Object.assign(this.pedFollow, { x: p.x + 1.5, z: p.z + 1.5, y: p.y });
     this.set(this.state);
+    this.restoreIsland();
     void this.run();
+  }
+
+  /** Retomada no meio dos convites: a ilha volta pronta, com o desafio em andamento ou o último concluído. */
+  private restoreIsland() {
+    const s = this.state;
+    if (s.step !== 'invites') return;
+    if (s.challenge !== null) {
+      this.light.setup(s.invites.length);
+      this.light.island.show();
+      this.d.forceControls(true);
+    } else if (s.invites.length > 0) {
+      this.light.setup(s.invites.length - 1, true);
+      this.light.island.show();
+    }
   }
 
   exit(wantsNext = false) {
@@ -179,6 +219,9 @@ export class Day01Mission {
     this.campers.forEach((c) => (c.root.visible = false));
     for (const id of ['lamp', 'mural0', 'mural1', 'mural2']) this.inter(id).off = true;
     this.d.hud.show('goal', false);
+    this.light.hide();
+    this.releaseControlsOnGround = false;
+    this.d.forceControls(false);
     if (this.done) this.applyDone();
     else {
       this.d.camp.setCentralLamp(0);
@@ -221,7 +264,10 @@ export class Day01Mission {
       pedrito: 'Ajude o Pedrito na clareira',
       letThereBeLight: 'Leve as faíscas ao lampião central',
       dayNight: 'Vá até a Mesa da Família',
-      invites: `Pendure os convites nos murais (${s.invites.length}/3)`,
+      invites:
+        s.challenge !== null
+          ? 'Suba a ilha suspensa e leve a luz até o cristal'
+          : `Leve os convites aos acampantes (${s.invites.length}/3)`,
       globe: 'Leve as faíscas ao Globo do Éden',
     };
     this.goalText = goals[s.step] ?? '';
@@ -248,6 +294,7 @@ export class Day01Mission {
       case 'dayNight':
         return { x: -9, z: 8, hint: 'A Mesa da Família fica na clareira.' };
       case 'invites': {
+        if (s.challenge !== null) return { x: ISLE_STEPS[0].x, z: ISLE_STEPS[0].z, hint: this.content.challenge.instruction };
         const i = [0, 1, 2].find((k) => !s.invites.includes(k));
         return i === undefined ? null : { x: MURALS[i][0], z: MURALS[i][1], hint: 'Os murais ficam em volta da clareira.' };
       }
@@ -285,6 +332,7 @@ export class Day01Mission {
   /** Toques em pessoas e objetos durante a missão. Devolve true se a missão cuidou. */
   onInteract(o: Interactable): boolean {
     if (!this.active || this.busy) return false;
+    if (this.light.onInteract(o)) return true;
     const s = this.state;
     if (o.npc === 'pedrito' && s.step === 'pedrito') {
       void this.pedritoStep();
@@ -303,7 +351,7 @@ export class Day01Mission {
       return true;
     }
     if (o.id?.startsWith('mural') && s.step === 'invites') {
-      void this.inviteStep(Number(o.id.slice(5)));
+      void this.offerChallenge(Number(o.id.slice(5)));
       return true;
     }
     if (o.id === 'globe' && s.step === 'globe') {
@@ -349,17 +397,102 @@ export class Day01Mission {
     this.d.hud.say('A Diretora Sol tem uma tarefa para você!', 5000);
   }
 
-  private async inviteStep(i: number) {
+  /** O acampante propõe o desafio do Caminho da Luz; ao aceitar, a ilha suspensa aparece. */
+  private async offerChallenge(i: number) {
+    const s = this.state,
+      t = this.content.challenge;
+    if (s.challenge === i) return this.d.hud.say(t.tico.waiting, 4000);
+    if (s.challenge !== null) return this.d.hud.say(t.tico.busy, 4000);
     this.busy = true;
     const c = this.campers[i];
     c.root.rotation.y = Math.atan2(this.d.player.x - c.root.position.x, this.d.player.z - c.root.position.z);
-    await this.q((['invite1', 'invite2', 'invite3'] as const)[i]);
+    const yes = await this.d.task.confirm(t.who, t.title, t.ask, t.accept, t.later);
+    if (!yes) {
+      this.busy = false;
+      return;
+    }
+    this.set(acceptChallenge(this.state, i));
+    await this.presentChallenge(this.state.invites.length);
+    this.busy = false;
+  }
+
+  /**
+   * Apresentação: a câmera mostra o lugar, a ilha surge, a câmera percorre o caminho da partida ao topo,
+   * mostra a área do puzzle, dá a instrução e devolve o controle (com joystick e botão A ligados).
+   */
+  private async presentChallenge(stage: number) {
+    const L = this.light,
+      first = !L.island.visible;
+    this.d.hud.hideTico();
+    this.d.forceControls(true);
+    L.setup(stage);
+    const tour = L.tour();
+    if (first) {
+      await L.play([tour[0]]);
+      sfx('pound');
+      await this.animate(3.4, (k) => {
+        const popped = L.island.appear(k);
+        if (popped >= 0) {
+          const st = ISLE_STEPS[popped];
+          sfx('jump');
+          this.d.fx.puff(st.x, st.y, st.z, { n: 8, tex: sparkTex, color: 0xfff1b0, add: true, sp: 2, up: 1.5, s: 0.4, life: 0.6 });
+        }
+      });
+      L.island.appear(1);
+      await L.play(tour.slice(1));
+    } else {
+      // a ilha já está lá: só o topo troca de desafio
+      this.d.fx.puff(ISLAND.x, ISLE_STEPS[8].y + 2, ISLAND.z, { n: 30, tex: sparkTex, color: 0xfff1b0, add: true, sp: 4, up: 3, s: 0.5, life: 1 });
+      await L.play([tour[0], tour[tour.length - 1]]);
+    }
+    const t = this.content.challenge;
+    await this.talk(t.who, [t.instruction, t.controls]);
+    const { orbit, player: p } = this.d;
+    await L.play([L.backTo(p.x, p.y, p.z, orbit.yaw, orbit.dist, orbit.pitch)]);
+    this.refresh();
+  }
+
+  /** Luz no cristal: o acampante aceita o convite. No terceiro, a ilha some. */
+  private async challengeDone(stage: number) {
+    const i = this.state.challenge;
+    if (i === null) return;
+    this.busy = true;
+    const t = this.content.challenge,
+      last = stage >= 2;
+    this.d.banner(last ? t.final : t.done, last ? 3600 : 2600);
     this.d.camp.setInvite(i, true);
     sfx('coin');
-    this.busy = false;
     this.set(hungInvite(this.state, i));
-    if (this.state.step === 'globe') this.d.hud.say(this.content.globe.go, 7000);
-    else this.d.hud.say(this.content.invites.hung, 2500);
+    await this.wait(last ? 3.2 : 2.2);
+    await this.talk(t.who, [t.thanks]);
+    if (!last) {
+      // o joystick continua ligado até a criança voltar ao chão
+      this.releaseControlsOnGround = true;
+      this.busy = false;
+      this.d.hud.say(t.tico.next, 7000);
+      return;
+    }
+    this.d.forceControls(false);
+    // desce a criança até a partida e mostra a ilha sumindo aos poucos
+    this.d.hud.fade(true);
+    await this.wait(REDUCED_MOTION ? 0 : 0.5);
+    const st = ISLE_STEPS[0];
+    this.d.place(st.x + 3, st.z + 1.5, Math.atan2(ISLAND.x - st.x, ISLAND.z - st.z));
+    this.d.hud.fade(false);
+    const L = this.light,
+      tour = L.tour();
+    await L.play([tour[0]]);
+    await this.animate(3, (k) => L.island.vanish(k));
+    L.hide();
+    const { orbit, player: p } = this.d;
+    await L.play([L.backTo(p.x, p.y, p.z, orbit.yaw, orbit.dist, orbit.pitch)]);
+    this.busy = false;
+    this.d.hud.say(this.content.globe.go, 8000);
+  }
+
+  /** Câmera da cena (apresentação e fim do Caminho da Luz). */
+  cameraOverride(dt: number) {
+    return this.light.camera(dt);
   }
 
   private async globeStep() {
@@ -524,6 +657,11 @@ export class Day01Mission {
     pi.off = si > stepIndex('pedrito');
 
     // lampião acende devagar
+    this.light.update(dt, t);
+    if (this.releaseControlsOnGround && this.state.challenge === null && this.light.island.standingOn(p.x, p.y, p.z) === -1) {
+      this.releaseControlsOnGround = false;
+      this.d.forceControls(false);
+    }
     if (this.lampK > 0 && this.lampK < 1) {
       this.lampK = Math.min(1, this.lampK + dt / 1.5);
       this.d.camp.setCentralLamp(this.lampK);

@@ -72,45 +72,6 @@
       "answer": 0,
       "hint": "É quando está claro.",
       "explain": "A leitura conta que Deus chamou a luz de Dia."
-    },
-    "invite1": {
-      "enabled": true,
-      "who": "Acampante",
-      "prompt": "O Clube de Aventureiros é para quem?",
-      "options": [
-        "Crianças de 6 a 9 anos",
-        "Só para adultos",
-        "Só para bebês"
-      ],
-      "answer": 0,
-      "hint": "Você tem a idade certa para participar!",
-      "explain": "O Clube de Aventureiros é para crianças de 6 a 9 anos."
-    },
-    "invite2": {
-      "enabled": true,
-      "who": "Acampante",
-      "prompt": "Para que existe o Clube?",
-      "options": [
-        "Para apoiar a família",
-        "Para competir com outros clubes",
-        "Para substituir a escola"
-      ],
-      "answer": 0,
-      "hint": "Pense em quem está sempre com você em casa.",
-      "explain": "O Clube existe para apoiar a família."
-    },
-    "invite3": {
-      "enabled": true,
-      "who": "Acampante",
-      "prompt": "Quais são as áreas do crescimento?",
-      "options": [
-        "Física, mental, espiritual e social",
-        "Só a física",
-        "Correr, pular e nadar"
-      ],
-      "answer": 0,
-      "hint": "São quatro áreas: corpo, mente, fé e amigos.",
-      "explain": "As áreas do crescimento são física, mental, espiritual e social."
     }
   },
   "pedrito": {
@@ -188,9 +149,28 @@
   "invites": {
     "sol": [
       "Bom dia! Que bom ver o acampamento claro de novo.",
-      "Leve estes três convites e pendure nos murais. Os acampantes vão fazer uma pergunta sobre o Clube."
+      "Leve estes três convites aos acampantes perto dos murais. Cada um vai propor um desafio."
     ],
-    "hung": "Convite pendurado!"
+    "hung": "Convite aceito!"
+  },
+  "challenge": {
+    "_fonte": "Caminho da Luz (pedido do responsável, 21/11/2026): desafios de habilidade e raciocínio, sem narrativa.",
+    "who": "Acampante",
+    "title": "Topa um desafio?",
+    "ask": "Se você completar o meu desafio, eu aceito o convite!",
+    "accept": "Aceitar o desafio",
+    "later": "Agora não",
+    "instruction": "Suba pelas plataformas suspensas e alcance o topo. Lá, encaixe os espelhos e direcione a luz até o cristal!",
+    "controls": "Use o joystick para andar e o botão A para pular.",
+    "done": "Desafio concluído!",
+    "final": "Parabéns! Você concluiu os três desafios!",
+    "thanks": "Você conseguiu! Eu aceito o convite!",
+    "tico": {
+      "who": "Tico",
+      "busy": "Termine primeiro o desafio da ilha suspensa!",
+      "waiting": "A ilha suspensa está esperando por você!",
+      "next": "Desça da ilha e fale com outro acampante."
+    }
   },
   "globe": {
     "go": "Agora leve as três faíscas até o Globo do Éden, na colina!",

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { Day01, newDay01, complete, foundSpark, hungInvite, isNight, migrateDay01, STEPS } from '../src/game/day01/state';
+import { Day01, acceptChallenge, newDay01, complete, foundSpark, hungInvite, isNight, migrateDay01, STEPS } from '../src/game/day01/state';
 
 describe('Dia 1: etapas', () => {
   test('começa na lanterna, no escuro', () => {
@@ -45,6 +45,20 @@ describe('Dia 1: etapas', () => {
     expect(d.step).toBe('done');
   });
   test('save corrompido vira um dia válido', () => {
-    expect(migrateDay01({ step: 'voar', sparks: [0, 0, 9, 'x'], invites: null })).toEqual({ step: 'lantern', sparks: [0], invites: [], realMission: false });
+    expect(migrateDay01({ step: 'voar', sparks: [0, 0, 9, 'x'], invites: null })).toEqual({ step: 'lantern', sparks: [0], invites: [], realMission: false, challenge: null });
+  });
+  test('Caminho da Luz: um desafio por vez; concluir pendura o convite e libera o próximo', () => {
+    let d: Day01 = { ...newDay01(), step: 'invites' };
+    d = acceptChallenge(d, 2);
+    expect(d.challenge).toBe(2);
+    expect(acceptChallenge(d, 0)).toBe(d); // outro acampante espera
+    d = hungInvite(d, 2);
+    expect(d).toMatchObject({ invites: [2], challenge: null });
+    expect(acceptChallenge(d, 2)).toBe(d); // o mesmo acampante não repete
+    d = hungInvite(acceptChallenge(d, 0), 0);
+    d = hungInvite(acceptChallenge(d, 1), 1);
+    expect(d.step).toBe('globe');
+    expect(migrateDay01({ step: 'invites', invites: [1], challenge: 1 }).challenge).toBeNull();
+    expect(migrateDay01({ step: 'invites', invites: [1], challenge: 0 }).challenge).toBe(0);
   });
 });

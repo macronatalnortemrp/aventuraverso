@@ -16,9 +16,11 @@ export interface Day01 {
   invites: number[];
   /** missão real opcional confirmada por um adulto */
   realMission: boolean;
+  /** Caminho da Luz: acampante (mural) cujo desafio está em andamento, ou null */
+  challenge: number | null;
 }
 
-export const newDay01 = (): Day01 => ({ step: 'lantern', sparks: [], invites: [], realMission: false });
+export const newDay01 = (): Day01 => ({ step: 'lantern', sparks: [], invites: [], realMission: false, challenge: null });
 
 export const stepIndex = (s: Step) => STEPS.indexOf(s);
 export const isNight = (d: Day01) => stepIndex(d.step) < stepIndex('dayNight');
@@ -38,9 +40,16 @@ export function foundSpark(d: Day01, i: number): Day01 {
   return n.sparks.length === SPARK_COUNT ? advance(n) : n;
 }
 
+/** A criança aceitou o desafio do acampante i (um por vez). */
+export function acceptChallenge(d: Day01, i: number): Day01 {
+  if (d.step !== 'invites' || d.challenge !== null || d.invites.includes(i) || i < 0 || i >= INVITE_COUNT) return d;
+  return { ...d, challenge: i };
+}
+
+/** Desafio concluído: o acampante aceita o convite, que é pendurado no mural dele. */
 export function hungInvite(d: Day01, i: number): Day01 {
   if (d.step !== 'invites' || d.invites.includes(i) || i < 0 || i >= INVITE_COUNT) return d;
-  const n = { ...d, invites: [...d.invites, i] };
+  const n = { ...d, invites: [...d.invites, i], challenge: null };
   return n.invites.length === INVITE_COUNT ? advance(n) : n;
 }
 
@@ -51,5 +60,8 @@ export function migrateDay01(raw: unknown): Day01 {
   const r = raw as Partial<Day01>;
   const ints = (a: unknown, max: number) => (Array.isArray(a) ? [...new Set(a.filter((n) => Number.isInteger(n) && n >= 0 && n < max))] : []);
   const step = STEPS.includes(r.step as Step) ? (r.step as Step) : d.step;
-  return { step, sparks: ints(r.sparks, SPARK_COUNT), invites: ints(r.invites, INVITE_COUNT), realMission: r.realMission === true };
+  const invites = ints(r.invites, INVITE_COUNT);
+  const ch = r.challenge;
+  const challenge = step === 'invites' && Number.isInteger(ch) && (ch as number) >= 0 && (ch as number) < INVITE_COUNT && !invites.includes(ch as number) ? (ch as number) : null;
+  return { step, sparks: ints(r.sparks, SPARK_COUNT), invites, realMission: r.realMission === true, challenge };
 }
