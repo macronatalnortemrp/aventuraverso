@@ -104,7 +104,7 @@ const NPCS: Npc[] = [
     rig: sol,
     lines: [
       'Bem-vinda e bem-vindo ao Acampamento do Livro Aberto!',
-      'O portal da missão fica na colina. Siga a luz!',
+      'O portal dos sete dias fica na colina. Siga a luz!',
     ],
   },
   {
@@ -166,11 +166,11 @@ let mission: Day01Mission | null = null;
 /** As moedas só aparecem depois do Dia 1: antes, nada compete com a missão (teste do piloto, 21/11/2026). */
 const coinsOpen = () => SAVE.data.day01?.step === 'done';
 
-/** Para onde a ajuda aponta: o objetivo da missão ou, fora dela, o portal da Missão 1. */
+/** Para onde a ajuda aponta: o objetivo da missão ou, fora dela, o portal da Jornada do Éden. */
 function objective(): { x: number; z: number; hint: string } | null {
   if (mission?.active) return mission.objective();
   if (mission?.done) return null;
-  return { x: OBJ.x, z: OBJ.z, hint: 'O portal da missão fica na colina. Siga a luz!' };
+  return { x: OBJ.x, z: OBJ.z, hint: 'O portal dos sete dias fica na colina. Siga a luz!' };
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
@@ -297,7 +297,7 @@ function helpLevel(l: number) {
     hud.say(inMission ? 'Siga a bússola e a trilha de faíscas!' : 'Siga a bússola e a trilha de faíscas até o portal!', 6500);
   }
   if (l === 3)
-    hud.say(inMission ? 'Quer que eu leve você até lá?' : 'Quer que eu leve você até o portal da missão?', 0, [
+    hud.say(inMission ? 'Quer que eu leve você até lá?' : 'Quer que eu leve você até o portal dos sete dias?', 0, [
       [inMission ? 'Me leve até lá' : 'Levar ao portal', teleport],
       ['Agora não', () => guideSnooze(GUIDE), true],
     ]);
@@ -388,7 +388,7 @@ const events: PlayerEvents = {
 
 /* ---------- Missão 1 ---------- */
 async function enterPortal() {
-  if (!mission) return hud.dialog('Tico', 'Missão 1: A Luz no Acampamento', ['A missão ainda está carregando. Tente de novo em um instante!']);
+  if (!mission) return hud.dialog('Tico', 'Jornada do Éden', ['A jornada ainda está carregando. Tente de novo em um instante!']);
   if (mission.active) return;
   await openJourney();
 }
@@ -753,7 +753,7 @@ function begin(fromIntro: boolean) {
   hud.coins(coins.collected, coins.total);
   if (!fromIntro) {
     sfx('yay');
-    hud.say(coinsOpen() ? `Oi! ${controlsTip()}` : `Oi! ${controlsTip()} Vamos ao portal da missão?`, 8000);
+    hud.say(coinsOpen() ? `Oi! ${controlsTip()}` : `Oi! ${controlsTip()} Vamos ao portal dos sete dias?`, 8000);
     return;
   }
   void missionReady.then(() => {
