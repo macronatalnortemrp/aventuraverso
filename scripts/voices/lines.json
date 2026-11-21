@@ -559,6 +559,12 @@
  },
  {
   "voice": "sol",
+  "key": "quer que eu leve você até o portal dos sete dias?",
+  "text": "Quer que eu leve você até o portal dos sete dias?",
+  "file": "sol/21850795.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "as páginas do livro sumiram",
   "text": "As páginas do Livro sumiram.",
   "file": "sol/33c6654b.mp3"
@@ -595,6 +601,12 @@
  },
  {
   "voice": "sol",
+  "key": "o portal dos sete dias fica na colina",
+  "text": "O portal dos sete dias fica na colina.",
+  "file": "sol/6cfefc44.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "você juntou todas as moedas do acampamento!",
   "text": "Você juntou todas as moedas do acampamento!",
   "file": "sol/6ffea808.mp3"
@@ -610,12 +622,6 @@
   "key": "siga a bússola e a trilha de faíscas!",
   "text": "Siga a bússola e a trilha de faíscas!",
   "file": "sol/74e04ca8.mp3"
- },
- {
-  "voice": "sol",
-  "key": "quer que eu leve você até o portal da missão?",
-  "text": "Quer que eu leve você até o portal da missão?",
-  "file": "sol/76bc5e2c.mp3"
  },
  {
   "voice": "sol",
@@ -646,12 +652,6 @@
   "key": "explore o acampamento à vontade",
   "text": "Explore o acampamento à vontade.",
   "file": "sol/9e700012.mp3"
- },
- {
-  "voice": "sol",
-  "key": "o portal da missão fica na colina",
-  "text": "O portal da missão fica na colina.",
-  "file": "sol/9fa36d79.mp3"
  },
  {
   "voice": "sol",
@@ -937,6 +937,12 @@
  },
  {
   "voice": "tico",
+  "key": "vamos ao portal dos sete dias?",
+  "text": "Vamos ao portal dos sete dias?",
+  "file": "tico/404fe4e5.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o portal do próximo mundo está aberto!",
   "text": "O portal do próximo mundo está aberto!",
   "file": "tico/45ccd8de.mp3"
@@ -1033,12 +1039,6 @@
  },
  {
   "voice": "tico",
-  "key": "o portal da missão fica na colina",
-  "text": "O portal da missão fica na colina.",
-  "file": "tico/63356964.mp3"
- },
- {
-  "voice": "tico",
   "key": "está em branco!",
   "text": "Está em branco!",
   "file": "tico/6392290b.mp3"
@@ -1093,12 +1093,6 @@
  },
  {
   "voice": "tico",
-  "key": "quer que eu leve você até o portal da missão?",
-  "text": "Quer que eu leve você até o portal da missão?",
-  "file": "tico/6af95d15.mp3"
- },
- {
-  "voice": "tico",
   "key": "distintivo do acampamento (não é uma especialidade oficial)",
   "text": "Distintivo do Acampamento (não é uma especialidade oficial).",
   "file": "tico/6ee4ce0f.mp3"
@@ -1144,12 +1138,6 @@
   "key": "seu progresso ficou salvo",
   "text": "Seu progresso ficou salvo.",
   "file": "tico/79a728ba.mp3"
- },
- {
-  "voice": "tico",
-  "key": "vamos ao portal da missão?",
-  "text": "Vamos ao portal da missão?",
-  "file": "tico/7b6cbb3c.mp3"
  },
  {
   "voice": "tico",
@@ -1201,6 +1189,12 @@
  },
  {
   "voice": "tico",
+  "key": "quer que eu leve você até o portal dos sete dias?",
+  "text": "Quer que eu leve você até o portal dos sete dias?",
+  "file": "tico/8932daa0.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "sol",
   "text": "Sol",
   "file": "tico/8a0fd91e.mp3"
@@ -1210,6 +1204,12 @@
   "key": "o pedrito está com medo",
   "text": "O Pedrito está com medo.",
   "file": "tico/8abee1c1.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o portal dos sete dias fica na colina",
+  "text": "O portal dos sete dias fica na colina.",
+  "file": "tico/8bcebf4d.mp3"
  },
  {
   "voice": "tico",
@@ -1465,6 +1465,12 @@
  },
  {
   "voice": "tico",
+  "key": "a jornada ainda está carregando",
+  "text": "A jornada ainda está carregando.",
+  "file": "tico/cfa322a2.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "vaga-lume",
   "text": "Vaga-lume",
   "file": "tico/d0cc15cd.mp3"
@@ -1606,12 +1612,6 @@
   "key": "convite aceito!",
   "text": "Convite aceito!",
   "file": "tico/f4b96170.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a missão ainda está carregando",
-  "text": "A missão ainda está carregando.",
-  "file": "tico/f8db23eb.mp3"
  },
  {
   "voice": "tico",
