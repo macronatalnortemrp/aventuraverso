@@ -610,6 +610,7 @@ $('bs').onclick = () => {
 function setControls(on: boolean) {
   SAVE.update({ controls: on });
   for (const id of ['joy', 'A', 'B']) hud.show(id, on);
+  document.body.classList.toggle('ctl', on); // o botão de ação e o balão sobem acima dos controles
   $('bc').setAttribute('aria-pressed', String(on));
 }
 $('bc').onclick = () => {

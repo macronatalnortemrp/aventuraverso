@@ -252,6 +252,12 @@ img { -webkit-user-drag: none; }
 }
 #igo { text-transform: uppercase; animation: glow 0.9s ease-in-out infinite alternate; }
 
+/* Com joystick e botões A/B ligados, o botão de ação e o balão do Tico ficam acima dos controles
+   quando não há espaço entre eles (retrato e telas estreitas). */
+@media (max-width: 760px) and (min-height: 521px) {
+  body.ctl #act { bottom: calc(192px + env(safe-area-inset-bottom)); }
+  body.ctl .bubble { bottom: calc(262px + env(safe-area-inset-bottom)); }
+}
 @media (max-height: 520px) and (orientation: landscape) {
   .bubble { bottom: calc(18px + env(safe-area-inset-bottom)); width: min(54vw, 480px); }
   .bubble .av { width: 70px; height: 70px; }
@@ -260,7 +266,9 @@ img { -webkit-user-drag: none; }
   #knob { left: 31px; top: 31px; }
   #A { right: calc(108px + env(safe-area-inset-right)); }
   #B { bottom: calc(70px + env(safe-area-inset-bottom)); }
-  #act { bottom: calc(112px + env(safe-area-inset-bottom)); }
+  /* deitado: o botão de ação fica à direita (acima de A e B), livre do balão do Tico no centro */
+  #act { left: auto; translate: none; right: calc(16px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); }
+  body.ctl #act { bottom: calc(160px + env(safe-area-inset-bottom)); }
 }
 @media (max-height: 520px) {
   .cmp-logo { width: 56px; }
