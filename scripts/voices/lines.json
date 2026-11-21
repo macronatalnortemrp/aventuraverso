@@ -1,111 +1,75 @@
 [
  {
   "voice": "acampante",
-  "key": "as áreas do crescimento são física, mental, espiritual e social",
-  "text": "As áreas do crescimento são física, mental, espiritual e social.",
-  "file": "acampante/0b7f799d.mp3"
+  "key": "lá, encaixe os espelhos e direcione a luz até o cristal!",
+  "text": "Lá, encaixe os espelhos e direcione a luz até o cristal!",
+  "file": "acampante/131e5e97.mp3"
  },
  {
   "voice": "acampante",
-  "key": "só para adultos",
-  "text": "Só para adultos",
-  "file": "acampante/0b8d6017.mp3"
+  "key": "suba pelas plataformas suspensas e alcance o topo",
+  "text": "Suba pelas plataformas suspensas e alcance o topo.",
+  "file": "acampante/363cf4ad.mp3"
  },
  {
   "voice": "acampante",
-  "key": "só a física",
-  "text": "Só a física",
-  "file": "acampante/48372733.mp3"
+  "key": "eu aceito o convite!",
+  "text": "Eu aceito o convite!",
+  "file": "acampante/4bdb9956.mp3"
  },
  {
   "voice": "acampante",
-  "key": "são quatro áreas: corpo, mente, fé e amigos",
-  "text": "São quatro áreas: corpo, mente, fé e amigos.",
-  "file": "acampante/4859cedc.mp3"
+  "key": "parabéns!",
+  "text": "Parabéns!",
+  "file": "acampante/79156eca.mp3"
  },
  {
   "voice": "acampante",
-  "key": "o clube de aventureiros é para quem?",
-  "text": "O Clube de Aventureiros é para quem?",
-  "file": "acampante/4e5e42f9.mp3"
+  "key": "se você completar o meu desafio, eu aceito o convite!",
+  "text": "Se você completar o meu desafio, eu aceito o convite!",
+  "file": "acampante/aee4a1ea.mp3"
  },
  {
   "voice": "acampante",
-  "key": "quais são as áreas do crescimento?",
-  "text": "Quais são as áreas do crescimento?",
-  "file": "acampante/61713943.mp3"
+  "key": "aceitar o desafio",
+  "text": "Aceitar o desafio",
+  "file": "acampante/b169b6d2.mp3"
  },
  {
   "voice": "acampante",
-  "key": "física, mental, espiritual e social",
-  "text": "Física, mental, espiritual e social",
-  "file": "acampante/757ad6e3.mp3"
+  "key": "use o joystick para andar e o botão a para pular",
+  "text": "Use o joystick para andar e o botão A para pular.",
+  "file": "acampante/be17b8cd.mp3"
  },
  {
   "voice": "acampante",
-  "key": "só para bebês",
-  "text": "Só para bebês",
-  "file": "acampante/78fcd4e3.mp3"
+  "key": "topa um desafio?",
+  "text": "Topa um desafio?",
+  "file": "acampante/cf39c2e3.mp3"
  },
  {
   "voice": "acampante",
-  "key": "o clube de aventureiros é para crianças de 6 a 9 anos",
-  "text": "O Clube de Aventureiros é para crianças de 6 a 9 anos.",
-  "file": "acampante/7b21925a.mp3"
+  "key": "você concluiu os três desafios!",
+  "text": "Você concluiu os três desafios!",
+  "file": "acampante/d4d12c57.mp3"
  },
  {
   "voice": "acampante",
-  "key": "o clube existe para apoiar a família",
-  "text": "O Clube existe para apoiar a família.",
-  "file": "acampante/8537d75f.mp3"
+  "key": "você conseguiu!",
+  "text": "Você conseguiu!",
+  "file": "acampante/e1f0299e.mp3"
  },
  {
   "voice": "acampante",
-  "key": "para apoiar a família",
-  "text": "Para apoiar a família",
-  "file": "acampante/8a7ea03d.mp3"
+  "key": "desafio concluído!",
+  "text": "Desafio concluído!",
+  "file": "acampante/f638e4a9.mp3"
  },
  {
   "voice": "acampante",
-  "key": "para competir com outros clubes",
-  "text": "Para competir com outros clubes",
-  "file": "acampante/94022813.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "crianças de 6 a 9 anos",
-  "text": "Crianças de 6 a 9 anos",
-  "file": "acampante/95090f41.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "correr, pular e nadar",
-  "text": "Correr, pular e nadar",
-  "file": "acampante/98016daf.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "para substituir a escola",
-  "text": "Para substituir a escola",
-  "file": "acampante/ad3ad809.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "pense em quem está sempre com você em casa",
-  "text": "Pense em quem está sempre com você em casa.",
-  "file": "acampante/eecb20c8.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "para que existe o clube?",
-  "text": "Para que existe o Clube?",
-  "file": "acampante/f00b6a21.mp3"
- },
- {
-  "voice": "acampante",
-  "key": "você tem a idade certa para participar!",
-  "text": "Você tem a idade certa para participar!",
-  "file": "acampante/f96d28c2.mp3"
+  "key": "agora não",
+  "text": "Agora não",
+  "file": "acampante/fd6e5771.mp3"
  },
  {
   "voice": "narrador",
@@ -439,12 +403,6 @@
  },
  {
   "voice": "sol",
-  "key": "os acampantes vão fazer uma pergunta sobre o clube",
-  "text": "Os acampantes vão fazer uma pergunta sobre o Clube.",
-  "file": "sol/6f45a81a.mp3"
- },
- {
-  "voice": "sol",
   "key": "você juntou todas as moedas do acampamento!",
   "text": "Você juntou todas as moedas do acampamento!",
   "file": "sol/6ffea808.mp3"
@@ -505,21 +463,27 @@
  },
  {
   "voice": "sol",
+  "key": "leve estes três convites aos acampantes perto dos murais",
+  "text": "Leve estes três convites aos acampantes perto dos murais.",
+  "file": "sol/a9b96786.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "o portal da primeira missão fica na colina do globo, ao norte",
   "text": "O portal da primeira missão fica na Colina do Globo, ao norte.",
   "file": "sol/b9dc84b6.mp3"
  },
  {
   "voice": "sol",
-  "key": "seja bem-vinda ao acampamento do livro aberto, onde as aventureiras e os aventureiros vivem as histórias da bíblia",
-  "text": "Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia.",
-  "file": "sol/db13eabb.mp3"
+  "key": "cada um vai propor um desafio",
+  "text": "Cada um vai propor um desafio.",
+  "file": "sol/d7cd713f.mp3"
  },
  {
   "voice": "sol",
-  "key": "leve estes três convites e pendure nos murais",
-  "text": "Leve estes três convites e pendure nos murais.",
-  "file": "sol/e135856a.mp3"
+  "key": "seja bem-vinda ao acampamento do livro aberto, onde as aventureiras e os aventureiros vivem as histórias da bíblia",
+  "text": "Seja bem-vinda ao Acampamento do Livro Aberto, onde as Aventureiras e os Aventureiros vivem as histórias da Bíblia.",
+  "file": "sol/db13eabb.mp3"
  },
  {
   "voice": "sol",
@@ -820,6 +784,12 @@
   "key": "uau!",
   "text": "Uau!",
   "file": "tico/3f3f9f00.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "desça da ilha e fale com outro acampante",
+  "text": "Desça da ilha e fale com outro acampante.",
+  "file": "tico/40a62d4e.mp3"
  },
  {
   "voice": "tico",
@@ -1153,6 +1123,12 @@
  },
  {
   "voice": "tico",
+  "key": "termine primeiro o desafio da ilha suspensa!",
+  "text": "Termine primeiro o desafio da ilha suspensa!",
+  "file": "tico/98b3ab1b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "seu progresso fica salvo",
   "text": "Seu progresso fica salvo.",
   "file": "tico/98ca3ce7.mp3"
@@ -1174,6 +1150,12 @@
   "key": "você achou três faíscas de luz",
   "text": "Você achou três faíscas de luz",
   "file": "tico/9a09fda7.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a ilha suspensa está esperando por você!",
+  "text": "A ilha suspensa está esperando por você!",
+  "file": "tico/9b99ed99.mp3"
  },
  {
   "voice": "tico",
@@ -1429,12 +1411,6 @@
  },
  {
   "voice": "tico",
-  "key": "convite pendurado!",
-  "text": "Convite pendurado!",
-  "file": "tico/dc30e00d.mp3"
- },
- {
-  "voice": "tico",
   "key": "o que você mais gostou?",
   "text": "O que você mais gostou?",
   "file": "tico/dca360aa.mp3"
@@ -1540,6 +1516,12 @@
   "key": "o globo do éden está apagado",
   "text": "O Globo do Éden está apagado.",
   "file": "tico/f3b9f4eb.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "convite aceito!",
+  "text": "Convite aceito!",
+  "file": "tico/f4b96170.mp3"
  },
  {
   "voice": "tico",
