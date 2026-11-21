@@ -815,7 +815,7 @@ if (SAVE.data.controls) setControls(true);
 
 /* Tela de carregamento: sai só depois que o acampamento já foi desenhado (dois quadros, com os shaders
    compilados) e a logo da Macro terminou de entrar girando. Assim o título nunca aparece sem o fundo. */
-const SPLASH_MIN_MS = REDUCED_MOTION ? 500 : 1900;
+const SPLASH_MIN_MS = 5000; // tempo para a família ler os créditos
 requestAnimationFrame(() =>
   requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), Math.max(0, SPLASH_MIN_MS - performance.now()))),
 );

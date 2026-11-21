@@ -7,7 +7,7 @@ Ao abrir o link, os textos da tela inicial apareciam antes do fundo. O fundo é 
 
 ## Decisões
 - **Tela de carregamento** ("Criado por / Macro Natal Norte 02 / @Macro2avtrn"), com a logo oficial da Macro entrando girando no centro. Ela fica no próprio `index.html` (estilo embutido), então aparece no primeiro quadro, antes do código do jogo.
-- Ela sai só depois que o acampamento já foi desenhado (dois quadros) e depois de um tempo mínimo (1,9 s; 0,5 s com "reduzir movimento"), para a animação da logo terminar. Se o jogo não abrir em 30 s, ela sai sozinha para mostrar a mensagem de erro.
+- Ela sai só depois que o acampamento já foi desenhado (dois quadros) e depois de no mínimo 5 s, para dar tempo de ler os créditos (pedido de 21/11/2026). A logo dá uma volta lenta e suave (3,4 s), sem tranco, e depois flutua de leve. Se o jogo não abrir em 30 s, ela sai sozinha para mostrar a mensagem de erro.
 - **Nome oficial nos créditos:** "Macro Natal Norte 02", com "MRP" e o Instagram @Macro2avtrn (`THEME_AVENTUREIROS.md`, seção de créditos).
 - **Tela inicial** no estilo da imagem de referência enviada: placa de madeira com a bússola, faixa de pergaminho "Um Universo de Aventuras", botão "Jogar" dourado com moldura de pedra e folhas, raios de sol e a logo da Macro com brilho no rodapé.
 
