@@ -6,7 +6,7 @@
 - Câmera e movimento: câmera 3D que segue o personagem; a criança toca no chão para andar (substitui top-down e cenas ilustradas). Funciona em paisagem e retrato.
 - Tecnologia: Three.js + TypeScript + Vite (substitui Phaser).
 - Natureza: **piloto de teste** para a Macro. Feedback ao fim de cada dia nesta fase inicial; depois entram ranking, código do clube e demais ideias (veja `ROADMAP.md`).
-- Voz: usar vozes gratuitas do aparelho (SpeechSynthesis) no MVP; vozes gravadas ficam para depois.
+- Voz: só vozes gravadas do jogo (Kokoro). **Nunca a voz do aparelho** (SpeechSynthesis, VoiceOver, TalkBack), decisão de 21/11/2026.
 - Tradução bíblica do MVP: Almeida Revista e Corrigida (1898), trocável depois.
 - Ideais do Clube: apenas Voto, Lei, Hino e Voto à Bíblia.
 - Representação da Trindade: Voz, luz e silhuetas, sem rosto (validada pela liderança).

@@ -385,7 +385,7 @@ export class Day01Mission {
     v.classList.remove('show');
     void v.offsetWidth;
     v.classList.add('show');
-    speak(this.content.globe.voice, 'A Voz', 0.85);
+    speak(this.content.globe.voice, 'A Voz');
     sfx('yay');
     await this.animate(2.2, (k) => {
       this.globeK = k;

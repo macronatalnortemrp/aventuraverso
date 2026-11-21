@@ -26,7 +26,7 @@ Emblemas A1 e LA1, emblemas das quatro classes, logo da Macro, referência do un
 Cards de seleção, diálogos, leitura, perguntas, HUD, Cartão do Acampamento, mapa, pausa, configurações, tela de feedback (carinhas e ícones), área dos responsáveis.
 
 ## Áudio
-- Narração e vozes: síntese de voz do aparelho no MVP, com tom por personagem. Gravações depois.
+- Narração e vozes: gravadas com Kokoro no workflow de vozes, uma voz por personagem. Nunca a voz do aparelho.
 - Música instrumental discreta: original ou licenciada **[definir]**. A trilha da abertura é composta e tocada por código (`src/engine/music.ts`), sem arquivos.
 - Efeitos: Web Audio no MVP.
 

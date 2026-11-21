@@ -72,8 +72,7 @@ LocalStorage ou IndexedDB: versão do save, `avatarId`, `nick` (apelido, só no 
 O jogo não envia dados por rede. O feedback do responsável abre formulário externo em nova aba (`src/config/pilot.ts`). Veja `PILOT_FEEDBACK.md`.
 
 ## Áudio e fala
-- SpeechSynthesis em português no MVP, tom e velocidade por personagem, só após o primeiro toque (exigência do iOS), com fallback sem áudio.
-- Gerenciador de áudio que toca arquivo gravado quando existir e usa a voz do aparelho quando não existir.
+- Só vozes gravadas do jogo (Kokoro, `scripts/voices/`), tocadas após o primeiro toque (exigência do iOS). **Nunca a voz do aparelho** (SpeechSynthesis, VoiceOver, TalkBack), decisão de 21/11/2026: o que não tem gravação fica só na tela, e o botão "Ouvir" só aparece quando há gravação.
 - Efeitos simples com Web Audio (sino, água, grilo, brilho), opcionais. No Dia 1, som posicional ajuda a achar as faíscas.
 - Nunca depender de áudio para informação essencial.
 - Abertura: trilha composta por código com Web Audio (`src/engine/music.ts`), que abaixa sob a narração. Frases com o apelido da criança não têm áudio gravado e ficam só na legenda.

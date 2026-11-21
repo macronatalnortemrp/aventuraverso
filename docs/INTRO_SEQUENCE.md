@@ -24,7 +24,7 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 - Antes da abertura, a criança escolhe o boneco (`CHARACTERS.md`) e digita um **apelido**. Os bonecos não têm nome próprio.
 - Toda fala usa `{apelido}` e a forma de gênero do boneco escolhido (bem-vindo/bem-vinda, Aventureiro/Aventureira). Cada fala com gênero tem as duas versões escritas neste documento.
 - Se a criança não digitar nada, usar "Aventureiro" ou "Aventureira".
-- A legenda sempre mostra o texto, porque a voz do aparelho pode pronunciar mal um apelido inventado.
+- A legenda sempre mostra o texto. As frases com o apelido não têm voz (o jogo nunca usa a voz do aparelho).
 
 ## Quadro 1 — A chegada (Encantamento)
 **O que a criança deve sentir:** "que lugar bonito e alegre, e ele é meu!". Admiração e pertencimento. É o momento mais vibrante da abertura. Duração: cerca de 15 segundos.
@@ -98,7 +98,7 @@ Não se usa "acender a luz no acampamento": no Dia 1 quem cria a luz é Deus ("H
 - Efeitos ambientais por Web Audio.
 - Legendas sempre visíveis.
 - Controle para desligar áudio (música e voz separadas).
-- Se SpeechSynthesis for usado no MVP, testar suporte e pronúncia em Android, iOS e desktop; oferecer fallback sem áudio.
+- Só vozes gravadas; nunca a voz do aparelho. Sem gravação, só legenda.
 
 ## Versão 3D (decisão de 18/11/2026)
 Os "quadros" da abertura são cenas 3D em blocos com câmera dirigida (sobrevoo do acampamento, aproximação do Livro e do Globo, do Tico e da Diretora Sol), sem ilustrações separadas. Tico e Sol aparecem com expressões e gestos de bloco. A bandeira do Clube e as tendas das classes devem estar visíveis no plano amplo do Quadro 1. Legendas e botões Pular e Repetir continuam em HTML.
