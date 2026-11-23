@@ -116,6 +116,12 @@ export class Intro {
       this.restart();
     };
     $('ibook').onclick = () => this.bookTap?.();
+    // X da legenda: some a fala atual e a voz para; a abertura segue no seu ritmo
+    $('ix').onclick = () => {
+      sfx('ui');
+      stopSpeaking();
+      this.quiet();
+    };
     $('igo').onclick = () => {
       sfx('yay');
       this.end();

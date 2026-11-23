@@ -65,7 +65,7 @@ body.ready #splash::before { animation: none; } /* escondida, a camada girando a
 <div id="breath" class="hud" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="rgba(160,220,255,.4)" stroke="#fff" stroke-width="2.5"/><circle cx="15.5" cy="17.5" r="3.4" fill="#fff"/><circle cx="31" cy="9" r="4" fill="rgba(160,220,255,.4)" stroke="#fff" stroke-width="2"/></svg></div>
 <div id="cmp" class="hud" aria-hidden="true"><svg viewBox="0 0 44 44" id="needle"><path d="M22 3l6.5 19h-13z" fill="#ff5a6e" stroke="#2b1d14" stroke-width="2" stroke-linejoin="round"/><path d="M22 41l6.5-19h-13z" fill="#fff" stroke="#2b1d14" stroke-width="2" stroke-linejoin="round"/><circle cx="22" cy="22" r="3.6" fill="#ffd23f" stroke="#2b1d14" stroke-width="2"/></svg></div>
 
-<div id="tico" class="hud bubble" role="status" aria-live="polite"><img class="av" id="ticoav" alt=""><div class="tx"><b class="tag">Tico</b><span id="tt"></span><div class="bt" id="tb"></div></div></div>
+<div id="tico" class="hud bubble" role="status" aria-live="polite"><img class="av" id="ticoav" alt=""><div class="tx"><b class="tag">Tico</b><button class="bx" id="tx" type="button" aria-label="Fechar fala">×</button><span id="tt"></span><div class="bt" id="tb"></div></div></div>
 
 <button id="act" class="hud"><span id="actl">Conversar</span></button>
 <div id="rot" class="hud" role="group" aria-label="Girar o espelho"><button id="rotl" aria-label="Girar o espelho para a esquerda">&#x27F2;</button><span>Girar</span><button id="rotr" aria-label="Girar o espelho para a direita">&#x27F3;</button></div>
@@ -110,12 +110,12 @@ body.ready #splash::before { animation: none; } /* escondida, a camada girando a
 <div id="intro" aria-label="Abertura">
  <div id="ibig" aria-live="polite"></div>
  <button id="ibook" aria-label="Tocar no Livro dos Sete Dias"><span></span></button>
- <div id="isub" class="bubble" role="status" aria-live="polite"><img class="av" id="isav" alt=""><div class="tx"><b class="tag" id="iwho"></b><span id="itx"></span></div></div>
+ <div id="isub" class="bubble" role="status" aria-live="polite"><img class="av" id="isav" alt=""><div class="tx"><b class="tag" id="iwho"></b><button class="bx" id="ix" type="button" aria-label="Fechar fala">×</button><span id="itx"></span></div></div>
  <div id="ictl"><button class="btn alt" id="irep">Repetir</button><button class="btn alt" id="iskip">Pular</button></div>
  <div id="iend" class="panel" role="dialog" aria-labelledby="ih"><b class="tag" id="ik"></b><h2 id="ih"></h2><p id="ip"></p><div class="row center"><button class="btn big" id="igo"></button></div></div>
 </div>
 
-<div id="dlg" class="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="panel talk"><img class="av" id="dav" alt=""><div class="tx"><b class="tag" id="dw"></b><h2 id="dt"></h2><p id="dx"></p><div class="row" id="dr"></div></div></div></div>
+<div id="dlg" class="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="panel talk"><img class="av" id="dav" alt=""><div class="tx"><b class="tag" id="dw"></b><button class="bx" id="dxx" type="button" aria-label="Fechar fala">×</button><h2 id="dt"></h2><p id="dx"></p><div class="row" id="dr"></div></div></div></div>
 <div id="task" class="ov" role="dialog" aria-modal="true"><div id="taskp" class="panel"></div></div>
 <button id="goal" class="hud" aria-label="Missão atual. Toque para sair da missão"><span class="gi"></span><span id="goalt"></span></button>
 <div id="voice" aria-live="assertive"></div>
