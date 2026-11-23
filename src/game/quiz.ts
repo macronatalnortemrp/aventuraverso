@@ -31,3 +31,16 @@ export function shuffled<T>(q: { options: T[]; answer: number }, rand: () => num
   }
   return { options: idx.map((i) => q.options[i]), answer: idx.indexOf(q.answer) };
 }
+
+const norm = (w: string) => w.toLocaleLowerCase('pt-BR');
+
+/**
+ * Montar o versículo: a peça serve se tiver a mesma palavra da próxima posição, qualquer que seja a peça.
+ * Em Gn 1:3 há duas peças "luz" (e "E" e "e"): tanto faz qual a criança toca, o texto bíblico fica igual,
+ * porque o espaço sempre mostra a palavra do próprio versículo.
+ * 'later' = a palavra está no versículo, mas mais adiante; 'out' = não faz parte dele.
+ */
+export function wordFits(phrase: string[], pos: number, word: string): 'ok' | 'later' | 'out' {
+  if (pos < phrase.length && norm(phrase[pos]) === norm(word)) return 'ok';
+  return phrase.slice(pos + 1).some((w) => norm(w) === norm(word)) ? 'later' : 'out';
+}

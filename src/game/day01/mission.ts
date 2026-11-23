@@ -385,7 +385,7 @@ export class Day01Mission {
     await this.read('r2');
     const verse = this.bible.verses['Gn 1:3'];
     const words = verse ? verse.replace(/[.,;:!?]/g, '').split(/\s+/).filter(Boolean) : this.content.phrase.fallback;
-    await this.d.task.words('Monte a frase', words, this.content.phrase.distractors);
+    await this.d.task.words('Monte o versículo que você acabou de ler e ouvir', words, this.content.phrase.distractors);
     sfx('yay');
     this.d.sting('vitoria');
     this.lampK = 0.001; // acende aos poucos em update()

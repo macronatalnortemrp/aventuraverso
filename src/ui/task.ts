@@ -1,4 +1,4 @@
-import { Question, judge, shuffled } from '../game/quiz';
+import { Question, judge, shuffled, wordFits } from '../game/quiz';
 import { DayFeedback } from '../persistence/save';
 import { JourneyEntry } from '../game/journey';
 import { sfx } from '../engine/audio';
@@ -164,7 +164,7 @@ export class Task {
     });
   }
 
-  /** Montar a frase tocando nos blocos na ordem certa. */
+  /** Montar o versículo tocando nos blocos na ordem certa (palavras iguais valem as duas). */
   words(title: string, phrase: string[], distractors: string[]): Promise<void> {
     return new Promise((done) => {
       const p = this.panel();
@@ -181,13 +181,14 @@ export class Task {
       const msg = el('p', 'msg');
       msg.setAttribute('role', 'status');
       let pos = 0;
-      const all = [...phrase.map((w, i) => ({ w, i })), ...distractors.map((w) => ({ w, i: -1 }))];
-      shuffled({ options: all, answer: 0 }).options.forEach(({ w, i }) => {
+      const all = [...phrase, ...distractors];
+      shuffled({ options: all, answer: 0 }).options.forEach((w) => {
         const b = text('button', 'word', w);
         b.onclick = () => {
-          if (i === pos) {
+          const fit = wordFits(phrase, pos, w);
+          if (fit === 'ok') {
             sfx('coin');
-            slotEls[pos].textContent = w;
+            slotEls[pos].textContent = phrase[pos]; // sempre a palavra do versículo, na grafia dele
             slotEls[pos].classList.add('filled');
             b.disabled = true;
             b.classList.add('used');
@@ -207,7 +208,7 @@ export class Task {
             void b.offsetWidth;
             b.classList.add('shake');
             msg.className = 'msg';
-            msg.textContent = i < 0 ? 'Essa palavra não faz parte da frase. Tente outra!' : 'Essa vem depois. Qual vem antes?';
+            msg.textContent = fit === 'out' ? 'Essa palavra não está no versículo. Tente outra!' : 'Essa vem depois. Qual vem antes?';
           }
         };
         pool.append(b);
