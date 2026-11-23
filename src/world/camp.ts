@@ -475,15 +475,13 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     g.add(core);
     const glassMat = new THREE.MeshStandardMaterial({ color: 0xcfe8ff, emissive: 0xfff1b0, emissiveIntensity: 0, transparent: true, opacity: 0.28, roughness: 0.05, metalness: 0.1, envMapIntensity: 2.2, depthWrite: false });
     g.add(new THREE.Mesh(new THREE.SphereGeometry(1.75, 40, 24), glassMat));
-    const glow = new THREE.PointLight(0xffe7a0, 0, 26, 1.2);
-    glow.visible = false;
+    const glow = new THREE.PointLight(0xffe7a0, 0, 26, 1.2); // sempre visível: ver Daylight (recompilação)
     g.add(glow);
     globeSet = (k) => {
       globeLit = k;
       glassMat.emissiveIntensity = k * 0.9;
       glassMat.opacity = 0.28 + k * 0.3;
       glow.intensity = k * 30;
-      glow.visible = k > 0;
     };
     const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.07, 8, 64), new THREE.MeshStandardMaterial({ color: 0xd7a64d, roughness: 0.35, metalness: 0.6 }));
     ring.rotation.x = Math.PI / 2.4;
@@ -729,8 +727,7 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
 
   /* lampião central (Dia 1, etapa 4) */
   const lampMat = new THREE.MeshStandardMaterial({ color: 0xfff1c0, emissive: 0xffd27a, emissiveIntensity: 0, roughness: 0.4 });
-  const lampLight = new THREE.PointLight(0xffd690, 0, 20, 1.3);
-  lampLight.visible = false;
+  const lampLight = new THREE.PointLight(0xffd690, 0, 20, 1.3); // sempre visível, intensidade 0 apagado
   {
     const { x, z } = CENTRAL_LAMP,
       y = H(x, z);
@@ -833,14 +830,13 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
       waterU.ff.value = FOG.far;
       glowMat.color.setScalar(1 - n * 0.85); // lampiões quase apagados no escuro total
       if (fireFlame) fireFlame.visible = n < 0.5; // fogueira apagada à noite
-      if (fireLight) fireLight.visible = n < 0.5;
+      if (fireLight) fireLight.intensity = n < 0.5 ? 6 : 0; // apagar pela intensidade não recompila os materiais
       if (cloudMatRef) cloudMatRef.emissiveIntensity = 0.25 * (1 - n);
     },
     setGlobe: (k) => globeSet(k),
     setCentralLamp(k) {
       lampMat.emissiveIntensity = k * 3;
       lampLight.intensity = k * 22;
-      lampLight.visible = k > 0;
     },
     setInvite(i, on) {
       if (inviteMeshes[i]) inviteMeshes[i].visible = on;

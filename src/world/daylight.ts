@@ -45,7 +45,8 @@ export class Daylight {
     // luzes criadas desde o início (intensidade 0) para não recompilar shaders no meio do jogo
     this.spot = new THREE.SpotLight(0xfff0c8, 0, 24, 0.5, 0.55, 1);
     this.aura = new THREE.PointLight(0xffe8c0, 0, 6, 1.5);
-    this.spot.visible = this.aura.visible = false;
+    // sempre visíveis (com intensidade 0 quando apagadas): ligar e desligar uma luz muda a contagem de luzes
+    // e obriga o three.js a recompilar todos os materiais, o que trava o iPhone por vários quadros
     gfx.scene.add(this.spot, this.spot.target, this.aura);
     this.sunBase.copy(gfx.sun.color);
   }
@@ -84,7 +85,11 @@ export class Daylight {
     FOG.far = lerp(DAY.far, NIGHT.far, n);
     gfx.hemi.intensity = lerp(DAY.hemi, NIGHT.hemi, n);
     gfx.sun.intensity = lerp(DAY.sun, NIGHT.sun, n);
-    gfx.sun.castShadow = n < 0.95;
+    // a sombra do sol fica configurada sempre (mudar castShadow recompila os materiais);
+    // no escuro total ela só deixa de ser redesenhada
+    const shadows = n < 0.95;
+    if (shadows && !gfx.renderer.shadowMap.autoUpdate) gfx.renderer.shadowMap.needsUpdate = true;
+    gfx.renderer.shadowMap.autoUpdate = shadows;
     gfx.scene.environmentIntensity = lerp(DAY.env, NIGHT.env, n);
     this.stars.material.opacity = Math.max(0, n * 1.2 - 0.2);
     this.camp.setNight(n);
@@ -98,7 +103,6 @@ export class Daylight {
     const n = this.night;
     this.spot.angle = this.wideLantern ? 0.7 : 0.5;
     this.spot.intensity = n * 26;
-    this.spot.visible = this.aura.visible = n > 0; // luz apagada não pesa no celular
     this.spot.position.set(x + Math.sin(face) * 0.3, y + 1.9, z + Math.cos(face) * 0.3);
     this.spot.target.position.set(x + Math.sin(face) * 7, y - 0.4, z + Math.cos(face) * 7);
     this.aura.intensity = n * 3 * this.auraBoost;

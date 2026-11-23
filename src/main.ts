@@ -21,7 +21,7 @@ import { newGuide, guideStep, guideProgress, guideReset, guideSnooze } from './g
 import { GUIDANCE } from './config/guidance';
 import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
-import { askNick, pickAvatar } from './ui/screens';
+import { askNick, pickAvatar, portraits } from './ui/screens';
 import { Task } from './ui/task';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
@@ -134,6 +134,14 @@ try {
 } catch {
   /* sem retratos: a interface funciona só com texto */
 }
+/* os retratos da escolha do boneco ficam prontos durante a tela de carregamento */
+setTimeout(() => {
+  try {
+    portraits();
+  } catch {
+    /* gerados de novo ao abrir a escolha */
+  }
+}, 300);
 
 const tico = makeTico();
 scene.add(tico.root);
@@ -796,10 +804,22 @@ timer.connect(document);
 const _v = new THREE.Vector3();
 let fpsT = 0,
   fpsN = 0;
+/** qualidade automática: abaixa a resolução se ficar abaixo de 40 quadros por segundo (também na abertura) */
+function measure(raw: number) {
+  if (!document.body.classList.contains('ready') || document.hidden) return; // a carga inicial não conta
+  fpsT += raw;
+  fpsN++;
+  if (fpsT > 3) {
+    if (fpsN / fpsT < 40) gfx.degrade();
+    fpsT = fpsN = 0;
+  }
+}
 renderer.setAnimationLoop(() => {
   timer.update();
-  const dt = Math.min(Math.max(timer.getDelta(), 0), 0.05);
+  const raw = Math.min(Math.max(timer.getDelta(), 0), 0.25);
+  const dt = Math.min(raw, 0.05);
   clock += dt;
+  measure(raw);
   if (started) {
     // música de fundo do momento e volume (leitura/pergunta bem baixo, falas mais baixo)
     music.play(cueFor({ started, night: daylight.night > 0.5 }));
@@ -807,7 +827,8 @@ renderer.setAnimationLoop(() => {
     if (ctx !== musicCtx) music.setContext((musicCtx = ctx));
   }
   if (intro?.active) {
-    intro.update(dt);
+    // a abertura segue o relógio real: num aparelho mais lento ela pula quadros, mas não fica em câmera lenta
+    intro.update(Math.min(raw, 0.1));
     tickWorld(dt, clock);
     SEE.r.value = 0;
     renderer.render(scene, camera);
@@ -843,13 +864,6 @@ renderer.setAnimationLoop(() => {
     SEE.r.value = Hh * 0.17;
   } else SEE.r.value = 0;
   renderer.render(scene, camera);
-  // qualidade automática: abaixa a resolução se ficar abaixo de 40 quadros por segundo
-  fpsT += dt;
-  fpsN++;
-  if (fpsT > 4) {
-    if (fpsN / fpsT < 40) gfx.degrade();
-    fpsT = fpsN = 0;
-  }
 });
 if (SAVE.data.controls) setControls(true);
 

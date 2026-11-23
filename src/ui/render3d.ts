@@ -66,5 +66,6 @@ export function renderPortraits(looks: { sol: Look; pedrito: Look; camper: Look 
   room.dispose();
   pm.dispose();
   r.dispose();
+  r.forceContextLoss(); // libera o contexto já (o Safari tem limite de contextos abertos)
   return out;
 }

@@ -4,8 +4,14 @@ import { sfx } from '../engine/audio';
 import { $ } from './hud';
 import { cleanNick } from '../persistence/save';
 
-/** Retratos dos seis avatares, gerados com o mesmo construtor do jogo. */
+let cache: string[] | null = null;
+
+/**
+ * Retratos dos seis avatares, gerados com o mesmo construtor do jogo. Feitos uma vez só: cada
+ * WebGLRenderer novo abre um contexto e compila shaders, o que no iPhone trava a tela.
+ */
 export function portraits() {
+  if (cache) return cache;
   const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   r.setSize(200, 250);
   r.toneMapping = THREE.NeutralToneMapping;
@@ -28,7 +34,8 @@ export function portraits() {
     return r.domElement.toDataURL();
   });
   r.dispose();
-  return out;
+  r.forceContextLoss(); // libera o contexto já (o Safari tem limite de contextos abertos)
+  return (cache = out);
 }
 
 /** Tela de escolha do avatar. Devolve o índice escolhido e se os controles ficam ligados. */
