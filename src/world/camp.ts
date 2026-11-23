@@ -137,6 +137,7 @@ function buildWater(scene: THREE.Scene) {
   const m = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    side: THREE.DoubleSide, // a câmera também mergulha: a superfície precisa aparecer vista de baixo
     uniforms: {
       uT: uTime,
       sh: { value: new THREE.Color(0x5fd3d6) },
@@ -156,7 +157,10 @@ float n=sin(q.x*1.3+uT)*sin(q.y*1.1-uT*.8)+.5*sin((q.x+q.y)*2.3+uT*1.7)+.35*sin(
 float d=clamp(vD/2.6,0.,1.);vec3 c=mix(sh,dp,smoothstep(0.,1.,d));
 float fo=1.-smoothstep(.0,.28+.07*n,vD);c=mix(c,fm,fo*.9);c+=vec3(1.)*pow(max(0.,n*.55),5.)*.6*(1.-fo);
 vec3 V=normalize(cameraPosition-vP);float fr=pow(1.-clamp(V.y,0.,1.),3.);c=mix(c,sk,fr*.55);
-float a=mix(.5,.86,d);a=max(a,fo*.95);c*=lit;c=mix(c,fc,smoothstep(fn,ff,length(cameraPosition-vP)));
+float a=mix(.5,.86,d);a=max(a,fo*.95);
+if(cameraPosition.y<vP.y){/* vista de baixo: espelho claro e ondulado da superfície */
+c=mix(vec3(.55,.85,.92),vec3(.85,.97,1.),pow(max(0.,n*.5+.5),3.));a=.72;}
+c*=lit;c=mix(c,fc,smoothstep(fn,ff,length(cameraPosition-vP)));
 gl_FragColor=vec4(c,a);
 #include <tonemapping_fragment>
 #include <colorspace_fragment>

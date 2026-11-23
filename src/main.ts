@@ -23,6 +23,7 @@ import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
 import { askNick, pickAvatar, portraits } from './ui/screens';
 import { Task } from './ui/task';
+import { Tutorial } from './ui/tutorial';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
 import { Day01Mission, loadDay01 } from './game/day01/mission';
@@ -80,6 +81,7 @@ const orbit = new OrbitCamera(camera);
 const daylight = new Daylight(gfx, camp);
 const ambient = new Ambient();
 const task = new Task();
+const tutorial = new Tutorial();
 
 /* ---------- personagens ---------- */
 interface Npc {
@@ -131,6 +133,7 @@ try {
   portraitMap = map;
   hud.portraits = map;
   task.portraits = map;
+  tutorial.portrait = pics.tico;
 } catch {
   /* sem retratos: a interface funciona só com texto */
 }
@@ -183,7 +186,7 @@ function objective(): { x: number; z: number; hint: string } | null {
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
-const paused = () => hud.paused || task.open || !!mission?.busy;
+const paused = () => hud.paused || task.open || tutorial.open || !!mission?.busy;
 
 /* ---------- interação ---------- */
 function interact(o: Interactable) {
@@ -293,15 +296,21 @@ const trail = (() => {
   return p;
 })();
 
+/**
+ * Ajuda só quando pedida (decisão de 23/11/2026): a coluna de luz (holofote) fica sempre sobre o objetivo,
+ * mas a trilha de faíscas até ela, a bússola e a oferta de levar só aparecem quando a criança toca na bússola.
+ * Com o tempo parado, a bússola apenas pulsa e o Tico acena, lembrando que dá para pedir ajuda.
+ */
+let asked = 0;
 function helpLevel(l: number) {
-  GUIDE.lvl = Math.max(GUIDE.lvl, l);
+  asked = Math.max(asked, l);
+  nudge(false);
   const o = objective();
   if (!o) return hud.say('Você já concluiu a missão! Explore o acampamento à vontade.', 5000);
   const inMission = !!mission?.active;
   if (!inMission) OBJ.sp.boost = 3;
-  if (l === 1) hud.say(o.hint, 6500);
+  if (l === 1) hud.say(`${o.hint} Siga a trilha de faíscas!`, 6500);
   if (l === 2) {
-    trail.visible = true;
     hud.compass(0);
     hud.say(inMission ? 'Siga a bússola e a trilha de faíscas!' : 'Siga a bússola e a trilha de faíscas até o portal!', 6500);
   }
@@ -311,7 +320,13 @@ function helpLevel(l: number) {
       ['Agora não', () => guideSnooze(GUIDE), true],
     ]);
 }
+/** A bússola pulsa (sem mostrar o caminho): a criança decide se quer ajuda. */
+function nudge(on: boolean) {
+  $('bh').classList.toggle('nudge', on);
+}
 function clearHelp() {
+  asked = 0;
+  nudge(false);
   hud.compass(null);
   trail.visible = false;
   OBJ.sp.boost = 1;
@@ -339,7 +354,7 @@ function teleport() {
 $('bh').onclick = () => {
   if (!started) return;
   sfx('ui');
-  helpLevel(Math.min(3, GUIDE.lvl + 1));
+  helpLevel(Math.min(3, asked + 1));
 };
 
 /* ---------- moedas ---------- */
@@ -543,10 +558,11 @@ function step(dt: number) {
   const obj = objective();
   if (obj) {
     const gs = guideStep(GUIDE, dt, dist(obj));
-    gs.levels.forEach(helpLevel);
-    if (gs.arrived) {
+    if (gs.levels.length && !asked) nudge(true); // tempo sem avançar: só lembra que existe ajuda
+    if (gs.arrived || (asked && dist(obj) < GUIDANCE.arrived)) {
+      if (asked) hud.hideTico();
       clearHelp();
-      hud.hideTico();
+      guideReset(GUIDE);
     }
     if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(obj.x - P.x, obj.z - P.z) - orbit.yaw));
   } else if (hud.compassOn) clearHelp();
@@ -630,7 +646,7 @@ function draw(dt: number, t: number) {
     beacon.position.set(obj.x, Math.max(H(obj.x, obj.z), WY) + 9, obj.z);
     beacon.material.opacity = 0.4 + Math.sin(t * 3) * 0.1;
   }
-  trail.visible = guideOn || hud.compassOn;
+  trail.visible = guideOn && asked > 0; // a trilha até o holofote só com ajuda pedida
   if (trail.visible && obj) {
     const a = trail.geometry.attributes.position as THREE.BufferAttribute,
       ox = obj.x - P.x,
@@ -645,15 +661,16 @@ function draw(dt: number, t: number) {
     }
     a.needsUpdate = true;
   }
-  // debaixo d'água: névoa azul curta
-  const under = P.st === 'dive' && P.y < WY - 0.9;
-  fog.near = lerp(fog.near, under ? 8 : FOG.near, 0.08);
-  fog.far = lerp(fog.far, under ? 45 : FOG.far, 0.08);
-  fog.color.lerp(under ? UNDER_FOG : FOG_COLOR, 0.08);
+  // câmera debaixo d'água: névoa azul curta (vale a posição da câmera, que agora entra no lago)
+  const under = orbit.underwater;
+  fog.near = lerp(fog.near, under ? 1.5 : FOG.near, under ? 0.25 : 0.08);
+  fog.far = lerp(fog.far, under ? 24 : FOG.far, under ? 0.25 : 0.08);
+  fog.color.lerp(under ? UNDER_FOG : FOG_COLOR, under ? 0.25 : 0.08);
 }
 
 /* ---------- telas ---------- */
 task.voice = () => sound;
+tutorial.voice = () => sound;
 task.onRight = () => music.sting('faisca');
 hud.voice = () => sound;
 let sound = SAVE.data.sound;
@@ -692,6 +709,13 @@ $('bc').onclick = () => {
   if (on) hud.say('A pula. A e depois B: pulo alto (andando, vira mergulho no ar). Segure B no pulo: marretada no chão!', 8000);
 };
 $('act').onclick = () => near && interact(near);
+/* "?": rever o tutorial a qualquer momento (o jogo fica parado enquanto ele está aberto) */
+$('bq').onclick = () => {
+  if (!started || task.open || hud.paused) return;
+  sfx('ui');
+  input.clearMove();
+  void tutorial.play(TOUCH).then(() => $('c').focus());
+};
 $('rotl').onclick = () => near?.rotate?.(-1);
 $('rotr').onclick = () => near?.rotate?.(1);
 /* ---------- abertura (docs/INTRO_SEQUENCE.md) ---------- */
@@ -745,8 +769,8 @@ async function enter(forceIntro: boolean) {
     SAVE.update({ introSeen: true });
     $<HTMLButtonElement>('rewatch').hidden = false;
     setControls(choice.controls);
-    begin(true);
-  } else begin(false);
+    void begin(true);
+  } else void begin(false);
 }
 
 const controlsTip = () =>
@@ -755,7 +779,7 @@ const controlsTip = () =>
     : 'Use as setas para andar e Espaço para pular. Arraste com o mouse para olhar em volta.';
 
 /** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
-function begin(fromIntro: boolean) {
+async function begin(fromIntro: boolean) {
   document.body.classList.add('on');
   hud.show('coins', coinsOpen());
   hud.show('top');
@@ -766,6 +790,12 @@ function begin(fromIntro: boolean) {
   orbit.snap(P.x, P.y, P.z);
   $('c').focus();
   hud.coins(coins.collected, coins.total);
+  // tutorial dos botões e movimentos: uma vez, depois da abertura e antes do Dia 1 (botão "?" revê)
+  if (!SAVE.data.tutorialSeen) {
+    await tutorial.play(TOUCH);
+    SAVE.update({ tutorialSeen: true });
+    $('c').focus();
+  }
   if (!fromIntro) {
     sfx('yay');
     hud.say(coinsOpen() ? `Oi! ${controlsTip()}` : `Oi! ${controlsTip()} Vamos ao portal dos sete dias?`, 8000);
@@ -853,7 +883,9 @@ renderer.setAnimationLoop(() => {
       hud.action(null);
       hud.show('rot', false);
     }
-    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
+    // mergulhando, a câmera entra no lago junto (decisão de 23/11/2026)
+    const diving = P.st === 'dive' && P.y < WY - 0.9;
+    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.y, P.z, col, diving);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
   }
@@ -897,6 +929,7 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     helpLevel,
     interact,
     task,
+    tutorial,
     daylight,
     step,
     pressA,

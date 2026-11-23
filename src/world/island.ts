@@ -171,6 +171,7 @@ export class Island {
     this.pieces.forEach((p) => p.scale.setScalar(1));
     this.top.scale.setScalar(1);
     this.top.position.y = TOP_Y;
+    this.removeColliders(); // pode ser chamado com a ilha já à mostra
     this.addColliders();
   }
 
@@ -211,9 +212,13 @@ export class Island {
     this.visible = this.group.visible = false;
   }
 
+  /** 0 = dia, 1 = escuro total: no escuro todas as plataformas ganham uma borda acesa, para a criança ver onde pular. */
+  dark = 0;
+
   /** Brilho na próxima plataforma do percurso (onde a criança deve pousar). */
   guide(next: number, t: number) {
-    this.stepGlow.forEach((g, i) => ((g.material as THREE.MeshBasicMaterial).opacity = i === next ? 0.45 + Math.sin(t * 5) * 0.25 : 0));
+    const base = this.dark * 0.3;
+    this.stepGlow.forEach((g, i) => ((g.material as THREE.MeshBasicMaterial).opacity = i === next ? Math.max(base, 0.45 + Math.sin(t * 5) * 0.25) : base));
   }
 
   update(dt: number, t: number) {

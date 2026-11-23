@@ -44,6 +44,9 @@ img { -webkit-user-drag: none; }
 #bs[aria-pressed='false'] .off { display: inline; }
 #bc[aria-pressed='false'] svg { opacity: 0.55; }
 body.keys #bc, body.keys #pick .check { display: none; }
+/* bússola pulsando: lembra que dá para pedir ajuda, sem mostrar o caminho */
+#bh.nudge { animation: nudge 1s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: scale(1.16); box-shadow: 0 0 0 6px rgba(255, 210, 63, 0.55); } }
 #bm .off { display: none; }
 #bm[aria-pressed='false'] .off { display: inline; }
 #bm[aria-pressed='false'] svg { opacity: 0.75; }
@@ -169,6 +172,8 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
 #task { background: rgba(23, 45, 73, 0.55); z-index: 12; }
 .listen { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px 7px; font-size: 16px; }
 .listen svg { width: 20px; height: 20px; }
+.thead .tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.reread svg { width: 22px; height: 22px; }
 .msg { min-height: 1.4em; font-size: 17px; color: var(--wine); font-weight: 900; margin: 8px 0 0; }
 .msg.good { color: #23812f; }
 .verses p { font-size: 20px; line-height: 1.5; background: #fffaf0; border-left: 6px solid var(--gold); padding: 8px 14px; border-radius: 10px; }
@@ -337,11 +342,44 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
   .journey .days { grid-template-columns: repeat(7, 1fr); }
   .day .t { display: none; }
 }
+@media (max-width: 440px) {
+  /* celular em pé: cinco botões redondos e as moedas cabem na mesma linha */
+  #top { gap: 5px; }
+  .rb { width: 40px; height: 40px; }
+  .rb svg { width: 22px; height: 22px; }
+  #coins img { width: 42px; height: 42px; }
+  #coins .num { font-size: 24px; }
+}
 @media (max-width: 420px) {
   .likes { grid-template-columns: repeat(2, 1fr); }
   .journey .days { grid-template-columns: repeat(2, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
   #fade { transition: none; }
-  #coins.bump, #breath.low, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake, #ibig.show, #ibook, #igo, #isub.show, #banner.show, #title::before, body.ready .title-in > *, body.ready #title .credit { animation: none; }
+  #coins.bump, #breath.low, #bh.nudge, #act, #goal .gi, .day.next, .day.playing, #voice.show, .shake, #ibig.show, #ibook, #igo, #isub.show, #banner.show, #title::before, body.ready .title-in > *, body.ready #title .credit { animation: none; }
 }
+
+/* tutorial: destaca um botão de cima e explica com o Tico (src/ui/tutorial.ts) */
+.tut { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; padding: 16px calc(16px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)); }
+/* escurecido em quatro faixas em volta do botão destacado (sem máscara: mais leve e igual em todo navegador) */
+.tut-dim { position: fixed; background: rgba(10, 20, 35, 0.55); pointer-events: none; }
+.tut-card { position: relative; }
+.tut-ring { position: fixed; border-radius: 999px; border: 4px solid #ffd23f; box-shadow: 0 0 18px rgba(255, 210, 63, 0.9); pointer-events: none; animation: tutpulse 0.9s ease-in-out infinite alternate; }
+@keyframes tutpulse { to { border-color: #fff8d6; } }
+.tut-card { max-width: 560px; }
+.tut-body { display: flex; align-items: center; gap: 12px; }
+.tut-body .av { flex: none; width: 76px; height: 76px; }
+.tut-body h2 { margin: 0 0 4px; }
+.tut-body p { margin: 0; font-size: 18px; line-height: 1.35; }
+.tut-dots { display: flex; justify-content: center; gap: 6px; margin: 12px 0 4px; }
+.tut-dots i { width: 8px; height: 8px; border-radius: 50%; background: #d6e0ea; }
+.tut-dots i.on { background: var(--gold2); }
+@media (max-height: 520px) {
+  .tut-body .av { width: 56px; height: 56px; }
+  .tut-body p { font-size: 16px; }
+  .tut-dots { margin: 6px 0 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tut-ring { animation: none; }
+}
+.tut [hidden] { display: none !important; }

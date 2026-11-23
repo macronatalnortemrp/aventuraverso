@@ -22,12 +22,16 @@ describe('Dia 1: etapas', () => {
     expect(complete(d, 'globe')).toBe(d);
     expect(foundSpark(d, 0)).toBe(d);
   });
-  test('o dia amanhece depois de "Haja luz" e da separação dia/noite', () => {
+  test('o Dia 1 inteiro é no escuro: a luz só volta com o "Haja luz" do Globo', () => {
     let d: Day01 = { ...newDay01(), step: 'letThereBeLight' };
+    for (const step of ['letThereBeLight', 'dayNight'] as const) {
+      expect(isNight(d)).toBe(true);
+      d = complete(d, step);
+    }
+    d = hungInvite(hungInvite(hungInvite(d, 0), 1), 2);
+    expect(d.step).toBe('globe');
     expect(isNight(d)).toBe(true);
-    d = complete(d, 'letThereBeLight');
-    expect(d.step).toBe('dayNight');
-    expect(isNight(d)).toBe(false);
+    expect(isNight(complete(d, 'globe'))).toBe(false);
   });
   test('três convites levam ao Globo, e o Globo conclui o dia', () => {
     let d: Day01 = { ...newDay01(), step: 'invites' };

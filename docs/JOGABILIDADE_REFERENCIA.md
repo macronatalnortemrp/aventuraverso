@@ -62,7 +62,9 @@ Status: **proposta para aprovação** (19/11/2026). Nada aqui está implementado
 
 **Sinais de "perdido"** (conta tempo sem progresso). Progresso = distância ao objetivo diminuiu, interação com hotspot, moeda coletada, etapa avançou. O contador **pausa** em diálogo, leitura, pergunta, pausa, cena dirigida e aba oculta, e **zera** a cada progresso.
 
-**Escada de ajuda** (tempos iniciais, a calibrar no piloto, em `src/config/guidance.ts`):
+**Decisão de 23/11/2026 (substitui a escada automática abaixo):** a coluna de luz (holofote) fica sempre sobre o objetivo, mas a trilha de faíscas até ela, a bússola e a oferta de levar só aparecem quando a criança toca na bússola de ajuda: 1º toque, dica do Tico e trilha; 2º, bússola; 3º, oferta de levar. A ajuda some ao chegar. Com o tempo parado, a bússola só pulsa e o Tico acena, para lembrar que existe ajuda (deixa o jogo mais desafiador para as crianças maiores). Um modo "ajuda sempre ligada" para os menores ficou para depois.
+
+**Escada de ajuda original** (histórico; tempos em `src/config/guidance.ts`):
 1. ~45 s: o brilho do objetivo fica mais forte e Tico aponta na direção dele.
 2. ~90 s: aparece uma trilha de faíscas ou seta de bússola (a bússola está na identidade visual) até o portal.
 3. ~150 s: Tico pergunta "Quer que eu leve você até o portal?". Se aceitar, ou se não houver resposta em alguns segundos, o jogo faz fade, posiciona o personagem na célula livre **à frente do portal** e a câmera se reposiciona suavemente.

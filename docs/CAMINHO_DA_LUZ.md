@@ -14,7 +14,7 @@ Pedido do responsável em 21/11/2026. Sequência de desafios de **habilidade, ex
 4. No topo: pegar um espelho na estante → encaixar num suporte → girar (botões ⟲ ⟳, 15° por toque). O feixe muda na hora.
 5. A luz no cristal: animação, "Desafio concluído!", o acampante aceita o convite e ele aparece no mural. O joystick desliga quando a criança volta ao chão.
 6. Na segunda e terceira vez a ilha já está lá: só o topo troca de desafio.
-7. No terceiro: "Parabéns! Você concluiu os três desafios!", a criança desce, a ilha some aos poucos e o Dia 1 segue para o Globo.
+7. No terceiro: "Parabéns! Você concluiu os três desafios!", a criança desce e o Dia 1 segue para o Globo. A ilha fica no cenário, com o último caminho de luz aceso e sem interação, e continua lá depois do Dia 1 para a criança brincar (decisão de 23/11/2026).
 
 ## Cenário
 - **Ilha suspensa sobre o lago** (centro em x -23, z 6), no estilo de blocos do acampamento: topo de grama com borda de pedras, base de rocha em camadas afinando para baixo, musgo pendurado, três cachoeiras que caem no lago.

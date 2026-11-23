@@ -23,7 +23,11 @@ export interface Day01 {
 export const newDay01 = (): Day01 => ({ step: 'lantern', sparks: [], invites: [], realMission: false, challenge: null });
 
 export const stepIndex = (s: Step) => STEPS.indexOf(s);
-export const isNight = (d: Day01) => stepIndex(d.step) < stepIndex('dayNight');
+/**
+ * O Dia 1 inteiro acontece no escuro: a luz total só volta quando a Voz diz "Haja luz" no Globo,
+ * no fim de todas as missões do dia (decisão de 23/11/2026). O lampião central acende antes, só ele.
+ */
+export const isNight = (d: Day01) => d.step !== 'done';
 
 function advance(d: Day01): Day01 {
   return { ...d, step: STEPS[Math.min(stepIndex(d.step) + 1, STEPS.length - 1)] };
