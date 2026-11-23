@@ -7,6 +7,7 @@ Gênesis 1:1–5, na Almeida Corrigida Fiel (2007), lido no próprio jogo pelo n
 Uma criança de 5 anos, que ainda não lê, achou o começo cansativo e foi atrás das moedas. Por isso:
 - **Primeiro fazer, depois falar:** cada fala é curta (uma frase ou duas) e a criança logo volta a andar.
 - **Siga a luz:** uma coluna de luz mostra o próximo objetivo desde o começo. A trilha de faíscas até ela só aparece quando a criança pede ajuda na bússola (decisão de 23/11/2026).
+- **Tutorial:** antes do Dia 1, uma vez, o Tico mostra os botões de cima e os movimentos, com texto e voz; o botão "?" revê.
 - **Moedas só depois do Dia 1:** antes disso elas ficam escondidas, para nada competir com a missão.
 - Os textos ficam em `public/data/days/day01.json` e foram encurtados; revisar com a liderança.
 

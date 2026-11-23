@@ -29,6 +29,8 @@ export interface SaveData {
   nick: string;
   /** já assistiu à abertura narrada */
   introSeen: boolean;
+  /** já viu o tutorial dos botões e movimentos (aparece uma vez, antes do Dia 1) */
+  tutorialSeen: boolean;
   /** trilha sonora ligada (independente do som das vozes e efeitos) */
   music: boolean;
 }
@@ -46,7 +48,7 @@ export function cleanNick(s: unknown): string {
     .trim();
 }
 
-export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {}, nick: '', introSeen: false, music: true });
+export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {}, nick: '', introSeen: false, tutorialSeen: false, music: true });
 
 type KV = Pick<Storage, 'getItem' | 'setItem'>;
 
@@ -87,6 +89,7 @@ export function migrate(raw: unknown): SaveData {
     feedback,
     nick: cleanNick(r.nick),
     introSeen: typeof r.introSeen === 'boolean' ? r.introSeen : false,
+    tutorialSeen: typeof r.tutorialSeen === 'boolean' ? r.tutorialSeen : false,
     music: typeof r.music === 'boolean' ? r.music : true,
   };
 }

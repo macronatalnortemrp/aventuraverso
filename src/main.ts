@@ -23,6 +23,7 @@ import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
 import { askNick, pickAvatar, portraits } from './ui/screens';
 import { Task } from './ui/task';
+import { Tutorial } from './ui/tutorial';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
 import { Day01Mission, loadDay01 } from './game/day01/mission';
@@ -80,6 +81,7 @@ const orbit = new OrbitCamera(camera);
 const daylight = new Daylight(gfx, camp);
 const ambient = new Ambient();
 const task = new Task();
+const tutorial = new Tutorial();
 
 /* ---------- personagens ---------- */
 interface Npc {
@@ -131,6 +133,7 @@ try {
   portraitMap = map;
   hud.portraits = map;
   task.portraits = map;
+  tutorial.portrait = pics.tico;
 } catch {
   /* sem retratos: a interface funciona só com texto */
 }
@@ -183,7 +186,7 @@ function objective(): { x: number; z: number; hint: string } | null {
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
-const paused = () => hud.paused || task.open || !!mission?.busy;
+const paused = () => hud.paused || task.open || tutorial.open || !!mission?.busy;
 
 /* ---------- interação ---------- */
 function interact(o: Interactable) {
@@ -667,6 +670,7 @@ function draw(dt: number, t: number) {
 
 /* ---------- telas ---------- */
 task.voice = () => sound;
+tutorial.voice = () => sound;
 task.onRight = () => music.sting('faisca');
 hud.voice = () => sound;
 let sound = SAVE.data.sound;
@@ -705,6 +709,13 @@ $('bc').onclick = () => {
   if (on) hud.say('A pula. A e depois B: pulo alto (andando, vira mergulho no ar). Segure B no pulo: marretada no chão!', 8000);
 };
 $('act').onclick = () => near && interact(near);
+/* "?": rever o tutorial a qualquer momento (o jogo fica parado enquanto ele está aberto) */
+$('bq').onclick = () => {
+  if (!started || task.open || hud.paused) return;
+  sfx('ui');
+  input.clearMove();
+  void tutorial.play(TOUCH).then(() => $('c').focus());
+};
 $('rotl').onclick = () => near?.rotate?.(-1);
 $('rotr').onclick = () => near?.rotate?.(1);
 /* ---------- abertura (docs/INTRO_SEQUENCE.md) ---------- */
@@ -758,8 +769,8 @@ async function enter(forceIntro: boolean) {
     SAVE.update({ introSeen: true });
     $<HTMLButtonElement>('rewatch').hidden = false;
     setControls(choice.controls);
-    begin(true);
-  } else begin(false);
+    void begin(true);
+  } else void begin(false);
 }
 
 const controlsTip = () =>
@@ -768,7 +779,7 @@ const controlsTip = () =>
     : 'Use as setas para andar e Espaço para pular. Arraste com o mouse para olhar em volta.';
 
 /** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
-function begin(fromIntro: boolean) {
+async function begin(fromIntro: boolean) {
   document.body.classList.add('on');
   hud.show('coins', coinsOpen());
   hud.show('top');
@@ -779,6 +790,12 @@ function begin(fromIntro: boolean) {
   orbit.snap(P.x, P.y, P.z);
   $('c').focus();
   hud.coins(coins.collected, coins.total);
+  // tutorial dos botões e movimentos: uma vez, depois da abertura e antes do Dia 1 (botão "?" revê)
+  if (!SAVE.data.tutorialSeen) {
+    await tutorial.play(TOUCH);
+    SAVE.update({ tutorialSeen: true });
+    $('c').focus();
+  }
   if (!fromIntro) {
     sfx('yay');
     hud.say(coinsOpen() ? `Oi! ${controlsTip()}` : `Oi! ${controlsTip()} Vamos ao portal dos sete dias?`, 8000);
@@ -912,6 +929,7 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     helpLevel,
     interact,
     task,
+    tutorial,
     daylight,
     step,
     pressA,
