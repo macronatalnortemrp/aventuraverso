@@ -4,7 +4,8 @@ import { createGfx, MOBILE, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engi
 import { OrbitCamera } from './engine/camera';
 import { Input } from './engine/input';
 import { sfx, setSoundEnabled } from './engine/audio';
-import { stopSpeaking } from './engine/speech';
+import { primeSpeech, stopSpeaking } from './engine/speech';
+import { unlockAudio } from './engine/audioContext';
 import { angLerp, clamp, lerp } from './engine/math';
 import { H, WY, isDeep } from './world/terrain';
 import { EMB, ROOT } from './world/textures';
@@ -764,8 +765,17 @@ function begin(fromIntro: boolean) {
     hud.say(`Bem-vindo de volta ao acampamento! ${controlsTip()}`, 7000);
   });
 }
-$('go').onclick = () => void enter(false);
-$('rewatch').onclick = () => void enter(true);
+/* o primeiro toque libera o áudio (no iPhone, também com a chave no silencioso) */
+$('go').onclick = () => {
+  unlockAudio();
+  primeSpeech();
+  void enter(false);
+};
+$('rewatch').onclick = () => {
+  unlockAudio();
+  primeSpeech();
+  void enter(true);
+};
 
 /** Cenário vivo durante a abertura (a câmera e os personagens ficam com a abertura). */
 function tickWorld(dt: number, t: number) {

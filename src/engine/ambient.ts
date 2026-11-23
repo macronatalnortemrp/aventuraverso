@@ -3,6 +3,8 @@
  * O volume cresce quando a criança se aproxima e o som vai para a esquerda ou direita conforme a câmera.
  * Opcional: sem som, as faíscas continuam visíveis e o Tico aponta o caminho.
  */
+import { sharedAudio } from './audioContext';
+
 export type AmbientKind = 'bell' | 'water' | 'cricket';
 
 interface Source {
@@ -10,7 +12,7 @@ interface Source {
   x: number;
   z: number;
   gain: GainNode;
-  pan: StereoPannerNode;
+  pan: StereoPannerNode | null;
   next: number;
   stop: () => void;
 }
@@ -29,8 +31,9 @@ export class Ambient {
 
   private audio() {
     if (this.ctx) return this.ctx;
-    const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    this.ctx = new AC();
+    const c = sharedAudio();
+    if (!c) throw new Error('sem Web Audio');
+    this.ctx = c;
     const len = this.ctx.sampleRate * 2,
       b = this.ctx.createBuffer(1, len, this.ctx.sampleRate),
       ch = b.getChannelData(0);
@@ -42,11 +45,12 @@ export class Ambient {
   add(kind: AmbientKind, x: number, z: number) {
     try {
       const ctx = this.audio();
-      void ctx.resume();
       const gain = ctx.createGain(),
-        pan = ctx.createStereoPanner();
+        // Safari antes do 14.1 não tem StereoPanner: sem lado esquerdo/direito, o volume segue igual
+        pan = typeof ctx.createStereoPanner === 'function' ? ctx.createStereoPanner() : null;
       gain.gain.value = 0;
-      gain.connect(pan).connect(ctx.destination);
+      if (pan) gain.connect(pan).connect(ctx.destination);
+      else gain.connect(ctx.destination);
       let stop = () => {};
       if (kind === 'water' && this.noise) {
         // ruído filtrado com ondulação lenta = água corrente
@@ -118,7 +122,7 @@ export class Ambient {
       s.gain.gain.setTargetAtTime(v, ctx.currentTime, 0.1);
       // ângulo da fonte em relação à direção para onde a câmera olha
       const a = Math.atan2(s.x - px, s.z - pz) - (yaw + Math.PI);
-      s.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, -Math.sin(a))), ctx.currentTime, 0.1);
+      s.pan?.pan.setTargetAtTime(Math.max(-1, Math.min(1, -Math.sin(a))), ctx.currentTime, 0.1);
       if (v > 0.001 && s.kind !== 'water' && ctx.currentTime >= s.next) this.ping(s, ctx);
     }
   }
