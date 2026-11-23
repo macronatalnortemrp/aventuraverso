@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#172D49">
 <meta name="description" content="aventuráVerso: um universo de aventuras. Jogo do Clube de Aventureiros.">
-<title>aventuráVerso</title>
+<title>AventuráVerso</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Aventurá">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="./assets/official/web/a1.webp">
 <link rel="preload" href="./assets/official/web/macro-hd.webp" as="image" type="image/webp">
 <link rel="preload" href="./src/assets/fonts/lilita-one.ttf" as="font" type="font/ttf" crossorigin>
@@ -88,6 +94,7 @@ body.ready #splash::before { animation: none; } /* escondida, a camada girando a
   <button class="btn big gold" id="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#fff" stroke="#12233b" stroke-width="2.6" stroke-linejoin="round"/></svg>Jogar</button>
  </div>
  <button class="btn alt" id="rewatch" hidden>Ver a abertura</button>
+ <button class="btn alt" id="inst" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Instalar o jogo</button>
 </div><div class="credit"><img id="macro" alt="Logo da Macro Natal Norte 02"><span class="cn">Macro Natal Norte 02 · MRP</span><span class="ci">@Macro2avtrn</span></div></div>
 
 <div id="pick" class="ov"><div class="panel">
@@ -97,6 +104,18 @@ body.ready #splash::before { animation: none; } /* escondida, a camada girando a
  <label class="check"><input type="checkbox" id="chk"><span>Usar joystick e botões <b>A</b> e <b>B</b> (opcional). Liga e desliga no botão do controle.</span></label>
  <div class="row center"><button class="btn big" id="start">Começar</button></div>
  <p class="hint">Toque no chão para andar e arraste a tela para girar a câmera. No teclado: WASD ou setas, Espaço (A), Shift (B), Q e E giram a câmera, Enter conversa.</p>
+</div></div>
+
+<div id="ios" class="ov" role="dialog" aria-modal="true" aria-labelledby="iosh"><div class="panel">
+ <div class="ph"><b class="tag">AventuráVerso</b></div>
+ <h2 id="iosh">Instalar no iPhone ou iPad</h2>
+ <ol class="steps">
+  <li><span class="n">1</span><span>Toque em <b>Compartilhar</b> <svg class="ic" viewBox="0 0 24 24" aria-label="ícone Compartilhar"><path d="M12 15V3m-4 4 4-4 4 4M7 10H5v11h14V10h-2" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> na barra do Safari.</span></li>
+  <li><span class="n">2</span><span>Desça e toque em <b>Adicionar à Tela de Início</b> <svg class="ic" viewBox="0 0 24 24" aria-label="ícone Adicionar"><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="currentColor" stroke-width="2.2" fill="none"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>.</span></li>
+  <li><span class="n">3</span><span>Toque em <b>Adicionar</b>. O jogo aparece na tela como <b>Aventurá</b> e funciona sem internet.</span></li>
+ </ol>
+ <p class="sub">Peça ajuda a um adulto, se precisar.</p>
+ <div class="row center"><button class="btn big" id="iosok">Entendi</button></div>
 </div></div>
 
 <div id="nick" class="ov"><div class="panel">
