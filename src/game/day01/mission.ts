@@ -155,6 +155,7 @@ export class Day01Mission {
     this.light = new LightPath({ scene: d.scene, camera: d.camera, col: d.camp.col, inter: d.camp.inter, fx: d.fx, player: () => d.player });
     this.light.onSolved = (stage) => void this.challengeDone(stage);
     if (this.done) this.applyDone();
+    if (this.islandWon) this.keepIsland(); // a ilha conquistada aparece já ao abrir o jogo
   }
 
   get done() {
@@ -232,7 +233,8 @@ export class Day01Mission {
     this.campers.forEach((c) => (c.root.visible = false));
     for (const id of ['lamp', 'mural0', 'mural1', 'mural2']) this.inter(id).off = true;
     this.d.hud.show('goal', false);
-    this.light.hide();
+    if (this.islandWon) this.keepIsland();
+    else this.light.hide();
     this.releaseControlsOnGround = false;
     this.d.forceControls(false);
     if (this.done) this.applyDone();
@@ -496,21 +498,26 @@ export class Day01Mission {
       return;
     }
     this.d.forceControls(false);
-    // desce a criança até a partida e mostra a ilha sumindo aos poucos
+    // desce a criança até a partida; a ilha fica no cenário, com o último caminho de luz aceso (decisão de 23/11/2026)
     this.d.hud.fade(true);
     await this.wait(REDUCED_MOTION ? 0 : 0.5);
     const st = ISLE_STEPS[0];
     this.d.place(st.x + 3, st.z + 1.5, Math.atan2(ISLAND.x - st.x, ISLAND.z - st.z));
+    this.keepIsland();
     this.d.hud.fade(false);
-    const L = this.light,
-      tour = L.tour();
-    await L.play([tour[0]]);
-    await this.animate(3, (k) => L.island.vanish(k));
-    L.hide();
-    const { orbit, player: p } = this.d;
-    await L.play([L.backTo(p.x, p.y, p.z, orbit.yaw, orbit.dist, orbit.pitch)]);
     this.busy = false;
     this.d.hud.say(this.content.globe.go, 8000);
+  }
+
+  /** Depois dos três desafios a ilha fica: plataformas firmes e o último caminho de luz resolvido, sem interação. */
+  private keepIsland() {
+    this.light.setup(2, true);
+    this.light.island.show();
+  }
+
+  /** A ilha já foi conquistada (três convites pendurados)? */
+  private get islandWon() {
+    return stepIndex(this.state.step) > stepIndex('invites');
   }
 
   /** Câmera da cena (apresentação e fim do Caminho da Luz). */
@@ -610,7 +617,10 @@ export class Day01Mission {
   /* ---------- a cada quadro ---------- */
 
   update(dt: number, t: number) {
-    if (!this.active) return;
+    if (!this.active) {
+      if (this.light.island.visible) this.light.update(dt, t); // ilha no cenário fora da missão
+      return;
+    }
     this.light.island.dark = this.d.daylight.night;
     const s = this.state,
       p = this.d.player,

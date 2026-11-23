@@ -171,6 +171,7 @@ export class Island {
     this.pieces.forEach((p) => p.scale.setScalar(1));
     this.top.scale.setScalar(1);
     this.top.position.y = TOP_Y;
+    this.removeColliders(); // pode ser chamado com a ilha já à mostra
     this.addColliders();
   }
 
