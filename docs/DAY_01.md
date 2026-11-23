@@ -6,7 +6,7 @@ Gênesis 1:1–5, na Almeida Corrigida Fiel (2007), lido no próprio jogo pelo n
 ## Ritmo (teste do piloto, 21/11/2026)
 Uma criança de 5 anos, que ainda não lê, achou o começo cansativo e foi atrás das moedas. Por isso:
 - **Primeiro fazer, depois falar:** cada fala é curta (uma frase ou duas) e a criança logo volta a andar.
-- **Siga a luz:** uma coluna de luz e uma trilha de faíscas mostram o próximo objetivo desde o começo; a ajuda por tempo só reforça.
+- **Siga a luz:** uma coluna de luz mostra o próximo objetivo desde o começo. A trilha de faíscas até ela só aparece quando a criança pede ajuda na bússola (decisão de 23/11/2026).
 - **Moedas só depois do Dia 1:** antes disso elas ficam escondidas, para nada competir com a missão.
 - Os textos ficam em `public/data/days/day01.json` e foram encurtados; revisar com a liderança.
 

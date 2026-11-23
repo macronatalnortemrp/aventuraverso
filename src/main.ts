@@ -293,15 +293,21 @@ const trail = (() => {
   return p;
 })();
 
+/**
+ * Ajuda só quando pedida (decisão de 23/11/2026): a coluna de luz (holofote) fica sempre sobre o objetivo,
+ * mas a trilha de faíscas até ela, a bússola e a oferta de levar só aparecem quando a criança toca na bússola.
+ * Com o tempo parado, a bússola apenas pulsa e o Tico acena, lembrando que dá para pedir ajuda.
+ */
+let asked = 0;
 function helpLevel(l: number) {
-  GUIDE.lvl = Math.max(GUIDE.lvl, l);
+  asked = Math.max(asked, l);
+  nudge(false);
   const o = objective();
   if (!o) return hud.say('Você já concluiu a missão! Explore o acampamento à vontade.', 5000);
   const inMission = !!mission?.active;
   if (!inMission) OBJ.sp.boost = 3;
-  if (l === 1) hud.say(o.hint, 6500);
+  if (l === 1) hud.say(`${o.hint} Siga a trilha de faíscas!`, 6500);
   if (l === 2) {
-    trail.visible = true;
     hud.compass(0);
     hud.say(inMission ? 'Siga a bússola e a trilha de faíscas!' : 'Siga a bússola e a trilha de faíscas até o portal!', 6500);
   }
@@ -311,7 +317,13 @@ function helpLevel(l: number) {
       ['Agora não', () => guideSnooze(GUIDE), true],
     ]);
 }
+/** A bússola pulsa (sem mostrar o caminho): a criança decide se quer ajuda. */
+function nudge(on: boolean) {
+  $('bh').classList.toggle('nudge', on);
+}
 function clearHelp() {
+  asked = 0;
+  nudge(false);
   hud.compass(null);
   trail.visible = false;
   OBJ.sp.boost = 1;
@@ -339,7 +351,7 @@ function teleport() {
 $('bh').onclick = () => {
   if (!started) return;
   sfx('ui');
-  helpLevel(Math.min(3, GUIDE.lvl + 1));
+  helpLevel(Math.min(3, asked + 1));
 };
 
 /* ---------- moedas ---------- */
@@ -543,10 +555,11 @@ function step(dt: number) {
   const obj = objective();
   if (obj) {
     const gs = guideStep(GUIDE, dt, dist(obj));
-    gs.levels.forEach(helpLevel);
-    if (gs.arrived) {
+    if (gs.levels.length && !asked) nudge(true); // tempo sem avançar: só lembra que existe ajuda
+    if (gs.arrived || (asked && dist(obj) < GUIDANCE.arrived)) {
+      if (asked) hud.hideTico();
       clearHelp();
-      hud.hideTico();
+      guideReset(GUIDE);
     }
     if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(obj.x - P.x, obj.z - P.z) - orbit.yaw));
   } else if (hud.compassOn) clearHelp();
@@ -630,7 +643,7 @@ function draw(dt: number, t: number) {
     beacon.position.set(obj.x, Math.max(H(obj.x, obj.z), WY) + 9, obj.z);
     beacon.material.opacity = 0.4 + Math.sin(t * 3) * 0.1;
   }
-  trail.visible = guideOn || hud.compassOn;
+  trail.visible = guideOn && asked > 0; // a trilha até o holofote só com ajuda pedida
   if (trail.visible && obj) {
     const a = trail.geometry.attributes.position as THREE.BufferAttribute,
       ox = obj.x - P.x,

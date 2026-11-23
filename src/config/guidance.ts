@@ -1,14 +1,15 @@
 /**
  * Tempos da ajuda de orientação (docs/JOGABILIDADE_REFERENCIA.md, seção 3.5).
- * Na missão, a coluna de luz e a trilha já aparecem desde o começo; estes níveis só reforçam.
- * Encurtados no piloto (21/11/2026): uma criança de 5 anos se perdeu esperando a ajuda.
+ * A coluna de luz fica sempre sobre o objetivo; a trilha, a bússola e a oferta de levar só vêm quando a
+ * criança toca na bússola (decisão de 23/11/2026). Com o tempo parado, estes níveis só fazem a bússola pulsar
+ * e o Tico acenar. Encurtados no piloto (21/11/2026): uma criança de 5 anos se perdeu esperando a ajuda.
  */
 export const GUIDANCE = {
-  /** brilho mais forte e fala do Tico */
+  /** a bússola começa a pulsar e o Tico acena */
   level1: 20,
-  /** bússola e trilha de faíscas */
+  /** (sem efeito na tela; mantido para o relógio da ajuda) */
   level2: 40,
-  /** Tico oferece levar até o portal */
+  /** (idem) */
   level3: 90,
   /** "Agora não" adia por este tempo */
   snooze: 120,
