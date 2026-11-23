@@ -411,7 +411,6 @@ export class Day01Mission {
     this.busy = true;
     await this.read('r3');
     await this.d.task.sort(this.content.sort.prompt, this.content.sort.items);
-    this.d.daylight.set(0, REDUCED_MOTION ? 0 : 6); // a luz do dia surge aos poucos
     await this.talk('Tico', this.content.sort.done);
     await this.q('lightName');
     this.endReview();
@@ -545,6 +544,8 @@ export class Day01Mission {
     speak(this.content.globe.voice, 'A Voz');
     sfx('yay');
     this.d.sting('vitoria');
+    // "Haja luz": só agora a luz total volta ao acampamento, junto com o Globo
+    this.d.daylight.set(0, REDUCED_MOTION ? 0 : 2.4);
     await this.animate(2.2, (k) => {
       this.globeK = k;
       this.d.camp.setGlobe(k);
@@ -610,6 +611,7 @@ export class Day01Mission {
 
   update(dt: number, t: number) {
     if (!this.active) return;
+    this.light.island.dark = this.d.daylight.night;
     const s = this.state,
       p = this.d.player,
       si = stepIndex(s.step);

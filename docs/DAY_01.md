@@ -46,7 +46,7 @@ Toda atividade que vem logo depois de uma leitura (a pergunta da etapa 2, a mont
 “À noite, observe com sua família como a luz ajuda no dia a dia e agradeça a Deus por ela.” Confirmação feita por adulto; sem foto, localização ou dados pessoais.
 
 ## Movimento e clima
-O Dia 1 acontece no acampamento 3D em **escuro total**: só se enxerga o que a lanterna alcança (uma luz que acompanha o personagem). A criança toca no chão para andar. Na etapa 2, o som de cada faísca (sino, água, grilo) fica mais forte quando ela se aproxima, e as faíscas brilham como pequenos cubos dourados. Na etapa 5, a luz do dia surge aos poucos. Na etapa 7, câmera dirigida mostra o Globo se acendendo.
+O Dia 1 acontece no acampamento 3D em **escuro total**: só se enxerga o que a lanterna alcança (uma luz que acompanha o personagem). A criança toca no chão para andar. Na etapa 2, o som de cada faísca (sino, água, grilo) fica mais forte quando ela se aproxima, e as faíscas brilham como pequenos cubos dourados. O escuro vai até o fim do dia: na etapa 4 só o lampião central acende, e a luz total volta apenas quando a Voz diz "Haja luz" no Globo, na etapa 7, com câmera dirigida mostrando o Globo se acendendo (decisão de 23/11/2026). No escuro, as plataformas da ilha suspensa ganham uma borda acesa para a criança ver onde pular.
 
 ## Tema
 Os Quadros dos Ideais começam a acender a partir do Dia 2 (Voto). No Dia 1 a criança ganha o Distintivo do Acampamento "Primeira Luz". Veja `THEME_AVENTUREIROS.md`.
