@@ -230,7 +230,7 @@ export class Task {
       let selected: { id: string; group: string; b: HTMLButtonElement } | null = null;
       let left = items.length;
       const mkBin = (group: string, label: string, icon: string) => {
-        const b = el('button', 'bin ' + group, ICONS[icon]);
+        const b = el('button', 'bin bin-' + group, ICONS[icon]); // 'bin-day': a classe 'day' é do cartão da Jornada e deixava o texto preto
         b.append(text('span', 'bl', label));
         const got = el('div', 'got');
         b.append(got);

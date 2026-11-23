@@ -197,8 +197,8 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
 .bins { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bin { border: 4px solid var(--ink); border-radius: 20px; padding: 10px; min-height: 124px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: var(--display); font-size: 24px; color: #fff; -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill; box-shadow: 0 5px 0 var(--ink); }
 .bin svg { width: 50px; height: 50px; }
-.bin.day { background: linear-gradient(#fff3b0, #ffc34a); }
-.bin.night { background: linear-gradient(#3f6db0, #172d49); }
+.bin.bin-day { background: linear-gradient(#fff3b0, #ffc34a); }
+.bin.bin-night { background: linear-gradient(#3f6db0, #172d49); }
 .bin .got { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
 .bin .mini svg { width: 30px; height: 30px; }
 .reward, .recap { text-align: center !important; }
