@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 export const MOBILE = matchMedia('(pointer: coarse)').matches;
+/** Há tela de toque (celular, tablet ou computador com toque)? Sem toque, o joystick e os botões A e B não aparecem. */
+export const TOUCH = matchMedia('(any-pointer: coarse)').matches || (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0);
 export const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export const SKY_TOP = new THREE.Color(0x3f8fdc);

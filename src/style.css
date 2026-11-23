@@ -43,6 +43,7 @@ img { -webkit-user-drag: none; }
 #bs[aria-pressed='false'] .on { display: none; }
 #bs[aria-pressed='false'] .off { display: inline; }
 #bc[aria-pressed='false'] svg { opacity: 0.55; }
+body.keys #bc, body.keys #pick .check { display: none; }
 #bm .off { display: none; }
 #bm[aria-pressed='false'] .off { display: inline; }
 #bm[aria-pressed='false'] svg { opacity: 0.75; }

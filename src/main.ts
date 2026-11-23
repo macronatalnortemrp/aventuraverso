@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import './style.css';
-import { createGfx, MOBILE, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engine/gfx';
+import { createGfx, MOBILE, TOUCH, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engine/gfx';
 import { OrbitCamera } from './engine/camera';
 import { Input } from './engine/input';
 import { sfx, setSoundEnabled } from './engine/audio';
@@ -447,7 +447,8 @@ const missionReady = loadDay01()
         },
         camera,
         forceControls(on) {
-          const show = on || SAVE.data.controls;
+          // no computador sem toque o teclado já faz tudo: o joystick nunca aparece
+          const show = TOUCH && (on || SAVE.data.controls);
           for (const id of ['joy', 'A', 'B']) hud.show(id, show);
           document.body.classList.toggle('ctl', show);
         },
@@ -673,7 +674,9 @@ $('bs').onclick = () => {
   if (sound) sfx('ui');
   else stopSpeaking();
 };
+if (!TOUCH) document.body.classList.add('keys'); // computador: some o botão do joystick e a opção na escolha do boneco
 function setControls(on: boolean) {
+  on = on && TOUCH;
   SAVE.update({ controls: on });
   for (const id of ['joy', 'A', 'B']) hud.show(id, on);
   document.body.classList.toggle('ctl', on); // o botão de ação e o balão sobem acima dos controles
@@ -746,7 +749,7 @@ async function enter(forceIntro: boolean) {
 const controlsTip = () =>
   MOBILE
     ? 'Toque no chão para andar e arraste a tela para olhar em volta.'
-    : 'Clique no chão para andar e arraste para olhar em volta.';
+    : 'Use as setas para andar e Espaço para pular. Arraste com o mouse para olhar em volta.';
 
 /** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
 function begin(fromIntro: boolean) {
