@@ -645,11 +645,11 @@ function draw(dt: number, t: number) {
     }
     a.needsUpdate = true;
   }
-  // debaixo d'água: névoa azul curta
-  const under = P.st === 'dive' && P.y < WY - 0.9;
-  fog.near = lerp(fog.near, under ? 8 : FOG.near, 0.08);
-  fog.far = lerp(fog.far, under ? 45 : FOG.far, 0.08);
-  fog.color.lerp(under ? UNDER_FOG : FOG_COLOR, 0.08);
+  // câmera debaixo d'água: névoa azul curta (vale a posição da câmera, que agora entra no lago)
+  const under = orbit.underwater;
+  fog.near = lerp(fog.near, under ? 1.5 : FOG.near, under ? 0.25 : 0.08);
+  fog.far = lerp(fog.far, under ? 24 : FOG.far, under ? 0.25 : 0.08);
+  fog.color.lerp(under ? UNDER_FOG : FOG_COLOR, under ? 0.25 : 0.08);
 }
 
 /* ---------- telas ---------- */
@@ -853,7 +853,9 @@ renderer.setAnimationLoop(() => {
       hud.action(null);
       hud.show('rot', false);
     }
-    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.st === 'dive' ? Math.max(P.y, WY - 1) : P.y, P.z, col);
+    // mergulhando, a câmera entra no lago junto (decisão de 23/11/2026)
+    const diving = P.st === 'dive' && P.y < WY - 0.9;
+    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.y, P.z, col, diving);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
   }
