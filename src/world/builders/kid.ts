@@ -402,3 +402,25 @@ export function animate(c: Rig, dt: number, s: Pose) {
     t.rotation.x = i ? 0.22 + Math.sin(c.ph * 1.5 - i * 0.6) * 0.08 : -0.9;
   });
 }
+
+/**
+ * Diretora Sol abaixada até a altura da criança, com a Bíblia erguida (abertura, Quadro 3).
+ * Aplicar DEPOIS de animate(), com k de 0 (em pé) a 1 (abaixada). Os valores são escritos a partir
+ * do quadro atual, sem acumular: assim a pose não depende da taxa de quadros e não treme
+ * quando o tempo entre quadros varia (celulares, principalmente iPhone).
+ * Ela afasta as pernas (uma à frente, outra atrás) e desce na mesma medida, sem afundar no chão.
+ */
+export const KNEEL = { split: 0.7, legLen: 0.99, lean: 0.22, book: -2.1, lamp: -0.5 };
+export function kneelPose(c: Rig, k: number) {
+  if (k <= 0) {
+    c.torso.rotation.x = 0;
+    return;
+  }
+  const a = KNEEL.split * k;
+  c.legs[0].rotation.x = -a;
+  c.legs[1].rotation.x = a;
+  c.body.position.y -= KNEEL.legLen * (1 - Math.cos(a));
+  c.torso.rotation.x = KNEEL.lean * k;
+  c.arms[1].rotation.x = lerp(c.arms[1].rotation.x, KNEEL.book, k);
+  c.arms[0].rotation.x = lerp(c.arms[0].rotation.x, KNEEL.lamp, k);
+}
