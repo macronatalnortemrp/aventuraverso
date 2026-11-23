@@ -12,3 +12,11 @@ export function breathColor(b: number) {
   if (used < 0.5) return '#f39a2b';
   return '#d92b2b';
 }
+
+/**
+ * Fôlego em qualquer estado: em terra e no ar também recarrega (mais rápido), para o círculo encher
+ * e sumir logo que a criança sai da água.
+ */
+export function breathOutside(b: number, dt: number) {
+  return Math.min(1, b + dt / BREATH.refillLand);
+}

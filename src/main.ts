@@ -483,6 +483,7 @@ const missionReady = loadDay01()
   });
 
 /* ---------- passo do jogo ---------- */
+let breathShow = 0;
 function step(dt: number) {
   let [ix, iz, m] = input.move(orbit.yaw);
   if (m > 0.1) {
@@ -549,7 +550,9 @@ function step(dt: number) {
     }
     if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(obj.x - P.x, obj.z - P.z) - orbit.yaw));
   } else if (hud.compassOn) clearHelp();
-  hud.breath(P.breath, P.st === 'dive' || P.breath < 1);
+  // o círculo do fôlego aparece no mergulho e, ao sair, fica um instante cheio antes de sumir
+  breathShow = P.st === 'dive' || P.breath < 1 ? 0.7 : Math.max(0, breathShow - dt);
+  hud.breath(P.breath, breathShow > 0);
 }
 
 /* ---------- desenho ---------- */
