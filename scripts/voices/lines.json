@@ -19,6 +19,12 @@
  },
  {
   "voice": "acampante",
+  "key": "espaço para pular",
+  "text": "Espaço para pular.",
+  "file": "acampante/612a114a.mp3"
+ },
+ {
+  "voice": "acampante",
   "key": "você venceu os três desafios!",
   "text": "Você venceu os três desafios!",
   "file": "acampante/8a0bd4eb.mp3"
@@ -28,6 +34,12 @@
   "key": "aceitar o desafio",
   "text": "Aceitar o desafio",
   "file": "acampante/b169b6d2.mp3"
+ },
+ {
+  "voice": "acampante",
+  "key": "setas para andar",
+  "text": "Setas para andar.",
+  "file": "acampante/b624057b.mp3"
  },
  {
   "voice": "acampante",
@@ -1021,12 +1033,6 @@
  },
  {
   "voice": "tico",
-  "key": "clique no chão para andar e arraste para olhar em volta",
-  "text": "Clique no chão para andar e arraste para olhar em volta.",
-  "file": "tico/5f7e4ada.mp3"
- },
- {
-  "voice": "tico",
   "key": "a bíblia conta: tudo era sem forma, vazio e escuro",
   "text": "A Bíblia conta: tudo era sem forma, vazio e escuro.",
   "file": "tico/61bf3772.mp3"
@@ -1084,6 +1090,12 @@
   "key": "este aparelho não conseguiu abrir o 3d",
   "text": "Este aparelho não conseguiu abrir o 3D.",
   "file": "tico/675943f7.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "arraste com o mouse para olhar em volta",
+  "text": "Arraste com o mouse para olhar em volta.",
+  "file": "tico/67dfe1ef.mp3"
  },
  {
   "voice": "tico",
@@ -1228,6 +1240,12 @@
   "key": "só deus cria a luz de verdade",
   "text": "Só Deus cria a luz de verdade.",
   "file": "tico/90c7abf6.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "essa palavra não está no versículo",
+  "text": "Essa palavra não está no versículo.",
+  "file": "tico/9156b255.mp3"
  },
  {
   "voice": "tico",
@@ -1447,12 +1465,6 @@
  },
  {
   "voice": "tico",
-  "key": "essa palavra não faz parte da frase",
-  "text": "Essa palavra não faz parte da frase.",
-  "file": "tico/ccacf432.mp3"
- },
- {
-  "voice": "tico",
   "key": "uma bolha de ar levou você para cima",
   "text": "Uma bolha de ar levou você para cima.",
   "file": "tico/cda362ac.mp3"
@@ -1642,6 +1654,12 @@
   "key": "a luz ia chegar para iluminar toda a criação",
   "text": "A luz ia chegar para iluminar toda a criação.",
   "file": "tico/ff19963a.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "use as setas para andar e espaço para pular",
+  "text": "Use as setas para andar e Espaço para pular.",
+  "file": "tico/ff1a0033.mp3"
  },
  {
   "voice": "tico",
