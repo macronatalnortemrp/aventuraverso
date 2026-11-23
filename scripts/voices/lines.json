@@ -613,6 +613,12 @@
  },
  {
   "voice": "sol",
+  "key": "siga a trilha de faíscas!",
+  "text": "Siga a trilha de faíscas!",
+  "file": "sol/6b09d59c.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "o portal dos sete dias fica na colina",
   "text": "O portal dos sete dias fica na colina.",
   "file": "sol/6cfefc44.mp3"
@@ -697,6 +703,12 @@
  },
  {
   "voice": "tico",
+  "key": "e este botão mostra estas dicas de novo, quando você quiser",
+  "text": "E este botão mostra estas dicas de novo, quando você quiser.",
+  "file": "tico/055642e7.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "arco-íris",
   "text": "Arco-íris",
   "file": "tico/05dd3eff.mp3"
@@ -715,9 +727,21 @@
  },
  {
   "voice": "tico",
+  "key": "aperte espaço e depois shift para dar um pulo alto",
+  "text": "Aperte espaço e depois Shift para dar um pulo alto.",
+  "file": "tico/0ae71ffe.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "quase!",
   "text": "Quase!",
   "file": "tico/0d1b781c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "siga a trilha de faíscas!",
+  "text": "Siga a trilha de faíscas!",
+  "file": "tico/0ff6e1a9.mp3"
  },
  {
   "voice": "tico",
@@ -730,6 +754,12 @@
   "key": "cada missão vai ajudar a encontrá-las de novo",
   "text": "Cada missão vai ajudar a encontrá-las de novo.",
   "file": "tico/1160f463.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "toque no chão para andar até lá",
+  "text": "Toque no chão para andar até lá.",
+  "file": "tico/11894b11.mp3"
  },
  {
   "voice": "tico",
@@ -781,6 +811,12 @@
  },
  {
   "voice": "tico",
+  "key": "esta é a bússola de ajuda",
+  "text": "Esta é a bússola de ajuda.",
+  "file": "tico/1d55223b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "tudo separado!",
   "text": "Tudo separado!",
   "file": "tico/1f1643b0.mp3"
@@ -805,6 +841,12 @@
  },
  {
   "voice": "tico",
+  "key": "este botão liga e desliga a música",
+  "text": "Este botão liga e desliga a música.",
+  "file": "tico/233a477f.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "como era tudo antes da luz?",
   "text": "Como era tudo antes da luz?",
   "file": "tico/234ab8d2.mp3"
@@ -814,6 +856,12 @@
   "key": "volte ao portal quando quiser",
   "text": "Volte ao portal quando quiser.",
   "file": "tico/2399de35.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "este botão mostra o joystick e os botões a e b, para pular e mergulhar",
+  "text": "Este botão mostra o joystick e os botões A e B, para pular e mergulhar.",
+  "file": "tico/250e228c.mp3"
  },
  {
   "voice": "tico",
@@ -835,9 +883,33 @@
  },
  {
   "voice": "tico",
+  "key": "no meio do lago, aperte a para mergulhar",
+  "text": "No meio do lago, aperte A para mergulhar.",
+  "file": "tico/27805c18.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "este quadro ainda está apagado",
   "text": "Este quadro ainda está apagado.",
   "file": "tico/28396780.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "segure shift no ar para dar uma marretada no chão",
+  "text": "Segure Shift no ar para dar uma marretada no chão.",
+  "file": "tico/290e40fc.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "toque nele para conversar ou usar",
+  "text": "Toque nele para conversar ou usar.",
+  "file": "tico/2af0d070.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "este botão liga e desliga as vozes e os efeitos",
+  "text": "Este botão liga e desliga as vozes e os efeitos.",
+  "file": "tico/2b365248.mp3"
  },
  {
   "voice": "tico",
@@ -877,9 +949,21 @@
  },
  {
   "voice": "tico",
+  "key": "a barra de espaço pula",
+  "text": "A barra de espaço pula.",
+  "file": "tico/321b3399.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "você separou o dia e a noite",
   "text": "Você separou o dia e a noite",
   "file": "tico/331b377f.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "use as setas ou as teclas w, a, s e d para andar",
+  "text": "Use as setas ou as teclas W, A, S e D para andar.",
+  "file": "tico/338a848f.mp3"
  },
  {
   "voice": "tico",
@@ -955,6 +1039,12 @@
  },
  {
   "voice": "tico",
+  "key": "eu mostro uma trilha de faíscas até a coluna de luz",
+  "text": "Eu mostro uma trilha de faíscas até a coluna de luz.",
+  "file": "tico/41794b39.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o portal do próximo mundo está aberto!",
   "text": "O portal do próximo mundo está aberto!",
   "file": "tico/45ccd8de.mp3"
@@ -1006,6 +1096,12 @@
   "key": "estrelas",
   "text": "Estrelas",
   "file": "tico/539a1347.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "durante a missão, o que você precisa fazer aparece no alto da tela",
+  "text": "Durante a missão, o que você precisa fazer aparece no alto da tela.",
+  "file": "tico/56c5a272.mp3"
  },
  {
   "voice": "tico",
@@ -1105,6 +1201,12 @@
  },
  {
   "voice": "tico",
+  "key": "antes de começar, vou mostrar os botões e os movimentos",
+  "text": "Antes de começar, vou mostrar os botões e os movimentos.",
+  "file": "tico/6ca63290.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "distintivo do acampamento (não é uma especialidade oficial)",
   "text": "Distintivo do Acampamento (não é uma especialidade oficial).",
   "file": "tico/6ee4ce0f.mp3"
@@ -1153,6 +1255,18 @@
  },
  {
   "voice": "tico",
+  "key": "use dois dedos para aproximar ou afastar",
+  "text": "Use dois dedos para aproximar ou afastar.",
+  "file": "tico/79fc558e.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "arraste o dedo na tela para olhar em volta",
+  "text": "Arraste o dedo na tela para olhar em volta.",
+  "file": "tico/7d95d646.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o lampião fica perto da fogueira!",
   "text": "O lampião fica perto da fogueira!",
   "file": "tico/7e42ea03.mp3"
@@ -1162,6 +1276,12 @@
   "key": "noite",
   "text": "Noite",
   "file": "tico/80a2b4c9.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "arraste com o mouse para olhar em volta, e a rodinha aproxima ou afasta",
+  "text": "Arraste com o mouse para olhar em volta, e a rodinha aproxima ou afasta.",
+  "file": "tico/80f75eb3.mp3"
  },
  {
   "voice": "tico",
@@ -1177,15 +1297,33 @@
  },
  {
   "voice": "tico",
+  "key": "toque nela quando não souber para onde ir",
+  "text": "Toque nela quando não souber para onde ir.",
+  "file": "tico/867e8a8d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "siga a bússola e a trilha de faíscas até o portal!",
   "text": "Siga a bússola e a trilha de faíscas até o portal!",
   "file": "tico/874e732e.mp3"
  },
  {
   "voice": "tico",
+  "key": "no meio do lago, aperte espaço para mergulhar",
+  "text": "No meio do lago, aperte espaço para mergulhar.",
+  "file": "tico/8752b7ae.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "deus falou, e a luz apareceu!",
   "text": "Deus falou, e a luz apareceu!",
   "file": "tico/8771c858.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "vamos começar a aventura!",
+  "text": "Vamos começar a aventura!",
+  "file": "tico/87d4c20e.mp3"
  },
  {
   "voice": "tico",
@@ -1399,6 +1537,18 @@
  },
  {
   "voice": "tico",
+  "key": "clique nele ou aperte enter para conversar ou usar",
+  "text": "Clique nele ou aperte Enter para conversar ou usar.",
+  "file": "tico/af36c634.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "pronto!",
+  "text": "Pronto!",
+  "file": "tico/b18c5ec5.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o que você fez hoje conta o primeiro dia da criação (gênesis 1:1-5)",
   "text": "O que você fez hoje conta o primeiro dia da criação (Gênesis 1:1-5).",
   "file": "tico/b314b67f.mp3"
@@ -1429,6 +1579,18 @@
  },
  {
   "voice": "tico",
+  "key": "começar!",
+  "text": "Começar!",
+  "file": "tico/b95ef1e5.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "com o joystick ligado, o botão a pula",
+  "text": "Com o joystick ligado, o botão A pula.",
+  "file": "tico/ba2b65ab.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "girassol",
   "text": "Girassol",
   "file": "tico/bc9ab0d0.mp3"
@@ -1447,9 +1609,21 @@
  },
  {
   "voice": "tico",
+  "key": "agora é com você",
+  "text": "Agora é com você.",
+  "file": "tico/bf931bfc.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "agora vá até a mesa da família!",
   "text": "Agora vá até a mesa da família!",
   "file": "tico/c3cc2547.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "na água você nada",
+  "text": "Na água você nada.",
+  "file": "tico/c441dd25.mp3"
  },
  {
   "voice": "tico",
@@ -1489,6 +1663,12 @@
  },
  {
   "voice": "tico",
+  "key": "você também pode clicar no chão",
+  "text": "Você também pode clicar no chão.",
+  "file": "tico/d1883bf6.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "sua primeira moeda!",
   "text": "Sua primeira moeda!",
   "file": "tico/d3eb1325.mp3"
@@ -1522,6 +1702,12 @@
   "key": "em breve",
   "text": "Em breve.",
   "file": "tico/d594de3c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "perto de alguém ou de algo especial aparece um botão amarelo",
+  "text": "Perto de alguém ou de algo especial aparece um botão amarelo.",
+  "file": "tico/d8a8c647.mp3"
  },
  {
   "voice": "tico",
@@ -1591,6 +1777,12 @@
  },
  {
   "voice": "tico",
+  "key": "a bolha azul mostra o seu fôlego, e ela enche de novo quando você sai da água",
+  "text": "A bolha azul mostra o seu fôlego, e ela enche de novo quando você sai da água.",
+  "file": "tico/ed7726bd.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o globo do éden acendeu",
   "text": "O Globo do Éden acendeu",
   "file": "tico/efa0dadc.mp3"
@@ -1627,6 +1819,12 @@
  },
  {
   "voice": "tico",
+  "key": "aperte a e depois b para dar um pulo alto",
+  "text": "Aperte A e depois B para dar um pulo alto.",
+  "file": "tico/f81b8470.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "é só entrar no portal quando quiser",
   "text": "É só entrar no portal quando quiser.",
   "file": "tico/fb2d2e61.mp3"
@@ -1636,6 +1834,12 @@
   "key": "que nome deus deu à luz?",
   "text": "Que nome Deus deu à luz?",
   "file": "tico/fc37d335.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "segure b no ar para dar uma marretada no chão",
+  "text": "Segure B no ar para dar uma marretada no chão.",
+  "file": "tico/fc698b82.mp3"
  },
  {
   "voice": "tico",
