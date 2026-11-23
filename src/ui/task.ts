@@ -29,6 +29,11 @@ export class Task {
   onRight: () => void = () => {};
   /** retratos 3D (nome -> imagem) para usar nos cartões */
   portraits: Record<string, string> = {};
+  /**
+   * Leitura que veio antes da atividade atual. Enquanto houver uma, as perguntas e atividades mostram
+   * "Ler de novo": a criança relê (e ouve) e volta ao mesmo ponto, sem perder o que já fez.
+   */
+  review: { ref: string; verses: string[] | null } | null = null;
 
   private panel() {
     const root = $('task'),
@@ -53,12 +58,66 @@ export class Task {
     return b;
   }
 
-  private header(p: HTMLElement, who: string, title: string, read: string) {
+  private header(p: HTMLElement, who: string, title: string, read: string, back: string | null = null) {
     const top = el('div', 'thead');
     top.append(text('b', 'tag', who));
+    const tools = el('div', 'tools');
     const l = this.listen(read, who);
-    if (l) top.append(l);
+    if (l) tools.append(l);
+    const r = back ? this.review : null;
+    if (r && back) tools.append(this.rereadButton(p, r, back));
+    if (tools.childElementCount) top.append(tools);
     p.append(top, text('h2', '', title));
+  }
+
+  /** "Ler de novo": troca o cartão pela leitura e volta ao mesmo cartão, do jeito que estava. */
+  private rereadButton(p: HTMLElement, r: { ref: string; verses: string[] | null }, backLabel: string) {
+    const b = el('button', 'btn alt listen reread', ICONS.stories + '<span>Ler de novo</span>');
+    b.setAttribute('aria-label', 'Ler de novo ' + r.ref);
+    b.onclick = () => {
+      sfx('page');
+      stopSpeaking();
+      const kept = [...p.childNodes],
+        cls = p.className,
+        focus = document.activeElement;
+      p.innerHTML = '';
+      this.fillReading(p, r.ref, r.verses);
+      const back = this.button(backLabel);
+      back.onclick = () => {
+        sfx('ui');
+        stopSpeaking();
+        p.className = cls;
+        p.replaceChildren(...kept);
+        p.scrollTop = 0;
+        (focus instanceof HTMLElement && p.contains(focus) ? focus : b).focus();
+      };
+      const row = el('div', 'row');
+      row.append(back);
+      p.append(row);
+      p.scrollTop = 0;
+      setTimeout(() => back.focus(), 40);
+    };
+    return b;
+  }
+
+  /** Corpo da leitura bíblica (cabeçalho, versículos e narração automática), sem o botão final. */
+  private fillReading(p: HTMLElement, ref: string, verses: string[] | null) {
+    p.className = 'panel scroll';
+    if (verses?.length) {
+      // o narrador lê os versículos sozinho ao abrir (a criança pode não saber ler); "Ouvir" repete
+      const spoken = verses.join(' ');
+      this.header(p, 'Pergaminho da Palavra', ref, spoken);
+      const box = el('div', 'verses');
+      for (const v of verses) box.append(text('p', '', v));
+      p.append(box);
+      setTimeout(() => this.open && p.contains(box) && this.voice() && speak(spoken, 'Pergaminho da Palavra'), 450);
+    } else {
+      const msg = `Pegue uma Bíblia e leia, com a ajuda de um adulto, ${ref.replace('-', ' a ')}.`;
+      this.header(p, 'Bíblia na Mão', ref, msg);
+      const box = el('div', 'bible-hand', ICONS.stories);
+      box.append(text('p', '', msg));
+      p.append(box);
+    }
   }
 
   private button(label: string, alt = false) {
@@ -70,22 +129,7 @@ export class Task {
   reading(ref: string, verses: string[] | null): Promise<void> {
     return new Promise((done) => {
       const p = this.panel();
-      p.className = 'panel scroll';
-      if (verses?.length) {
-        // o narrador lê os versículos sozinho ao abrir (a criança pode não saber ler); "Ouvir" repete
-        const spoken = verses.join(' ');
-        this.header(p, 'Pergaminho da Palavra', ref, spoken);
-        const box = el('div', 'verses');
-        for (const v of verses) box.append(text('p', '', v));
-        p.append(box);
-        setTimeout(() => this.open && this.voice() && speak(spoken, 'Pergaminho da Palavra'), 450);
-      } else {
-        const msg = `Pegue uma Bíblia e leia, com a ajuda de um adulto, ${ref.replace('-', ' a ')}.`;
-        this.header(p, 'Bíblia na Mão', ref, msg);
-        const box = el('div', 'bible-hand', ICONS.stories);
-        box.append(text('p', '', msg));
-        p.append(box);
-      }
+      this.fillReading(p, ref, verses);
       const ok = this.button(verses?.length ? 'Continuar' : 'Já li');
       ok.onclick = () => {
         sfx('ui');
@@ -105,7 +149,7 @@ export class Task {
       const p = this.panel();
       p.className = 'panel quiz';
       const { options, answer } = shuffled(q);
-      this.header(p, q.who, q.prompt, `${q.prompt} ${options.join('. ')}.`);
+      this.header(p, q.who, q.prompt, `${q.prompt} ${options.join('. ')}.`, 'Voltar à pergunta');
       const list = el('div', 'opts');
       const msg = el('p', 'msg');
       msg.setAttribute('role', 'status');
@@ -169,7 +213,7 @@ export class Task {
     return new Promise((done) => {
       const p = this.panel();
       p.className = 'panel words';
-      this.header(p, 'Tico', title, `${title} Toque nas palavras na ordem certa.`);
+      this.header(p, 'Tico', title, `${title} Toque nas palavras na ordem certa.`, 'Voltar a montar');
       p.append(text('p', 'sub', 'Toque nas palavras na ordem certa.'));
       const slots = el('div', 'slots');
       const slotEls = phrase.map(() => {
@@ -222,7 +266,7 @@ export class Task {
     return new Promise((done) => {
       const p = this.panel();
       p.className = 'panel sort';
-      this.header(p, 'Tico', 'Dia ou noite?', prompt);
+      this.header(p, 'Tico', 'Dia ou noite?', prompt, 'Voltar a separar');
       p.append(text('p', 'sub', prompt));
       const tray = el('div', 'tray');
       const bins = el('div', 'bins');

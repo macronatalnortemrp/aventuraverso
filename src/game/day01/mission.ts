@@ -172,10 +172,18 @@ export class Day01Mission {
     return q.enabled ? this.d.task.quiz(q) : Promise.resolve();
   }
 
-  private read(k: keyof Day01Content['readings']) {
+  /** Leitura bíblica. As atividades seguintes oferecem "Ler de novo" com ela, até endReview(). */
+  private async read(k: keyof Day01Content['readings']) {
     const r = this.content.readings[k];
     const verses = r.keys.map((key) => this.bible.verses[key]).filter(Boolean);
-    return this.d.task.reading(r.ref, verses.length === r.keys.length ? verses : null);
+    const v = verses.length === r.keys.length ? verses : null;
+    await this.d.task.reading(r.ref, v);
+    this.d.task.review = { ref: r.ref, verses: v };
+  }
+
+  /** Fim das atividades sobre a leitura: some o "Ler de novo". */
+  private endReview() {
+    this.d.task.review = null;
   }
 
   private talk(who: string, lines: string[]) {
@@ -217,6 +225,7 @@ export class Day01Mission {
 
   exit(wantsNext = false) {
     this.active = false;
+    this.endReview();
     this.d.ambient.clear();
     this.d.daylight.set(0, REDUCED_MOTION ? 0 : 1.2);
     this.sparkMeshes.forEach((m) => (m.visible = false));
@@ -365,6 +374,7 @@ export class Day01Mission {
     await this.wait(0.9);
     await this.read('r1');
     await this.q('beforeLight');
+    this.endReview();
     this.busy = false;
     this.d.hud.say(this.content.sparks.left[1], 6000);
   }
@@ -386,6 +396,7 @@ export class Day01Mission {
     const verse = this.bible.verses['Gn 1:3'];
     const words = verse ? verse.replace(/[.,;:!?]/g, '').split(/\s+/).filter(Boolean) : this.content.phrase.fallback;
     await this.d.task.words('Monte o versículo que você acabou de ler e ouvir', words, this.content.phrase.distractors);
+    this.endReview();
     sfx('yay');
     this.d.sting('vitoria');
     this.lampK = 0.001; // acende aos poucos em update()
@@ -403,6 +414,7 @@ export class Day01Mission {
     this.d.daylight.set(0, REDUCED_MOTION ? 0 : 6); // a luz do dia surge aos poucos
     await this.talk('Tico', this.content.sort.done);
     await this.q('lightName');
+    this.endReview();
     this.busy = false;
     this.set(complete(this.state, 'dayNight'));
     this.d.hud.say(this.content.next.sol, 6000);

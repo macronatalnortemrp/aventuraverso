@@ -34,6 +34,9 @@ A Diretora Sol entrega três convites. Cada um dos três acampantes, perto dos m
 ### 7. Globo do Éden
 Levar as três faíscas ao globo e tocar nele. A Voz diz: “Haja luz”. O globo se ilumina e alterna dia/noite.
 
+## Voltar à leitura
+Toda atividade que vem logo depois de uma leitura (a pergunta da etapa 2, a montagem do versículo da etapa 4 e a separação e a pergunta da etapa 5) tem o botão "Ler de novo": a criança relê e ouve o trecho de novo e volta ao mesmo ponto, sem perder o que já fez.
+
 ## Recompensas
 - Lanterna aprimorada.
 - Distintivo do Acampamento “Primeira Luz”.
