@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import './style.css';
-import { createGfx, MOBILE, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engine/gfx';
+import { createGfx, MOBILE, TOUCH, REDUCED_MOTION, FOG, FOG_COLOR, uTime } from './engine/gfx';
 import { OrbitCamera } from './engine/camera';
 import { Input } from './engine/input';
 import { sfx, setSoundEnabled } from './engine/audio';
-import { stopSpeaking } from './engine/speech';
+import { primeSpeech, stopSpeaking } from './engine/speech';
+import { unlockAudio } from './engine/audioContext';
 import { angLerp, clamp, lerp } from './engine/math';
 import { H, WY, isDeep } from './world/terrain';
 import { EMB, ROOT } from './world/textures';
@@ -20,7 +21,7 @@ import { newGuide, guideStep, guideProgress, guideReset, guideSnooze } from './g
 import { GUIDANCE } from './config/guidance';
 import { createSave } from './persistence/save';
 import { Hud, $ } from './ui/hud';
-import { askNick, pickAvatar } from './ui/screens';
+import { askNick, pickAvatar, portraits } from './ui/screens';
 import { Task } from './ui/task';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
@@ -133,6 +134,14 @@ try {
 } catch {
   /* sem retratos: a interface funciona só com texto */
 }
+/* os retratos da escolha do boneco ficam prontos durante a tela de carregamento */
+setTimeout(() => {
+  try {
+    portraits();
+  } catch {
+    /* gerados de novo ao abrir a escolha */
+  }
+}, 300);
 
 const tico = makeTico();
 scene.add(tico.root);
@@ -438,7 +447,8 @@ const missionReady = loadDay01()
         },
         camera,
         forceControls(on) {
-          const show = on || SAVE.data.controls;
+          // no computador sem toque o teclado já faz tudo: o joystick nunca aparece
+          const show = TOUCH && (on || SAVE.data.controls);
           for (const id of ['joy', 'A', 'B']) hud.show(id, show);
           document.body.classList.toggle('ctl', show);
         },
@@ -473,6 +483,7 @@ const missionReady = loadDay01()
   });
 
 /* ---------- passo do jogo ---------- */
+let breathShow = 0;
 function step(dt: number) {
   let [ix, iz, m] = input.move(orbit.yaw);
   if (m > 0.1) {
@@ -539,7 +550,9 @@ function step(dt: number) {
     }
     if (hud.compassOn) hud.compass(Math.PI - (Math.atan2(obj.x - P.x, obj.z - P.z) - orbit.yaw));
   } else if (hud.compassOn) clearHelp();
-  hud.breath(P.breath, P.st === 'dive' || P.breath < 1);
+  // o círculo do fôlego aparece no mergulho e, ao sair, fica um instante cheio antes de sumir
+  breathShow = P.st === 'dive' || P.breath < 1 ? 0.7 : Math.max(0, breathShow - dt);
+  hud.breath(P.breath, breathShow > 0);
 }
 
 /* ---------- desenho ---------- */
@@ -664,7 +677,9 @@ $('bs').onclick = () => {
   if (sound) sfx('ui');
   else stopSpeaking();
 };
+if (!TOUCH) document.body.classList.add('keys'); // computador: some o botão do joystick e a opção na escolha do boneco
 function setControls(on: boolean) {
+  on = on && TOUCH;
   SAVE.update({ controls: on });
   for (const id of ['joy', 'A', 'B']) hud.show(id, on);
   document.body.classList.toggle('ctl', on); // o botão de ação e o balão sobem acima dos controles
@@ -737,7 +752,7 @@ async function enter(forceIntro: boolean) {
 const controlsTip = () =>
   MOBILE
     ? 'Toque no chão para andar e arraste a tela para olhar em volta.'
-    : 'Clique no chão para andar e arraste para olhar em volta.';
+    : 'Use as setas para andar e Espaço para pular. Arraste com o mouse para olhar em volta.';
 
 /** Começa a jogar. Depois da abertura, vai direto para o Dia 1 (etapa 1: a lanterna). */
 function begin(fromIntro: boolean) {
@@ -764,8 +779,17 @@ function begin(fromIntro: boolean) {
     hud.say(`Bem-vindo de volta ao acampamento! ${controlsTip()}`, 7000);
   });
 }
-$('go').onclick = () => void enter(false);
-$('rewatch').onclick = () => void enter(true);
+/* o primeiro toque libera o áudio (no iPhone, também com a chave no silencioso) */
+$('go').onclick = () => {
+  unlockAudio();
+  primeSpeech();
+  void enter(false);
+};
+$('rewatch').onclick = () => {
+  unlockAudio();
+  primeSpeech();
+  void enter(true);
+};
 
 /** Cenário vivo durante a abertura (a câmera e os personagens ficam com a abertura). */
 function tickWorld(dt: number, t: number) {
@@ -786,10 +810,22 @@ timer.connect(document);
 const _v = new THREE.Vector3();
 let fpsT = 0,
   fpsN = 0;
+/** qualidade automática: abaixa a resolução se ficar abaixo de 40 quadros por segundo (também na abertura) */
+function measure(raw: number) {
+  if (!document.body.classList.contains('ready') || document.hidden) return; // a carga inicial não conta
+  fpsT += raw;
+  fpsN++;
+  if (fpsT > 3) {
+    if (fpsN / fpsT < 40) gfx.degrade();
+    fpsT = fpsN = 0;
+  }
+}
 renderer.setAnimationLoop(() => {
   timer.update();
-  const dt = Math.min(Math.max(timer.getDelta(), 0), 0.05);
+  const raw = Math.min(Math.max(timer.getDelta(), 0), 0.25);
+  const dt = Math.min(raw, 0.05);
   clock += dt;
+  measure(raw);
   if (started) {
     // música de fundo do momento e volume (leitura/pergunta bem baixo, falas mais baixo)
     music.play(cueFor({ started, night: daylight.night > 0.5 }));
@@ -797,7 +833,8 @@ renderer.setAnimationLoop(() => {
     if (ctx !== musicCtx) music.setContext((musicCtx = ctx));
   }
   if (intro?.active) {
-    intro.update(dt);
+    // a abertura segue o relógio real: num aparelho mais lento ela pula quadros, mas não fica em câmera lenta
+    intro.update(Math.min(raw, 0.1));
     tickWorld(dt, clock);
     SEE.r.value = 0;
     renderer.render(scene, camera);
@@ -833,13 +870,6 @@ renderer.setAnimationLoop(() => {
     SEE.r.value = Hh * 0.17;
   } else SEE.r.value = 0;
   renderer.render(scene, camera);
-  // qualidade automática: abaixa a resolução se ficar abaixo de 40 quadros por segundo
-  fpsT += dt;
-  fpsN++;
-  if (fpsT > 4) {
-    if (fpsN / fpsT < 40) gfx.degrade();
-    fpsT = fpsN = 0;
-  }
 });
 if (SAVE.data.controls) setControls(true);
 

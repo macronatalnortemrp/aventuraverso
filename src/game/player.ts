@@ -1,7 +1,7 @@
 import { angLerp, clamp, lerp, rnd, rr } from '../engine/math';
 import { H, WY, SURF, isDeep } from '../world/terrain';
 import { Colliders } from '../world/colliders';
-import { breathStep } from './breath';
+import { breathOutside, breathStep } from './breath';
 
 export type PlayerState = 'ground' | 'air' | 'swim' | 'dive';
 
@@ -114,6 +114,7 @@ export function releaseB(P: Player): 'high' | 'diveJump' | null {
  * Sem biblioteca de física: terreno, caixas com topo e círculos.
  */
 export function stepPlayer(P: Player, ix: number, iz: number, m: number, dt: number, t: number, col: Colliders, ev: PlayerEvents) {
+  if (P.st === 'ground' || P.st === 'air') P.breath = breathOutside(P.breath, dt); // fora d'água o fôlego volta inteiro
   const shallow = P.st === 'ground' && H(P.x, P.z) < WY;
   const maxS = MOVE.speed[P.st] * (shallow ? MOVE.shallowFactor : 1);
   const air = P.st === 'air';

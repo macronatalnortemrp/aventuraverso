@@ -18,5 +18,5 @@ export const GUIDANCE = {
   arrived: 6,
 };
 
-/** Fôlego debaixo d'água (segundos) e tempo para recarregar na superfície. */
-export const BREATH = { seconds: 20, refill: 2.5 };
+/** Fôlego debaixo d'água (segundos), tempo para recarregar na superfície e fora d'água. */
+export const BREATH = { seconds: 20, refill: 2.5, refillLand: 0.8 };

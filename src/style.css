@@ -43,6 +43,7 @@ img { -webkit-user-drag: none; }
 #bs[aria-pressed='false'] .on { display: none; }
 #bs[aria-pressed='false'] .off { display: inline; }
 #bc[aria-pressed='false'] svg { opacity: 0.55; }
+body.keys #bc, body.keys #pick .check { display: none; }
 #bm .off { display: none; }
 #bm[aria-pressed='false'] .off { display: inline; }
 #bm[aria-pressed='false'] svg { opacity: 0.75; }
@@ -95,7 +96,8 @@ img { -webkit-user-drag: none; }
 .ov.show { display: flex; }
 /* tela inicial: placa de madeira com a bússola, faixa de pergaminho e botão dourado, sobre o acampamento 3D */
 #title { flex-direction: column; overflow: hidden; background: radial-gradient(ellipse at 50% 42%, rgba(255, 214, 92, 0.38), rgba(255, 170, 60, 0.12) 38%, rgba(23, 45, 73, 0) 62%, rgba(23, 45, 73, 0.55)); }
-#title::before { content: ''; position: absolute; left: 50%; top: 38%; width: 200vmax; height: 200vmax; translate: -50% -50%; pointer-events: none; background: repeating-conic-gradient(rgba(255, 240, 170, 0.2) 0 8deg, rgba(255, 240, 170, 0) 8deg 20deg); mask: radial-gradient(circle, #000 6%, transparent 34%); -webkit-mask: radial-gradient(circle, #000 6%, transparent 34%); animation: rays 40s linear infinite; }
+/* raios: a camada tem só o tamanho que aparece (o resto era transparente) e gira na GPU; no iPhone, a de 200vmax travava */
+#title::before { content: ''; position: absolute; left: 50%; top: 38%; width: 140vmax; height: 140vmax; translate: -50% -50%; pointer-events: none; background: repeating-conic-gradient(rgba(255, 240, 170, 0.2) 0 8deg, rgba(255, 240, 170, 0) 8deg 20deg); mask: radial-gradient(circle, #000 8.6%, transparent 48.6%); -webkit-mask: radial-gradient(circle, #000 8.6%, transparent 48.6%); will-change: transform; animation: rays 40s linear infinite; }
 @keyframes rays { to { rotate: 360deg; } }
 .title-in { position: relative; display: flex; flex-direction: column; align-items: center; margin-top: -4vh; }
 body.ready .title-in > * { animation: t-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.25) both; }
@@ -195,8 +197,8 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
 .bins { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bin { border: 4px solid var(--ink); border-radius: 20px; padding: 10px; min-height: 124px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: var(--display); font-size: 24px; color: #fff; -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill; box-shadow: 0 5px 0 var(--ink); }
 .bin svg { width: 50px; height: 50px; }
-.bin.day { background: linear-gradient(#fff3b0, #ffc34a); }
-.bin.night { background: linear-gradient(#3f6db0, #172d49); }
+.bin.bin-day { background: linear-gradient(#fff3b0, #ffc34a); }
+.bin.bin-night { background: linear-gradient(#3f6db0, #172d49); }
 .bin .got { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
 .bin .mini svg { width: 30px; height: 30px; }
 .reward, .recap { text-align: center !important; }

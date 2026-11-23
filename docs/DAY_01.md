@@ -22,7 +22,7 @@ A criança encontra três faíscas seguindo a luz (e os sons: sino, água corren
 Pedrito está com medo do escuro e estranha o lenço da criança. Ele pergunta: "O que a cor vinho do lenço nos lembra?" (resposta: o sangue de Jesus, que nos ama e nos salvou), conforme `LENCO.md` e `QUIZ_MAP.md`. Após responder, Pedrito ajuda a carregar uma faísca.
 
 ### 4. Haja luz
-Leitura de Gênesis 1:3. Montar a frase com blocos de palavras. A lâmpada central acende.
+Leitura de Gênesis 1:3. Montar o versículo que acabou de ler e ouvir com blocos de palavras. Palavras repetidas ("luz", "E"/"e") valem qualquer uma das peças, porque o espaço mostra sempre a palavra do próprio texto. A lâmpada central acende.
 
 ### 5. Dia e noite
 Leitura de Gênesis 1:4–5. Classificar oito objetos em dia/noite.

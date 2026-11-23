@@ -6,6 +6,7 @@
  */
 import { CueId, NoteEvent, Score, renderCue } from './musicScore';
 import { MusicContext, musicLevel } from './musicLevel';
+import { pauseAudio, sharedAudio } from './audioContext';
 
 type AC = AudioContext;
 interface Entry {
@@ -41,6 +42,7 @@ export class Music {
   private enabled = true;
   private wind: { src: AudioBufferSourceNode; g: GainNode } | null = null;
   private token = 0;
+  private loading: CueId | null = null;
 
   constructor() {
     if (typeof fetch === 'undefined') return;
@@ -61,8 +63,8 @@ export class Music {
   private ac(): AC | null {
     if (this.ctx) return this.ctx;
     try {
-      const C = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      const c = new C();
+      const c = sharedAudio();
+      if (!c) return null;
       this.master = c.createGain();
       this.master.gain.value = this.enabled ? VOL : 0;
       this.master.connect(c.destination);
@@ -84,6 +86,7 @@ export class Music {
     if (c && this.master) ramp(this.master.gain, on ? VOL : 0, c, 0.3);
     if (!on) {
       this.token++; // cancela vinhetas e trocas pendentes
+      this.loading = null;
       this.current?.stop(c ? c.currentTime + 0.35 : 0);
       this.current = null;
       this.stopWind(0.3);
@@ -96,10 +99,7 @@ export class Music {
 
   /** Aba escondida: suspende o áudio; volta junto com o jogo. */
   pause(on: boolean) {
-    const c = this.ctx;
-    if (!c) return;
-    if (on) void c.suspend?.();
-    else void c.resume?.();
+    pauseAudio(on);
   }
 
   /** Momento do jogo: normal, alguém falando, leitura/pergunta. */
@@ -124,15 +124,17 @@ export class Music {
     if (!this.enabled) return;
     const c = this.ac();
     if (!c) return;
-    void c.resume?.();
-    if (this.current?.id === id) return;
+    if (this.current?.id === id || this.loading === id) return; // já toca ou está carregando
+    if (c.state === 'suspended') void c.resume().catch(() => {});
     const my = ++this.token;
+    this.loading = id;
     const old = this.current;
     this.current = null;
     old?.stop(c.currentTime + FADE);
     if (id === 'misterio') this.startWind(c);
     else this.stopWind(FADE);
     void this.voice(id, false).then((v) => {
+      if (my === this.token) this.loading = null;
       if (!v) return;
       if (my !== this.token || this.wanted !== id) return v.stop(c.currentTime + 0.05);
       this.current = v;
@@ -144,7 +146,7 @@ export class Music {
     if (!this.enabled) return;
     const c = this.ac();
     if (!c) return;
-    void c.resume?.();
+    if (c.state === 'suspended') void c.resume().catch(() => {});
     const my = this.token;
     void this.voice(id, true).then((v) => {
       if (!v) return;
@@ -162,6 +164,7 @@ export class Music {
   stop(sec = 1.2) {
     this.wanted = null;
     this.token++;
+    this.loading = null;
     const c = this.ctx;
     this.current?.stop(c ? c.currentTime + sec : 0);
     this.current = null;

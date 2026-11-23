@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { judge, shuffled } from '../src/game/quiz';
+import { judge, shuffled, wordFits } from '../src/game/quiz';
 
 describe('respostas sem punição', () => {
   const q = { answer: 1 };
@@ -21,5 +21,21 @@ describe('respostas sem punição', () => {
       expect(r.options[r.answer]).toBe('c');
       expect([...r.options].sort()).toEqual(['a', 'b', 'c', 'd']);
     }
+  });
+});
+
+describe('montar o versículo', () => {
+  const gn13 = ['E', 'disse', 'Deus', 'Haja', 'luz', 'e', 'houve', 'luz'];
+  test('qualquer peça "luz" serve nas duas posições', () => {
+    expect(wordFits(gn13, 4, 'luz')).toBe('ok');
+    expect(wordFits(gn13, 7, 'luz')).toBe('ok');
+  });
+  test('"E" e "e" valem iguais', () => {
+    expect(wordFits(gn13, 0, 'e')).toBe('ok');
+    expect(wordFits(gn13, 5, 'E')).toBe('ok');
+  });
+  test('palavra de mais adiante e palavra de fora', () => {
+    expect(wordFits(gn13, 0, 'houve')).toBe('later');
+    expect(wordFits(gn13, 0, 'noite')).toBe('out');
   });
 });

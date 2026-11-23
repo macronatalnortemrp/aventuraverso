@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { breathStep, breathColor } from '../src/game/breath';
+import { breathStep, breathColor, breathOutside } from '../src/game/breath';
 import { BREATH } from '../src/config/guidance';
 
 describe('fôlego', () => {
@@ -13,6 +13,11 @@ describe('fôlego', () => {
   test('recarrega na superfície sem passar de 1', () => {
     let b = 0;
     for (let i = 0; i < 100; i++) b = breathStep(b, 0.1, false);
+    expect(b).toBe(1);
+  });
+  test('fora d’água enche por completo em menos de um segundo', () => {
+    let b = 0.2;
+    for (let i = 0; i < 10; i++) b = breathOutside(b, 0.1);
     expect(b).toBe(1);
   });
   test('cor: azul, laranja perto da metade, vermelho depois', () => {

@@ -1,7 +1,7 @@
 /** Efeitos sintetizados com Web Audio. Opcionais: o jogo nunca depende de som. */
+import { sharedAudio } from './audioContext';
 export type Sfx = 'coin' | 'jump' | 'jump2' | 'dive' | 'pound' | 'splash' | 'ui' | 'yay' | 'plim' | 'page';
 
-let ctx: AudioContext | null = null;
 let enabled = true;
 
 export const setSoundEnabled = (on: boolean) => {
@@ -11,8 +11,8 @@ export const setSoundEnabled = (on: boolean) => {
 export function sfx(k: Sfx) {
   if (!enabled) return;
   try {
-    const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    ctx = ctx || new AC();
+    const ctx = sharedAudio();
+    if (!ctx) return;
     const t = ctx.currentTime,
       o = ctx.createOscillator(),
       g = ctx.createGain();

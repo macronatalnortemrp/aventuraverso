@@ -30,6 +30,7 @@ html, body { margin: 0; height: 100%; background: #1d6fc4; }
 #splash .dots i:nth-child(2) { animation-delay: 0.15s; background: #ffd23f; }
 #splash .dots i:nth-child(3) { animation-delay: 0.3s; background: #ff6b7d; }
 body.ready #splash { opacity: 0; visibility: hidden; pointer-events: none; }
+body.ready #splash::before { animation: none; } /* escondida, a camada girando ainda pesava no iPhone */
 @keyframes sp-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes sp-spin { from { transform: scale(0.55) rotate(-360deg); opacity: 0; } 35% { opacity: 1; } to { transform: scale(1) rotate(0); opacity: 1; } }
 @keyframes sp-float { to { transform: translateY(-6px) scale(1.02); } }

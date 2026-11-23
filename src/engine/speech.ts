@@ -4,6 +4,7 @@
  * Todo texto falado também aparece na tela; o áudio é sempre opcional.
  */
 import { VoiceManifest, clipsFor, lineKey, splitSentences, voiceOf } from './voiceText';
+import { silentSrc } from './audioContext';
 
 const audioOk = () => typeof Audio !== 'undefined';
 
@@ -22,8 +23,28 @@ if (audioOk() && typeof fetch !== 'undefined') {
 let player: HTMLAudioElement | null = null;
 let token = 0;
 
+function makePlayer() {
+  const p = new Audio();
+  p.setAttribute('playsinline', '');
+  p.preload = 'auto';
+  return p;
+}
+
+/**
+ * Chamar dentro do primeiro toque: o iOS só deixa um elemento de áudio tocar sozinho depois
+ * que ele tocou uma vez dentro de um toque. As falas da abertura começam sem toque.
+ */
+export function primeSpeech() {
+  if (!audioOk() || player) return;
+  player = makePlayer();
+  player.src = silentSrc();
+  void player.play().catch(() => {
+    /* sem problema: o texto segue na tela */
+  });
+}
+
 function playClips(files: string[]) {
-  player = player || new Audio();
+  player = player || makePlayer();
   const p = player,
     my = ++token;
   let i = 0;

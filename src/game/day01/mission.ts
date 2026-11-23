@@ -12,7 +12,7 @@ import { AV, Rig, animate, makeKid } from '../../world/builders/kid';
 import { H, LAKE, WY } from '../../world/terrain';
 import { Ambient, AmbientKind } from '../../engine/ambient';
 import { OrbitCamera } from '../../engine/camera';
-import { MOBILE, REDUCED_MOTION } from '../../engine/gfx';
+import { MOBILE, REDUCED_MOTION, TOUCH } from '../../engine/gfx';
 import { sfx } from '../../engine/audio';
 import { angLerp, lerp } from '../../engine/math';
 import { speak } from '../../engine/speech';
@@ -44,6 +44,8 @@ export interface Day01Content {
     later: string;
     instruction: string;
     controls: string;
+    /** a mesma dica para o computador sem toque (teclado) */
+    controlsKeys?: string;
     done: string;
     final: string;
     thanks: string;
@@ -383,7 +385,7 @@ export class Day01Mission {
     await this.read('r2');
     const verse = this.bible.verses['Gn 1:3'];
     const words = verse ? verse.replace(/[.,;:!?]/g, '').split(/\s+/).filter(Boolean) : this.content.phrase.fallback;
-    await this.d.task.words('Monte a frase', words, this.content.phrase.distractors);
+    await this.d.task.words('Monte o versículo que você acabou de ler e ouvir', words, this.content.phrase.distractors);
     sfx('yay');
     this.d.sting('vitoria');
     this.lampK = 0.001; // acende aos poucos em update()
@@ -455,7 +457,7 @@ export class Day01Mission {
       await L.play([tour[0], tour[tour.length - 1]]);
     }
     const t = this.content.challenge;
-    await this.talk(t.who, [`${t.instruction} ${t.controls}`]);
+    await this.talk(t.who, [`${t.instruction} ${TOUCH ? t.controls : (t.controlsKeys ?? t.controls)}`]);
     const { orbit, player: p } = this.d;
     await L.play([L.backTo(p.x, p.y, p.z, orbit.yaw, orbit.dist, orbit.pitch)]);
     this.refresh();
