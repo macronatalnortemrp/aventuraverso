@@ -5,3 +5,4 @@ dist/
 .env*
 # Fontes institucionais em PDF ficam só no computador do responsável (repositório é público)
 docs/source/*.pdf
+scripts/voices/samples/.models/
