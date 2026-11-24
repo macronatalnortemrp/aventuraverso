@@ -43,7 +43,7 @@ Material oficial OMA 006/2017 consultado anteriormente informa que a cor vinho r
 - Baixar e selecionar os arquivos oficiais A1 e LA1 no pacote oficial.
 - Confirmar detalhes exatos do lenço de líder e posicionamento do LA1.
 - Validar a fala sobre significado do lenço antes de colocá-la na boca de Pedrito. Por ora ele pergunta só a cor.
-- Confirmar autorização para reproduzir a letra e a gravação do Hino.
+- Hino: letra autorizada e enviada pelo coordenador geral da Macro em 24/11/2026 (texto exato em `club-texts.json`). A gravação não é usada.
 - Criar o formulário externo do piloto e preencher `src/config/pilot.ts`.
 
 - Aprovar o desenho definitivo de Tico e os seis avatares antes de produzir animações.

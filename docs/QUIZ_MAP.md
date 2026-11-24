@@ -27,6 +27,6 @@ Decisão de 24/11/2026: a partir do Dia 2, as perguntas do Pedrito sobre o Clube
 
 ## Pendências
 - **Lenço:** usar as formulações de `LENCO.md`. As três áreas do lenço (física, mental, espiritual) e as quatro áreas do Guia se complementam; não é conflito.
-- **Hino:** autorizado pelo coordenador geral da Macro em 24/11/2026; falta o texto conferido da letra (e, se houver, a gravação) para entrar no jogo. Pergunta possível sem a letra: "Quem compôs o Hino?" (Pastor Wanderson Paiva, pág. 6).
+- **Hino:** autorizado pelo coordenador geral da Macro em 24/11/2026; letra enviada por ele no mesmo dia e guardada exata em `public/data/content/club-texts.json` (`ideals.hino`). Acende no Quadro do Hino no fim do Dia 7. A gravação (referência no YouTube) não entra no jogo. Pergunta possível sem a letra: "Quem compôs o Hino?" (Pastor Wanderson Paiva, pág. 6).
 - **Emblema A1 (Dia 6):** usar só o arquivo oficial. Sem ele, a pergunta funciona em texto e a imagem fica em espaço reservado neutro.
 - Cada pergunta precisa de uma explicação curta para o erro final ("a resposta é... porque...").

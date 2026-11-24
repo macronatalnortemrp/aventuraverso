@@ -2,8 +2,22 @@
   "_fonte": "Guia do Aspirante - Clube de Aventureiros - Macro Natal Norte, págs. 5 e 6, como transcritos em docs/GAME_DESIGN.md (texto exato, nunca reescrever).",
   "checkedBy": "responsável do projeto (docs/GAME_DESIGN.md)",
   "ideals": {
-    "voto": { "title": "Voto", "text": "Por amor a Jesus, farei sempre o meu melhor." },
-    "lei": { "title": "Lei", "text": "Jesus me ajuda a ser: obediente, puro, reverente, bondoso e colaborador." },
-    "votoBiblia": { "title": "Voto à Bíblia", "text": "Prometo fidelidade à Bíblia, à sua mensagem de um Salvador crucificado, ressurreto e prestes a voltar, doador de vida e liberdade a todos que nEle crêem." }
+    "voto": {
+      "title": "Voto",
+      "text": "Por amor a Jesus, farei sempre o meu melhor."
+    },
+    "lei": {
+      "title": "Lei",
+      "text": "Jesus me ajuda a ser: obediente, puro, reverente, bondoso e colaborador."
+    },
+    "votoBiblia": {
+      "title": "Voto à Bíblia",
+      "text": "Prometo fidelidade à Bíblia, à sua mensagem de um Salvador crucificado, ressurreto e prestes a voltar, doador de vida e liberdade a todos que nEle crêem."
+    },
+    "hino": {
+      "title": "Hino",
+      "text": "Somos Aventureiros alegres\nQue confiam no amigo Jesus.\nAprendemos que sempre devemos\nSer pra todos um brilho da Luz.\nDescobrimos em tudo a beleza,\nE o amor de um Deus criador.\nE amando a Cristo faremos\nMaravilhas ao nosso redor.",
+      "_fonte": "Letra enviada pelo Coordenador geral da Macro Natal Norte em 24/11/2026 (texto exato, nunca reescrever). Referência: https://www.youtube.com/watch?v=jURmI41BZvI"
+    }
   }
 }
