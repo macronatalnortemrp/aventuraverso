@@ -84,6 +84,198 @@
   "file": "acampante/fd6e5771.mp3"
  },
  {
+  "voice": "marina",
+  "key": "é só entrar no portal quando quiser",
+  "text": "É só entrar no portal quando quiser.",
+  "file": "marina/0b2ad852.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "quer passear de barco?",
+  "text": "Quer passear de barco?",
+  "file": "marina/16ee6482.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "olhe em volta",
+  "text": "Olhe em volta.",
+  "file": "marina/19b02ed3.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "tem mais no lago e no observatório",
+  "text": "Tem mais no lago e no Observatório.",
+  "file": "marina/237e5cc6.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "siga a trilha de faíscas!",
+  "text": "Siga a trilha de faíscas!",
+  "file": "marina/3d2a95aa.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "suba no barco!",
+  "text": "Suba no barco!",
+  "file": "marina/44ee7083.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "volte quando quiser passear!",
+  "text": "Volte quando quiser passear!",
+  "file": "marina/475eb412.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "agora dá para ver o lago de novo",
+  "text": "Agora dá para ver o lago de novo.",
+  "file": "marina/4ad44188.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "explore o acampamento à vontade",
+  "text": "Explore o acampamento à vontade.",
+  "file": "marina/4ef3f050.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "vamos continuar?",
+  "text": "Vamos continuar?",
+  "file": "marina/53381c29.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "uma bolha de ar levou você para cima",
+  "text": "Uma bolha de ar levou você para cima.",
+  "file": "marina/539a763d.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "o portal dos sete dias fica na colina",
+  "text": "O portal dos sete dias fica na colina.",
+  "file": "marina/5c5339b2.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "você me ajuda a achá-las?",
+  "text": "Você me ajuda a achá-las?",
+  "file": "marina/6d5fe83a.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "uau!",
+  "text": "Uau!",
+  "file": "marina/74d145d9.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "respire e tente de novo!",
+  "text": "Respire e tente de novo!",
+  "file": "marina/8556bee4.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "ainda tem boia perdida na névoa!",
+  "text": "Ainda tem boia perdida na névoa!",
+  "file": "marina/9500abc7.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "sua primeira moeda!",
+  "text": "Sua primeira moeda!",
+  "file": "marina/98302092.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "pode ir!",
+  "text": "Pode ir!",
+  "file": "marina/9b28b03d.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "chegamos!",
+  "text": "Chegamos!",
+  "file": "marina/9bdc6f3d.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "siga a bússola e a trilha de faíscas até o portal!",
+  "text": "Siga a bússola e a trilha de faíscas até o portal!",
+  "file": "marina/9c91adc7.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "as boias de luz se perderam na névoa",
+  "text": "As boias de luz se perderam na névoa.",
+  "file": "marina/a84bc9ef.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "siga a luz!",
+  "text": "Siga a luz!",
+  "file": "marina/b7a38d44.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "quer que eu leve você até lá?",
+  "text": "Quer que eu leve você até lá?",
+  "file": "marina/c43d6f19.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "o barco está pronto para quando você precisar",
+  "text": "O barco está pronto para quando você precisar.",
+  "file": "marina/cba0a51b.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "siga a bússola e a trilha de faíscas!",
+  "text": "Siga a bússola e a trilha de faíscas!",
+  "file": "marina/cd655f6a.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "você juntou todas as moedas do acampamento!",
+  "text": "Você juntou todas as moedas do acampamento!",
+  "file": "marina/d0e43ac2.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "siga o brilho das boias",
+  "text": "Siga o brilho das boias.",
+  "file": "marina/db3f1bfe.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "você já concluiu a missão!",
+  "text": "Você já concluiu a missão!",
+  "file": "marina/e06e14b6.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "bom dia!",
+  "text": "Bom dia!",
+  "file": "marina/e08a00f2.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "eu sou a capitã marina",
+  "text": "Eu sou a Capitã Marina.",
+  "file": "marina/e9cdbd95.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "obrigada!",
+  "text": "Obrigada!",
+  "file": "marina/f1451cb9.mp3"
+ },
+ {
+  "voice": "marina",
+  "key": "quer que eu leve você até o portal dos sete dias?",
+  "text": "Quer que eu leve você até o portal dos sete dias?",
+  "file": "marina/f9dede2f.mp3"
+ },
+ {
   "voice": "narrador",
   "key": "e foi a tarde e a manhã, o dia quinto",
   "text": "E foi a tarde e a manhã, o dia quinto.",
@@ -94,6 +286,12 @@
   "key": "e disse deus: haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos",
   "text": "E disse Deus: Haja luminares na expansão dos céus, para haver separação entre o dia e a noite; e sejam eles para sinais e para tempos determinados e para dias e anos.",
   "file": "narrador/09591733.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "pegue uma bíblia e leia, com a ajuda de um adulto, gênesis 1:6 a 7",
+  "text": "Pegue uma Bíblia e leia, com a ajuda de um adulto, Gênesis 1:6 a 7.",
+  "file": "narrador/0db2115f.mp3"
  },
  {
   "voice": "narrador",
@@ -127,9 +325,9 @@
  },
  {
   "voice": "narrador",
-  "key": "quando acender, você poderá ler e ouvir o texto aqui",
-  "text": "Quando acender, você poderá ler e ouvir o texto aqui.",
-  "file": "narrador/295a407d.mp3"
+  "key": "dia 2: o céu e as águas",
+  "text": "Dia 2: O Céu e as Águas",
+  "file": "narrador/2aa59ede.mp3"
  },
  {
   "voice": "narrador",
@@ -148,6 +346,12 @@
   "key": "e fez deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas",
   "text": "E fez Deus os dois grandes luminares: o luminar maior para governar o dia, e o luminar menor para governar a noite; e fez as estrelas.",
   "file": "narrador/31188105.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "haja uma expansão no meio das águas",
+  "text": "Haja uma expansão no meio das águas.",
+  "file": "narrador/36f27f02.mp3"
  },
  {
   "voice": "narrador",
@@ -241,6 +445,18 @@
  },
  {
   "voice": "narrador",
+  "key": "gênesis 1:6-7",
+  "text": "Gênesis 1:6-7.",
+  "file": "narrador/8195591a.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "gênesis 1:8",
+  "text": "Gênesis 1:8.",
+  "file": "narrador/83c1ab6c.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "e disse deus: haja uma expansão no meio das águas, e haja separação entre águas e águas",
   "text": "E disse Deus: Haja uma expansão no meio das águas, e haja separação entre águas e águas.",
   "file": "narrador/8459db8b.mp3"
@@ -268,6 +484,12 @@
   "key": "e disse deus: produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus",
   "text": "E disse Deus: Produzam as águas abundantemente répteis de alma vivente; e voem as aves sobre a face da expansão dos céus.",
   "file": "narrador/905652ac.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "pegue uma bíblia e leia, com a ajuda de um adulto, gênesis 1:8",
+  "text": "Pegue uma Bíblia e leia, com a ajuda de um adulto, Gênesis 1:8.",
+  "file": "narrador/9506039f.mp3"
  },
  {
   "voice": "narrador",
@@ -316,12 +538,6 @@
   "key": "e viu deus que era boa a luz; e fez deus separação entre a luz e as trevas",
   "text": "E viu Deus que era boa a luz; e fez Deus separação entre a luz e as trevas.",
   "file": "narrador/b751e9fa.mp3"
- },
- {
-  "voice": "narrador",
-  "key": "este quadro ainda está apagado",
-  "text": "Este quadro ainda está apagado.",
-  "file": "narrador/b76b2478.mp3"
  },
  {
   "voice": "narrador",
@@ -463,6 +679,12 @@
  },
  {
   "voice": "pedrito",
+  "key": "este quadro está apagado",
+  "text": "Este quadro está apagado.",
+  "file": "pedrito/5378cc33.mp3"
+ },
+ {
+  "voice": "pedrito",
   "key": "vamos acender o lampião?",
   "text": "Vamos acender o lampião?",
   "file": "pedrito/5eebab15.mp3"
@@ -481,9 +703,21 @@
  },
  {
   "voice": "pedrito",
+  "key": "agora eu também sei o voto!",
+  "text": "Agora eu também sei o Voto!",
+  "file": "pedrito/7d3dfd41.mp3"
+ },
+ {
+  "voice": "pedrito",
   "key": "oi!",
   "text": "Oi!",
   "file": "pedrito/a05c7859.mp3"
+ },
+ {
+  "voice": "pedrito",
+  "key": "vamos montar as palavras?",
+  "text": "Vamos montar as palavras?",
+  "file": "pedrito/a181d98e.mp3"
  },
  {
   "voice": "pedrito",
@@ -535,12 +769,6 @@
  },
  {
   "voice": "sol",
-  "key": "você já concluiu a missão!",
-  "text": "Você já concluiu a missão!",
-  "file": "sol/0d035dc4.mp3"
- },
- {
-  "voice": "sol",
   "key": "bom dia!",
   "text": "Bom dia!",
   "file": "sol/1a9de654.mp3"
@@ -553,27 +781,9 @@
  },
  {
   "voice": "sol",
-  "key": "respire e tente de novo!",
-  "text": "Respire e tente de novo!",
-  "file": "sol/1b6c897e.mp3"
- },
- {
-  "voice": "sol",
-  "key": "uma bolha de ar levou você para cima",
-  "text": "Uma bolha de ar levou você para cima.",
-  "file": "sol/210a9903.mp3"
- },
- {
-  "voice": "sol",
   "key": "mas um vento forte soprou!",
   "text": "Mas um vento forte soprou!",
   "file": "sol/212c6367.mp3"
- },
- {
-  "voice": "sol",
-  "key": "quer que eu leve você até o portal dos sete dias?",
-  "text": "Quer que eu leve você até o portal dos sete dias?",
-  "file": "sol/21850795.mp3"
  },
  {
   "voice": "sol",
@@ -589,57 +799,9 @@
  },
  {
   "voice": "sol",
-  "key": "olhe em volta",
-  "text": "Olhe em volta.",
-  "file": "sol/37cde20d.mp3"
- },
- {
-  "voice": "sol",
-  "key": "sua primeira moeda!",
-  "text": "Sua primeira moeda!",
-  "file": "sol/4a87a1c8.mp3"
- },
- {
-  "voice": "sol",
-  "key": "tem mais no lago e no observatório",
-  "text": "Tem mais no lago e no Observatório.",
-  "file": "sol/546fb7ec.mp3"
- },
- {
-  "voice": "sol",
-  "key": "chegamos!",
-  "text": "Chegamos!",
-  "file": "sol/555595db.mp3"
- },
- {
-  "voice": "sol",
-  "key": "siga a trilha de faíscas!",
-  "text": "Siga a trilha de faíscas!",
-  "file": "sol/6b09d59c.mp3"
- },
- {
-  "voice": "sol",
   "key": "o portal dos sete dias fica na colina",
   "text": "O portal dos sete dias fica na colina.",
   "file": "sol/6cfefc44.mp3"
- },
- {
-  "voice": "sol",
-  "key": "você juntou todas as moedas do acampamento!",
-  "text": "Você juntou todas as moedas do acampamento!",
-  "file": "sol/6ffea808.mp3"
- },
- {
-  "voice": "sol",
-  "key": "quer que eu leve você até lá?",
-  "text": "Quer que eu leve você até lá?",
-  "file": "sol/72ceeb2b.mp3"
- },
- {
-  "voice": "sol",
-  "key": "siga a bússola e a trilha de faíscas!",
-  "text": "Siga a bússola e a trilha de faíscas!",
-  "file": "sol/74e04ca8.mp3"
  },
  {
   "voice": "sol",
@@ -655,21 +817,9 @@
  },
  {
   "voice": "sol",
-  "key": "siga a bússola e a trilha de faíscas até o portal!",
-  "text": "Siga a bússola e a trilha de faíscas até o portal!",
-  "file": "sol/87d8fbf5.mp3"
- },
- {
-  "voice": "sol",
   "key": "com ela, vamos refazer o livro dos sete dias!",
   "text": "Com ela, vamos refazer o Livro dos Sete Dias!",
   "file": "sol/8cdcd201.mp3"
- },
- {
-  "voice": "sol",
-  "key": "explore o acampamento à vontade",
-  "text": "Explore o acampamento à vontade.",
-  "file": "sol/9e700012.mp3"
  },
  {
   "voice": "sol",
@@ -679,27 +829,21 @@
  },
  {
   "voice": "sol",
-  "key": "uau!",
-  "text": "Uau!",
-  "file": "sol/eabd6f93.mp3"
- },
- {
-  "voice": "sol",
   "key": "calma!",
   "text": "Calma!",
   "file": "sol/f0eed3da.mp3"
  },
  {
   "voice": "sol",
-  "key": "é só entrar no portal quando quiser",
-  "text": "É só entrar no portal quando quiser.",
-  "file": "sol/f9c6f8f4.mp3"
- },
- {
-  "voice": "sol",
   "key": "bem-vindo ao acampamento do livro aberto!",
   "text": "Bem-vindo ao Acampamento do Livro Aberto!",
   "file": "sol/fdb72577.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a névoa escondia o céu",
+  "text": "A névoa escondia o céu",
+  "file": "tico/0463ee76.mp3"
  },
  {
   "voice": "tico",
@@ -712,6 +856,24 @@
   "key": "arco-íris",
   "text": "Arco-íris",
   "file": "tico/05dd3eff.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "deus separou as águas e fez o céu",
+  "text": "Deus separou as águas e fez o céu.",
+  "file": "tico/0673480f.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a névoa está abrindo",
+  "text": "A névoa está abrindo.",
+  "file": "tico/069a4d10.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito chama você na colina, perto dos quadros!",
+  "text": "O Pedrito chama você na colina, perto dos quadros!",
+  "file": "tico/084acb51.mp3"
  },
  {
   "voice": "tico",
@@ -730,6 +892,18 @@
   "key": "aperte espaço e depois shift para dar um pulo alto",
   "text": "Aperte espaço e depois Shift para dar um pulo alto.",
   "file": "tico/0ae71ffe.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "céus",
+  "text": "Céus",
+  "file": "tico/0c10a0e8.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "monte o voto dos aventureiros",
+  "text": "Monte o Voto dos Aventureiros",
+  "file": "tico/0c70575f.mp3"
  },
  {
   "voice": "tico",
@@ -760,6 +934,12 @@
   "key": "toque no chão para andar até lá",
   "text": "Toque no chão para andar até lá.",
   "file": "tico/11894b11.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "barco",
+  "text": "Barco",
+  "file": "tico/14942093.mp3"
  },
  {
   "voice": "tico",
@@ -811,6 +991,12 @@
  },
  {
   "voice": "tico",
+  "key": "assim terminou o segundo dia",
+  "text": "Assim terminou o segundo dia.",
+  "file": "tico/1b8b879c.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "esta é a bússola de ajuda",
   "text": "Esta é a bússola de ajuda.",
   "file": "tico/1d55223b.mp3"
@@ -829,9 +1015,27 @@
  },
  {
   "voice": "tico",
+  "key": "faltam cinco páginas",
+  "text": "Faltam cinco páginas.",
+  "file": "tico/1fb70590.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o que deus fez no meio das águas?",
+  "text": "O que Deus fez no meio das águas?",
+  "file": "tico/1fcfc83b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "água",
   "text": "água",
   "file": "tico/21e0d29a.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "balão",
+  "text": "Balão",
+  "file": "tico/22bba319.mp3"
  },
  {
   "voice": "tico",
@@ -862,6 +1066,12 @@
   "key": "este botão mostra o joystick e os botões a e b, para pular e mergulhar",
   "text": "Este botão mostra o joystick e os botões A e B, para pular e mergulhar.",
   "file": "tico/250e228c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "terra",
+  "text": "Terra",
+  "file": "tico/25d075a2.mp3"
  },
  {
   "voice": "tico",
@@ -943,6 +1153,12 @@
  },
  {
   "voice": "tico",
+  "key": "o segundo dia da criação",
+  "text": "O segundo dia da criação",
+  "file": "tico/2fb5ff6d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "tudo bem!",
   "text": "Tudo bem!",
   "file": "tico/2fcb56a9.mp3"
@@ -970,6 +1186,12 @@
   "key": "na mesa da família acontecem as missões feitas junto com a família",
   "text": "Na Mesa da Família acontecem as missões feitas junto com a família.",
   "file": "tico/34798e72.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "deus chamou a expansão de céus",
+  "text": "Deus chamou a expansão de Céus.",
+  "file": "tico/354d344b.mp3"
  },
  {
   "voice": "tico",
@@ -1045,6 +1267,12 @@
  },
  {
   "voice": "tico",
+  "key": "o céu apareceu no globo!",
+  "text": "O céu apareceu no Globo!",
+  "file": "tico/44b06509.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o portal do próximo mundo está aberto!",
   "text": "O portal do próximo mundo está aberto!",
   "file": "tico/45ccd8de.mp3"
@@ -1063,9 +1291,39 @@
  },
  {
   "voice": "tico",
+  "key": "o quadro do voto acendeu!",
+  "text": "O Quadro do Voto acendeu!",
+  "file": "tico/4a9fada4.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "antes, ainda não havia a expansão no meio das águas",
+  "text": "Antes, ainda não havia a expansão no meio das águas.",
+  "file": "tico/4bcf93bd.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "falta só uma boia!",
+  "text": "Falta só uma boia!",
+  "file": "tico/4dccce87.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "quatro retângulos iguais, dois vinho e dois brancos, com o emblema no centro e o nome do clube no canto",
   "text": "Quatro retângulos iguais, dois vinho e dois brancos, com o emblema no centro e o nome do Clube no canto.",
   "file": "tico/4eab138a.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "siga o brilho até a boia!",
+  "text": "Siga o brilho até a boia!",
+  "file": "tico/4eee1200.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "concha",
+  "text": "Concha",
+  "file": "tico/4f7988ce.mp3"
  },
  {
   "voice": "tico",
@@ -1111,6 +1369,24 @@
  },
  {
   "voice": "tico",
+  "key": "deus disse: haja uma expansão no meio das águas",
+  "text": "Deus disse: Haja uma expansão no meio das águas.",
+  "file": "tico/5a19bbf1.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "boia",
+  "text": "Boia",
+  "file": "tico/5b8ef5b9.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o quadro do voto acendeu",
+  "text": "O Quadro do Voto acendeu",
+  "file": "tico/5cbdb26d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o lampião acendeu!",
   "text": "O lampião acendeu!",
   "file": "tico/5db1aca0.mp3"
@@ -1126,6 +1402,18 @@
   "key": "jogue no seu ritmo: um dia por vez ou vários seguidos",
   "text": "Jogue no seu ritmo: um dia por vez ou vários seguidos.",
   "file": "tico/5e00cb84.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "lá em cima",
+  "text": "Lá em cima",
+  "file": "tico/5e169693.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "siga o brilho",
+  "text": "Siga o brilho.",
+  "file": "tico/60ba9ed3.mp3"
  },
  {
   "voice": "tico",
@@ -1189,6 +1477,12 @@
  },
  {
   "voice": "tico",
+  "key": "uma expansão",
+  "text": "Uma expansão",
+  "file": "tico/67792144.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "arraste com o mouse para olhar em volta",
   "text": "Arraste com o mouse para olhar em volta.",
   "file": "tico/67dfe1ef.mp3"
@@ -1201,9 +1495,21 @@
  },
  {
   "voice": "tico",
+  "key": "onda",
+  "text": "Onda",
+  "file": "tico/68bd1646.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "antes de começar, vou mostrar os botões e os movimentos",
   "text": "Antes de começar, vou mostrar os botões e os movimentos.",
   "file": "tico/6ca63290.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "agora leve os pedaços de luz ao globo, na colina!",
+  "text": "Agora leve os pedaços de luz ao Globo, na colina!",
+  "file": "tico/6d3f2c3a.mp3"
  },
  {
   "voice": "tico",
@@ -1225,6 +1531,18 @@
  },
  {
   "voice": "tico",
+  "key": "assim foi o segundo dia",
+  "text": "Assim foi o segundo dia.",
+  "file": "tico/728bb279.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "tudo no lugar!",
+  "text": "Tudo no lugar!",
+  "file": "tico/72c0d55d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "um adulto confirma que a missão foi feita",
   "text": "Um adulto confirma que a missão foi feita",
   "file": "tico/755307a3.mp3"
@@ -1234,6 +1552,12 @@
   "key": "o globo acendeu!",
   "text": "O Globo acendeu!",
   "file": "tico/75e3390c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "olhe lá para cima!",
+  "text": "Olhe lá para cima!",
+  "file": "tico/76ea0b9e.mp3"
  },
  {
   "voice": "tico",
@@ -1273,9 +1597,27 @@
  },
  {
   "voice": "tico",
+  "key": "depois agradeçam a deus pelo céu",
+  "text": "Depois agradeçam a Deus pelo céu.",
+  "file": "tico/7e531920.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "descer do barco",
+  "text": "Descer do barco",
+  "file": "tico/7f2c1474.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "noite",
   "text": "Noite",
   "file": "tico/80a2b4c9.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "que névoa!",
+  "text": "Que névoa!",
+  "file": "tico/80bee2bb.mp3"
  },
  {
   "voice": "tico",
@@ -1297,6 +1639,18 @@
  },
  {
   "voice": "tico",
+  "key": "passe pelos anéis de vento: o barco vai mais rápido!",
+  "text": "Passe pelos anéis de vento: o barco vai mais rápido!",
+  "file": "tico/8288ecf4.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "deus separou as águas de baixo das águas de cima",
+  "text": "Deus separou as águas de baixo das águas de cima.",
+  "file": "tico/82c5e33b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "toque nela quando não souber para onde ir",
   "text": "Toque nela quando não souber para onde ir.",
   "file": "tico/867e8a8d.mp3"
@@ -1312,6 +1666,18 @@
   "key": "no meio do lago, aperte espaço para mergulhar",
   "text": "No meio do lago, aperte espaço para mergulhar.",
   "file": "tico/8752b7ae.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "nuvem",
+  "text": "Nuvem",
+  "file": "tico/8767508f.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "uma ilha",
+  "text": "Uma ilha",
+  "file": "tico/876d1809.mp3"
  },
  {
   "voice": "tico",
@@ -1381,9 +1747,15 @@
  },
  {
   "voice": "tico",
-  "key": "essa palavra não está no versículo",
-  "text": "Essa palavra não está no versículo.",
-  "file": "tico/9156b255.mp3"
+  "key": "três pedaços de luz!",
+  "text": "Três pedaços de luz!",
+  "file": "tico/941eab35.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "separe: o que fica lá em cima, no céu?",
+  "text": "Separe: o que fica lá em cima, no céu?",
+  "file": "tico/94c84bc5.mp3"
  },
  {
   "voice": "tico",
@@ -1465,6 +1837,18 @@
  },
  {
   "voice": "tico",
+  "key": "em cima ou embaixo?",
+  "text": "Em cima ou embaixo?",
+  "file": "tico/a2ee5f08.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "pipa",
+  "text": "Pipa",
+  "file": "tico/a37526dc.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "pense mais um pouquinho e tente de novo",
   "text": "Pense mais um pouquinho e tente de novo.",
   "file": "tico/a585fe2d.mp3"
@@ -1501,6 +1885,12 @@
  },
  {
   "voice": "tico",
+  "key": "a capitã marina deixa você passear de barco quando quiser!",
+  "text": "A Capitã Marina deixa você passear de barco quando quiser!",
+  "file": "tico/a8e93967.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "falta só uma!",
   "text": "Falta só uma!",
   "file": "tico/a90260d2.mp3"
@@ -1531,9 +1921,27 @@
  },
  {
   "voice": "tico",
+  "key": "uma ponte",
+  "text": "Uma ponte",
+  "file": "tico/acba0a27.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "na água",
+  "text": "Na água",
+  "file": "tico/acd1ecd5.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "quando acender, você poderá ler e ouvir o texto aqui",
   "text": "Quando acender, você poderá ler e ouvir o texto aqui.",
   "file": "tico/ad537505.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "deus fez uma expansão no meio das águas e separou as águas que estavam debaixo das que estavam sobre ela",
+  "text": "Deus fez uma expansão no meio das águas e separou as águas que estavam debaixo das que estavam sobre ela.",
+  "file": "tico/aec13a28.mp3"
  },
  {
   "voice": "tico",
@@ -1579,6 +1987,24 @@
  },
  {
   "voice": "tico",
+  "key": "lembre: deus separou as águas de cima das águas de baixo",
+  "text": "Lembre: Deus separou as águas de cima das águas de baixo.",
+  "file": "tico/b7dea528.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "você navegou e achou três pedaços de luz",
+  "text": "Você navegou e achou três pedaços de luz",
+  "file": "tico/b877e382.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "use as setas para remar",
+  "text": "Use as setas para remar.",
+  "file": "tico/b878e41a.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "começar!",
   "text": "Começar!",
   "file": "tico/b95ef1e5.mp3"
@@ -1621,6 +2047,12 @@
  },
  {
   "voice": "tico",
+  "key": "não dá para ver o céu",
+  "text": "Não dá para ver o céu.",
+  "file": "tico/c42f52cc.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "na água você nada",
   "text": "Na água você nada.",
   "file": "tico/c441dd25.mp3"
@@ -1639,6 +2071,30 @@
  },
  {
   "voice": "tico",
+  "key": "a água",
+  "text": "a água",
+  "file": "tico/c8cba887.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "posso ir junto?",
+  "text": "Posso ir junto?",
+  "file": "tico/ca00447c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "céu azul",
+  "text": "Céu Azul",
+  "file": "tico/cbd44647.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o que você fez hoje conta o segundo dia da criação (gênesis 1:6-8)",
+  "text": "O que você fez hoje conta o segundo dia da criação (Gênesis 1:6-8).",
+  "file": "tico/cd3e1fd1.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "uma bolha de ar levou você para cima",
   "text": "Uma bolha de ar levou você para cima.",
   "file": "tico/cda362ac.mp3"
@@ -1651,9 +2107,33 @@
  },
  {
   "voice": "tico",
+  "key": "céu",
+  "text": "céu",
+  "file": "tico/ce2f0c0b.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o barco da capitã marina fica no cais para você passear!",
+  "text": "O barco da Capitã Marina fica no cais para você passear!",
+  "file": "tico/cec42cf7.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "eu nunca andei de barco!",
+  "text": "Eu nunca andei de barco!",
+  "file": "tico/cf8c3427.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "a jornada ainda está carregando",
   "text": "A jornada ainda está carregando.",
   "file": "tico/cfa322a2.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "mar",
+  "text": "Mar",
+  "file": "tico/cfe2ac0c.mp3"
  },
  {
   "voice": "tico",
@@ -1663,9 +2143,21 @@
  },
  {
   "voice": "tico",
+  "key": "que nome deus deu à expansão?",
+  "text": "Que nome Deus deu à expansão?",
+  "file": "tico/d103be1b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "você também pode clicar no chão",
   "text": "Você também pode clicar no chão.",
   "file": "tico/d1883bf6.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "use o joystick ou toque na água para remar",
+  "text": "Use o joystick ou toque na água para remar.",
+  "file": "tico/d1972458.mp3"
  },
  {
   "voice": "tico",
@@ -1705,9 +2197,21 @@
  },
  {
   "voice": "tico",
+  "key": "olhe o céu com sua família e conte quantas nuvens vocês veem",
+  "text": "Olhe o céu com sua família e conte quantas nuvens vocês veem.",
+  "file": "tico/d87e4fc3.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "perto de alguém ou de algo especial aparece um botão amarelo",
   "text": "Perto de alguém ou de algo especial aparece um botão amarelo.",
   "file": "tico/d8a8c647.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "por amor a jesus, farei sempre o meu melhor",
+  "text": "Por amor a Jesus, farei sempre o meu melhor.",
+  "file": "tico/d9419f5f.mp3"
  },
  {
   "voice": "tico",
@@ -1720,6 +2224,18 @@
   "key": "é quando está claro",
   "text": "É quando está claro.",
   "file": "tico/de388311.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a capitã marina está no cais novo, do outro lado do lago!",
+  "text": "A Capitã Marina está no cais novo, do outro lado do lago!",
+  "file": "tico/df2fc898.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o céu apareceu no globo",
+  "text": "O céu apareceu no Globo",
+  "file": "tico/e01f9052.mp3"
  },
  {
   "voice": "tico",
@@ -1750,6 +2266,12 @@
   "key": "cheio de bichos",
   "text": "Cheio de bichos",
   "file": "tico/e83b38fb.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o céu está limpo",
+  "text": "O céu está limpo.",
+  "file": "tico/e95036f6.mp3"
  },
  {
   "voice": "tico",
@@ -1795,6 +2317,12 @@
  },
  {
   "voice": "tico",
+  "key": "vuuush!",
+  "text": "Vuuush!",
+  "file": "tico/f2bfb173.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "agora apareceram moedas no acampamento",
   "text": "Agora apareceram moedas no acampamento.",
   "file": "tico/f399f801.mp3"
@@ -1825,6 +2353,18 @@
  },
  {
   "voice": "tico",
+  "key": "você separou o que fica em cima e o que fica na água",
+  "text": "Você separou o que fica em cima e o que fica na água",
+  "file": "tico/f95f4127.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o que fica aqui embaixo, na água?",
+  "text": "O que fica aqui embaixo, na água?",
+  "file": "tico/fb0536fe.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "é só entrar no portal quando quiser",
   "text": "É só entrar no portal quando quiser.",
   "file": "tico/fb2d2e61.mp3"
@@ -1840,6 +2380,12 @@
   "key": "segure b no ar para dar uma marretada no chão",
   "text": "Segure B no ar para dar uma marretada no chão.",
   "file": "tico/fc698b82.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "você achou a segunda página do livro dos sete dias!",
+  "text": "Você achou a segunda página do Livro dos Sete Dias!",
+  "file": "tico/fcb7481e.mp3"
  },
  {
   "voice": "tico",

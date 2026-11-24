@@ -1,0 +1,121 @@
+{
+  "id": "day02",
+  "title": "Dia 2: O Céu e as Águas",
+  "_fontes": "docs/DAY_02.md (plano aprovado pelo responsável em 24/11/2026). Leituras na ACF (Gn 1:6-8). Voto: texto exato do Guia (public/data/content/club-texts.json). Distratores e falas são sugestões a revisar com a liderança.",
+  "start": {
+    "who": "Tico",
+    "lines": ["Que névoa! Não dá para ver o céu."],
+    "go": "A Capitã Marina está no cais novo, do outro lado do lago!"
+  },
+  "marina": {
+    "who": "Capitã Marina",
+    "hello": ["Bom dia! Eu sou a Capitã Marina.", "As boias de luz se perderam na névoa. Você me ajuda a achá-las?"],
+    "board": ["Suba no barco! Siga o brilho das boias."],
+    "again": ["Vamos continuar? Ainda tem boia perdida na névoa!"],
+    "after": ["Obrigada! Agora dá para ver o lago de novo."],
+    "free": ["Quer passear de barco? Pode ir!"],
+    "wait": ["Bom dia! O barco está pronto para quando você precisar."],
+    "freeBye": "Volte quando quiser passear!"
+  },
+  "boat": {
+    "who": "Tico",
+    "controls": "Use o joystick ou toque na água para remar.",
+    "controlsKeys": "Use as setas para remar.",
+    "rings": "Passe pelos anéis de vento: o barco vai mais rápido!",
+    "ring": "Vuuush!",
+    "leave": "Descer do barco",
+    "pedrito": ["Posso ir junto? Eu nunca andei de barco!"]
+  },
+  "buoys": {
+    "_nota": "left[0] quando falta uma, left[1] quando faltam duas.",
+    "left": ["Falta só uma boia!", "Faltam duas! Siga o brilho."],
+    "done": ["Três pedaços de luz! A névoa está abrindo."]
+  },
+  "next": {
+    "table": "Agora vá até a Mesa da Família!",
+    "hill": "O Pedrito chama você na colina, perto dos quadros!"
+  },
+  "readings": {
+    "r1": { "ref": "Gênesis 1:6-7", "keys": ["Gn 1:6", "Gn 1:7"] },
+    "r2": { "ref": "Gênesis 1:8", "keys": ["Gn 1:8"] }
+  },
+  "questions": {
+    "expanse": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "O que Deus fez no meio das águas?",
+      "options": ["Uma expansão", "Uma ponte", "Uma ilha"],
+      "answer": 0,
+      "hint": "Lembre: Deus separou as águas de cima das águas de baixo.",
+      "explain": "Deus fez uma expansão no meio das águas e separou as águas que estavam debaixo das que estavam sobre ela."
+    },
+    "skyName": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "Que nome Deus deu à expansão?",
+      "options": ["Céus", "Mar", "Terra"],
+      "answer": 0,
+      "hint": "Olhe lá para cima!",
+      "explain": "Deus chamou a expansão de Céus. Assim foi o segundo dia."
+    }
+  },
+  "sort": {
+    "title": "Em cima ou embaixo?",
+    "prompt": "Separe: o que fica lá em cima, no céu? O que fica aqui embaixo, na água?",
+    "bins": [
+      { "group": "up", "label": "Lá em cima", "icon": "skyup", "other": "lá em cima" },
+      { "group": "down", "label": "Na água", "icon": "seadown", "other": "a água" }
+    ],
+    "items": [
+      { "id": "cloud", "name": "Nuvem", "group": "up" },
+      { "id": "kite", "name": "Pipa", "group": "up" },
+      { "id": "balloon", "name": "Balão", "group": "up" },
+      { "id": "rainbow", "name": "Arco-íris", "group": "up" },
+      { "id": "boat", "name": "Barco", "group": "down" },
+      { "id": "wave", "name": "Onda", "group": "down" },
+      { "id": "buoy", "name": "Boia", "group": "down" },
+      { "id": "shell", "name": "Concha", "group": "down" }
+    ],
+    "done": ["Tudo no lugar! Deus separou as águas e fez o céu."]
+  },
+  "pedrito": {
+    "call": ["Este quadro está apagado. Vamos montar as palavras?"],
+    "after": ["Agora eu também sei o Voto!"]
+  },
+  "vow": {
+    "ideal": "voto",
+    "title": "Monte o Voto dos Aventureiros",
+    "distractors": ["céu", "água"],
+    "lit": "O Quadro do Voto acendeu!"
+  },
+  "globe": {
+    "go": "Agora leve os pedaços de luz ao Globo, na colina!",
+    "voice": "Haja uma expansão no meio das águas.",
+    "after": ["O céu apareceu no Globo! Você achou a segunda página do Livro dos Sete Dias!"]
+  },
+  "rewards": {
+    "badge": "Céu Azul",
+    "badgeNote": "Distintivo do Acampamento (não é uma especialidade oficial).",
+    "lantern": "O barco da Capitã Marina fica no cais para você passear!",
+    "stars": 3
+  },
+  "realMission": {
+    "text": "Olhe o céu com sua família e conte quantas nuvens vocês veem. Depois agradeçam a Deus pelo céu.",
+    "adult": "Um adulto confirma que a missão foi feita"
+  },
+  "creation": {
+    "_revisar": "Resumo do fim do dia, em linguagem infantil. Revisar com a liderança.",
+    "recap": {
+      "title": "O segundo dia da criação",
+      "intro": "O que você fez hoje conta o segundo dia da criação (Gênesis 1:6-8).",
+      "items": [
+        { "icon": "mist", "game": "A névoa escondia o céu", "creation": "Antes, ainda não havia a expansão no meio das águas." },
+        { "icon": "boat", "game": "Você navegou e achou três pedaços de luz", "creation": "Deus disse: Haja uma expansão no meio das águas." },
+        { "icon": "skyup", "game": "Você separou o que fica em cima e o que fica na água", "creation": "Deus separou as águas de baixo das águas de cima." },
+        { "icon": "board", "game": "O Quadro do Voto acendeu", "creation": "Por amor a Jesus, farei sempre o meu melhor." },
+        { "icon": "globe", "game": "O céu apareceu no Globo", "creation": "Deus chamou a expansão de Céus. Assim terminou o segundo dia." }
+      ],
+      "close": "Faltam cinco páginas. Volte ao portal para o próximo dia!"
+    }
+  }
+}

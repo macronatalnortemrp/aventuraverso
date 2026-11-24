@@ -61,6 +61,57 @@ export const ICONS: Record<string, string> = {
     const a = g('#fbff9a', '#c6e83a');
     return `<circle cx="37" cy="42" r="15" fill="#fff8a0" opacity=".5" stroke="none"/><ellipse cx="37" cy="42" rx="8" ry="9" fill="url(#${a.id})"/><ellipse cx="26" cy="29" rx="10" ry="8" fill="#3b3b4e"/><ellipse cx="19" cy="17" rx="8" ry="4.5" fill="#dff1ff" transform="rotate(-30 19 17)"/><ellipse cx="33" cy="16" rx="8" ry="4.5" fill="#dff1ff" transform="rotate(30 33 16)"/>`;
   }),
+  /* Dia 2: o céu e as águas */
+  cloud: icon((g) => {
+    const a = g('#ffffff', '#cfe3f2');
+    return `<path d="M16 46a10 10 0 0 1 1-20 13 13 0 0 1 25-4 10 10 0 0 1 8 24z" fill="url(#${a.id})"/>${shine(26, 26, 6, 3)}`;
+  }),
+  kite: icon((g) => {
+    const a = g('#ff8a6a', '#e0483a'),
+      b = g('#ffe27a', '#f5b020');
+    return `<path d="M32 6l16 18-16 22-16-22z" fill="url(#${a.id})"/><path d="M32 6v40M16 24h32" fill="none" stroke-width="2.4"/><path d="M32 46c-4 4 4 6 0 10s4 5 2 6" fill="none" stroke-width="2.4"/><path d="M28 52l-5 2 5 2zM34 58l5 1-4 3z" fill="url(#${b.id})"/>${shine(27, 17, 4, 2.4, -40)}`;
+  }),
+  balloon: icon((g) => {
+    const a = g('#ff9ecb', '#e0508f');
+    return `<ellipse cx="32" cy="25" rx="15" ry="18" fill="url(#${a.id})"/><path d="M29 43h6l-3 4z" fill="#e0508f"/><path d="M32 47c-3 5 3 8 0 13" fill="none" stroke-width="2.4"/>${shine(26, 17, 5, 3, -30)}`;
+  }),
+  drop: icon((g) => {
+    const a = g('#bfe8ff', '#3f9ae6');
+    return `<path d="M32 8c10 14 16 24 16 32a16 16 0 0 1-32 0c0-8 6-18 16-32z" fill="url(#${a.id})"/>${shine(26, 34, 4, 6, -20)}`;
+  }),
+  boat: icon((g) => {
+    const a = g('#e8775a', '#b84a32'),
+      b = g('#ffffff', '#e6dccb');
+    return `<path d="M33 8v30" fill="none" stroke-width="3"/><path d="M35 11l15 23H35z" fill="url(#${b.id})"/><path d="M8 40h48l-7 13H15z" fill="url(#${a.id})"/><path d="M6 56c5-3 8 3 13 0s8 3 13 0 8 3 13 0 8 3 13 0" fill="none" stroke="#3f9ae6" stroke-width="3"/>`;
+  }),
+  wave: icon((g) => {
+    const a = g('#8fd3ff', '#2f7fd0');
+    return `<path d="M6 46c6-14 18-22 30-18-8 2-10 10-4 14 6 4 14 0 16-6 4 6 6 10 10 10v10H6z" fill="url(#${a.id})"/>${shine(22, 38, 5, 2.5, -30)}`;
+  }),
+  buoy: icon((g) => {
+    const b = g('#ff7a5a', '#d4442c');
+    return `<circle cx="32" cy="32" r="22" fill="url(#${b.id})"/><path d="M17 17l8 8M47 17l-8 8M17 47l8-8M47 47l-8-8" stroke="#fff" stroke-width="8"/><circle cx="32" cy="32" r="22" fill="none"/><circle cx="32" cy="32" r="9" fill="#bfe8ff"/>${shine(22, 20, 5, 3)}`;
+  }),
+  shell: icon((g) => {
+    const a = g('#ffe3d1', '#f2a98a');
+    return `<path d="M32 54L10 30a22 22 0 0 1 44 0z" fill="url(#${a.id})"/><path d="M32 54L20 18M32 54V12M32 54l12-36M32 54L12 28M32 54l20-26" fill="none" stroke-width="2.2"/><path d="M26 54h12l-6 6z" fill="#f2a98a"/>`;
+  }),
+  skyup: icon((g) => {
+    const a = g('#8fd0ff', '#3f8fdc');
+    return `<rect x="6" y="10" width="52" height="40" rx="10" fill="url(#${a.id})"/><path d="M18 36a6 6 0 0 1 1-12 8 8 0 0 1 15-2 6 6 0 0 1 4 14z" fill="#fff"/><path d="M44 46V22M36 30l8-8 8 8" fill="none" stroke="#fff" stroke-width="4"/>`;
+  }),
+  seadown: icon((g) => {
+    const a = g('#58a9e8', '#1f5f9e');
+    return `<rect x="6" y="14" width="52" height="40" rx="10" fill="url(#${a.id})"/><path d="M10 30c5-4 8 4 13 0s8 4 13 0 8 4 13 0 6 2 6 2" fill="none" stroke="#bfe8ff" stroke-width="3"/><path d="M44 18v24M36 34l8 8 8-8" fill="none" stroke="#fff" stroke-width="4"/>`;
+  }),
+  mist: icon((g) => {
+    const a = g('#eef1f4', '#b8c2cb');
+    return `<rect x="8" y="14" width="40" height="9" rx="4.5" fill="url(#${a.id})"/><rect x="16" y="28" width="40" height="9" rx="4.5" fill="url(#${a.id})"/><rect x="6" y="42" width="44" height="9" rx="4.5" fill="url(#${a.id})"/>`;
+  }),
+  board: icon((g) => {
+    const a = g('#fff6dc', '#f0dca8');
+    return `<path d="M14 54V12M50 54V12" stroke="#6b4a2e" stroke-width="5"/><rect x="8" y="14" width="48" height="30" rx="5" fill="url(#${a.id})"/><path d="M16 24h32M16 31h26M16 38h20" stroke="#172d49" stroke-width="3"/>${star(50, 12, 7, '#ffd23a')}`;
+  }),
   great: icon((g) => {
     const a = g('#ffe970', '#ffb81f');
     return `<circle cx="32" cy="32" r="27" fill="url(#${a.id})"/><path d="M19 26q4-6 8 0M37 26q4-6 8 0" fill="none" stroke-width="3.5"/><path d="M17 36q15 18 30 0z" fill="#8a2a2a"/><path d="M24 44q8 5 16 0" fill="#ff7a8a" stroke="none"/>${shine(22, 15, 8, 4)}`;

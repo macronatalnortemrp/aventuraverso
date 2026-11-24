@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { Look, Rig, makeKid, makeTico } from '../world/builders/kid';
 import { coinGeometry, coinMaterial } from '../world/coins';
+import { makeMarina } from '../world/builders/marina';
 
 /**
  * Ícones renderizados com os mesmos modelos 3D do jogo (como os jogos de plataforma fazem):
@@ -13,6 +14,7 @@ export interface Portraits {
   sol: string;
   pedrito: string;
   camper: string;
+  marina: string;
 }
 
 function headShot(r: THREE.WebGLRenderer, scene: THREE.Scene, rig: Rig, camY: number, dist: number) {
@@ -62,6 +64,7 @@ export function renderPortraits(looks: { sol: Look; pedrito: Look; camper: Look 
     sol: headShot(r, s, makeKid(looks.sol), 0.1, 3.4),
     pedrito: headShot(r, s, makeKid(looks.pedrito), 0.1, 3.0),
     camper: headShot(r, s, makeKid(looks.camper), 0.1, 3.0),
+    marina: headShot(r, s, makeMarina(), 0.15, 3.6),
   };
   room.dispose();
   pm.dispose();

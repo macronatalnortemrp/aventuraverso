@@ -208,6 +208,8 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
 .bin svg { width: 50px; height: 50px; }
 .bin.bin-day { background: linear-gradient(#fff3b0, #ffc34a); }
 .bin.bin-night { background: linear-gradient(#3f6db0, #172d49); }
+.bin.bin-up { background: linear-gradient(#cfeaff, #7cc0f5); }
+.bin.bin-down { background: linear-gradient(#5aa9e8, #1f5f9e); }
 .bin .got { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
 .bin .mini svg { width: 30px; height: 30px; }
 .reward, .recap { text-align: center !important; }

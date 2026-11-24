@@ -209,7 +209,7 @@ export class Task {
   }
 
   /** Montar o versículo tocando nos blocos na ordem certa (palavras iguais valem as duas). */
-  words(title: string, phrase: string[], distractors: string[]): Promise<void> {
+  words(title: string, phrase: string[], distractors: string[], what = 'no versículo'): Promise<void> {
     return new Promise((done) => {
       const p = this.panel();
       p.className = 'panel words';
@@ -252,7 +252,7 @@ export class Task {
             void b.offsetWidth;
             b.classList.add('shake');
             msg.className = 'msg';
-            msg.textContent = fit === 'out' ? 'Essa palavra não está no versículo. Tente outra!' : 'Essa vem depois. Qual vem antes?';
+            msg.textContent = fit === 'out' ? `Essa palavra não está ${what}. Tente outra!` : 'Essa vem depois. Qual vem antes?';
           }
         };
         pool.append(b);
@@ -262,11 +262,19 @@ export class Task {
   }
 
   /** Separar objetos em dia e noite: toque no objeto e depois no lado certo. */
-  sort(prompt: string, items: { id: string; name: string; group: string }[]): Promise<void> {
+  sort(
+    prompt: string,
+    items: { id: string; name: string; group: string }[],
+    binsDef: { group: string; label: string; icon: string; other: string }[] = [
+      { group: 'day', label: 'Dia', icon: 'sun', other: 'o dia' },
+      { group: 'night', label: 'Noite', icon: 'moon', other: 'a noite' },
+    ],
+    title = 'Dia ou noite?',
+  ): Promise<void> {
     return new Promise((done) => {
       const p = this.panel();
       p.className = 'panel sort';
-      this.header(p, 'Tico', 'Dia ou noite?', prompt, 'Voltar a separar');
+      this.header(p, 'Tico', title, prompt, 'Voltar a separar');
       p.append(text('p', 'sub', prompt));
       const tray = el('div', 'tray');
       const bins = el('div', 'bins');
@@ -302,7 +310,8 @@ export class Task {
           } else {
             sfx('ui');
             msg.className = 'msg';
-            msg.textContent = `Hum... ${selected.b.textContent} combina mais com ${group === 'day' ? 'a noite' : 'o dia'}. Tente de novo!`;
+            const right = binsDef.find((x) => x.group === selected!.group);
+            msg.textContent = `Hum... ${selected.b.textContent} combina mais com ${right?.other ?? 'o outro lado'}. Tente de novo!`;
             selected.b.setAttribute('aria-pressed', 'false');
             selected = null;
           }
@@ -321,8 +330,7 @@ export class Task {
         };
         tray.append(b);
       }
-      mkBin('day', 'Dia', 'sun');
-      mkBin('night', 'Noite', 'moon');
+      for (const d of binsDef) mkBin(d.group, d.label, d.icon);
       p.append(tray, bins, msg);
     });
   }

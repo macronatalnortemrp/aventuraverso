@@ -1,11 +1,12 @@
 import { Day01, migrateDay01 } from '../game/day01/state';
+import { Day02, migrateDay02 } from '../game/day02/state';
 
 /**
  * Progresso local e versionado. Nada sai do aparelho.
  * Se o armazenamento não existir (modo privado, iframe), o jogo segue sem salvar.
  */
 export const SAVE_KEY = 'aventuraverso.save';
-export const SAVE_VERSION = 4;
+export const SAVE_VERSION = 5;
 
 /** Respostas da criança na tela de feedback do piloto (docs/PILOT_FEEDBACK.md). */
 export interface DayFeedback {
@@ -22,6 +23,8 @@ export interface SaveData {
   coins: number[];
   /** Dia 1 em andamento ou concluído */
   day01: Day01 | null;
+  /** Dia 2 em andamento ou concluído */
+  day02: Day02 | null;
   /** Distintivos do Acampamento (não oficiais) */
   badges: string[];
   feedback: Record<string, DayFeedback>;
@@ -48,7 +51,7 @@ export function cleanNick(s: unknown): string {
     .trim();
 }
 
-export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, badges: [], feedback: {}, nick: '', introSeen: false, tutorialSeen: false, music: true });
+export const defaults = (): SaveData => ({ v: SAVE_VERSION, avatar: 0, controls: false, sound: true, coins: [], day01: null, day02: null, badges: [], feedback: {}, nick: '', introSeen: false, tutorialSeen: false, music: true });
 
 type KV = Pick<Storage, 'getItem' | 'setItem'>;
 
@@ -62,7 +65,7 @@ function safeStorage(): KV | null {
 
 const MOODS = ['great', 'ok', 'bad'];
 
-/** Migra saves antigos (v1 não tinha dias, distintivos nem feedback; v2 não tinha apelido nem abertura; v3 não tinha a música) para a versão atual. */
+/** Migra saves antigos (v1 não tinha dias, distintivos nem feedback; v2 não tinha apelido nem abertura; v3 não tinha a música; v4 não tinha o Dia 2) para a versão atual. */
 export function migrate(raw: unknown): SaveData {
   const d = defaults();
   if (!raw || typeof raw !== 'object') return d;
@@ -85,6 +88,7 @@ export function migrate(raw: unknown): SaveData {
     sound: typeof r.sound === 'boolean' ? r.sound : d.sound,
     coins: Array.isArray(r.coins) ? r.coins.filter((n) => Number.isInteger(n) && n >= 0) : [],
     day01: r.day01 ? migrateDay01(r.day01) : null,
+    day02: migrateDay02(r.day02),
     badges: Array.isArray(r.badges) ? [...new Set(r.badges.filter((b) => typeof b === 'string'))] : [],
     feedback,
     nick: cleanNick(r.nick),

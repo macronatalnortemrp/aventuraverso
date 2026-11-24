@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { Batch, geoBox, staticMaterial, withBuild } from './batch';
 import { Colliders } from './colliders';
-import { Interactables } from './interactables';
+import { Interactable, Interactables } from './interactables';
 import { Fx, Sparkles } from './fx';
 import { EMB, EmblemKey, FONT, canvasTex, decal, plate } from './textures';
 import { H, HILL, LAKE, WY, EDGE, pathD } from './terrain';
@@ -53,6 +53,23 @@ export const BOOK = { x: 0, z: HILL.z + 5 };
 /** Mastro da bandeira do Clube. */
 export const FLAG = { x: 9, z: 8 };
 /** Tenda da classe i (0 a 3) na Clareira. */
+/** lugar de descanso do barco do cais */
+export const BOAT_HOME = { x: -24, z: LAKE.z + 4.2, ry: 0.3 };
+
+/** quebra o texto de um ideal em linhas curtas para caber no quadro */
+function wrapIdeal(t: string) {
+  const out: string[] = [];
+  let line = '';
+  for (const w of t.split(' ')) {
+    if ((line + ' ' + w).trim().length > 22) {
+      out.push(line.trim());
+      line = w;
+    } else line += ' ' + w;
+  }
+  if (line.trim()) out.push(line.trim());
+  return out.join('\n');
+}
+
 export function tentSpot(i: number) {
   const a = -0.95 + i * 0.633;
   return { x: Math.sin(a) * 12.5, z: 2 - Math.cos(a) * 12.5, a };
@@ -72,6 +89,15 @@ export interface Camp {
   setGlobe(k: number): void;
   setCentralLamp(k: number): void;
   setInvite(i: number, on: boolean): void;
+  /** barco do cais (o Dia 2 navega com ele) e onde ele fica parado */
+  boat: THREE.Group;
+  boatHome: { x: number; z: number; ry: number };
+  /** Quadro dos Ideais i (0 Voto, 1 Lei, 2 Voto à Bíblia, 3 Hino): aceso com o texto conferido, ou apagado (null) */
+  setIdeal(i: number, text: string | null): void;
+  /** onde fica o quadro i e para onde ele olha */
+  idealSpot(i: number): { x: number; z: number; ry: number };
+  /** camada do Dia 2 dentro do Globo: céu azul em cima e águas embaixo (0 = sem, 1 = completa) */
+  setGlobeSky(k: number): void;
 }
 
 const CLASSES: { k: EmblemKey; n: string; age: number; c: number; d: string }[] = [
@@ -463,6 +489,9 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     }
   }
 
+  const boat = new THREE.Group();
+  let skyK = 0,
+    skySet: (k: number) => void = () => {};
   let globeLit = 0,
     globeSet: (k: number) => void = () => {};
   /* Colina do Globo: Globo (apagado), Livro dos Sete Dias e Quadros dos Ideais */
@@ -487,6 +516,34 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
       glassMat.opacity = 0.28 + k * 0.3;
       glow.intensity = k * 30;
     };
+    // Dia 2: o céu (cúpula azul com nuvens de bloco) em cima e as águas embaixo, dentro do vidro
+    const skyMat = new THREE.MeshStandardMaterial({ color: 0x5fb3ff, emissive: 0x3f8fdc, emissiveIntensity: 0.6, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+    const sky = new THREE.Mesh(new THREE.SphereGeometry(1.45, 32, 12, 0, Math.PI * 2, 0, Math.PI / 2.3), skyMat);
+    const seaMat = new THREE.MeshStandardMaterial({ color: 0x1f6fb8, emissive: 0x1f5f9e, emissiveIntensity: 0.5, transparent: true, opacity: 0, roughness: 0.2 });
+    const sea = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.3, 0.26, 32), seaMat);
+    sea.position.y = -0.95;
+    const puffMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.5, transparent: true, opacity: 0 });
+    const puffs = new THREE.Group();
+    for (const [px, py, pz, sc] of [[0.7, 0.95, 0.3, 0.32], [-0.6, 1.05, -0.4, 0.28], [0.1, 1.2, -0.7, 0.24], [-0.3, 0.9, 0.8, 0.26]]) {
+      const c = new THREE.Mesh(new RoundedBoxGeometry(sc * 2, sc, sc * 1.3, 1, sc * 0.3), puffMat);
+      c.position.set(px, py, pz);
+      puffs.add(c);
+    }
+    const skyG = new THREE.Group();
+    skyG.add(sky, sea, puffs);
+    skyG.visible = false;
+    g.add(skyG);
+    skySet = (k) => {
+      skyK = k;
+      skyG.visible = k > 0;
+      skyMat.opacity = k * 0.42;
+      seaMat.opacity = k * 0.85;
+      puffMat.opacity = k * 0.95;
+      sky.scale.setScalar(0.6 + k * 0.4);
+    };
+    animated.push((dt) => {
+      if (skyK > 0) puffs.rotation.y += dt * 0.25;
+    });
     const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.07, 8, 64), new THREE.MeshStandardMaterial({ color: 0xd7a64d, roughness: 0.35, metalness: 0.6 }));
     ring.rotation.x = Math.PI / 2.4;
     g.add(ring);
@@ -507,7 +564,8 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     col.solid(x, z, 0.6, 0.6, y + 1.2);
     inter.add({ id: 'book', x, z, w: 1.6, h: 2.2, name: 'Livro dos Sete Dias', label: 'Ver o Livro', who: 'Tico', text: 'As páginas do Livro dos Sete Dias sumiram! Cada missão vai ajudar a encontrá-las de novo.' });
   }
-  /* Quadros apagados: os textos só entram de arquivo conferido (club-texts.json). */
+  /* Quadros apagados: os textos só entram de arquivo conferido (public/data/content/club-texts.json). */
+  const idealBoards: { t: string; x: number; y: number; z: number; ry: number; off: THREE.Mesh; lit: THREE.Mesh | null; it: Interactable; dark: string }[] = [];
   const ideals: [string, string][] = [['Voto', 'Acende no Dia 2.'], ['Lei', 'Acende no Dia 3.'], ['Voto à Bíblia', 'Acende no Dia 7.'], ['Hino', 'Em breve.']];
   ideals.forEach(([t, w], i) => {
     const a = -0.95 + i * 0.63,
@@ -520,8 +578,10 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     B.box(0.2, 2.2, 0.2, WOOD_DARK, x + Math.cos(ry) * 0.95, y + 1.1, z - Math.sin(ry) * 0.95);
     B.box(2.2, 1.6, 0.16, 0x7a5634, x, y + 1.9, z, { ry, r: 0.06 });
     col.solid(x, z, 2.2, 0.4, y + 2.7);
-    plate(t + '\n·  ·  ·', 1.85, 1.25, '#dcd3c0', '#8b8170', x + Math.sin(ry) * 0.09, y + 1.9, z + Math.cos(ry) * 0.09, ry, { fs: 44 });
-    inter.add({ x, z, w: 2.4, h: 2.6, name: 'Quadro: ' + t, label: 'Ver o quadro', who: 'Quadros dos Ideais', text: `Este quadro ainda está apagado. ${w} Quando acender, você poderá ler e ouvir o texto aqui.` });
+    const off = plate(t + '\n·  ·  ·', 1.85, 1.25, '#dcd3c0', '#8b8170', x + Math.sin(ry) * 0.09, y + 1.9, z + Math.cos(ry) * 0.09, ry, { fs: 44 });
+    const dark = `Este quadro ainda está apagado. ${w} Quando acender, você poderá ler e ouvir o texto aqui.`;
+    const it = inter.add({ id: 'ideal' + i, x, z, w: 2.4, h: 2.6, name: 'Quadro: ' + t, label: 'Ver o quadro', who: 'Quadros dos Ideais', text: dark });
+    idealBoards.push({ t, x, y, z, ry, off, lit: null, it, dark });
   });
 
   /* portais: Jornada do Éden (aberto, leva aos sete dias) e Mundo 2 (trancado) */
@@ -603,9 +663,8 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
       for (let x = x0; x >= x1; x -= 2) B.box(0.14, 0.7, 0.14, 0x6b4a2e, x, y + 0.42, z + s * 1.05);
       B.box(Math.abs(x1 - x0), 0.12, 0.1, 0x8a6040, (x0 + x1) / 2, y + 0.78, z + s * 1.05);
     }
-    const boat = new THREE.Group();
-    boat.position.set(-24, WY + 0.05, LAKE.z + 4.2);
-    boat.rotation.y = 0.3;
+    boat.position.set(BOAT_HOME.x, WY + 0.05, BOAT_HOME.z);
+    boat.rotation.y = BOAT_HOME.ry;
     scene.add(boat);
     const red = new THREE.MeshStandardMaterial({ color: 0xc65a3a, roughness: 0.7 }),
       cream = new THREE.MeshStandardMaterial({ color: 0xf3e6c8, roughness: 0.8 });
@@ -845,5 +904,24 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     setInvite(i, on) {
       if (inviteMeshes[i]) inviteMeshes[i].visible = on;
     },
+    boat,
+    boatHome: BOAT_HOME,
+    setIdeal(i, text) {
+      const b = idealBoards[i];
+      if (!b) return;
+      if (text && !b.lit) {
+        b.lit = plate(`${b.t}\n${wrapIdeal(text)}`, 1.85, 1.25, '#fff6dc', '#172D49', b.x + Math.sin(b.ry) * 0.1, b.y + 1.9, b.z + Math.cos(b.ry) * 0.1, b.ry, { border: '#D7A64D' });
+        const m = b.lit.material as THREE.MeshStandardMaterial;
+        m.emissive.set(0xfff1c0);
+        m.emissiveMap = m.map;
+        m.emissiveIntensity = 0.55;
+      }
+      if (b.lit) b.lit.visible = !!text;
+      b.off.visible = !text;
+      b.it.text = text ? text : b.dark;
+      b.it.label = text ? 'Ler o quadro' : 'Ver o quadro';
+    },
+    idealSpot: (i) => ({ x: idealBoards[i].x, z: idealBoards[i].z, ry: idealBoards[i].ry }),
+    setGlobeSky: (k) => skySet(k),
   };
 }
