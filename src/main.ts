@@ -26,7 +26,8 @@ import { Task } from './ui/task';
 import { Tutorial } from './ui/tutorial';
 import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
-import { Day01Mission, loadDay01 } from './game/day01/mission';
+import { Day01Mission, MissionDeps, loadDay01 } from './game/day01/mission';
+import { Day02Mission, loadDay02 } from './game/day02/mission';
 import { journey, worldProgress } from './game/journey';
 import { renderPortraits } from './ui/render3d';
 import { Intro, loadIntro, landmarks } from './game/intro';
@@ -132,7 +133,7 @@ try {
   const pics = renderPortraits({ sol: SOL_LOOK, pedrito: PED_LOOK, camper: AV[1] });
   $<HTMLImageElement>('coinimg').src = pics.coin;
   $<HTMLImageElement>('ticoav').src = pics.tico;
-  const map = { Tico: pics.tico, 'Diretora Sol': pics.sol, Pedrito: pics.pedrito, Acampante: pics.camper };
+  const map = { Tico: pics.tico, 'Diretora Sol': pics.sol, Pedrito: pics.pedrito, 'Capitã Marina': pics.marina, Acampante: pics.camper };
   portraitMap = map;
   hud.portraits = map;
   task.portraits = map;
@@ -177,19 +178,27 @@ let clock = 0;
 let saved = [...SAVE.data.coins];
 const GUIDE = newGuide();
 const OBJ = portals[0];
-let mission: Day01Mission | null = null;
+let day1: Day01Mission | null = null;
+let day2: Day02Mission | null = null;
+/** a missão (dia) em andamento, se houver */
+const cur = () => (day1?.active ? day1 : day2?.active ? day2 : null);
+const progress = () => ({ day01: SAVE.data.day01, day02: SAVE.data.day02 });
+/** todos os dias prontos já foram concluídos (a ajuda não tem para onde apontar) */
+const readyDone = () => journey(progress()).every((d) => d.status === 'done' || d.status === 'soon' || d.status === 'locked');
 /** As moedas só aparecem depois do Dia 1: antes, nada compete com a missão (teste do piloto, 21/11/2026). */
 const coinsOpen = () => SAVE.data.day01?.step === 'done';
 
 /** Para onde a ajuda aponta: o objetivo da missão ou, fora dela, o portal da Jornada do Éden. */
 function objective(): { x: number; z: number; hint: string } | null {
-  if (mission?.active) return mission.objective();
-  if (mission?.done) return null;
+  const m = cur();
+  if (m) return m.objective();
+  if (day2?.riding) return null; // passeio livre de barco
+  if (readyDone()) return null;
   return { x: OBJ.x, z: OBJ.z, hint: 'O portal dos sete dias fica na colina. Siga a luz!' };
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
-const paused = () => hud.paused || task.open || tutorial.open || !!mission?.busy;
+const paused = () => hud.paused || task.open || tutorial.open || !!day1?.busy || !!day2?.busy;
 
 /* ---------- interação ---------- */
 function interact(o: Interactable) {
@@ -206,7 +215,8 @@ function interact(o: Interactable) {
     orbit.want = Math.atan2(P.x - p.x, P.z - p.z) + 0.75; // mostra os dois rostos
   }
   input.clearMove();
-  if (mission?.onInteract(o)) return;
+  if (cur()?.onInteract(o)) return;
+  if (!cur() && day2?.onInteract(o)) return; // Capitã Marina e o passeio de barco fora da missão
   const lines = o.lines && o.npc === 'pedrito' && !coinsOpen() ? o.lines.slice(0, 1) : o.lines; // a dica das moedas só depois do Dia 1
   hud.dialog(o.who, o.name, lines || [o.text ?? '']);
 }
@@ -246,6 +256,7 @@ function tap(cx: number, cy: number) {
 /* ---------- ações dos botões ---------- */
 function pressA() {
   if (!started || paused()) return;
+  if (day2?.riding) return day2.horn(); // no barco, o A é a buzina
   const r = playerA(P);
   if (r === 'jump') {
     sfx('jump');
@@ -310,7 +321,7 @@ function helpLevel(l: number) {
   nudge(false);
   const o = objective();
   if (!o) return hud.say('Você já concluiu a missão! Explore o acampamento à vontade.', 5000);
-  const inMission = !!mission?.active;
+  const inMission = !!cur();
   if (!inMission) OBJ.sp.boost = 3;
   if (l === 1) hud.say(`${o.hint} Siga a trilha de faíscas!`, 6500);
   if (l === 2) {
@@ -349,7 +360,7 @@ function teleport() {
       guideReset(GUIDE);
       clearHelp();
       hud.fade(false);
-      hud.say(mission?.active ? 'Chegamos! Olhe em volta.' : 'Chegamos! É só entrar no portal quando quiser.', 4500);
+      hud.say(cur() ? 'Chegamos! Olhe em volta.' : 'Chegamos! É só entrar no portal quando quiser.', 4500);
     },
     REDUCED_MOTION ? 0 : 480,
   );
@@ -415,17 +426,17 @@ const events: PlayerEvents = {
 
 /* ---------- Missão 1 ---------- */
 async function enterPortal() {
-  if (!mission) return hud.dialog('Tico', 'Jornada do Éden', ['A jornada ainda está carregando. Tente de novo em um instante!']);
-  if (mission.active) return;
+  if (!day1) return hud.dialog('Tico', 'Jornada do Éden', ['A jornada ainda está carregando. Tente de novo em um instante!']);
+  if (cur()) return;
   await openJourney();
 }
 /** Mostra os sete dias do Éden e começa o escolhido, de onde a criança parou. */
 async function openJourney() {
-  const m = mission;
-  if (!m || m.active) return;
-  const prog = { day01: SAVE.data.day01 };
+  if (!day1 || cur()) return;
+  const prog = progress();
   const pick = await task.journey(journey(prog), worldProgress(prog));
-  if (!pick || pick.day !== 1) return;
+  const m = pick?.day === 1 ? day1 : pick?.day === 2 ? day2 : null;
+  if (!pick || !m) return;
   hud.fade(true);
   await new Promise((r) => setTimeout(r, REDUCED_MOTION ? 0 : 450));
   m.start(pick.replay);
@@ -434,67 +445,70 @@ async function openJourney() {
   hud.fade(false);
 }
 $('goal').onclick = async () => {
-  if (!mission?.active || mission.busy || paused()) return;
+  const mission = cur();
+  if (!mission || mission.busy || paused()) return;
   const leave = await task.confirm('Tico', 'Sair da missão?', 'Seu progresso fica salvo. Para voltar, é só entrar no portal de novo.', 'Sair', 'Continuar');
   if (leave) mission.exit();
 };
-const missionReady = loadDay01()
-  .then(({ content, bible }) => {
-    mission = new Day01Mission(
-      {
-        scene,
-        camp,
-        fx,
-        hud,
-        task,
-        daylight,
-        ambient,
-        orbit,
-        save: SAVE,
-        player: P,
-        ped,
-        sol,
-        place(x, z, face) {
-          Object.assign(P, { x, z, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face });
-          P.y = col.groundAt(x, z, 99);
-          Object.assign(TICO, { x: x + 1.2, z: z + 1 });
-          target = null;
-          mark.visible = false;
-          orbit.yaw = face + Math.PI;
-          orbit.snap(P.x, P.y, P.z);
-        },
-        camera,
-        forceControls(on) {
-          // no computador sem toque o teclado já faz tudo: o joystick nunca aparece
-          const show = TOUCH && (on || SAVE.data.controls);
-          for (const id of ['joy', 'A', 'B']) hud.show(id, show);
-          document.body.classList.toggle('ctl', show);
-        },
-        banner: (text, ms) => hud.banner(text, ms),
-        sting: (id) => music.sting(id),
-        onExit(done, wantsNext) {
-          ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
-          ped.root.rotation.y = PED_HOME.ry;
-          ped.body.scale.y = 1;
-          const pi = inter.byId('pedrito-npc');
-          if (pi) {
-            Object.assign(pi, { x: PED_HOME.x, z: PED_HOME.z, y: PED_HOME.y, off: false });
-            pi.mesh?.position.set(PED_HOME.x, PED_HOME.y + 1.7, PED_HOME.z);
-          }
-          guideReset(GUIDE);
-          clearHelp();
-          if (done && wantsNext) setTimeout(() => void openJourney(), REDUCED_MOTION ? 0 : 700);
-          if (done) {
-            // fim do Dia 1: as moedas aparecem pelo acampamento
-            hud.show('coins');
-            hud.coins(coins.collected, coins.total);
-          }
-          if (!(done && wantsNext)) hud.say(done ? 'Parabéns! Agora apareceram moedas no acampamento. Vamos pegar?' : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
-        },
-      },
-      content,
-      bible,
-    );
+/** O que as missões dos dias usam do jogo. */
+function missionDeps(day: 1 | 2): MissionDeps {
+  return {
+    scene,
+    camp,
+    fx,
+    hud,
+    task,
+    daylight,
+    ambient,
+    orbit,
+    save: SAVE,
+    player: P,
+    ped,
+    sol,
+    place(x, z, face) {
+      Object.assign(P, { x, z, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face });
+      P.y = col.groundAt(x, z, 99);
+      Object.assign(TICO, { x: x + 1.2, z: z + 1 });
+      target = null;
+      mark.visible = false;
+      orbit.yaw = face + Math.PI;
+      orbit.snap(P.x, P.y, P.z);
+    },
+    camera,
+    forceControls(on) {
+      // no computador sem toque o teclado já faz tudo: o joystick nunca aparece
+      const show = TOUCH && (on || SAVE.data.controls);
+      for (const id of ['joy', 'A', 'B']) hud.show(id, show);
+      document.body.classList.toggle('ctl', show);
+    },
+    banner: (text, ms) => hud.banner(text, ms),
+    sting: (id) => music.sting(id),
+    onExit(done, wantsNext) {
+      ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
+      ped.root.rotation.y = PED_HOME.ry;
+      ped.body.scale.y = 1;
+      const pi = inter.byId('pedrito-npc');
+      if (pi) {
+        Object.assign(pi, { x: PED_HOME.x, z: PED_HOME.z, y: PED_HOME.y, off: false });
+        pi.mesh?.position.set(PED_HOME.x, PED_HOME.y + 1.7, PED_HOME.z);
+      }
+      guideReset(GUIDE);
+      clearHelp();
+      if (done && wantsNext) setTimeout(() => void openJourney(), REDUCED_MOTION ? 0 : 700);
+      if (done && day === 1) {
+        // fim do Dia 1: as moedas aparecem pelo acampamento
+        hud.show('coins');
+        hud.coins(coins.collected, coins.total);
+      }
+      const doneMsg = day === 1 ? 'Parabéns! Agora apareceram moedas no acampamento. Vamos pegar?' : 'Parabéns! O céu está limpo. A Capitã Marina deixa você passear de barco quando quiser!';
+      if (!(done && wantsNext)) hud.say(done ? doneMsg : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
+    },
+  };
+}
+const missionReady = Promise.all([loadDay01(), loadDay02().catch(() => null)])
+  .then(([{ content, bible }, d2]) => {
+    day1 = new Day01Mission(missionDeps(1), content, bible);
+    if (d2) day2 = new Day02Mission(missionDeps(2), d2.content, bible, d2.club);
   })
   .catch(() => {
     /* sem a missão, o acampamento continua jogável */
@@ -522,7 +536,8 @@ function step(dt: number) {
       m = Math.min(1, d / 1.2 + 0.35); // chega devagar
     }
   }
-  stepPlayer(P, ix, iz, m, dt, clock, col, events);
+  if (day2?.riding) day2.drive(ix, iz, m, dt);
+  else stepPlayer(P, ix, iz, m, dt, clock, col, events);
   // ninguém atravessa as pessoas
   for (const n of NPCS) {
     const p = n.rig.root.position,
@@ -543,7 +558,7 @@ function step(dt: number) {
     target = null;
     if (p.open) void enterPortal();
     else {
-      const w = worldProgress({ day01: SAVE.data.day01 });
+      const w = worldProgress(progress());
       hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', `Ele abre quando você terminar os ${w.total} dias do Éden. Você já concluiu ${w.done}!`]);
     }
   }
@@ -623,8 +638,9 @@ function draw(dt: number, t: number) {
 
   const nearSol = started && !talking && Math.hypot(P.x - sol.root.position.x, P.z - sol.root.position.z) < 6;
   animate(sol, dt, { wave: talking?.id === 'sol' || nearSol });
-  if (!mission?.drivesPedrito) animate(ped, dt, { wave: talking?.id === 'pedrito', mode: talking?.id === 'pedrito' ? 'wow' : 'open' });
-  mission?.update(dt, t);
+  if (!cur()?.drivesPedrito) animate(ped, dt, { wave: talking?.id === 'pedrito', mode: talking?.id === 'pedrito' ? 'wow' : 'open' });
+  day1?.update(dt, t);
+  day2?.update(dt, t);
   daylight.update(dt, P.x, P.y, P.z, P.face);
   ambient.enabled = sound;
   ambient.update(P.x, P.z, orbit.yaw);
@@ -805,10 +821,10 @@ async function begin(fromIntro: boolean) {
     return;
   }
   void missionReady.then(() => {
-    if (mission && !mission.done) return mission.start(false);
+    if (day1 && !day1.done) return day1.start(false);
     // Dia 1 já concluído: volta ao acampamento de dia, com o Globo aceso
     daylight.set(0, REDUCED_MOTION ? 0 : 1.2);
-    camp.setGlobe(mission?.done ? 1 : 0);
+    camp.setGlobe(day1?.done ? 1 : 0);
     hud.say(`Bem-vindo de volta ao acampamento! ${controlsTip()}`, 7000);
   });
 }
@@ -862,7 +878,7 @@ renderer.setAnimationLoop(() => {
   if (started) {
     // música de fundo do momento e volume (leitura/pergunta bem baixo, falas mais baixo)
     music.play(cueFor({ started, night: daylight.night > 0.5 }));
-    const ctx = task.open ? 'reading' : hud.paused || mission?.busy ? 'speech' : 'normal';
+    const ctx = task.open ? 'reading' : hud.paused || cur()?.busy ? 'speech' : 'normal';
     if (ctx !== musicCtx) music.setContext((musicCtx = ctx));
   }
   if (intro?.active) {
@@ -888,7 +904,7 @@ renderer.setAnimationLoop(() => {
     }
     // mergulhando, a câmera entra no lago junto (decisão de 23/11/2026)
     const diving = P.st === 'dive' && P.y < WY - 0.9;
-    if (!mission?.cameraOverride(dt)) orbit.follow(dt, P.x, P.y, P.z, col, diving);
+    if (!cur()?.cameraOverride(dt)) orbit.follow(dt, P.x, P.y, P.z, col, diving);
     sun.position.set(orbit.tx - 27.5, orbit.ty + 36, orbit.tz + 21);
     sun.target.position.set(orbit.tx, orbit.ty, orbit.tz);
   }
@@ -939,6 +955,7 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
     pressB,
     releaseB,
   });
-  Object.defineProperty(window, 'mission', { get: () => mission });
+  Object.defineProperty(window, 'mission', { get: () => cur() ?? day1 });
+  Object.defineProperty(window, 'day2', { get: () => day2 });
   Object.defineProperty(window, 'intro', { get: () => intro });
 }

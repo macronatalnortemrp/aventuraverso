@@ -70,7 +70,7 @@ Na Colina do Globo há quadros de madeira apagados. Cada um acende quando a cria
 | Voto | Dia 2 | texto exato do Guia |
 | Lei | Dia 3 | texto exato do Guia |
 | Voto à Bíblia | Dia 7 | texto exato do Guia |
-| Hino | quando houver autorização | letra e gravação **[validar autorização]** |
+| Hino | quando a letra conferida chegar | letra e gravação (autorizado pelo coordenador geral da Macro em 24/11/2026; falta o texto) |
 
 O texto nunca é reescrito. A criança pode tocar em um quadro aceso a qualquer momento para ouvir e ler de novo.
 

@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { journey, worldProgress, EDEN_DAYS } from '../src/game/journey';
 import { newDay01 } from '../src/game/day01/state';
+import { newDay02 } from '../src/game/day02/state';
 
 describe('Jornada do Éden', () => {
   test('no começo, só o Dia 1 está liberado', () => {
@@ -10,11 +11,19 @@ describe('Jornada do Éden', () => {
   test('missão começada aparece para continuar', () => {
     expect(journey({ day01: { ...newDay01(), step: 'pedrito' } })[0].status).toBe('playing');
   });
-  test('Dia 1 concluído libera o Dia 2 (em construção por enquanto)', () => {
+  test('Dia 1 concluído libera o Dia 2, que já está pronto', () => {
     const j = journey({ day01: { ...newDay01(), step: 'done' } });
     expect(j[0].status).toBe('done');
-    expect(j[1].status).toBe('soon');
+    expect(j[1].status).toBe('next');
     expect(j[2].status).toBe('locked');
+  });
+  test('Dia 2 começado aparece para continuar; concluído libera o Dia 3 (em construção)', () => {
+    const d1 = { ...newDay01(), step: 'done' as const };
+    expect(journey({ day01: d1, day02: { ...newDay02(), step: 'waters' } })[1].status).toBe('playing');
+    const j = journey({ day01: d1, day02: { ...newDay02(), step: 'done' } });
+    expect(j[1].status).toBe('done');
+    expect(j[2].status).toBe('soon');
+    expect(worldProgress({ day01: d1, day02: { ...newDay02(), step: 'done' } }).done).toBe(2);
   });
   test('dia pronto e liberado pode ser jogado na hora, sem esperar o dia seguinte', () => {
     const days = EDEN_DAYS.map((d) => ({ ...d, ready: d.n <= 2 }));

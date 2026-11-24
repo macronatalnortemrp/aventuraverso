@@ -1,6 +1,6 @@
 /** Efeitos sintetizados com Web Audio. Opcionais: o jogo nunca depende de som. */
 import { sharedAudio } from './audioContext';
-export type Sfx = 'coin' | 'jump' | 'jump2' | 'dive' | 'pound' | 'splash' | 'ui' | 'yay' | 'plim' | 'page';
+export type Sfx = 'coin' | 'jump' | 'jump2' | 'dive' | 'pound' | 'splash' | 'ui' | 'yay' | 'plim' | 'page' | 'horn';
 
 let enabled = true;
 
@@ -49,6 +49,7 @@ export function sfx(k: Sfx) {
     else if (k === 'yay') tone('square', 523, 1046, 0.4, 0.06);
     else if (k === 'plim') tone('sine', 1320, 1980, 0.16, 0.09);
     else if (k === 'page') tone('triangle', 520, 1560, 0.5, 0.07);
+    else if (k === 'horn') tone('square', 233, 220, 0.45, 0.05); // buzina do barco
   } catch {
     /* áudio indisponível */
   }

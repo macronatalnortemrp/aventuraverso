@@ -34,6 +34,9 @@ Menino visitante e curioso, sem lenço no início (pode receber o seu ao final d
 ## Outros NPCs (aparecem a partir do Dia 2)
 Dona Flora (jardineira), Capitã Marina (cais), Seu Estrelino (astrônomo), Tio Zé Bichos (cuidador dos animais). Cada um com roupa e acessório próprios, para a silhueta ser reconhecível.
 
+- **Capitã Marina (Dia 2, pronta):** mulher adulta, quepe branco com aba azul-marinho, camisa azul-marinho, calça branca e colete salva-vidas laranja, sem lenço (`src/world/builders/marina.ts`). Fica no cais novo da margem norte do lago e empresta o barco depois do Dia 2. Voz própria no Kokoro (`marina` em `scripts/voices/voices.json`).
+- **Pedrito (fim do Dia 7):** recebe o lenço e o uniforme oficial de Aventureiro, igual ao dos outros personagens (decisão de 24/11/2026).
+
 ## A Voz
 Narração da criação. Nunca representada com rosto, corpo ou boneco. Só voz, luz e as transformações do Globo.
 

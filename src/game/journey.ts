@@ -1,4 +1,5 @@
 import { Day01 } from './day01/state';
+import { Day02 } from './day02/state';
 
 /**
  * Jornada do Éden: os sete dias do Mundo 1. A criança pode jogar quantos dias quiser, quando quiser;
@@ -13,7 +14,7 @@ export interface EdenDay {
 
 export const EDEN_DAYS: EdenDay[] = [
   { n: 1, title: 'A Luz no Acampamento', ready: true },
-  { n: 2, title: 'Dia 2', ready: false },
+  { n: 2, title: 'O Céu e as Águas', ready: true },
   { n: 3, title: 'Dia 3', ready: false },
   { n: 4, title: 'Dia 4', ready: false },
   { n: 5, title: 'Dia 5', ready: false },
@@ -30,14 +31,19 @@ export interface JourneyEntry extends EdenDay {
 
 export interface Progress {
   day01: Day01 | null;
+  day02?: Day02 | null;
 }
 
 export function dayDone(p: Progress, n: number) {
-  return n === 1 ? p.day01?.step === 'done' : false;
+  if (n === 1) return p.day01?.step === 'done';
+  if (n === 2) return p.day02?.step === 'done';
+  return false;
 }
 
 function dayStarted(p: Progress, n: number) {
-  return n === 1 ? !!p.day01 && p.day01.step !== 'lantern' && p.day01.step !== 'done' : false;
+  if (n === 1) return !!p.day01 && p.day01.step !== 'lantern' && p.day01.step !== 'done';
+  if (n === 2) return !!p.day02 && p.day02.step !== 'mist' && p.day02.step !== 'done';
+  return false;
 }
 
 export function journey(p: Progress, days = EDEN_DAYS): JourneyEntry[] {

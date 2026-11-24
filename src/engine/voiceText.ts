@@ -5,7 +5,7 @@
  * Cada fala é quebrada em frases; cada frase vira um áudio por voz. Assim, textos montados
  * em tempo de execução (pergunta + alternativas embaralhadas) ainda encontram seus áudios.
  */
-export type VoiceId = 'narrador' | 'sol' | 'pedrito' | 'tico' | 'acampante';
+export type VoiceId = 'narrador' | 'sol' | 'pedrito' | 'tico' | 'acampante' | 'marina';
 
 /** quem fala (como aparece na interface) -> perfil de voz em scripts/voices/voices.json */
 export const SPEAKERS: Record<string, VoiceId> = {
@@ -13,6 +13,7 @@ export const SPEAKERS: Record<string, VoiceId> = {
   Pedrito: 'pedrito',
   'Diretora Sol': 'sol',
   Acampante: 'acampante',
+  'Capitã Marina': 'marina',
   'A Voz': 'narrador',
   'Clube de Aventureiros': 'narrador',
   'Pergaminho da Palavra': 'narrador',

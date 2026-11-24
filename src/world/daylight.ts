@@ -7,6 +7,9 @@ import { rnd, setSeed } from '../engine/math';
 const DAY = { top: new THREE.Color(0x3f8fdc), hor: new THREE.Color(0xcfe9f5), fog: new THREE.Color(0xc4e2f0), hemi: 1.15, sun: 2.7, env: 0.35, near: 70, far: 210 };
 const NIGHT = { top: new THREE.Color(0x040916), hor: new THREE.Color(0x101c36), fog: new THREE.Color(0x080f20), hemi: 0.05, sun: 0.0, env: 0.02, near: 6, far: 38 };
 
+/** névoa do Dia 2: céu e horizonte cinzentos, visão curta (mas clara: é manhã) */
+const MIST = { top: new THREE.Color(0xaab4bd), hor: new THREE.Color(0xd5dade), fog: new THREE.Color(0xd2d7dc), near: 2, far: 24, sun: 1.1 };
+
 const DUSK = { hor: new THREE.Color(0xffb46a), top: new THREE.Color(0x5a74c8), fog: new THREE.Color(0xf2c49a), sun: new THREE.Color(0xffb070) };
 
 /** Liga o dia e o escuro total, com estrelas e a lanterna que acompanha o personagem. */
@@ -25,6 +28,10 @@ export class Daylight {
   /** pôr do sol (0 = luz normal, 1 = dourado), usado na abertura */
   private warm = 0;
   private sunBase = new THREE.Color();
+  /** névoa (0 = céu limpo, 1 = névoa cerrada), usada no Dia 2 */
+  mist = 0;
+  private mistTarget = 0;
+  private mistSpeed = 1;
 
   constructor(private gfx: Gfx, private camp: Camp) {
     setSeed(303);
@@ -64,6 +71,16 @@ export class Daylight {
     if (seconds <= 0) this.apply(n);
   }
 
+  /** Névoa até o nível m em s segundos (0 = na hora). */
+  setMist(m: number, seconds = 0) {
+    this.mistTarget = m;
+    this.mistSpeed = seconds > 0 ? 1 / seconds : Infinity;
+    if (seconds <= 0) {
+      this.mist = m;
+      this.apply(this.night);
+    }
+  }
+
   get settled() {
     return this.night === this.target;
   }
@@ -85,6 +102,17 @@ export class Daylight {
     FOG.far = lerp(DAY.far, NIGHT.far, n);
     gfx.hemi.intensity = lerp(DAY.hemi, NIGHT.hemi, n);
     gfx.sun.intensity = lerp(DAY.sun, NIGHT.sun, n);
+    const m = this.mist * (1 - n);
+    if (m > 0) {
+      SKY_TOP.lerp(MIST.top, m);
+      HORIZON.lerp(MIST.hor, m);
+      FOG_COLOR.lerp(MIST.fog, m);
+      // curva: a névoa fica cerrada até perto do fim e abre de vez quando o céu aparece
+      const e = Math.sqrt(m);
+      FOG.near = lerp(FOG.near, MIST.near, e);
+      FOG.far = lerp(FOG.far, MIST.far, e);
+      gfx.sun.intensity = lerp(gfx.sun.intensity, MIST.sun, m);
+    }
     // a sombra do sol fica configurada sempre (mudar castShadow recompila os materiais);
     // no escuro total ela só deixa de ser redesenhada
     const shadows = n < 0.95;
@@ -96,6 +124,11 @@ export class Daylight {
   }
 
   update(dt: number, x: number, y: number, z: number, face: number) {
+    if (this.mist !== this.mistTarget) {
+      const step = Math.min(Math.abs(this.mistTarget - this.mist), dt * this.mistSpeed);
+      this.mist += Math.sign(this.mistTarget - this.mist) * step;
+      if (this.night === this.target) this.apply(this.night);
+    }
     if (this.night !== this.target) {
       const step = Math.min(Math.abs(this.target - this.night), dt * this.speed);
       this.apply(this.night + Math.sign(this.target - this.night) * step);
