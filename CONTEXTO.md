@@ -5,7 +5,7 @@ Atualizado em 19/11/2026. Resumo do pacote `biblia-visual-pack` v4 mais as decis
 ## 1. O que é
 - Jogo web infantil (6 a 9 anos), **mundo 3D de blocos**, com forte tema do Clube de Aventureiros. Piloto de teste da Macro Natal Norte (MRP). Roda em computador e celular, paisagem e retrato.
 - **Nome oficial do projeto e do jogo: aventuráVerso — "Um universo de aventuras"** (decidido em 19/11/2026). Os docs antigos ainda dizem "Bíblia Visual"; onde aparecer, ler como aventuráVerso. "Mundo 1: Éden: Os Sete Dias" é a primeira jornada. Repositório e `base` do Vite devem usar o novo nome.
-- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. A Missão 1 (Dia 1) está jogável, com as leituras dentro do jogo, usando a Almeida Corrigida Fiel em `public/data/content/bible-acf2007.json` (conferida; uso validado com a SBTB).
+- Estado real: código em `src/` (Three.js + TypeScript + Vite) com o Mundo 1 explorável, publicado no GitHub Pages em https://macronatalnortemrp.github.io/aventuraverso/. A Missão 1 (Dia 1) e a Missão 2 (Dia 2, "O Céu e as Águas", `docs/DAY_02.md`) estão jogáveis, com as leituras dentro do jogo, usando a Almeida Corrigida Fiel em `public/data/content/bible-acf2007.json` (conferida; uso validado com a SBTB).
 
 ## 2. Premissa e loop
 Acampamento do Livro Aberto: as páginas do Livro dos Sete Dias sumiram e o Globo do Éden está apagado. A criança explora, aprende o que a Bíblia ensina, ajuda amigos e recupera as páginas. Loop: **Explorar → Descobrir → Fazer/Servir → Contar**. 7 dias, 6 a 7 etapas cada, 10 a 15 min por dia, salvamento a cada etapa. Dia 1 ("A Luz no Acampamento"): escuro total com lanterna, três faíscas, Pedrito, "Haja luz", Globo.
@@ -59,6 +59,7 @@ Fase 0 fundação, 1 mundo base e identidade (gate de desempenho em celular), 2 
 | Avatares, Sol, Tico, Pedrito | `docs/CHARACTERS.md` |
 | Lenço | `docs/LENCO.md` |
 | Dia 1, perguntas, abertura | `docs/DAY_01.md`, `docs/QUIZ_MAP.md`, `docs/INTRO_SEQUENCE.md` |
+| Dia 2 | `docs/DAY_02.md` |
 | Feedback do piloto | `docs/PILOT_FEEDBACK.md` |
 | Fases | `docs/ROADMAP.md` |
 | Fontes e decisões aprovadas | `docs/SOURCES_AND_DECISIONS.md`, `docs/ERRATA_ROTEIRO.md` |
