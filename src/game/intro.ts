@@ -5,13 +5,13 @@ import { Daylight } from '../world/daylight';
 import { Fx, sparkTex } from '../world/fx';
 import { HILL, H } from '../world/terrain';
 import { plate } from '../world/textures';
-import { Rig, animate, part, Pose } from '../world/builders/kid';
+import { Rig, animate, kneelPose, part, Pose } from '../world/builders/kid';
 import { SPARKS } from './day01/mission';
 import { Music } from '../engine/music';
 import type { CueId } from '../engine/musicScore';
 import { REDUCED_MOTION } from '../engine/gfx';
 import { sfx } from '../engine/audio';
-import { angLerp, lerp } from '../engine/math';
+import { angLerp, approach, lerp } from '../engine/math';
 import { speakAvailable, stopSpeaking } from '../engine/speech';
 import { $ } from '../ui/hud';
 
@@ -480,13 +480,13 @@ export class Intro {
     const sa = this.actor(s);
     sa.pose = {};
     this.cheat(s, CHILD);
-    // abaixa até a altura da criança e ergue a Bíblia
+    // abaixa até a altura da criança e ergue a Bíblia. A pose sai de um único valor (0 a 1) que anda
+    // suave com o tempo; antes cada quadro puxava os braços contra animate() e ela tremia no celular.
+    let kneel = 0,
+      want = 1;
     sa.extra = (dt) => {
-      const k = Math.min(1, dt * 4);
-      s.body.position.y = lerp(s.body.position.y, -0.32, k);
-      s.torso.rotation.x = lerp(s.torso.rotation.x, 0.22, k);
-      s.arms[1].rotation.x = lerp(s.arms[1].rotation.x, -2.1, k);
-      s.arms[0].rotation.x = lerp(s.arms[0].rotation.x, -0.5, k);
+      kneel = REDUCED_MOTION ? want : approach(kneel, want, dt, 0.45);
+      kneelPose(s, ease(kneel));
     };
     bible.visible = true;
     sfx('plim');
@@ -494,11 +494,7 @@ export class Intro {
     await this.w(this.say(this.text.q3.who, l1));
     this.setCam(this.v(STAGE_CAM.x + 1.6, STAGE_CAM.y + 0.2, STAGE_CAM.z + 1.6), this.v(1.6, 2.8, 11), 4);
     await this.w(this.say(this.text.q3.who, l2));
-    sa.extra = (dt) => {
-      const k = Math.min(1, dt * 4);
-      s.body.position.y = lerp(s.body.position.y, 0, k);
-      s.torso.rotation.x = lerp(s.torso.rotation.x, 0, k);
-    };
+    want = 0;
     bible.visible = false;
     this.quiet();
   }

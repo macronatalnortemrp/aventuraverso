@@ -19,3 +19,10 @@ export const setSeed = (s: number) => {
 };
 export const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 export const rr = (a: number, b: number) => a + (b - a) * rnd();
+
+/** Vai de v até alvo em seg segundos, no mesmo ritmo em qualquer taxa de quadros. */
+export function approach(v: number, alvo: number, dt: number, seg: number) {
+  if (seg <= 0) return alvo;
+  const passo = dt / seg;
+  return v < alvo ? Math.min(alvo, v + passo) : Math.max(alvo, v - passo);
+}
