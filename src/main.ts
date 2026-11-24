@@ -28,8 +28,15 @@ import { Daylight } from './world/daylight';
 import { Ambient } from './engine/ambient';
 import { Day01Mission, MissionDeps, loadDay01 } from './game/day01/mission';
 import { Day02Mission, loadDay02 } from './game/day02/mission';
+import { DayMission, loadDay } from './game/days/base';
+import { DAY_KEYS } from './game/days/state';
+import { Day03Mission } from './game/days/day03';
+import { Day04Mission } from './game/days/day04';
+import { Day05Mission } from './game/days/day05';
+import { Day06Mission } from './game/days/day06';
+import { Day07Mission } from './game/days/day07';
 import { journey, worldProgress } from './game/journey';
-import { renderPortraits } from './ui/render3d';
+import { renderPortraits, uniform } from './ui/render3d';
 import { Intro, loadIntro, landmarks } from './game/intro';
 import { Assembly } from './world/assemble';
 import { FOCUS } from './world/bigLake';
@@ -105,6 +112,25 @@ const PED_HOME = { x: -21.6, y: WY + 0.49, z: 7.4, ry: -1.9 };
 ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
 ped.root.rotation.y = PED_HOME.ry;
 scene.add(sol.root, ped.root);
+/** Fim do Dia 7: o Pedrito recebe o lenço e a farda oficial dos Aventureiros (o mesmo objeto, outro modelo). */
+let pedDressed = false;
+function dressPedrito() {
+  if (pedDressed) return;
+  pedDressed = true;
+  const u = makeKid(uniform(PED_LOOK));
+  const keep = ped.root.position.clone(),
+    ry = ped.root.rotation.y;
+  ped.root.clear();
+  for (const c of [...u.root.children]) ped.root.add(c);
+  Object.assign(ped, { ...u, root: ped.root });
+  ped.root.position.copy(keep);
+  ped.root.rotation.y = ry;
+  if (pedritoUniformPic) {
+    portraitMap.Pedrito = pedritoUniformPic;
+    hud.portraits = portraitMap;
+    task.portraits = portraitMap;
+  }
+}
 const NPCS: Npc[] = [
   {
     id: 'sol',
@@ -130,11 +156,22 @@ let talking: Npc | null = null;
 
 /* retratos 3D para o HUD e os balões (mesmos modelos do jogo) */
 let portraitMap: Record<string, string> = {};
+let pedritoUniformPic = '';
 try {
   const pics = renderPortraits({ sol: SOL_LOOK, pedrito: PED_LOOK, camper: AV[1] });
   $<HTMLImageElement>('coinimg').src = pics.coin;
   $<HTMLImageElement>('ticoav').src = pics.tico;
-  const map = { Tico: pics.tico, 'Diretora Sol': pics.sol, Pedrito: pics.pedrito, 'Capitã Marina': pics.marina, Acampante: pics.camper };
+  const map: Record<string, string> = {
+    Tico: pics.tico,
+    'Diretora Sol': pics.sol,
+    Pedrito: pics.pedrito,
+    'Capitã Marina': pics.marina,
+    Acampante: pics.camper,
+    'Dona Flora': pics.flora,
+    'Seu Estrelino': pics.estrelino,
+    'Tio Zé Bichos': pics.ze,
+  };
+  pedritoUniformPic = pics.pedritoUniform;
   portraitMap = map;
   hud.portraits = map;
   task.portraits = map;
@@ -181,9 +218,20 @@ const GUIDE = newGuide();
 const OBJ = portals[0];
 let day1: Day01Mission | null = null;
 let day2: Day02Mission | null = null;
+/** Dias 3 a 7 (src/game/days) */
+const later: DayMission[] = [];
+const missions = () => [day1, day2, ...later].filter((m): m is NonNullable<typeof m> => !!m);
 /** a missão (dia) em andamento, se houver */
-const cur = () => (day1?.active ? day1 : day2?.active ? day2 : null);
-const progress = () => ({ day01: SAVE.data.day01, day02: SAVE.data.day02 });
+const cur = () => missions().find((m) => m.active) ?? null;
+const progress = () => ({
+  day01: SAVE.data.day01,
+  day02: SAVE.data.day02,
+  day03: SAVE.data.day03,
+  day04: SAVE.data.day04,
+  day05: SAVE.data.day05,
+  day06: SAVE.data.day06,
+  day07: SAVE.data.day07,
+});
 /** todos os dias prontos já foram concluídos (a ajuda não tem para onde apontar) */
 const readyDone = () => journey(progress()).every((d) => d.status === 'done' || d.status === 'soon' || d.status === 'locked');
 /** As moedas só aparecem depois do Dia 1: antes, nada compete com a missão (teste do piloto, 21/11/2026). */
@@ -199,7 +247,7 @@ function objective(): { x: number; z: number; hint: string } | null {
 }
 
 const dist = (o: { x: number; z: number }) => Math.hypot(P.x - o.x, P.z - o.z);
-const paused = () => hud.paused || task.open || tutorial.open || !!day1?.busy || !!day2?.busy;
+const paused = () => hud.paused || task.open || tutorial.open || missions().some((m) => m.busy);
 
 /* ---------- interação ---------- */
 function interact(o: Interactable) {
@@ -218,6 +266,7 @@ function interact(o: Interactable) {
   input.clearMove();
   if (cur()?.onInteract(o)) return;
   if (!cur() && day2?.onInteract(o)) return; // Capitã Marina e o passeio de barco fora da missão
+  if (!cur() && later.some((m) => m.onInteract(o))) return; // personagens dos Dias 3 a 7 fora da missão
   const lines = o.lines && o.npc === 'pedrito' && !coinsOpen() ? o.lines.slice(0, 1) : o.lines; // a dica das moedas só depois do Dia 1
   hud.dialog(o.who, o.name, lines || [o.text ?? '']);
 }
@@ -437,7 +486,7 @@ async function openJourney() {
   if (!day1 || cur()) return;
   const prog = progress();
   const pick = await task.journey(journey(prog), worldProgress(prog));
-  const m = pick?.day === 1 ? day1 : pick?.day === 2 ? day2 : null;
+  const m = pick?.day === 1 ? day1 : pick?.day === 2 ? day2 : (later.find((d) => d.n === pick?.day) ?? null);
   if (!pick || !m) return;
   hud.fade(true);
   await new Promise((r) => setTimeout(r, REDUCED_MOTION ? 0 : 450));
@@ -453,7 +502,7 @@ $('goal').onclick = async () => {
   if (leave) mission.exit();
 };
 /** O que as missões dos dias usam do jogo. */
-function missionDeps(day: 1 | 2): MissionDeps {
+function missionDeps(day: number): MissionDeps {
   return {
     scene,
     camp,
@@ -485,7 +534,8 @@ function missionDeps(day: 1 | 2): MissionDeps {
     },
     banner: (text, ms) => hud.banner(text, ms),
     sting: (id) => music.sting(id),
-    onExit(done, wantsNext) {
+    dressPedrito,
+    onExit(done, wantsNext, msg) {
       ped.root.position.set(PED_HOME.x, PED_HOME.y, PED_HOME.z);
       ped.root.rotation.y = PED_HOME.ry;
       ped.body.scale.y = 1;
@@ -502,7 +552,7 @@ function missionDeps(day: 1 | 2): MissionDeps {
         hud.show('coins');
         hud.coins(coins.collected, coins.total);
       }
-      const doneMsg = day === 1 ? 'Parabéns! Agora apareceram moedas no acampamento. Vamos pegar?' : 'Parabéns! O céu está limpo. A Capitã Marina deixa você passear de barco quando quiser!';
+      const doneMsg = msg ?? (day === 1 ? 'Parabéns! Agora apareceram moedas no acampamento. Vamos pegar?' : 'Parabéns! O céu está limpo. A Capitã Marina deixa você passear de barco quando quiser!');
       if (!(done && wantsNext)) hud.say(done ? doneMsg : 'Tudo bem! Seu progresso ficou salvo. Volte ao portal quando quiser.', 7000);
     },
   };
@@ -511,6 +561,20 @@ const missionReady = Promise.all([loadDay01(), loadDay02().catch(() => null)])
   .then(([{ content, bible }, d2]) => {
     day1 = new Day01Mission(missionDeps(1), content, bible);
     if (d2) day2 = new Day02Mission(missionDeps(2), d2.content, bible, d2.club);
+    return d2 ? Promise.all(DAY_KEYS.map((k) => loadDay(k).catch(() => null))).then((days) => ({ days, bible, club: d2.club })) : null;
+  })
+  .then((r) => {
+    if (!r) return;
+    const make = [Day03Mission, Day04Mission, Day05Mission, Day06Mission, Day07Mission];
+    r.days.forEach((c, i) => {
+      if (!c) return;
+      try {
+        later.push(new make[i](missionDeps(i + 3), c, r.bible, r.club));
+      } catch (e) {
+        console.error('dia', i + 3, e); // um dia com problema não derruba os outros
+      }
+    });
+    if (SAVE.data.day07?.step === 'done') dressPedrito();
   })
   .catch(() => {
     /* sem a missão, o acampamento continua jogável */
@@ -561,7 +625,8 @@ function step(dt: number) {
     if (p.open) void enterPortal();
     else {
       const w = worldProgress(progress());
-      hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', `Ele abre quando você terminar os ${w.total} dias do Éden. Você já concluiu ${w.done}!`]);
+      if (w.nextWorldOpen) hud.dialog('Tico', 'Portal do Mundo 2', ['Você completou os sete dias do Éden!', 'O próximo mundo ainda está sendo preparado. Volte em breve!']);
+      else hud.dialog('Tico', 'Portal trancado', ['Este portal leva a um novo mundo, com outra história e outro cenário.', `Ele abre quando você terminar os ${w.total} dias do Éden. Você já concluiu ${w.done}!`]);
     }
   }
 
@@ -643,6 +708,8 @@ function draw(dt: number, t: number) {
   if (!cur()?.drivesPedrito) animate(ped, dt, { wave: talking?.id === 'pedrito', mode: talking?.id === 'pedrito' ? 'wow' : 'open' });
   day1?.update(dt, t);
   day2?.update(dt, t);
+  for (const m of later) m.update(dt, t);
+  if (day2) day2.away = !!later.find((m) => m.n === 5)?.active; // no Dia 5, a Capitã Marina espera na praia do recife
   daylight.update(dt, P.x, P.y, P.z, P.face);
   ambient.enabled = sound;
   ambient.update(P.x, P.z, orbit.yaw);
@@ -963,5 +1030,6 @@ if (import.meta.env?.DEV || new URLSearchParams(location.search).has('debug')) {
   });
   Object.defineProperty(window, 'mission', { get: () => cur() ?? day1 });
   Object.defineProperty(window, 'day2', { get: () => day2 });
+  Object.defineProperty(window, 'days', { get: () => later });
   Object.defineProperty(window, 'intro', { get: () => intro });
 }

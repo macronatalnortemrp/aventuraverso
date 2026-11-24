@@ -760,17 +760,19 @@ export class Day02Mission {
   get drivesPedrito() {
     return this.active;
   }
+  /** a Capitã Marina saiu do cais (Dia 5: ela espera na praia do recife) */
+  away = false;
 
   /* ---------- a cada quadro ---------- */
 
   update(dt: number, t: number) {
     const open = this.unlocked;
-    this.marina.root.visible = open;
+    this.marina.root.visible = open && !this.away;
     if (open && !this.docked && !this.riding && !this.parked) {
       this.boatHome();
       this.docked = true;
     }
-    this.marinaInter.off = !open || this.riding;
+    this.marinaInter.off = !open || this.riding || this.away;
     const p = this.d.player;
     if (open) animate(this.marina, dt, { wave: !this.riding && Math.hypot(p.x - MARINA_SPOT.x, p.z - MARINA_SPOT.z) < 6 });
     // névoa: só durante o Dia 2
