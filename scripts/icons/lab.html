@@ -1,0 +1,59 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Laboratório dos ícones do app. Com "npx vite" rodando, abra /aventuraverso/scripts/icons/lab.html e capture cada quadro (#v1, #v2, #v3) em 1024x1024; depois reduza para public/icons/. -->
+<style>
+@font-face { font-family: 'Lilita One'; src: url('/src/assets/fonts/lilita-one.ttf'); }
+body{margin:0;background:#888;display:flex;gap:20px;flex-wrap:wrap;padding:20px}
+.icon{width:1024px;height:1024px;position:relative;overflow:hidden;
+ background: radial-gradient(circle at 50% 46%, #fff3b0 0, #ffd23f 14%, #ff9f2e 34%, rgba(255,120,60,0) 58%), linear-gradient(#3fa7ff, #1d6fc4 55%, #0f4a8c);}
+.icon::before{content:'';position:absolute;left:50%;top:46%;width:2400px;height:2400px;translate:-50% -50%;
+ background: repeating-conic-gradient(rgba(255,255,255,.16) 0 9deg, rgba(255,255,255,0) 9deg 22.5deg);
+ mask: radial-gradient(circle,#000 8%,transparent 42%);}
+.icon > *{position:absolute}
+.badge{width:200px;height:200px;border-radius:50%;background:#fff;border:12px solid #12233b;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 0 rgba(18,35,59,.35)}
+.badge img{width:72%;height:auto}
+svg text{font-family:'Lilita One';fill:#fff;stroke:#12233b;stroke-width:22px;paint-order:stroke fill;letter-spacing:4px}
+</style></head><body>
+<div class="icon" id="v1">
+  <img class="head" style="left:62px;top:110px;width:900px">
+  <div class="badge" style="right:120px;bottom:110px"><img src="/public/assets/official/web/a1.webp"></div>
+</div>
+<div class="icon" id="v2">
+  <svg viewBox="0 0 1024 1024" width="1024" height="1024" style="left:0;top:0">
+    <defs><path id="arc" d="M 202 512 A 310 310 0 0 1 822 512"/></defs>
+    <text font-size="118" text-anchor="middle"><textPath href="#arc" startOffset="50%">aventuráVerso</textPath></text>
+  </svg>
+  <img src="/public/assets/official/web/macro-hd.webp" style="left:297px;top:300px;width:430px;filter:drop-shadow(0 0 30px rgba(255,236,150,.95)) drop-shadow(0 10px 0 rgba(18,35,59,.35))">
+  <img src="/public/assets/official/web/a1.webp" style="left:457px;top:790px;width:110px;filter:drop-shadow(0 0 10px #fff)">
+</div>
+<div class="icon" id="v3">
+  <svg viewBox="0 0 1024 1024" width="1024" height="1024" style="left:0;top:0">
+    <defs><path id="arc3" d="M 162 470 A 350 350 0 0 1 862 470"/></defs>
+    <text font-size="112" text-anchor="middle"><textPath href="#arc3" startOffset="50%">aventuráVerso</textPath></text>
+  </svg>
+  <img class="head" data-av="4" style="left:192px;top:280px;width:640px">
+  <img src="/public/assets/official/web/a1.webp" style="left:470px;top:858px;width:84px;filter:drop-shadow(0 0 8px #fff)">
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { AV, makeKid } from '/src/world/builders/kid.ts';
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+r.setSize(1024, 1024);
+r.toneMapping = THREE.NeutralToneMapping;
+const s = new THREE.Scene();
+s.add(new THREE.HemisphereLight(0xffffff, 0xb7c9a0, 1.6));
+const d = new THREE.DirectionalLight(0xfff1d6, 2.4); d.position.set(2, 4, 5); s.add(d);
+const c = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+c.position.set(0, 2.55, 3.5); c.lookAt(0, 2.25, 0);
+await new Promise((ok) => setTimeout(ok, 1500)); // texturas do lenço
+for (const img of document.querySelectorAll('img.head')) {
+  const k = makeKid(AV[+(img.dataset.av ?? 0)]);
+  k.root.rotation.y = -0.25;
+  s.add(k.root);
+  await new Promise((ok) => setTimeout(ok, 800));
+  r.render(s, c);
+  img.src = r.domElement.toDataURL();
+  s.remove(k.root);
+}
+await document.fonts.ready;
+document.body.dataset.ready = '1';
+</script></body></html>

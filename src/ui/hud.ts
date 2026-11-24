@@ -39,6 +39,13 @@ export class Hud {
         this.next();
       }
     });
+    // X dos balões: fecha só a fala atual e para a voz
+    $('tx').onclick = () => {
+      sfx('ui');
+      stopSpeaking();
+      this.hideTico();
+    };
+    $('dxx').onclick = () => this.next();
   }
 
   show(id: string, on = true) {
@@ -93,6 +100,7 @@ export class Hud {
       };
       box.append(b);
     }
+    $('tico').classList.toggle('ask', buttons.length > 0); // falas com botões não têm X
     this.show('tico');
     if (this.voice()) speakRecorded(text, 'Tico');
     clearTimeout(this.ticoTimer);

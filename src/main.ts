@@ -33,6 +33,7 @@ import { Intro, loadIntro, landmarks } from './game/intro';
 import { Assembly } from './world/assemble';
 import { Music } from './engine/music';
 import { cueFor } from './game/musicCue';
+import { setupInstall } from './pwa/install';
 
 /* aventuráVerso: Mundo 1, o Acampamento do Livro Aberto. */
 
@@ -73,6 +74,8 @@ document.addEventListener('visibilitychange', () => music.pause(document.hidden)
 const { col, inter, portals, stumps } = camp;
 const coins = new Coins(scene, stumps.length, SAVE.data.coins);
 const critters = createCritters(scene);
+setupInstall();
+
 const hud = new Hud(() => {
   talking = null;
   $('c').focus();

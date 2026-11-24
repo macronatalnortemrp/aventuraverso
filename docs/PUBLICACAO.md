@@ -21,6 +21,15 @@ git push -u origin main
 - O workflow `.github/workflows/deploy.yml` roda typecheck, testes e build e publica a cada envio para `main`.
 - Os PDFs de `docs/source/` ficam fora do repositório público (`.gitignore`).
 
+## Jogo instalável (PWA)
+- Nome do app: **AventuráVerso**; embaixo do ícone aparece **Aventurá** (o nome inteiro é cortado em alguns iPhones).
+- Teste A/B do ícone: `public/manifest-a.webmanifest` (Explorador Mirim) e `manifest-b` (Herói Mirim), ícones em `public/icons/a` e `b` (192, 512, maskable 512 e `apple-touch-icon` 180), gerados das artes em `assets/brand/`. Cada aparelho sorteia um e guarda; `?icone=a` ou `?icone=b` força. Para encerrar o teste, deixe um só manifesto e tire o sorteio do `index.html`.
+- O build gera `dist/sw.js` (plugin em `vite.config.ts`, sem dependência nova) com a lista de todos os arquivos: depois da primeira visita o jogo inteiro, com vozes e música, fica no aparelho e abre sem internet. Cerca de 10 MB.
+- Sincronizar: com internet, o navegador confere o `sw.js` ao abrir o jogo e quando a conexão volta. Se o jogo mudou, baixa tudo de novo e a versão nova vale na próxima abertura. Nada é enviado; o progresso continua só no aparelho.
+- Android (Chrome): botão **Instalar o jogo** na tela inicial abre o pedido nativo. Só aparece quando o Chrome permite instalar.
+- iPhone/iPad: o Safari não tem pedido de instalação; o mesmo botão abre um cartão com o passo a passo (Compartilhar > Adicionar à Tela de Início > Adicionar).
+- Já instalado, o botão não aparece. O service worker só roda no build publicado, não no `npm run dev`.
+
 ## Cuidados
 - O ZIP tem imagens grandes (emblemas das classes e artes conceituais, cerca de 14 MB). É aceitável, mas dá para reduzir as de `assets/concept-art/` depois.
 - Não suba dados de crianças, formulários preenchidos ou chaves.

@@ -1,0 +1,38 @@
+name: Amostras de voz (para escolher)
+
+# Gera amostras comparativas em scripts/voices/samples/out/ no próprio ramo.
+# Não mexe nas vozes do jogo nem publica nada.
+on:
+  push:
+    branches-ignore: [main]
+    paths:
+      - 'scripts/voices/samples/samples.py'
+      - '.github/workflows/voice-samples.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
+      - run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9.4" soundfile numpy pyworld piper-tts
+      - run: python scripts/voices/samples/samples.py
+      - name: Commitar amostras
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/voices/samples/out
+          git diff --cached --quiet && exit 0
+          git commit -m "chore(vozes): amostras para comparar"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin HEAD:"$GITHUB_REF_NAME"
