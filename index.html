@@ -6,8 +6,18 @@
 <meta name="theme-color" content="#172D49">
 <meta name="description" content="aventuráVerso: um universo de aventuras. Jogo do Clube de Aventureiros.">
 <title>AventuráVerso</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<script>
+/* Teste A/B do ícone do app: cada aparelho recebe um ícone ao acaso e guarda a escolha.
+   Para forçar: ?icone=a (Explorador Mirim) ou ?icone=b (Herói Mirim). Nada é enviado pela rede. */
+(function () {
+  var v = (/[?&]icone=([ab])/.exec(location.search) || [])[1];
+  try { v = v || localStorage.getItem('av-icone'); } catch (e) {}
+  if (v !== 'a' && v !== 'b') v = Math.random() < 0.5 ? 'a' : 'b';
+  try { localStorage.setItem('av-icone', v); } catch (e) {}
+  document.documentElement.dataset.icone = v;
+  document.write('<link rel="manifest" href="./manifest-' + v + '.webmanifest"><link rel="apple-touch-icon" href="./icons/' + v + '/apple-touch-icon.png">');
+})();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aventurá">
