@@ -231,7 +231,8 @@ const ray = new THREE.Raycaster(),
   ndc = new THREE.Vector2();
 function tap(cx: number, cy: number) {
   if (paused()) return;
-  ndc.set((cx / innerWidth) * 2 - 1, -(cy / innerHeight) * 2 + 1);
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(ndc, camera);
   const hit = ray.intersectObjects(inter.meshes(), false)[0];
   if (hit) {

@@ -18,6 +18,23 @@
   document.write('<link rel="manifest" href="./manifest-' + v + '.webmanifest"><link rel="apple-touch-icon" href="./icons/' + v + '/apple-touch-icon.png">');
 })();
 </script>
+<script>
+/* iPhone com o app na Tela de Início: a área do jogo fica curta, faltando a altura da barra de status
+   embaixo (WebKit com black-translucent). Mede a falta e guarda em --gap para o CSS e o 3D. */
+(function () {
+  var d = document.documentElement;
+  if (!navigator.standalone) return;
+  function fit() {
+    var land = innerWidth > innerHeight;
+    var full = land ? Math.min(screen.width, screen.height) : Math.max(screen.width, screen.height);
+    var gap = Math.max(0, Math.min(80, Math.round(full - innerHeight)));
+    d.style.setProperty('--gap', gap + 'px');
+  }
+  fit();
+  addEventListener('resize', fit);
+  addEventListener('orientationchange', function () { setTimeout(fit, 300); });
+})();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Aventurá">
@@ -30,7 +47,7 @@
 @font-face { font-family: 'Lilita One'; src: url('./src/assets/fonts/lilita-one.ttf') format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Nunito'; src: url('./src/assets/fonts/nunito.ttf') format('truetype'); font-weight: 200 1000; font-display: swap; }
 html, body { margin: 0; height: 100%; background: #1d6fc4; }
-#splash { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px; text-align: center; color: #fff; overflow: hidden;
+#splash { position: fixed; inset: 0; bottom: calc(-1 * var(--gap, 0px)); z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px; text-align: center; color: #fff; overflow: hidden;
   background: radial-gradient(circle at 50% 46%, #fff3b0 0, #ffd23f 14%, #ff9f2e 34%, rgba(255, 120, 60, 0) 58%), linear-gradient(#3fa7ff, #1d6fc4 55%, #0f4a8c);
   font-family: 'Nunito', 'Trebuchet MS', system-ui, sans-serif; font-weight: 900; transition: opacity 0.6s ease, visibility 0s linear 0.6s; }
 #splash::before { content: ''; position: absolute; left: 50%; top: 46%; width: 220vmax; height: 220vmax; translate: -50% -50%; pointer-events: none;

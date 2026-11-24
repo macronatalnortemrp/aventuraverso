@@ -83,8 +83,10 @@ gl_FragColor=vec4(c,1.);
   scene.add(sky);
 
   const resize = () => {
-    const w = innerWidth,
-      h = innerHeight;
+    // a tela pode passar de innerHeight (iPhone na Tela de Início: ver --gap no index.html)
+    const c = renderer.domElement,
+      w = c.clientWidth || innerWidth,
+      h = c.clientHeight || innerHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.fov = camera.aspect < 1 ? 62 : 50; // retrato vê mais
