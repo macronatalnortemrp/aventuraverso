@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { mat, rg } from './builders/kid';
 import { H, LAKE } from './terrain';
 import { clamp, rnd, rr } from '../engine/math';
+import { WILD } from './wildlife';
 
 /* Vida no acampamento: peixes no lago, borboletas, coelhos que fogem e pássaros no céu. */
 
@@ -109,6 +110,7 @@ export function createCritters(scene: THREE.Scene) {
 
   return function update(dt: number, t: number, px: number, pz: number) {
     for (const c of list) {
+      if (c.k === 'fish' || c.k === 'bird') c.o.visible = c.k === 'fish' ? WILD.water : WILD.air;
       if (c.k === 'fish') {
         c.a += dt * c.s;
         c.o.position.set(LAKE.x + Math.cos(c.a) * c.r, c.y + Math.sin(t * 2 + c.r) * 0.1, LAKE.z + Math.sin(c.a) * c.r * 0.85);
