@@ -32,6 +32,7 @@ import { journey, worldProgress } from './game/journey';
 import { renderPortraits } from './ui/render3d';
 import { Intro, loadIntro, landmarks } from './game/intro';
 import { Assembly } from './world/assemble';
+import { FOCUS } from './world/bigLake';
 import { Music } from './engine/music';
 import { cueFor } from './game/musicCue';
 import { setupInstall } from './pwa/install';
@@ -231,7 +232,8 @@ const ray = new THREE.Raycaster(),
   ndc = new THREE.Vector2();
 function tap(cx: number, cy: number) {
   if (paused()) return;
-  ndc.set((cx / innerWidth) * 2 - 1, -(cy / innerHeight) * 2 + 1);
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(ndc, camera);
   const hit = ray.intersectObjects(inter.meshes(), false)[0];
   if (hit) {
@@ -646,6 +648,8 @@ function draw(dt: number, t: number) {
   ambient.update(P.x, P.z, orbit.yaw);
 
   uTime.value = t;
+  FOCUS.x = P.x;
+  FOCUS.z = P.z;
   camp.update(dt, t);
   const open = coinsOpen();
   coins.im.visible = open;
@@ -843,6 +847,8 @@ $('rewatch').onclick = () => {
 /** Cenário vivo durante a abertura (a câmera e os personagens ficam com a abertura). */
 function tickWorld(dt: number, t: number) {
   uTime.value = t;
+  FOCUS.x = P.x;
+  FOCUS.z = P.z;
   camp.update(dt, t);
   fx.update(dt, t);
   critters(dt, t, camera.position.x, camera.position.z);

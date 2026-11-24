@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { BUOY_COUNT, Day02, Step, complete, foundBuoy, mistLevel, newDay02, stepIndex } from './state';
-import { BOAT, BOAT_DOCK, BUOYS, MARINA_SPOT, PIER, PIER_TIP, RINGS, hullInWater, ringYaw } from './layout';
+import { BOAT, BOAT_DOCK, BUOYS, LANDINGS, LANDING_NEAR, Landing, MARINA_SPOT, PIER, PIER_TIP, PIER_TOP, RINGS, hullInWater, ringYaw } from './layout';
+import { GALLEON_DECK, GALLEON_SEATS } from '../../world/builders/galleon';
 import type { MissionDeps } from '../day01/mission';
 import { Question } from '../quiz';
 import { GLOBE } from '../../world/camp';
@@ -79,7 +79,11 @@ export class Day02Mission {
   private marina: Rig;
   private marinaInter: Interactable;
   private tipInter: Interactable;
-  private pier = new THREE.Group();
+  private boardInter: Interactable;
+  /** onde o galeão ficou parado quando a criança desceu numa ilha (null: no cais) */
+  private parked: Landing | null = null;
+  /** perto de qual lugar de descer o barco está agora */
+  private near: Landing | null = null;
   private buoys: THREE.Group[] = [];
   private pieces: THREE.Group[] = [];
   private rings: { g: THREE.Group; spin: number; cool: number }[] = [];
@@ -99,41 +103,17 @@ export class Day02Mission {
   ) {
     this.state = d.save.data.day02 ?? newDay02();
     const { scene, camp } = d;
-    // cais novo da Capitã Marina: tábuas sobre estacas, da margem até a água
-    const wood = new THREE.MeshStandardMaterial({ color: 0xb4875a, roughness: 0.8 }),
-      dark = new THREE.MeshStandardMaterial({ color: 0x6b4a2e, roughness: 0.85 });
-    const top = WY + 0.45;
-    for (let z = PIER.z1; z <= PIER.z0; z += 0.6) {
-      const b = new THREE.Mesh(new RoundedBoxGeometry(PIER.w, 0.14, 0.54, 1, 0.03), wood);
-      b.position.set(PIER.x, top, z);
-      b.rotation.y = (Math.sin(z * 7) * 0.03) as number;
-      b.castShadow = b.receiveShadow = true;
-      this.pier.add(b);
-    }
-    for (let z = PIER.z1; z <= PIER.z0; z += 1.9)
-      for (const s of [-1, 1]) {
-        const p = new THREE.Mesh(new RoundedBoxGeometry(0.24, 2.4, 0.24, 1, 0.05), dark);
-        p.position.set(PIER.x + (s * PIER.w) / 2, top - 0.9, z);
-        this.pier.add(p);
-      }
-    // poste com lanterna e a placa do cais
-    const post = new THREE.Mesh(new RoundedBoxGeometry(0.2, 1.6, 0.2, 1, 0.04), dark);
-    post.position.set(PIER.x + PIER.w / 2 - 0.1, top + 0.8, PIER.z0 - 0.2);
-    const lampM = new THREE.Mesh(new RoundedBoxGeometry(0.34, 0.4, 0.34, 1, 0.06), new THREE.MeshStandardMaterial({ color: 0xffe08a, emissive: 0xffd76a, emissiveIntensity: 1.4 }));
-    lampM.position.set(post.position.x, top + 1.75, post.position.z);
-    this.pier.add(post, lampM);
-    this.pier.visible = false;
-    scene.add(this.pier);
-    camp.col.boxes.push({ x0: PIER.x - PIER.w / 2, x1: PIER.x + PIER.w / 2, z0: PIER.z1 - 0.3, z1: PIER.z0 + 0.3, top: top + 0.07 });
-
+    const top = PIER_TOP;
     this.marina = makeMarina();
     this.marina.root.position.set(MARINA_SPOT.x, Math.max(H(MARINA_SPOT.x, MARINA_SPOT.z), top + 0.07), MARINA_SPOT.z);
-    this.marina.root.rotation.y = 0; // olha para o lago
+    this.marina.root.rotation.y = -Math.PI / 2; // olha para o lago
     this.marina.root.visible = false;
     scene.add(this.marina.root);
     const mp = this.marina.root.position;
     this.marinaInter = camp.inter.add({ id: 'marina-npc', npc: 'marina', x: mp.x, z: mp.z, y: mp.y, w: 1.8, h: 3.8, name: 'Capitã Marina', label: 'Conversar', who: 'Capitã Marina', lines: content.marina.wait, off: true });
-    this.tipInter = camp.inter.add({ id: 'pier-tip', x: BOAT_DOCK.x, z: BOAT_DOCK.z, y: WY, w: 3.6, h: 3, name: 'Cais', label: content.boat.leave, who: 'Tico', text: '', off: true });
+    this.tipInter = camp.inter.add({ id: 'pier-tip', x: BOAT_DOCK.x, z: BOAT_DOCK.z, y: WY, w: 4.2, h: 4, name: 'Cais', label: content.boat.leave, who: 'Tico', text: '', off: true });
+    // galeão parado numa ilha: tocar para subir de novo
+    this.boardInter = camp.inter.add({ id: 'boat-board', x: BOAT_DOCK.x, z: BOAT_DOCK.z, y: WY, w: 6, h: 4, name: 'Galeão', label: 'Subir no barco', who: 'Tico', text: '', off: true });
 
     // boias: corpo vermelho e branco, um pedaço de luz dourado em cima
     const red = new THREE.MeshStandardMaterial({ color: 0xe0482f, roughness: 0.5 }),
@@ -169,31 +149,31 @@ export class Day02Mission {
     const ribbon = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false });
     RINGS.forEach((r) => {
       const g = new THREE.Group();
-      const tor = new THREE.Mesh(new THREE.TorusGeometry(1.55, 0.16, 8, 32), ringMat);
+      const tor = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.2, 8, 36), ringMat);
       g.add(tor);
       const spin = new THREE.Group();
       for (let i = 0; i < 4; i++) {
-        const f = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 1.1), ribbon);
+        const f = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 1.5), ribbon);
         const a = (i / 4) * Math.PI * 2;
-        f.position.set(Math.cos(a) * 1.05, Math.sin(a) * 1.05, 0);
+        f.position.set(Math.cos(a) * 1.6, Math.sin(a) * 1.6, 0);
         f.rotation.z = a;
         spin.add(f);
       }
       g.add(spin);
-      g.position.set(r.x, WY + 1.25, r.z);
-      g.rotation.y = ringYaw(r.x, r.z);
+      g.position.set(r.x, WY + 1.6, r.z);
+      g.rotation.y = ringYaw(r);
       g.visible = false;
       scene.add(g);
       this.rings.push({ g, spin: 0, cool: 0 });
     });
     // névoa: nuvens baixas e macias pelo acampamento, mais grossas sobre o lago
-    for (let i = 0; i < 22; i++) {
+    for (let i = 0; i < 40; i++) {
       const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistTex, transparent: true, depthWrite: false, opacity: 0 }));
-      const overLake = i < 9,
+      const overLake = i < 26,
         a = i * 2.39996,
-        r = overLake ? 3 + (i % 3) * 3.5 : 8 + (i % 5) * 5.5;
-      const cx = overLake ? -28 : 0,
-        cz = overLake ? 6 : 4;
+        r = overLake ? 4 + (i % 6) * 6.5 : 8 + (i % 5) * 5.5;
+      const cx = overLake ? -60 : 0,
+        cz = overLake ? 4 : 4;
       s.position.set(cx + Math.cos(a) * r, WY + 1.4 + (i % 3) * 0.9, cz + Math.sin(a) * r);
       s.scale.set(16 + (i % 4) * 4, 5 + (i % 3) * 1.5, 1);
       s.visible = false;
@@ -260,6 +240,8 @@ export class Day02Mission {
     this.d.daylight.setMist(mistLevel(this.state), REDUCED_MOTION ? 0 : 1.5);
     this.d.place(0, 12, Math.PI);
     this.d.camp.setGlobe(1);
+    this.parked = null;
+    this.boardInter.off = true;
     this.boatHome();
     const p = this.d.player;
     Object.assign(this.pedFollow, { x: p.x + 1.5, z: p.z + 1.5, y: p.y });
@@ -268,7 +250,7 @@ export class Day02Mission {
   }
 
   exit(wantsNext = false) {
-    if (this.riding) this.stopRide();
+    if (this.riding || this.parked) this.stopRide();
     this.active = false;
     this.endReview();
     this.d.daylight.setMist(0, REDUCED_MOTION ? 0 : 1.2);
@@ -312,6 +294,7 @@ export class Day02Mission {
       case 'mist':
         return { ...MARINA_SPOT, hint: this.content.start.go };
       case 'boat': {
+        if (!this.riding && this.parked) return { x: this.parked.boat.x, z: this.parked.boat.z, hint: 'Volte para o barco!' };
         if (!this.riding) return { ...MARINA_SPOT, hint: this.content.start.go };
         let best: { x: number; z: number } | null = null;
         BUOYS.forEach((b, i) => {
@@ -347,6 +330,10 @@ export class Day02Mission {
     if (this.busy) return false;
     if (o.id === 'pier-tip' && this.riding) {
       void this.leaveBoat();
+      return true;
+    }
+    if (o.id === 'boat-board' && !this.riding && this.parked) {
+      void this.board(this.free);
       return true;
     }
     if (o.npc === 'marina') {
@@ -407,10 +394,7 @@ export class Day02Mission {
 
   private boatHome() {
     Object.assign(this.boat, { x: BOAT_DOCK.x, z: BOAT_DOCK.z, ry: BOAT_DOCK.ry, vx: 0, vz: 0, boost: 0 });
-    const b = this.d.camp.boat;
-    b.position.x = this.boat.x;
-    b.position.z = this.boat.z;
-    b.rotation.y = this.boat.ry - Math.PI / 2;
+    this.placeBoat();
   }
 
   /** Sobe no barco amarrado ao cais. No Dia 2, o Pedrito vai junto. */
@@ -419,8 +403,11 @@ export class Day02Mission {
     this.free = free;
     this.d.hud.fade(true);
     await this.wait(REDUCED_MOTION ? 0 : 0.45);
-    this.boatHome();
+    if (!this.parked) this.boatHome();
+    this.parked = null;
+    this.boardInter.off = true;
     this.riding = true;
+    this.d.orbit.setZoom(19);
     this.pedRides = !free && this.active;
     this.tipInter.off = false;
     this.d.forceControls(true);
@@ -439,36 +426,61 @@ export class Day02Mission {
     } else this.d.hud.say(free ? `${tip} ${b.rings}` : tip, 6000);
   }
 
-  /** Volta ao cais: a criança desce na ponta do cais e o barco fica amarrado. */
+  /** Desce do barco: no cais ele fica amarrado; numa ilha, fica parado esperando a criança voltar. */
   private async leaveBoat() {
+    const at = this.near ?? LANDINGS[0];
     this.busy = true;
     this.d.hud.fade(true);
     await this.wait(REDUCED_MOTION ? 0 : 0.45);
-    this.stopRide();
+    if (at.id === 'pier') this.stopRide();
+    else this.stopRide(at);
     this.d.hud.fade(false);
     this.busy = false;
-    if (this.free) this.d.hud.say(this.content.marina.freeBye, 4000);
+    if (at.id !== 'pier') this.d.hud.say(`Você chegou na ${at.name}! O barco espera aqui.`, 4500);
+    else if (this.free) this.d.hud.say(this.content.marina.freeBye, 4000);
     else if (this.active && this.state.step === 'boat') this.d.hud.say(this.content.marina.again[0], 5000);
   }
 
-  private stopRide() {
+  /** Para de dirigir. Sem lugar: volta para o cais. Com uma ilha: o barco fica parado ali. */
+  private stopRide(at: Landing | null = null) {
     this.riding = false;
     this.tipInter.off = true;
-    this.boatHome();
+    this.near = null;
+    this.d.orbit.setZoom(13);
     this.d.forceControls(false);
-    this.d.place(PIER_TIP.x, PIER_TIP.z, 0);
+    if (at) {
+      this.parked = at;
+      Object.assign(this.boat, { x: at.boat.x, z: at.boat.z, ry: at.boat.ry, vx: 0, vz: 0, boost: 0 });
+      this.placeBoat();
+      Object.assign(this.boardInter, { x: at.boat.x, z: at.boat.z, off: false });
+      this.boardInter.mesh?.position.set(at.boat.x, WY + 2, at.boat.z);
+      this.d.place(at.land.x, at.land.z, Math.atan2(at.land.x - at.boat.x, at.land.z - at.boat.z));
+    } else {
+      this.parked = null;
+      this.boardInter.off = true;
+      this.boatHome();
+      this.d.place(PIER_TIP.x, PIER_TIP.z, Math.PI / 2);
+    }
     this.refresh();
   }
 
-  /** coloca a criança sentada no meio do barco */
-  private seat() {
-    const p = this.d.player,
-      b = this.boat;
-    Object.assign(p, { x: b.x - Math.sin(b.ry) * 0.25, z: b.z - Math.cos(b.ry) * 0.25, y: WY + 0.32, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face: b.ry });
+  private placeBoat() {
+    const b = this.d.camp.boat;
+    b.position.x = this.boat.x;
+    b.position.z = this.boat.z;
+    b.rotation.y = this.boat.ry - Math.PI / 2; // o casco é comprido em x
   }
 
-  private waterOk(x: number, z: number) {
-    return hullInWater(x, z);
+  /** coloca a criança no leme do galeão, de frente para a proa */
+  private seat() {
+    const p = this.d.player,
+      b = this.boat,
+      k = GALLEON_SEATS.helm;
+    Object.assign(p, { x: b.x + Math.sin(b.ry) * k, z: b.z + Math.cos(b.ry) * k, y: this.d.camp.boat.position.y + GALLEON_DECK, vx: 0, vz: 0, vy: 0, st: 'ground', boost: null, face: b.ry });
+  }
+
+  private waterOk(x: number, z: number, ry = this.boat.ry) {
+    return hullInWater(x, z, ry);
   }
 
   /** Movimento no barco (chamado por main.ts no lugar da física a pé). ix, iz: direção; m: quanto. */
@@ -522,20 +534,40 @@ export class Day02Mission {
     b.x = nx;
     b.z = nz;
     const spd = Math.hypot(b.vx, b.vz);
-    if (spd > 0.3) b.ry = angLerp(b.ry, Math.atan2(b.vx, b.vz), Math.min(1, dt * 6));
-    const bm = this.d.camp.boat;
-    bm.position.x = b.x;
-    bm.position.z = b.z;
-    bm.rotation.y = b.ry - Math.PI / 2; // o casco é comprido em x
+    if (spd > 0.3) {
+      // o galeão vira devagar; se a proa ou a popa fossem bater na margem, não vira
+      const ry = angLerp(b.ry, Math.atan2(b.vx, b.vz), Math.min(1, dt * BOAT.turn));
+      if (this.waterOk(b.x, b.z, ry)) b.ry = ry;
+    }
+    this.placeBoat();
     this.seat();
+    this.updateNear();
     // rastro de espuma atrás do barco
     b.wake -= dt;
     if (spd > 1 && b.wake <= 0) {
       b.wake = b.boost > 0 ? 0.04 : 0.09;
-      this.d.fx.puff(b.x - Math.sin(b.ry) * 1.5, WY + 0.08, b.z - Math.cos(b.ry) * 1.5, { n: b.boost > 0 ? 3 : 2, color: 0xffffff, sp: 0.8, up: 0.8, g: 3, s: 0.45 });
+      this.d.fx.puff(b.x - Math.sin(b.ry) * 3.4, WY + 0.08, b.z - Math.cos(b.ry) * 3.4, { n: b.boost > 0 ? 4 : 3, color: 0xffffff, sp: 1, up: 0.8, g: 3, s: 0.6 });
+      for (const sd of [-1, 1]) this.d.fx.puff(b.x + Math.sin(b.ry) * 3.2 + Math.cos(b.ry) * sd * 0.8, WY + 0.08, b.z + Math.cos(b.ry) * 3.2 - Math.sin(b.ry) * sd * 0.8, { n: 1, color: 0xffffff, sp: 0.8, up: 0.6, g: 3, s: 0.4 });
     }
     this.checkRings(dt);
     this.checkBuoys();
+  }
+
+  /** Mostra o botão de descer quando o barco chega perto do cais ou de uma ilha. */
+  private updateNear() {
+    const b = this.boat;
+    let best: Landing | null = null;
+    for (const l of LANDINGS) if (Math.hypot(b.x - l.boat.x, b.z - l.boat.z) < LANDING_NEAR) best = l;
+    if (best === this.near) return;
+    this.near = best;
+    const t = this.tipInter;
+    t.off = !best;
+    if (best) {
+      t.x = b.x;
+      t.z = b.z;
+      t.label = best.id === 'pier' ? this.content.boat.leave : `Descer na ${best.name}`;
+      t.mesh?.position.set(b.x, WY + 2, b.z);
+    }
   }
 
   /** Buzina (botão A no barco). */
@@ -550,7 +582,7 @@ export class Day02Mission {
       r.cool = Math.max(0, r.cool - dt);
       r.spin += dt * (r.cool > 0 ? 9 : 1.5);
       (r.g.children[1] as THREE.Group).rotation.z = r.spin;
-      if (r.cool > 0 || Math.hypot(b.x - RINGS[i].x, b.z - RINGS[i].z) > 1.6) return;
+      if (r.cool > 0 || Math.hypot(b.x - RINGS[i].x, b.z - RINGS[i].z) > 2.4) return;
       r.cool = 3;
       b.boost = BOAT.boostT;
       // empurra para a frente, na direção em que o barco já vai
@@ -559,7 +591,7 @@ export class Day02Mission {
       b.vz = Math.cos(b.ry) * f * BOAT.boost;
       sfx('jump2');
       this.d.sting('faisca');
-      this.d.fx.puff(RINGS[i].x, WY + 1.25, RINGS[i].z, { n: 16, tex: sparkTex, color: 0xbfe8ff, add: true, sp: 3, up: 1.5, s: 0.5, life: 0.6 });
+      this.d.fx.puff(RINGS[i].x, WY + 1.6, RINGS[i].z, { n: 16, tex: sparkTex, color: 0xbfe8ff, add: true, sp: 3, up: 1.5, s: 0.5, life: 0.6 });
       this.d.hud.say(this.content.boat.ring, 1200);
     });
   }
@@ -571,7 +603,7 @@ export class Day02Mission {
       if (s.buoys.includes(i) || Math.hypot(this.boat.x - bu.x, this.boat.z - bu.z) > BOAT.pick) return;
       sfx('coin');
       this.d.sting('faisca');
-      this.d.fx.puff(bu.x, WY + 1.8, bu.z, { n: 16, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2.5, s: 0.5, life: 0.7 });
+      this.d.fx.puff(bu.x, WY + 2.6, bu.z, { n: 16, tex: sparkTex, color: 0xffe28a, add: true, sp: 3, up: 2.5, s: 0.5, life: 0.7 });
       this.d.fx.puff(bu.x, WY + 0.2, bu.z, { n: 10, color: 0xffffff, sp: 2.5, up: 2.5, g: 5 });
       this.set(foundBuoy(this.state, i));
       const n = this.state.buoys.length;
@@ -733,8 +765,8 @@ export class Day02Mission {
 
   update(dt: number, t: number) {
     const open = this.unlocked;
-    this.pier.visible = this.marina.root.visible = open;
-    if (open && !this.docked && !this.riding) {
+    this.marina.root.visible = open;
+    if (open && !this.docked && !this.riding && !this.parked) {
       this.boatHome();
       this.docked = true;
     }
@@ -779,15 +811,16 @@ export class Day02Mission {
     const ped = this.d.ped,
       pi = this.d.camp.inter.byId('pedrito-npc');
     const board = this.d.camp.idealSpot(VOW_BOARD);
-    if (this.pedRides && this.riding) {
-      const b = this.boat;
-      ped.root.position.set(b.x + Math.sin(b.ry) * 0.85, WY + 0.32, b.z + Math.cos(b.ry) * 0.85);
+    if (this.pedRides && (this.riding || this.parked)) {
+      const b = this.boat,
+        k = GALLEON_SEATS.bow;
+      ped.root.position.set(b.x + Math.sin(b.ry) * k, this.d.camp.boat.position.y + GALLEON_SEATS.bowY, b.z + Math.cos(b.ry) * k);
       ped.root.rotation.y = b.ry;
       animate(ped, dt, { wave: Math.hypot(b.vx, b.vz) > 4 });
       Object.assign(this.pedFollow, { x: ped.root.position.x, z: ped.root.position.z, y: ped.root.position.y });
     } else if (si <= stepIndex('boat')) {
-      const x = PIER.x + 0.5,
-        z = PIER.z1 + 1.4;
+      const x = PIER.x0 - 1.6,
+        z = PIER.z - 0.4;
       ped.root.position.set(x, this.d.camp.col.groundAt(x, z, 2), z);
       animate(ped, dt, { mode: 'open', wave: Math.hypot(p.x - x, p.z - z) < 5 });
       Object.assign(this.pedFollow, { x, z, y: ped.root.position.y });

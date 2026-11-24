@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { H, WY, EDGE, pathD } from './terrain';
+import { BIG, H, ISLES, WY, EDGE, ellD, pathD, worldOut } from './terrain';
 import { MOBILE, uTime } from '../engine/gfx';
 import { rnd, rr, setSeed } from '../engine/math';
 
@@ -43,8 +43,9 @@ export function buildVegetation(scene: THREE.Scene, free: (x: number, z: number,
   const o = new THREE.Object3D(),
     c = new THREE.Color();
   const GRASS = [0x86b85e, 0x93c266, 0x79ad57, 0x9cc46c];
-  const N = MOBILE ? 2200 : 4200;
-  const grass = new THREE.InstancedMesh(bladeTuft(5, 0.42), windy(new THREE.MeshStandardMaterial({ roughness: 0.9, side: THREE.DoubleSide })), N);
+  const N = MOBILE ? 2200 : 4200,
+    N2 = MOBILE ? 900 : 1800;
+  const grass = new THREE.InstancedMesh(bladeTuft(5, 0.42), windy(new THREE.MeshStandardMaterial({ roughness: 0.9, side: THREE.DoubleSide })), N + N2);
   let k = 0;
   setSeed(91);
   for (let i = 0; i < N * 4 && k < N; i++) {
@@ -58,6 +59,22 @@ export function buildVegetation(scene: THREE.Scene, free: (x: number, z: number,
     grass.setMatrixAt(k, o.matrix);
     grass.setColorAt(k, c.setHex(GRASS[k % 4]).offsetHSL(rr(-0.02, 0.02), 0, rr(-0.04, 0.05)));
     k++;
+  }
+  // margem do Lago Grande (sem grama na praia nem no topo de areia das ilhas)
+  for (let i = 0, k2 = 0; i < N2 * 6 && k2 < N2; i++) {
+    const x = rr(-118, -26),
+      z = rr(-44, 52),
+      y = H(x, z);
+    if (Math.hypot(x, z) < EDGE - 1 || worldOut(x, z) > -1 || y < WY + 0.5 || y > 9.5 || ellD(x, z, BIG) < 4 || pathD(x, z) < 1.6) continue;
+    if (ISLES.some((il) => Math.hypot(x - il.x, z - il.z) < il.r + 4)) continue;
+    o.position.set(x, y, z);
+    o.rotation.set(0, rnd() * 6, 0);
+    o.scale.setScalar(rr(0.7, 1.5));
+    o.updateMatrix();
+    grass.setMatrixAt(k, o.matrix);
+    grass.setColorAt(k, c.setHex(GRASS[k % 4]).offsetHSL(rr(-0.02, 0.02), 0, rr(-0.04, 0.05)));
+    k++;
+    k2++;
   }
   grass.count = k;
   grass.receiveShadow = true;

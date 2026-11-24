@@ -1,46 +1,50 @@
 /*
- * Lugares fixos do Dia 2 no lago (dados puros, testados em tests/day02.test.ts).
- * A ilha suspensa do Dia 1 ocupa o meio do lago: o barco contorna a ilha pelo canal em forma de C
- * a oeste, passando por baixo das mini ilhas mais altas.
+ * Lugares fixos do Dia 2 no Lago Grande (dados puros, testados em tests/day02.test.ts).
+ * O cais fica na margem nordeste; as três boias levam o barco pelas ilhas e pelo recife.
  */
-import { H, LAKE, WY } from '../../world/terrain';
+import { H, WY } from '../../world/terrain';
+export type { Landing } from '../../world/lakeLayout';
+export { BOAT_DOCK, LANDINGS, LANDING_NEAR, MARINA_SPOT, PIER, PIER_TIP, PIER_TOP } from '../../world/lakeLayout';
 
-/**
- * cais novo da Capitã Marina, na margem norte (longe das mini ilhas baixas, que ficam a leste e ao sul):
- * da terra (z1, mais ao norte) até a ponta sobre a água (z0)
- */
-export const PIER = { x: -26.4, z0: -0.9, z1: -4.8, w: 2.1 };
-/** onde a Capitã Marina espera, no começo do cais */
-export const MARINA_SPOT = { x: -25.4, z: -4.6 };
-/** onde o barco fica amarrado, ao lado da ponta do cais, com a proa para oeste */
-export const BOAT_DOCK = { x: -28.7, z: -0.5, ry: -Math.PI / 2 };
-/** onde a criança desce do barco (na ponta do cais) */
-export const PIER_TIP = { x: PIER.x, z: PIER.z0 - 0.9 };
-
-/** boias de luz: a primeira perto do cais, a segunda a oeste, a terceira ao sul, por baixo das mini ilhas */
+/** boias de luz: perto da Ilha das Palmeiras, sobre o recife e perto da Ilha do Farol */
 export const BUOYS = [
-  { x: -31.8, z: 0.9 },
-  { x: -34.6, z: 6.2 },
-  { x: -27.6, z: 13.3 },
+  { x: -56, z: -1 },
+  { x: -54, z: 26 },
+  { x: -82, z: 5 },
 ];
 
-/** anéis de vento (impulso opcional) ao longo do canal */
+/** anéis de vento (impulso opcional): x, z e a direção (dx, dz) em que o barco passa por eles */
 export const RINGS = [
-  { x: -34.0, z: 3.0 },
-  { x: -34.2, z: 9.6 },
-  { x: -31.0, z: 12.7 },
-  { x: -23.6, z: -0.4 },
+  { x: -46, z: -4.5, dx: -1, dz: 0.3 },
+  { x: -57, z: 9, dx: 0, dz: 1 },
+  { x: -55.5, z: 17, dx: 0.1, dz: 1 },
+  { x: -64, z: 22, dx: -1, dz: -0.5 },
+  { x: -74, z: 14, dx: -1, dz: -0.8 },
+  { x: -70, z: 2.5, dx: 1, dz: -0.3 },
+  { x: -100, z: 4, dx: 0, dz: 1 },
+  { x: -90, z: 29, dx: 1, dz: 0 },
 ];
 
-/** direção do canal no ponto: tangente à volta do lago (para o anel ficar de frente para o barco) */
-export const ringYaw = (x: number, z: number) => Math.atan2(x - LAKE.x, z - LAKE.z) + Math.PI / 2;
+/** ângulo do anel para ficar de frente para o barco */
+export const ringYaw = (r: { dx: number; dz: number }) => Math.atan2(r.dx, r.dz);
 
-/** velocidade do barco (m/s), impulso do anel e raio do casco */
-export const BOAT = { speed: 6.2, boost: 1.8, boostT: 1.6, accel: 2.4, radius: 1.0, pick: 2.1 };
+/** velocidade do barco (m/s), impulso do anel, raio de colisão e de pegar a boia */
+export const BOAT = { speed: 7.4, boost: 1.7, boostT: 1.6, accel: 2.0, radius: 1.4, pick: 2.6, turn: 3.2 };
 
-/** o casco cabe na água aqui? (o centro e quatro pontas a meio metro precisam ter fundo) */
-export function hullInWater(x: number, z: number) {
-  const r = 0.5;
-  for (const [dx, dz] of [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]]) if (H(x + dx, z + dz) > WY - 0.45) return false;
+/** meio comprimento e meia largura do casco do galeão */
+export const HULL = { half: 3.1, side: 1.0 };
+
+/** o casco cabe na água aqui, com a proa em ry? (centro, proa, popa e os dois lados precisam ter fundo) */
+export function hullInWater(x: number, z: number, ry = 0) {
+  const fx = Math.sin(ry),
+    fz = Math.cos(ry);
+  const pts: [number, number][] = [
+    [0, 0],
+    [HULL.half, 0],
+    [-HULL.half, 0],
+    [0, HULL.side],
+    [0, -HULL.side],
+  ];
+  for (const [f, s] of pts) if (H(x + fx * f + fz * s, z + fz * f - fx * s) > WY - 0.45) return false;
   return true;
 }

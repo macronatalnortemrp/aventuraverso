@@ -89,7 +89,7 @@ export class Tutorial {
         ring.hidden = !r;
         const pad = 6,
           W = innerWidth,
-          Hh = innerHeight;
+          Hh = innerHeight + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 0);
         // furo retangular em volta do botão: faixas de cima, de baixo, da esquerda e da direita
         const [x0, y0, x1, y1] = r ? [r.left - pad, r.top - pad, r.right + pad, r.bottom + pad] : [0, 0, 0, 0];
         const rects = r

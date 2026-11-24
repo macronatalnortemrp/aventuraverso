@@ -9,6 +9,8 @@ export class Assembly {
   private items: { o: THREE.Object3D; s: THREE.Vector3; d: number; v: boolean }[] = [];
   /** marcos que tocam um "plim" quando montam (distâncias até a origem da onda) */
   private marks: { d: number; hit: boolean }[] = [];
+  /** desmontado agora (entre begin e done) */
+  private down = false;
 
   /** objetos acrescentados à cena ao construir o acampamento */
   constructor(objs: THREE.Object3D[], landmarks: { x: number; z: number }[]) {
@@ -25,7 +27,9 @@ export class Assembly {
 
   /** Guarda o que está visível agora (convites, chamas etc.) antes de desmontar. */
   begin() {
-    for (const it of this.items) it.v = it.o.visible;
+    // pular ou repetir a abertura chama begin de novo com tudo escondido: guardar só da primeira vez
+    if (!this.down) for (const it of this.items) it.v = it.o.visible;
+    this.down = true;
     this.marks.forEach((m) => (m.hit = false));
     this.set(0);
   }
@@ -56,5 +60,6 @@ export class Assembly {
   /** Acampamento inteiro, sem montagem. */
   done() {
     this.set(1e6);
+    this.down = false;
   }
 }

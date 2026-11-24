@@ -749,7 +749,7 @@ export class Intro {
     const v = new THREE.Vector3(BOOK.x, by + 1.3, BOOK.z).project(this.d.camera);
     const b = $('ibook');
     b.style.left = ((v.x + 1) / 2) * innerWidth + 'px';
-    b.style.top = ((1 - v.y) / 2) * innerHeight + 'px';
+    b.style.top = ((1 - v.y) / 2) * ($('intro').clientHeight || innerHeight) + 'px';
   }
 }
 

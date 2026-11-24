@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { BUOY_COUNT, complete, foundBuoy, migrateDay02, mistLevel, newDay02, STEPS } from '../src/game/day02/state';
-import { BOAT, BOAT_DOCK, BUOYS, MARINA_SPOT, PIER, PIER_TIP, RINGS, hullInWater } from '../src/game/day02/layout';
+import { BOAT, BOAT_DOCK, BUOYS, LANDINGS, LANDING_NEAR, MARINA_SPOT, PIER, PIER_TIP, RINGS, hullInWater } from '../src/game/day02/layout';
 import { H, WY } from '../src/world/terrain';
 import { ISLAND, STEPS as ISLE, TOP_HALF_W } from '../src/world/islandLayout';
 import { migrate } from '../src/persistence/save';
@@ -12,9 +12,10 @@ import clubData from '../public/data/content/club-texts.json';
 const bible: { verses: Record<string, string> } = bibleData;
 const club: { ideals: Record<string, { text: string }> } = clubData;
 
-/** água funda o bastante para o casco, longe da base da ilha e das mini ilhas baixas */
-function navigable(x: number, z: number) {
-  if (!hullInWater(x, z)) return false;
+/** o casco do galeão cabe aqui com a proa em alguma direção, longe da base da ilha suspensa e das mini ilhas baixas */
+function navigable(x: number, z: number, ry?: number) {
+  const dirs = ry === undefined ? [0, 0.785, 1.571, 2.356] : [ry];
+  if (!dirs.some((d) => hullInWater(x, z, d))) return false;
   const r = BOAT.radius;
   if (Math.abs(x - ISLAND.x) < TOP_HALF_W + r && Math.abs(z - ISLAND.z) < TOP_HALF_W + r) return false;
   return !ISLE.some((s, i) => (i === 0 || s.y - 1.6 < WY + 2.4) && Math.abs(s.x - x) < s.w / 2 + r && Math.abs(s.z - z) < s.d / 2 + r);
@@ -51,18 +52,33 @@ describe('Dia 2: etapas', () => {
   });
 });
 
-describe('Dia 2: lago', () => {
-  test('boias, anéis e a amarra do barco ficam em água navegável', () => {
-    for (const p of [...BUOYS, ...RINGS, BOAT_DOCK]) expect(navigable(p.x, p.z), `${p.x}, ${p.z}`).toBe(true);
+describe('Dia 2: Lago Grande', () => {
+  test('boias e anéis ficam em água navegável; o barco amarrado cabe com a proa para oeste', () => {
+    for (const p of [...BUOYS, ...RINGS]) expect(navigable(p.x, p.z), `${p.x}, ${p.z}`).toBe(true);
+    expect(navigable(BOAT_DOCK.x, BOAT_DOCK.z, BOAT_DOCK.ry)).toBe(true);
   });
   test('o cais começa em terra e termina na água, perto do barco', () => {
-    expect(H(PIER.x, PIER.z1)).toBeGreaterThan(WY);
-    expect(H(PIER.x, PIER.z0)).toBeLessThan(WY);
+    expect(H(PIER.x0, PIER.z)).toBeGreaterThan(WY);
+    expect(H(PIER.x1, PIER.z)).toBeLessThan(WY - 1);
     expect(H(MARINA_SPOT.x, MARINA_SPOT.z)).toBeGreaterThan(WY);
     expect(Math.hypot(PIER_TIP.x - BOAT_DOCK.x, PIER_TIP.z - BOAT_DOCK.z)).toBeLessThan(4);
   });
-  test('dá para ir de barco da amarra até cada boia (busca em grade)', () => {
-    const step = 0.5,
+  test('nas ilhas, o barco para na água e a criança desce em terra firme', () => {
+    for (const l of LANDINGS) {
+      expect(navigable(l.boat.x, l.boat.z, l.boat.ry), l.id).toBe(true);
+      if (l.id === 'pier') expect(l.land.x > PIER.x1 && l.land.x < PIER.x0 && Math.abs(l.land.z - PIER.z) < PIER.w / 2).toBe(true);
+      else expect(H(l.land.x, l.land.z), l.id).toBeGreaterThan(WY + 0.3);
+      expect(Math.hypot(l.land.x - l.boat.x, l.land.z - l.boat.z), l.id).toBeLessThan(LANDING_NEAR + 2);
+    }
+  });
+  test('o lago é grande: as boias ficam longe umas das outras e do cais', () => {
+    const pts = [BOAT_DOCK, ...BUOYS];
+    let total = 0;
+    for (let i = 1; i < pts.length; i++) total += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].z - pts[i - 1].z);
+    expect(total).toBeGreaterThan(80);
+  });
+  test('dá para ir de barco da amarra até cada boia e cada ilha (busca em grade)', () => {
+    const step = 1,
       key = (x: number, z: number) => `${Math.round(x / step)},${Math.round(z / step)}`;
     const seen = new Set([key(BOAT_DOCK.x, BOAT_DOCK.z)]);
     const q: [number, number][] = [[BOAT_DOCK.x, BOAT_DOCK.z]];
@@ -77,12 +93,12 @@ describe('Dia 2: lago', () => {
         q.push([nx, nz]);
       }
     }
-    for (const b of BUOYS) {
+    for (const b of [...BUOYS, ...LANDINGS.map((l) => l.boat)]) {
       const near = [...seen].some((k) => {
         const [i, j] = k.split(',').map(Number);
         return Math.hypot(i * step - b.x, j * step - b.z) < BOAT.pick * 0.8;
       });
-      expect(near, `boia ${b.x}, ${b.z}`).toBe(true);
+      expect(near, `${b.x}, ${b.z}`).toBe(true);
     }
   });
 });
