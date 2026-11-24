@@ -25,7 +25,7 @@ Desempenho (meta: celular de entrada): geometria estática agrupada, instanciar 
 - Não declarar tarefa pronta sem build e testes. Trocar stack ou adicionar dependência exige justificativa.
 
 ## 5. Mundo e elenco
-- Mundo único e contínuo, todas as zonas visíveis desde o início: Colina do Globo (Jesus), Clareira das Tendas (Família), Lago, Mata, Cais, Observatório (Natureza). Tendas das 4 classes (Abelhinhas, Luminares, Edificadores, Mãos Ajudadoras), mastro com bandeira, placas das 4 trilhas, Quadros dos Ideais, Mesa da Família.
+- Mundo único e contínuo, todas as zonas visíveis desde o início: Colina do Globo (Jesus), Clareira das Tendas (Família), Lago, Mata, Cais, Observatório (Natureza). A oeste, o Lago Grande (desde 24/11/2026): cais da Capitã Marina, Ilha das Palmeiras, Ilha do Farol, recife de coral e cachoeira (`docs/DAY_02.md`). Tendas das 4 classes (Abelhinhas, Luminares, Edificadores, Mãos Ajudadoras), mastro com bandeira, placas das 4 trilhas, Quadros dos Ideais, Mesa da Família.
 - Paleta: vinho `#6E2638`, azul-marinho `#172D49`, creme `#E9E1CF`, verde `#66845B`, dourado `#D7A64D`, marrom `#4A4038`.
 - Seis avatares jogáveis (3 meninos, 3 meninas), Diretora Sol, Pedrito (visitante curioso), Tico (mascote-guia, sagui de blocos provisório), NPCs a partir do Dia 2. Recompensas: Distintivos do Acampamento (não oficiais), estrelas, Quadros acesos.
 - Movimento atual: câmera 3D que segue o personagem, **toque/clique no chão para andar** (A* em grade), hotspots com brilho, teclado (setas/WASD, Tab, Enter), lista HTML acessível de lugares.
