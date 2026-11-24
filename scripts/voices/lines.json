@@ -667,6 +667,12 @@
  },
  {
   "voice": "pedrito",
+  "key": "o barco espera aqui",
+  "text": "O barco espera aqui.",
+  "file": "pedrito/451d7d1e.mp3"
+ },
+ {
+  "voice": "pedrito",
   "key": "tenho medo",
   "text": "Tenho medo...",
   "file": "pedrito/462a37a7.mp3"
@@ -889,6 +895,12 @@
  },
  {
   "voice": "tico",
+  "key": "o barco espera aqui",
+  "text": "O barco espera aqui.",
+  "file": "tico/0a35fba8.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "aperte espaço e depois shift para dar um pulo alto",
   "text": "Aperte espaço e depois Shift para dar um pulo alto.",
   "file": "tico/0ae71ffe.mp3"
@@ -904,6 +916,12 @@
   "key": "monte o voto dos aventureiros",
   "text": "Monte o Voto dos Aventureiros",
   "file": "tico/0c70575f.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "ilha das palmeiras!",
+  "text": "Ilha das Palmeiras!",
+  "file": "tico/0cffce45.mp3"
  },
  {
   "voice": "tico",
@@ -952,6 +970,12 @@
   "key": "deus separou a luz da escuridão: o dia e a noite",
   "text": "Deus separou a luz da escuridão: o Dia e a Noite.",
   "file": "tico/157fa256.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "dá para chegar de barco ou nadando",
+  "text": "Dá para chegar de barco ou nadando.",
+  "file": "tico/170e1e04.mp3"
  },
  {
   "voice": "tico",
@@ -1096,6 +1120,12 @@
   "key": "no meio do lago, aperte a para mergulhar",
   "text": "No meio do lago, aperte A para mergulhar.",
   "file": "tico/27805c18.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "que vista!",
+  "text": "Que vista!",
+  "file": "tico/27e2ceaf.mp3"
  },
  {
   "voice": "tico",
@@ -1336,6 +1366,12 @@
   "key": "separe: o que é do dia?",
   "text": "Separe: o que é do dia?",
   "file": "tico/50faa17f.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "procure as moedas perto do baú",
+  "text": "Procure as moedas perto do baú.",
+  "file": "tico/52ffb49f.mp3"
  },
  {
   "voice": "tico",
@@ -1789,6 +1825,12 @@
  },
  {
   "voice": "tico",
+  "key": "suba pelos degraus em volta da torre!",
+  "text": "Suba pelos degraus em volta da torre!",
+  "file": "tico/999e3633.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "a diretora sol chama você!",
   "text": "A Diretora Sol chama você!",
   "file": "tico/99a94ce8.mp3"
@@ -1879,6 +1921,12 @@
  },
  {
   "voice": "tico",
+  "key": "daqui dá para ver o lago inteiro, as ilhas e o farol",
+  "text": "Daqui dá para ver o lago inteiro, as ilhas e o farol.",
+  "file": "tico/a80ef6f3.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "acende no dia 2",
   "text": "Acende no Dia 2.",
   "file": "tico/a8b417f3.mp3"
@@ -1894,6 +1942,12 @@
   "key": "falta só uma!",
   "text": "Falta só uma!",
   "file": "tico/a90260d2.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "volte para o barco!",
+  "text": "Volte para o barco!",
+  "file": "tico/a90d72d9.mp3"
  },
  {
   "voice": "tico",
@@ -1978,6 +2032,12 @@
   "key": "dia",
   "text": "Dia",
   "file": "tico/b522cf66.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o farol ajuda os barcos a acharem o caminho",
+  "text": "O farol ajuda os barcos a acharem o caminho.",
+  "file": "tico/b7134102.mp3"
  },
  {
   "voice": "tico",

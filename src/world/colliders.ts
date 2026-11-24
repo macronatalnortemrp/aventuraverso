@@ -1,5 +1,5 @@
 import { clamp } from '../engine/math';
-import { H, EDGE } from './terrain';
+import { H, worldOut } from './terrain';
 
 /** Caixa no chão: bloqueia por baixo do topo; dá para ficar em pé em cima. */
 export interface Box {
@@ -90,11 +90,16 @@ export class Colliders {
         p.z = c.z + (dz / d) * m;
       }
     }
-    const rr = Math.hypot(p.x, p.z),
-      lim = EDGE - 1.2;
-    if (rr > lim) {
-      p.x *= lim / rr;
-      p.z *= lim / rr;
+    // limite do mundo (acampamento + margem do Lago Grande): volta pelo gradiente da distância
+    for (let k = 0; k < 2; k++) {
+      const o = worldOut(p.x, p.z) + 1.2;
+      if (o <= 0) break;
+      const e = 0.05,
+        gx = (worldOut(p.x + e, p.z) - worldOut(p.x - e, p.z)) / (2 * e),
+        gz = (worldOut(p.x, p.z + e) - worldOut(p.x, p.z - e)) / (2 * e),
+        gl = Math.hypot(gx, gz) || 1;
+      p.x -= (gx / gl) * o;
+      p.z -= (gz / gl) * o;
     }
   }
 

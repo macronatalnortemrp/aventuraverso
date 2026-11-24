@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { H, HILL, LAKE, WY } from './terrain';
+import { FALLS, H, HILL, LAKE, PALM_ISLE, REEF, WY } from './terrain';
+import { LIGHTHOUSE, LIGHT_STEPS, LIGHT_STEP_R } from './lakeLayout';
+import { CLIFF_STEPS } from './bigLake';
 import { OBSERVATORY, OBS_STEPS, Stump } from './camp';
 import { Colliders } from './colliders';
 import { rnd } from '../engine/math';
@@ -42,6 +44,30 @@ export function coinSpots(): [number, number, number][] {
   L.push([0, H(0, 1) + 3.6, 1]);
   L.push([-9, H(-9, 8) + 2.4, 8]);
   for (const [cx, cz] of [[28, 8], [22, 20], [33, -2], [-14, -14], [-20, -24], [16, 28]]) g(cx, cz);
+  // Lago Grande (depois das antigas: os ids salvos continuam valendo)
+  for (const t of [0.25, 0.5, 0.75]) g(-12 - 18 * t, -1 - 10 * t);
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2;
+    g(PALM_ISLE.x + 0.6 + Math.cos(a) * 1.9, PALM_ISLE.z - 0.4 + Math.sin(a) * 1.7);
+  }
+  const lx = LIGHTHOUSE.x,
+    lz = LIGHTHOUSE.z,
+    ly = H(lx, lz);
+  for (const i of [2, 4, 6, 8]) {
+    const [a, k] = LIGHT_STEPS[i];
+    L.push([lx + Math.cos(a) * LIGHT_STEP_R, ly + k + 1.1, lz + Math.sin(a) * LIGHT_STEP_R]);
+  }
+  L.push([lx + 1.5, ly + LIGHTHOUSE.h + 1.4, lz + 1.5]);
+  L.push([lx - 1.5, ly + LIGHTHOUSE.h + 1.4, lz - 1.5]);
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2 + 0.4,
+      x = REEF.x + Math.cos(a) * 4.2,
+      z = REEF.z + Math.sin(a) * 3.6;
+    L.push([x, H(x, z) + 0.6, z]);
+  }
+  for (const i of [3, 6]) L.push([CLIFF_STEPS[i][0], CLIFF_STEPS[i][2] + 1.1, CLIFF_STEPS[i][1]]);
+  g(FALLS.x - 4.5, FALLS.z + 5, 1.1);
+  g(FALLS.x - 4.5, FALLS.z - 1, 1.1);
   return L;
 }
 

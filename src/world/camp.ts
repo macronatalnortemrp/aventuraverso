@@ -5,7 +5,10 @@ import { Colliders } from './colliders';
 import { Interactable, Interactables } from './interactables';
 import { Fx, Sparkles } from './fx';
 import { EMB, EmblemKey, FONT, canvasTex, decal, plate } from './textures';
-import { H, HILL, LAKE, WY, EDGE, pathD } from './terrain';
+import { BIG, H, HILL, ISLES, LAKE, REEF, WY, EDGE, ellD, pathD, worldOut } from './terrain';
+import { BOAT_DOCK } from './lakeLayout';
+import { buildBigLake } from './bigLake';
+import { makeGalleon } from './builders/galleon';
 import { Kit, LEAF, STONE, WOOD, WOOD_DARK, bunting, bush, fence, lamp, rock, tree } from './builders/props';
 import { buildVegetation } from './vegetation';
 import { FOG, FOG_COLOR, HORIZON, MOBILE, uTime } from '../engine/gfx';
@@ -54,7 +57,8 @@ export const BOOK = { x: 0, z: HILL.z + 5 };
 export const FLAG = { x: 9, z: 8 };
 /** Tenda da classe i (0 a 3) na Clareira. */
 /** lugar de descanso do barco do cais */
-export const BOAT_HOME = { x: -24, z: LAKE.z + 4.2, ry: 0.3 };
+/** galeão amarrado no cais do Lago Grande (mesmo antes do Dia 2) */
+export const BOAT_HOME = BOAT_DOCK;
 
 /** quebra o texto de um ideal em linhas curtas para caber no quadro */
 function wrapIdeal(t: string) {
@@ -108,10 +112,15 @@ const CLASSES: { k: EmblemKey; n: string; age: number; c: number; d: string }[] 
 ];
 
 function buildTerrain(scene: THREE.Scene) {
-  const S = 96,
-    N = MOBILE ? 120 : 168,
-    g = new THREE.PlaneGeometry(S, S, N, N);
+  // acampamento (x de -48 a 48) e o Lago Grande a oeste (até x = -126)
+  const X0 = -126,
+    X1 = 48,
+    Z0 = -52,
+    Z1 = 54,
+    dens = MOBILE ? 1.15 : 1.6,
+    g = new THREE.PlaneGeometry(X1 - X0, Z1 - Z0, Math.round((X1 - X0) * dens), Math.round((Z1 - Z0) * dens));
   g.rotateX(-Math.PI / 2);
+  g.translate((X0 + X1) / 2, 0, (Z0 + Z1) / 2);
   const p = g.attributes.position,
     cl = new Float32Array(p.count * 3),
     c = new THREE.Color();
@@ -139,6 +148,14 @@ function buildTerrain(scene: THREE.Scene) {
     if (y < WY + 0.45) c.lerp(SAND, 1 - ss(WY + 0.1, WY + 0.45, y));
     if (y < WY - 0.3) c.lerp(DEEP, ss(WY - 0.3, -2.6, y));
     if (dl < LAKE.r + 2.2 && y >= WY + 0.45) c.lerp(SAND, (1 - ss(LAKE.r + 0.6, LAKE.r + 2.2, dl)) * 0.6);
+    // praia do Lago Grande e das ilhas
+    const sb = ellD(x, z, BIG);
+    if (sb > -2 && sb < 6 && y >= WY + 0.45 && y < 2.6) c.lerp(SAND, (1 - ss(2.5, 6, sb)) * 0.75);
+    for (const il of ISLES) {
+      const di = Math.hypot(x - il.x, z - il.z);
+      if (di < il.r + 4 && y >= WY + 0.45) c.lerp(SAND, ss(il.r - 3, il.r - 0.5, di) * 0.85);
+    }
+    if (y > 4.5 && worldOut(x, z) < 0 && x < -100) c.lerp(new THREE.Color(0x9a958a), ss(4.5, 7, y) * 0.7);
     cl[i * 3] = c.r;
     cl[i * 3 + 1] = c.g;
     cl[i * 3 + 2] = c.b;
@@ -153,13 +170,21 @@ function buildTerrain(scene: THREE.Scene) {
 
 /** Água do lago em shader: raso turquesa, fundo azul, espuma na margem, brilho e reflexo do céu. */
 function buildWater(scene: THREE.Scene) {
-  const g = new THREE.PlaneGeometry(30, 30, 60, 60);
+  // enseada da ilha suspensa e Lago Grande: de x = -122 a -12
+  const g = new THREE.PlaneGeometry(110, 98, MOBILE ? 96 : 124, MOBILE ? 86 : 110);
   g.rotateX(-Math.PI / 2);
-  g.translate(LAKE.x, WY, LAKE.z);
+  g.translate(-67, WY, 4);
   const p = g.attributes.position,
-    d = new Float32Array(p.count);
-  for (let i = 0; i < p.count; i++) d[i] = WY - H(p.getX(i), p.getZ(i));
+    d = new Float32Array(p.count),
+    cl = new Float32Array(p.count);
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i),
+      z = p.getZ(i);
+    d[i] = WY - H(x, z);
+    cl[i] = 1 - sm(REEF.r, REEF.r + 6, Math.hypot(x - REEF.x, z - REEF.z));
+  }
   g.setAttribute('depth', new THREE.BufferAttribute(d, 1));
+  g.setAttribute('clr', new THREE.BufferAttribute(cl, 1));
   const m = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
@@ -175,15 +200,17 @@ function buildWater(scene: THREE.Scene) {
       ff: { value: FOG.far },
       lit: { value: 1 },
     },
-    vertexShader: `attribute float depth;varying float vD;varying vec3 vP;uniform float uT;
-void main(){vD=depth;vec4 w=modelMatrix*vec4(position,1.);w.y+=sin(w.x*.9+uT*1.4)*.03+cos(w.z*.8+uT*1.1)*.03;vP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
-    fragmentShader: `uniform float uT,fn,ff,lit;uniform vec3 sh,dp,fm,sk,fc;varying float vD;varying vec3 vP;
+    vertexShader: `attribute float depth,clr;varying float vD,vC;varying vec3 vP;uniform float uT;
+void main(){vD=depth;vC=clr;vec4 w=modelMatrix*vec4(position,1.);w.y+=sin(w.x*.9+uT*1.4)*.03+cos(w.z*.8+uT*1.1)*.03;vP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+    fragmentShader: `uniform float uT,fn,ff,lit;uniform vec3 sh,dp,fm,sk,fc;varying float vD,vC;varying vec3 vP;
 void main(){if(vD<-.05)discard;vec2 q=vP.xz;
 float n=sin(q.x*1.3+uT)*sin(q.y*1.1-uT*.8)+.5*sin((q.x+q.y)*2.3+uT*1.7)+.35*sin(q.x*3.7-q.y*2.9-uT*2.);
 float d=clamp(vD/2.6,0.,1.);vec3 c=mix(sh,dp,smoothstep(0.,1.,d));
 float fo=1.-smoothstep(.0,.28+.07*n,vD);c=mix(c,fm,fo*.9);c+=vec3(1.)*pow(max(0.,n*.55),5.)*.6*(1.-fo);
 vec3 V=normalize(cameraPosition-vP);float fr=pow(1.-clamp(V.y,0.,1.),3.);c=mix(c,sk,fr*.55);
-float a=mix(.5,.86,d);a=max(a,fo*.95);
+float a=mix(.5,.86,d);
+/* recife: água clara e turquesa para ver os corais do barco */
+c=mix(c,mix(sh,vec3(.3,.85,.85),.5),vC*.6);a=mix(a,.34,vC);a=max(a,fo*.95);
 if(cameraPosition.y<vP.y){/* vista de baixo: espelho claro e ondulado da superfície */
 c=mix(vec3(.55,.85,.92),vec3(.85,.97,1.),pow(max(0.,n*.5+.5),3.));a=.72;}
 c*=lit;c=mix(c,fc,smoothstep(fn,ff,length(cameraPosition-vP)));
@@ -284,21 +311,29 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
       x = ((Math.cos(a) + Math.cos(a2)) / 2) * r,
       z = ((Math.sin(a) + Math.sin(a2)) / 2) * r;
     if (Math.abs(x) < 5 && z > 30) continue;
+    if (worldOut(x, z) < -0.5) continue; // aberto para o Lago Grande
     fence(kit, x, z, -(a + a2) / 2 + Math.PI / 2, 2 * r * Math.sin(Math.PI / 48));
   }
   setSeed(5);
-  for (let i = 0; i < 34; i++) {
-    const a = (i / 34) * Math.PI * 2 + rr(-0.05, 0.05),
-      d = rr(72, 96),
+  for (let i = 0; i < 64; i++) {
+    // morros em volta do acampamento e do Lago Grande, sempre fora da área de jogo
+    const west = i >= 34,
+      a = west ? Math.PI * 0.5 + ((i - 34) / 30) * Math.PI + rr(-0.04, 0.04) : (i / 34) * Math.PI * 2 + rr(-0.05, 0.05),
+      d = west ? rr(1.35, 1.7) : rr(72, 96),
       s = rr(10, 22);
-    FAR.add(new THREE.ConeGeometry(s, s * rr(0.55, 0.9), 6), [0x6f9a5c, 0x5f8c58, 0x7da868, 0x8ab07a][i % 4], Math.cos(a) * d, s * 0.3 - 3, Math.sin(a) * d, rnd(), 0, 0, 1, 0.05);
+    const cx = west ? -70 + Math.cos(a) * 49 * d : Math.cos(a) * d,
+      cz = west ? 4 + Math.sin(a) * 46 * d : Math.sin(a) * d;
+    if (worldOut(cx, cz) < s * 0.9 + 6) continue;
+    FAR.add(new THREE.ConeGeometry(s, s * rr(0.55, 0.9), 6), [0x6f9a5c, 0x5f8c58, 0x7da868, 0x8ab07a][i % 4], cx, s * 0.3 - 3 + Math.max(0, H(cx, cz) - 2) * 0.5, cz, rnd(), 0, 0, 1, 0.05);
   }
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 90; i++) {
     const a = rnd() * Math.PI * 2,
       d = rr(52, 66),
-      x = Math.cos(a) * d,
-      z = Math.sin(a) * d,
+      west = i >= 40,
+      x = west ? -70 + Math.cos(a) * rr(56, 66) : Math.cos(a) * d,
+      z = west ? 4 + Math.sin(a) * rr(53, 62) : Math.sin(a) * d,
       s = rr(1.1, 1.8);
+    if (worldOut(x, z) < 6) continue;
     FAR.add(geoBox(2.6, 2, 2.6, 0.3), LEAF[i % 4], x, H(x, z) + 2.2 * s, z, rnd(), 0, 0, s, 0.05);
     FAR.add(geoBox(0.6, 2, 0.6, 0), WOOD, x, H(x, z) + 0.8 * s, z, 0, 0, 0, s, 0);
   }
@@ -663,28 +698,21 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
       for (let x = x0; x >= x1; x -= 2) B.box(0.14, 0.7, 0.14, 0x6b4a2e, x, y + 0.42, z + s * 1.05);
       B.box(Math.abs(x1 - x0), 0.12, 0.1, 0x8a6040, (x0 + x1) / 2, y + 0.78, z + s * 1.05);
     }
-    boat.position.set(BOAT_HOME.x, WY + 0.05, BOAT_HOME.z);
-    boat.rotation.y = BOAT_HOME.ry;
+    // galeão da Capitã Marina, amarrado no cais do Lago Grande (o casco é comprido em x)
+    boat.position.set(BOAT_HOME.x, WY + 0.02, BOAT_HOME.z);
+    boat.rotation.y = BOAT_HOME.ry - Math.PI / 2;
     scene.add(boat);
-    const red = new THREE.MeshStandardMaterial({ color: 0xc65a3a, roughness: 0.7 }),
-      cream = new THREE.MeshStandardMaterial({ color: 0xf3e6c8, roughness: 0.8 });
-    const hull: [number, number, number, number, number, number, THREE.Material][] = [
-      [2.8, 0.35, 1.3, 0, 0, 0, red],
-      [2.6, 0.5, 0.16, 0, 0.3, 0.6, red],
-      [2.6, 0.5, 0.16, 0, 0.3, -0.6, red],
-      [0.16, 0.5, 1.3, 1.3, 0.3, 0, red],
-      [0.16, 0.5, 1.3, -1.3, 0.3, 0, red],
-      [0.4, 0.12, 1.2, 0, 0.4, 0, cream],
-    ];
-    for (const [w, h, d, px, py, pz, m] of hull) {
-      const b = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 1, 0.05), m);
-      b.position.set(px, py, pz);
-      b.castShadow = true;
-      boat.add(b);
-    }
+    const gal = makeGalleon();
+    boat.add(gal.root);
+    let last = { x: boat.position.x, z: boat.position.z, v: 0 };
+    animated.push((dt, t) => {
+      const v = Math.hypot(boat.position.x - last.x, boat.position.z - last.z) / Math.max(dt, 1e-3);
+      last = { x: boat.position.x, z: boat.position.z, v: last.v + (v - last.v) * 0.1 };
+      gal.update(t, last.v);
+    });
     animated.push((_dt, t) => {
       boat.position.y = WY + 0.02 + Math.sin(t * 1.3) * 0.05;
-      boat.rotation.z = Math.sin(t * 1.1) * 0.04;
+      gal.root.rotation.x = Math.sin(t * 1.1) * 0.025;
     });
     setSeed(33);
     const pad = new THREE.CylinderGeometry(0.62, 0.62, 0.06, 10);
@@ -871,8 +899,11 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     }),
   );
 
+  const lakeB = buildBigLake(kit, scene, inter, fx, animated);
+
   const mat = staticMaterial();
   B.mesh(scene, mat);
+  lakeB.mesh(scene, mat);
   const glowMat = withBuild(new THREE.MeshBasicMaterial({ vertexColors: true }));
   GLOW.mesh(scene, glowMat, false);
   FAR.mesh(scene, mat, false);
