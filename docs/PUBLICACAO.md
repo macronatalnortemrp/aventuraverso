@@ -23,7 +23,7 @@ git push -u origin main
 
 ## Jogo instalável (PWA)
 - Nome do app: **AventuráVerso**; embaixo do ícone aparece **Aventurá** (o nome inteiro é cortado em alguns iPhones).
-- `public/manifest.webmanifest` e ícones em `public/icons/` (192, 512, maskable 512 e `apple-touch-icon` 180).
+- Teste A/B do ícone: `public/manifest-a.webmanifest` (Explorador Mirim) e `manifest-b` (Herói Mirim), ícones em `public/icons/a` e `b` (192, 512, maskable 512 e `apple-touch-icon` 180), gerados das artes em `assets/brand/`. Cada aparelho sorteia um e guarda; `?icone=a` ou `?icone=b` força. Para encerrar o teste, deixe um só manifesto e tire o sorteio do `index.html`.
 - O build gera `dist/sw.js` (plugin em `vite.config.ts`, sem dependência nova) com a lista de todos os arquivos: depois da primeira visita o jogo inteiro, com vozes e música, fica no aparelho e abre sem internet. Cerca de 10 MB.
 - Sincronizar: com internet, o navegador confere o `sw.js` ao abrir o jogo e quando a conexão volta. Se o jogo mudou, baixa tudo de novo e a versão nova vale na próxima abertura. Nada é enviado; o progresso continua só no aparelho.
 - Android (Chrome): botão **Instalar o jogo** na tela inicial abre o pedido nativo. Só aparece quando o Chrome permite instalar.
