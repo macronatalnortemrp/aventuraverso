@@ -70,7 +70,7 @@ export abstract class DayMission {
   protected pedFollow = { x: 0, z: 0, y: 0 };
   protected globeOverride = false;
 
-  /** id do personagem do dia nas interações (o Dia 7 usa a Diretora Sol, que já está no acampamento) */
+  /** id do personagem do dia nas interações (o Dia 7 usa a Diretora Cecília, que já está no acampamento) */
   protected npcId: string;
   private sharedNpc: boolean;
   /** o que a criança carrega acima da cabeça (semente, regador, bandeirinha...) */

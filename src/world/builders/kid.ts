@@ -3,7 +3,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { canvasTex, decal } from '../textures';
 import { lerp, rnd, rr } from '../../engine/math';
 
-/* Personagens de blocos: Aventureiros, Diretora Sol, Pedrito e Tico (docs/CHARACTERS.md). */
+/* Personagens de blocos: Aventureiros, Diretora Cecília, Pedrito e Tico (docs/CHARACTERS.md). */
 
 export type HairStyle = 'short' | 'long' | 'curly' | 'afro' | 'pony';
 export type FaceMode = 'open' | 'blink' | 'wow';
@@ -18,7 +18,7 @@ export interface Look {
   glasses?: boolean;
   skirt?: boolean;
   bow?: boolean;
-  /** lenço de líder com LA1 (Diretora Sol) */
+  /** lenço de líder com LA1 (Diretora Cecília) */
   la1?: boolean;
   /** sem uniforme (visitante) */
   bare?: boolean;
@@ -238,7 +238,7 @@ function scarf(torso: THREE.Group, k: 'a1' | 'la1') {
   mini.material.alphaTest = 0.1;
 }
 
-/** Aventureiro, Aventureira, Diretora Sol ou visitante, a partir de parâmetros. */
+/** Aventureiro, Aventureira, Diretora Cecília ou visitante, a partir de parâmetros. */
 export function makeKid(o: Look): Rig {
   const root = new THREE.Group(),
     body = piv(root, 0, 0, 0),
@@ -404,7 +404,7 @@ export function animate(c: Rig, dt: number, s: Pose) {
 }
 
 /**
- * Diretora Sol abaixada até a altura da criança, com a Bíblia erguida (abertura, Quadro 3).
+ * Diretora Cecília abaixada até a altura da criança, com a Bíblia erguida (abertura, Quadro 3).
  * Aplicar DEPOIS de animate(), com k de 0 (em pé) a 1 (abaixada). Os valores são escritos a partir
  * do quadro atual, sem acumular: assim a pose não depende da taxa de quadros e não treme
  * quando o tempo entre quadros varia (celulares, principalmente iPhone).

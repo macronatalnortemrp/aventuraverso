@@ -444,7 +444,7 @@ export class Intro {
     this.quiet();
   }
 
-  /** Quadro 3 — Propósito: a Diretora Sol chega com o lampião e ergue a Bíblia. */
+  /** Quadro 3 — Propósito: a Diretora Cecília chega com o lampião e ergue a Bíblia. */
   private async q3() {
     this.music('warm');
     const s = this.d.sol,

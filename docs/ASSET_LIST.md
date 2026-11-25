@@ -8,7 +8,7 @@ A maior parte do jogo é **gerada por código**, o que reduz muito a necessidade
 - `assets/concept-art/*`: referência de identidade dos avatares (não do estilo). Contêm emblema errado e texto na imagem.
 
 ## Gerado por código (sem arte externa)
-- Seis avatares, Pedrito, Diretora Sol, Tico e NPCs (construtor de blocos com parâmetros).
+- Seis avatares, Pedrito, Diretora Cecília, Tico e NPCs (construtor de blocos com parâmetros).
 - Cenário: terreno, caminho, lago, árvores, tendas, mastro, bandeira, quadros, Mesa da Família, cais, observatório, Globo (3 estados), Livro dos Sete Dias (estados).
 - Luz e clima: manhã, tarde, noite, escuro com lanterna.
 - Efeitos: faíscas, brilho do Globo, confete.

@@ -16,7 +16,7 @@ describe('falas gravadas', () => {
     expect(clipsFor(m, 'Tico', 'Que cor?')).toBeNull();
   });
   test('cada personagem tem sua voz; o resto é narrador', () => {
-    expect(voiceOf('Diretora Sol')).toBe('sol');
+    expect(voiceOf('Diretora Cecília')).toBe('sol');
     expect(voiceOf('A Voz')).toBe('narrador');
     expect(voiceOf('Bandeira do Clube')).toBe('narrador');
   });

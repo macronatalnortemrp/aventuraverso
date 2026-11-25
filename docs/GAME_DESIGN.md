@@ -1,7 +1,7 @@
 # GAME_DESIGN.md — Visão geral
 
 ## Premissa
-A criança chega ao Acampamento do Livro Aberto. As páginas do Livro dos Sete Dias desapareceram e o Globo do Éden está vazio e apagado. Com ajuda de Tico e da Diretora Sol, explora o acampamento, descobre o que a Bíblia ensina, ajuda amigos e recupera as páginas. A Voz narra os acontecimentos da criação; Deus não é representado visualmente.
+A criança chega ao Acampamento do Livro Aberto. As páginas do Livro dos Sete Dias desapareceram e o Globo do Éden está vazio e apagado. Com ajuda de Tico e da Diretora Cecília, explora o acampamento, descobre o que a Bíblia ensina, ajuda amigos e recupera as páginas. A Voz narra os acontecimentos da criação; Deus não é representado visualmente.
 
 ## Público e dispositivos
 - Crianças de 6 a 9 anos.

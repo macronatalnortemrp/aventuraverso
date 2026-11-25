@@ -59,7 +59,7 @@ Exemplos: Dia 3 (plantar) em borda verde; Dia 6 (cuidar dos animais) em verde; e
 ## 8. Uniforme e lenço (capa e págs. 8 e 9)
 - Uniforme padrão dos avatares (referência em `docs/reference/uniforme-feminino-referencia.jpg` e capa do Guia): **camisa branca com plaquinha de nome, saia (meninas) ou calça (meninos) na mesma cor azul-marinho, cinto, meias brancas, sapato preto e lenço vinho com canudo**. Meninas podem ter laço vinho no cabelo. Opcional: **faixa** diagonal azul onde aparecem os Distintivos do Acampamento. A imagem de referência foi gerada por IA e tem erros de grafia na faixa: servir só de modelo de peças, não de texto **[validar o uniforme com o Regulamento vigente, inclusive a faixa]**. A roupa de aventura vira conjunto alternativo desbloqueável.
 - Lenço triangular vinho com o emblema A1 oficial (o Guia, pág. 3, cita o "Lenço e o Canudo com o emblema", lançados em 1998), usado como descrito em `LENCO.md`: triângulo com o emblema nas costas, pontas unidas por prendedor cilíndrico branco com emblema pequeno na frente.
-- Diretora Sol: lenço de líder com o emblema LA1 oficial e listras nas quatro cores das classes junto à base.
+- Diretora Cecília: lenço de líder com o emblema LA1 oficial e listras nas quatro cores das classes junto à base.
 - Os seis avatares se diferenciam por pele, cabelo, penteado e acessórios, não pela cor da roupa.
 
 ## 9. Quadros dos Ideais (págs. 5 e 6) — a principal coleção do jogo

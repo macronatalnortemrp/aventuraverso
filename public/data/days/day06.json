@@ -105,7 +105,7 @@
       "items": [
         { "icon": "sheep", "game": "Você levou os animais aos cercados", "creation": "Deus fez os animais da terra, cada um conforme a sua espécie." },
         { "icon": "apple", "game": "Você arrumou a Mesa da Família", "creation": "Deus deu as ervas e as frutas com semente para alimento." },
-        { "icon": "heart", "game": "A Diretora Sol disse que você é especial", "creation": "Deus criou o homem e a mulher à sua imagem." },
+        { "icon": "heart", "game": "A Diretora Cecília disse que você é especial", "creation": "Deus criou o homem e a mulher à sua imagem." },
         { "icon": "globe", "game": "Os animais e a luz encheram o Globo", "creation": "Deus viu tudo o que tinha feito, e era muito bom. Assim terminou o sexto dia." }
       ],
       "close": "Falta só uma página. Volte ao portal para o último dia!"

@@ -3,7 +3,7 @@
 Pedido do responsável em 21/11/2026. Sequência de desafios de **habilidade, exploração e raciocínio**, sem narrativa. Substitui as perguntas sobre o Clube que os acampantes faziam.
 
 ## Fluxo
-1. A Diretora Sol entrega os três convites; a criança procura os acampantes perto dos murais.
+1. A Diretora Cecília entrega os três convites; a criança procura os acampantes perto dos murais.
 2. O acampante propõe: "Se você completar o meu desafio, eu aceito o convite!" (Aceitar / Agora não). Um desafio por vez.
 3. Ao aceitar, **o joystick e o botão A ligam sozinhos** nesta atividade (decisão do responsável) e começa a apresentação:
    - a câmera mostra o lago, onde a ilha vai surgir;

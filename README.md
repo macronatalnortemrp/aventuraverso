@@ -31,7 +31,7 @@ src/
                        batch.ts (geometria agrupada e furo de visão), colliders.ts, interactables.ts,
                        coins.ts, vegetation.ts, critters.ts, fx.ts (partículas), textures.ts (emblemas, placas),
                        daylight.ts (dia, escuro total, estrelas e lanterna)
-  world/builders/      kid.ts (Aventureiros, Diretora Sol, Pedrito, Tico), props.ts (árvores, cercas, lampiões)
+  world/builders/      kid.ts (Aventureiros, Diretora Cecília, Pedrito, Tico), props.ts (árvores, cercas, lampiões)
   game/                player.ts (física: andar, pular, nadar, mergulhar), guidance.ts (escada de ajuda),
                        breath.ts (fôlego), quiz.ts (tentativas sem punição)
   game/                journey.ts (Jornada do Éden: status dos sete dias)
@@ -71,7 +71,7 @@ prototype/             referências visuais antigas
 
 ## Vozes dos personagens
 - Falas gravadas em `public/audio/voices/` (MP3 por frase), geradas pelo workflow **Vozes dos personagens** com o Kokoro. Ele roda sozinho quando algum texto muda em `public/data/` ou `src/`, commita os áudios e publica de novo.
-- Perfis em `scripts/voices/voices.json`: Narrador e a Voz (homem adulto), Diretora Sol (feminina jovem), Pedrito e acampantes (infantis), Tico (mascote). O tom infantil vem do campo `pitch`; ajuste e o workflow regera só aquela voz.
+- Perfis em `scripts/voices/voices.json`: Narrador e a Voz (homem adulto), Diretora Cecília (feminina jovem), Pedrito e acampantes (infantis), Tico (mascote). O tom infantil vem do campo `pitch`; ajuste e o workflow regera só aquela voz.
 - Diálogos e balões do Tico falam sozinhos com o som ligado, só quando existe o áudio gravado. O botão "Ouvir" só aparece quando existe áudio gravado e toca só as frases gravadas; o jogo nunca usa a voz do aparelho.
 - Para rodar à mão: `node --experimental-strip-types scripts/voices/collect.ts` e `python scripts/voices/generate.py` (ver o cabeçalho do script).
 

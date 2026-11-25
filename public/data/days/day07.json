@@ -8,11 +8,11 @@
       "Falta a última página do Livro dos Sete Dias!",
       "E o Quadro do Voto à Bíblia ainda está apagado."
     ],
-    "go": "A Diretora Sol chama você na clareira!"
+    "go": "A Diretora Cecília chama você na clareira!"
   },
   "npc": {
-    "who": "Diretora Sol",
-    "name": "Diretora Sol",
+    "who": "Diretora Cecília",
+    "name": "Diretora Cecília",
     "hello": [
       "Que semana linda! Você ajudou em cada dia da criação.",
       "A última página está escondida pela trilha da semana. Procure as cinco luzes!"
@@ -28,7 +28,7 @@
     ]
   },
   "goals": {
-    "start": "Fale com a Diretora Sol",
+    "start": "Fale com a Diretora Cecília",
     "skill": "Siga a trilha da semana",
     "pedrito": "Ajude o Pedrito no Quadro do Voto à Bíblia",
     "globe": "Leve a luz ao Globo"
@@ -136,7 +136,7 @@
       "Pedrito é Aventureiro!"
     ],
     "pedrito": [
-      "Meu lenço e minha farda! Obrigado, Diretora Sol!",
+      "Meu lenço e minha farda! Obrigado, Diretora Cecília!",
       "Agora eu sou Aventureiro, igual a você!"
     ],
     "hymn": [
@@ -171,7 +171,7 @@
         },
         {
           "icon": "rest",
-          "game": "A Diretora Sol falou do sábado",
+          "game": "A Diretora Cecília falou do sábado",
           "creation": "Deus descansou no sétimo dia, o abençoou e o santificou. O sábado é o memorial da criação."
         },
         {

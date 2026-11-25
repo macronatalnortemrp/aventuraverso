@@ -11,7 +11,7 @@ export type VoiceId = 'narrador' | 'sol' | 'pedrito' | 'tico' | 'acampante' | 'm
 export const SPEAKERS: Record<string, VoiceId> = {
   Tico: 'tico',
   Pedrito: 'pedrito',
-  'Diretora Sol': 'sol',
+  'Diretora Cecília': 'sol',
   Acampante: 'acampante',
   'Capitã Marina': 'marina',
   'Dona Flora': 'flora',

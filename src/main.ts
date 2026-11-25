@@ -134,7 +134,7 @@ function dressPedrito() {
 const NPCS: Npc[] = [
   {
     id: 'sol',
-    name: 'Diretora Sol',
+    name: 'Diretora Cecília',
     rig: sol,
     lines: [
       'Bem-vinda e bem-vindo ao Acampamento do Livro Aberto!',
@@ -163,7 +163,7 @@ try {
   $<HTMLImageElement>('ticoav').src = pics.tico;
   const map: Record<string, string> = {
     Tico: pics.tico,
-    'Diretora Sol': pics.sol,
+    'Diretora Cecília': pics.sol,
     Pedrito: pics.pedrito,
     'Capitã Marina': pics.marina,
     Acampante: pics.camper,
