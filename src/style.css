@@ -399,3 +399,54 @@ body.ready #title .credit { animation: t-up 0.6s ease 0.35s both; }
 #ios .steps li { display: flex; gap: 12px; align-items: flex-start; }
 #ios .steps .n { flex: none; width: 34px; height: 34px; border-radius: 50%; background: #ffd23f; border: 3px solid var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 900; }
 #ios .ic { width: 24px; height: 24px; vertical-align: -6px; color: #1d6fc4; }
+
+/* "Tem mais abaixo": aparece na borda de baixo de um cartão ou fala que não coube na tela (src/ui/more.ts) */
+.more { position: absolute; z-index: 3; display: none; align-items: center; gap: 6px; translate: -50% -75%; padding: 4px 14px 6px; border: 3px solid var(--ink); border-radius: 999px; background: linear-gradient(#ffe57a, #f0a91c); color: var(--ink); font: 900 14px var(--body); box-shadow: 0 4px 0 var(--ink); white-space: nowrap; }
+.more.on { display: flex; animation: morebob 0.9s ease-in-out infinite alternate; }
+.more b { font-size: 13px; }
+@keyframes morebob { to { translate: -50% -50%; } }
+@media (prefers-reduced-motion: reduce) { .more.on { animation: none; } }
+
+/* Celular deitado (tela baixa): cartões mais largos e compactos, para caber sem rolar */
+@media (max-height: 520px) {
+  .ov { padding-top: calc(8px + env(safe-area-inset-top)); padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .panel { max-width: min(780px, 100%); padding: 10px 16px 12px; border-radius: 22px; border-width: 4px; }
+  .panel h2 { font-size: 20px; margin: 4px 0; }
+  .panel .sub { font-size: 14px; margin: 0 0 4px; }
+  .panel .row { margin-top: 6px; }
+  .panel .row .btn { font-size: 18px; padding: 5px 18px 7px; border-radius: 14px; }
+  .thead .tag { font-size: 15px; }
+  .listen { font-size: 14px; padding: 3px 10px 5px; border-width: 3px; box-shadow: 0 3px 0 var(--ink); }
+  .listen svg, .reread svg { width: 17px; height: 17px; }
+  .verses p { font-size: 16px; line-height: 1.38; padding: 5px 12px; margin: 4px 0; }
+  .bible-hand { padding: 8px; gap: 10px; }
+  .bible-hand svg { width: 50px; height: 50px; }
+  .bible-hand p { font-size: 16px !important; }
+  /* alternativas lado a lado */
+  .opts { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 4px; }
+  .opt { min-height: 46px; padding: 6px 10px; gap: 8px; font-size: 16px; border-radius: 14px; border-width: 3px; }
+  .opt .mark { width: 28px; height: 28px; font-size: 16px; border-width: 2px; }
+  .msg { font-size: 15px; margin: 4px 0 0; min-height: 1.2em; }
+  .slots { gap: 6px; margin: 6px 0; }
+  .slot { min-width: 72px; height: 42px; font-size: 20px; border-width: 3px; border-radius: 12px; padding: 0 8px; }
+  .pool { gap: 7px; }
+  .word { font-size: 19px; padding: 4px 14px 6px; border-width: 3px; border-radius: 12px; -webkit-text-stroke: 3px var(--ink); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.4), 0 4px 0 var(--ink); }
+  .tray { margin: 4px 0 8px; }
+  .bin { font-size: 19px; padding: 6px; }
+  .bin svg { width: 36px; height: 36px; }
+  .recap .items { grid-template-columns: 1fr 1fr; gap: 6px; margin: 6px 0; }
+  .recap .it { grid-template-columns: 38px 1fr; gap: 8px; padding: 5px 8px; }
+  .recap .it svg { width: 36px; height: 36px; }
+  .recap .it span { font-size: 15px; }
+  .badge svg { width: 80px; height: 92px; }
+  .real p { font-size: 15px !important; }
+  /* falas: retrato menor e o texto rola dentro do balão, com o botão sempre à vista */
+  #dlg { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .panel.talk { max-width: min(760px, 100%); }
+  .talk .av { width: 72px; height: 72px; margin-right: -14px; }
+  .talk .tx { padding: 16px 16px 10px 24px; border-width: 4px; border-radius: 22px; }
+  .talk .tag { font-size: 16px; top: -16px; }
+  .talk h2 { font-size: 19px; }
+  .talk p { font-size: 16px; line-height: 1.35; }
+  #dx { max-height: calc(100dvh - 150px); overflow-y: auto; }
+}

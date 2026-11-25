@@ -5,6 +5,7 @@ import { sfx } from '../engine/audio';
 import { hasVoice, speak, stopSpeaking } from '../engine/speech';
 import { ICONS } from './icons';
 import { $ } from './hud';
+import { moreHint } from './more';
 
 /* Atividades em HTML por cima do jogo. Cada uma devolve uma Promise que resolve quando termina.
    Nenhuma tem tempo limite e nenhum erro tira progresso. */
@@ -35,10 +36,15 @@ export class Task {
    */
   review: { ref: string; verses: string[] | null } | null = null;
 
+  constructor() {
+    moreHint($('taskp'), $('task'));
+  }
+
   private panel() {
     const root = $('task'),
       p = $('taskp');
     p.innerHTML = '';
+    p.scrollTop = 0;
     root.classList.add('show');
     this.open = true;
     return p;
@@ -95,7 +101,7 @@ export class Task {
       row.append(back);
       p.append(row);
       p.scrollTop = 0;
-      setTimeout(() => back.focus(), 40);
+      setTimeout(() => back.focus({ preventScroll: true }), 40);
     };
     return b;
   }
@@ -139,7 +145,7 @@ export class Task {
       const row = el('div', 'row');
       row.append(ok);
       p.append(row);
-      setTimeout(() => ok.focus(), 40);
+      setTimeout(() => ok.focus({ preventScroll: true }), 40);
     });
   }
 
@@ -204,7 +210,7 @@ export class Task {
       };
       row.append(confirm);
       p.append(list, msg, row);
-      setTimeout(() => btns[0].focus(), 40);
+      setTimeout(() => btns[0].focus({ preventScroll: true }), 40);
     });
   }
 
@@ -361,7 +367,7 @@ export class Task {
       };
       p.append(b, stars, lant, real, el('div', 'row'));
       p.lastElementChild!.append(ok);
-      setTimeout(() => ok.focus(), 40);
+      setTimeout(() => ok.focus({ preventScroll: true }), 40);
     });
   }
 
@@ -461,7 +467,7 @@ export class Task {
       const row = el('div', 'row');
       row.append(ok);
       p.append(list, text('p', 'sub', r.close), row);
-      setTimeout(() => ok.focus(), 40);
+      setTimeout(() => ok.focus({ preventScroll: true }), 40);
     });
   }
 
@@ -500,7 +506,7 @@ export class Task {
       const row = el('div', 'row');
       row.append(close);
       p.append(grid, w, row);
-      setTimeout(() => (first ?? close).focus(), 40);
+      setTimeout(() => (first ?? close).focus({ preventScroll: true }), 40);
     });
   }
 
@@ -524,7 +530,7 @@ export class Task {
       };
       row.append(n, y);
       p.append(row);
-      setTimeout(() => y.focus(), 40);
+      setTimeout(() => y.focus({ preventScroll: true }), 40);
     });
   }
 }
