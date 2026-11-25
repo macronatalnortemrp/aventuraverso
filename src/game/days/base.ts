@@ -31,7 +31,8 @@ export interface DayContent {
   start: Said & { lines: string[]; go: string };
   goals: Record<'start' | 'skill' | 'pedrito' | 'globe', string>;
   skill: { intro: string[]; controls: string; left: string[]; done: string[]; hint: string };
-  readings: Record<'r1' | 'r2', { ref: string; keys: string[] }>;
+  /** r2.at: 'skill' lê no fim do desafio, ainda com o personagem do dia (padrão); 'pedrito' lê na conversa com o Pedrito */
+  readings: Record<'r1' | 'r2', { ref: string; keys: string[]; at?: 'skill' | 'pedrito' }>;
   questions: Record<'q1' | 'q2', Question>;
   pedrito: { call: string[]; after: string[]; hint: string; title?: string; ideal?: string; distractors?: string[]; lit?: string; [k: string]: unknown };
   globe: { go: string; voice: string; after: string[] };
@@ -302,9 +303,24 @@ export abstract class DayMission {
     await this.wait(0.5);
     await this.talk('Tico', this.content.skill.done);
     this.afterSkill();
+    // a segunda leitura fecha o desafio, antes de mandar a criança ao Pedrito (pedido do piloto, 25/11/2026)
+    if (this.r2AtSkill) {
+      if (this.near(this.npcSpot.x, this.npcSpot.z, 14)) {
+        this.faceNpc();
+        await this.talk(this.content.npc.who, this.content.npc.after);
+      }
+      await this.read('r2');
+      await this.q('q2');
+      this.endReview();
+      this.r2Read = true;
+    }
     this.busy = false;
     sfx('yay');
     this.d.hud.say(this.content.pedrito.hint, 7000);
+  }
+  private r2Read = false;
+  private get r2AtSkill() {
+    return (this.content.readings.r2.at ?? 'skill') === 'skill';
   }
   /** fim do desafio de habilidade (guarda ferramentas, volta os controles) */
   protected afterSkill() {}
@@ -318,6 +334,7 @@ export abstract class DayMission {
     }
     this.active = true;
     this.pedStarted = false;
+    this.r2Read = false;
     this.enter();
     const p = this.d.player;
     Object.assign(this.pedFollow, { x: p.x + 1.5, z: p.z + 1.5, y: p.y });
@@ -436,9 +453,13 @@ export abstract class DayMission {
       p = this.d.player;
     this.d.ped.root.rotation.y = Math.atan2(p.x - ped.x, p.z - ped.z);
     await this.talk('Pedrito', this.content.pedrito.call);
-    await this.read('r2');
-    await this.q('q2');
-    this.endReview();
+    // se a criança saiu e voltou depois do desafio, a segunda leitura ainda não foi feita nesta sessão
+    if (!this.r2AtSkill || !this.r2Read) {
+      await this.read('r2');
+      await this.q('q2');
+      this.endReview();
+      this.r2Read = true;
+    }
     this.pedStarted = true;
     this.refresh();
     this.busy = false;

@@ -4,16 +4,28 @@
   "_fontes": "Plano dos Dias 2 a 7 (aprovado pelo responsável em 24/11/2026). Leituras na ACF (Gn 1:24-31). O Globo mostra só os animais; as pessoas ficam na Voz e na luz. Falas e o momento 'sou especial' são sugestões a revisar com a liderança.",
   "start": {
     "who": "Tico",
-    "lines": ["Os cercados do Tio Zé estão vazios!", "Onde estão os animais?"],
+    "lines": [
+      "Os cercados do Tio Zé estão vazios!",
+      "Onde estão os animais?"
+    ],
     "go": "O Tio Zé Bichos está nos cercados, perto da colina!"
   },
   "npc": {
     "who": "Tio Zé Bichos",
     "name": "Tio Zé Bichos",
-    "hello": ["Opa! Eu sou o Tio Zé Bichos. Eu cuido dos animais.", "Eles estão soltos no campo. Você me ajuda a trazer cada um para o cercado dele?"],
-    "again": ["Chegue perto de um animal e chame. Ele vai andar junto com você!"],
-    "after": ["Todos em casa! Obrigado, viu?"],
-    "wait": ["Opa! Os bichos estão felizes hoje."]
+    "hello": [
+      "Opa! Eu sou o Tio Zé Bichos. Eu cuido dos animais.",
+      "Eles estão soltos no campo. Você me ajuda a trazer cada um para o cercado dele?"
+    ],
+    "again": [
+      "Chegue perto de um animal e chame. Ele vai andar junto com você!"
+    ],
+    "after": [
+      "Todos em casa! Obrigado, viu?"
+    ],
+    "wait": [
+      "Opa! Os bichos estão felizes hoje."
+    ]
   },
   "goals": {
     "start": "Fale com o Tio Zé Bichos",
@@ -22,25 +34,52 @@
     "globe": "Leve a luz ao Globo"
   },
   "skill": {
-    "intro": ["Cada cercado tem uma placa com o nome do animal."],
+    "intro": [
+      "Cada cercado tem uma placa com o nome do animal."
+    ],
     "controls": "Chegue perto de um animal e toque em Chamar.",
-    "pens": ["Ovelha", "Vaquinha", "Cabrito"],
-    "follow": "{x} está andando com você! Leve até o cercado com a placa do mesmo nome.",
+    "pens": [
+      "Ovelha",
+      "Vaquinha",
+      "Cabrito"
+    ],
+    "follow": "O animal está andando com você! Leve até o cercado com a placa do nome dele.",
     "wrongPen": "Esse cercado é de outro animal. Olhe a placa!",
-    "left": ["Falta só um animal!", "Faltam dois animais!"],
-    "done": ["Três pedaços de luz! Os animais estão em casa."],
+    "left": [
+      "Falta só um animal!",
+      "Faltam dois animais!"
+    ],
+    "done": [
+      "Três pedaços de luz! Os animais estão em casa."
+    ],
     "hint": "Siga a luz até os cercados do Tio Zé."
   },
   "readings": {
-    "r1": { "ref": "Gênesis 1:24-25", "keys": ["Gn 1:24", "Gn 1:25"] },
-    "r2": { "ref": "Gênesis 1:29", "keys": ["Gn 1:29"] }
+    "r1": {
+      "ref": "Gênesis 1:24-25",
+      "keys": [
+        "Gn 1:24",
+        "Gn 1:25"
+      ]
+    },
+    "r2": {
+      "ref": "Gênesis 1:29",
+      "keys": [
+        "Gn 1:29"
+      ],
+      "at": "pedrito"
+    }
   },
   "questions": {
     "q1": {
       "enabled": true,
       "who": "Tico",
       "prompt": "O que a terra produziu no sexto dia?",
-      "options": ["Animais, cada um conforme a sua espécie", "Peixes", "Estrelas"],
+      "options": [
+        "Animais, cada um conforme a sua espécie",
+        "Peixes",
+        "Estrelas"
+      ],
       "answer": 0,
       "hint": "Lembre dos cercados do Tio Zé!",
       "explain": "Deus fez as feras da terra e o gado, cada um conforme a sua espécie, e viu que era bom."
@@ -49,43 +88,101 @@
       "enabled": true,
       "who": "Tico",
       "prompt": "O que Deus deu para alimento das pessoas?",
-      "options": ["Erva que dá semente e frutas com semente", "Pedras", "Nada"],
+      "options": [
+        "Erva que dá semente e frutas com semente",
+        "Pedras",
+        "Nada"
+      ],
       "answer": 0,
       "hint": "Leia de novo o versículo 29.",
       "explain": "Deus deu toda a erva que dá semente e toda a árvore em que há fruto que dá semente para mantimento."
     }
   },
   "pedrito": {
-    "call": ["A Mesa da Família está vazia. Vamos arrumar?"],
-    "after": ["Que mesa bonita! E eu também sou especial!"],
+    "call": [
+      "A Mesa da Família está vazia. Vamos arrumar?"
+    ],
+    "after": [
+      "Que mesa bonita! E eu também sou especial!"
+    ],
     "hint": "O Pedrito chama você na Mesa da Família!",
     "sort": {
       "title": "Da horta ou da árvore?",
       "prompt": "Separe: o que vem da horta? O que vem das árvores?",
       "bins": [
-        { "group": "herb", "label": "Da horta", "icon": "lettuce", "other": "a horta" },
-        { "group": "tree", "label": "Das árvores", "icon": "apple", "other": "as árvores" }
+        {
+          "group": "herb",
+          "label": "Da horta",
+          "icon": "lettuce",
+          "other": "a horta"
+        },
+        {
+          "group": "tree",
+          "label": "Das árvores",
+          "icon": "apple",
+          "other": "as árvores"
+        }
       ],
       "items": [
-        { "id": "lettuce", "name": "Alface", "group": "herb" },
-        { "id": "carrot", "name": "Cenoura", "group": "herb" },
-        { "id": "corn", "name": "Milho", "group": "herb" },
-        { "id": "beans", "name": "Feijão", "group": "herb" },
-        { "id": "apple", "name": "Maçã", "group": "tree" },
-        { "id": "orange", "name": "Laranja", "group": "tree" },
-        { "id": "pear", "name": "Pera", "group": "tree" },
-        { "id": "mango", "name": "Manga", "group": "tree" }
+        {
+          "id": "lettuce",
+          "name": "Alface",
+          "group": "herb"
+        },
+        {
+          "id": "carrot",
+          "name": "Cenoura",
+          "group": "herb"
+        },
+        {
+          "id": "corn",
+          "name": "Milho",
+          "group": "herb"
+        },
+        {
+          "id": "beans",
+          "name": "Feijão",
+          "group": "herb"
+        },
+        {
+          "id": "apple",
+          "name": "Maçã",
+          "group": "tree"
+        },
+        {
+          "id": "orange",
+          "name": "Laranja",
+          "group": "tree"
+        },
+        {
+          "id": "pear",
+          "name": "Pera",
+          "group": "tree"
+        },
+        {
+          "id": "mango",
+          "name": "Manga",
+          "group": "tree"
+        }
       ]
     },
     "special": {
-      "intro": ["Que mesa bonita! Agora eu quero contar uma coisa para vocês."],
-      "lines": ["Deus fez você à imagem dEle.", "Você é especial para Deus. O Pedrito também é!"]
+      "who": "Diretora Cecília",
+      "intro": [
+        "Que mesa bonita! Agora eu quero contar uma coisa para vocês."
+      ],
+      "lines": [
+        "Deus fez você à imagem dEle.",
+        "Você é especial para Deus. O Pedrito também é!"
+      ]
     }
   },
   "globe": {
     "go": "Agora leve os pedaços de luz ao Globo, na colina!",
     "voice": "Façamos o homem à nossa imagem.",
-    "after": ["Os animais apareceram no Globo, e a luz ficou mais forte! Você achou a sexta página do Livro dos Sete Dias!"]
+    "after": [
+      "Os animais apareceram no Globo, e a luz ficou mais forte! Você achou a sexta página do Livro dos Sete Dias!"
+    ]
   },
   "rewards": {
     "badge": "Amigo dos Animais",
@@ -103,10 +200,26 @@
       "title": "O sexto dia da criação",
       "intro": "O que você fez hoje conta o sexto dia da criação (Gênesis 1:24-31).",
       "items": [
-        { "icon": "sheep", "game": "Você levou os animais aos cercados", "creation": "Deus fez os animais da terra, cada um conforme a sua espécie." },
-        { "icon": "apple", "game": "Você arrumou a Mesa da Família", "creation": "Deus deu as ervas e as frutas com semente para alimento." },
-        { "icon": "heart", "game": "A Diretora Cecília disse que você é especial", "creation": "Deus criou o homem e a mulher à sua imagem." },
-        { "icon": "globe", "game": "Os animais e a luz encheram o Globo", "creation": "Deus viu tudo o que tinha feito, e era muito bom. Assim terminou o sexto dia." }
+        {
+          "icon": "sheep",
+          "game": "Você levou os animais aos cercados",
+          "creation": "Deus fez os animais da terra, cada um conforme a sua espécie."
+        },
+        {
+          "icon": "apple",
+          "game": "Você arrumou a Mesa da Família",
+          "creation": "Deus deu as ervas e as frutas com semente para alimento."
+        },
+        {
+          "icon": "heart",
+          "game": "A Diretora Cecília disse que você é especial",
+          "creation": "Deus criou o homem e a mulher à sua imagem."
+        },
+        {
+          "icon": "globe",
+          "game": "Os animais e a luz encheram o Globo",
+          "creation": "Deus viu tudo o que tinha feito, e era muito bom. Assim terminou o sexto dia."
+        }
       ],
       "close": "Falta só uma página. Volte ao portal para o último dia!"
     }

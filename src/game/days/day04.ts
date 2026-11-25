@@ -192,7 +192,7 @@ export class Day04Mission extends DayMission {
       this.holding = fi;
       this.carry(this.flags[fi]);
       sfx('ui');
-      this.d.hud.say(p.got.replace('{x}', CLASSES[fi].n), 5000);
+      if (this.state.ped.length === 0) this.d.hud.say(p.got, 5000); // só na primeira
       this.placeFlags();
       this.syncFlags();
       return true;
@@ -215,7 +215,8 @@ export class Day04Mission extends DayMission {
     this.placeFlags();
     this.syncFlags();
     const left = this.pedParts - this.state.ped.length;
-    if (left > 0) this.d.hud.say(p.left.replace('{x}', String(left)), 4500);
+    const pl = (this.content.pedrito as unknown as { leftList: string[] }).leftList;
+    if (left > 0) this.d.hud.say(pl[Math.min(left, pl.length) - 1], 4500);
     else {
       const r = this.pedResolve;
       this.pedResolve = null;

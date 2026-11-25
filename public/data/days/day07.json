@@ -105,7 +105,11 @@
       "sábado",
       "luz"
     ],
-    "lit": "O Quadro do Voto à Bíblia acendeu!"
+    "lit": "O Quadro do Voto à Bíblia acendeu!",
+    "ceremony": [
+      "Meu lenço e minha farda! Obrigado, Diretora Cecília!",
+      "Agora eu sou Aventureiro, igual a você!"
+    ]
   },
   "globe": {
     "go": "Agora leve as luzes ao Globo, na colina!",
@@ -115,6 +119,7 @@
     ]
   },
   "sabbath": {
+    "who": "Diretora Cecília",
     "_revisar": "O sábado como memorial da criação, em linguagem infantil (pedido de 24/11/2026). Revisar com a liderança.",
     "intro": [
       "A criação tem um dia muito especial. Vamos ler juntos?"
@@ -127,6 +132,7 @@
     ]
   },
   "ceremony": {
+    "who": "Diretora Cecília",
     "_revisar": "Cerimônia do lenço e da farda do Pedrito (decisão de 24/11/2026). Revisar com a liderança.",
     "sol": [
       "Pedrito, você aprendeu o Voto, a Lei e o Voto à Bíblia.",
@@ -134,10 +140,6 @@
     ],
     "tico": [
       "Pedrito é Aventureiro!"
-    ],
-    "pedrito": [
-      "Meu lenço e minha farda! Obrigado, Diretora Cecília!",
-      "Agora eu sou Aventureiro, igual a você!"
     ],
     "hymn": [
       "O Quadro do Hino acendeu! Vamos cantar juntos o Hino dos Aventureiros?"

@@ -102,7 +102,7 @@ export class Day07Mission extends DayMission {
   }
 
   protected async afterGlobe() {
-    const c = this.content as DayContent & { sabbath: { intro: string[]; lines: string[] }; ceremony: { sol: string[]; pedrito: string[]; tico: string[]; hymn: string[] } };
+    const c = this.content as DayContent & { sabbath: { intro: string[]; lines: string[] }; ceremony: { sol: string[]; tico: string[]; hymn: string[] } };
     const sol = this.d.sol.root,
       from = sol.position.clone(),
       ry = sol.rotation.y,
@@ -129,7 +129,7 @@ export class Day07Mission extends DayMission {
     this.d.fx.puff(ped.position.x, ped.position.y + 1.4, ped.position.z, { n: 30, tex: sparkTex, color: 0xffe28a, add: true, sp: 3.5, up: 3, s: 0.6, life: 1.2 });
     this.d.banner(c.ceremony.tico[0], 2600);
     await this.wait(1.2);
-    await this.talk('Pedrito', c.ceremony.pedrito);
+    await this.talk('Pedrito', (c.pedrito as unknown as { ceremony: string[] }).ceremony);
     // o Quadro do Hino acende e todos cantam (letra só do arquivo conferido)
     const hino = this.club.ideals.hino;
     if (hino) {

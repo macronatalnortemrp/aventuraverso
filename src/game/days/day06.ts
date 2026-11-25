@@ -218,7 +218,7 @@ export class Day06Mission extends DayMission {
     this.following = i;
     this.warned = -1;
     sfx('ui');
-    this.d.hud.say(sk.follow.replace('{x}', o.name), 5000);
+    if (this.state.got.length === 0) this.d.hud.say(sk.follow, 5000); // só no primeiro animal
     this.syncInter();
     return true;
   }

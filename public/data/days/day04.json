@@ -4,16 +4,28 @@
   "_fontes": "Plano dos Dias 2 a 7 (aprovado pelo responsável em 24/11/2026). Leituras na ACF (Gn 1:14-19). Falas são sugestões a revisar com a liderança.",
   "start": {
     "who": "Tico",
-    "lines": ["Está tudo escuro! O céu está sem luz.", "Não tem sol, nem lua, nem estrelas!"],
+    "lines": [
+      "Está tudo escuro! O céu está sem luz.",
+      "Não tem sol, nem lua, nem estrelas!"
+    ],
     "go": "O Seu Estrelino está perto do Observatório!"
   },
   "npc": {
     "who": "Seu Estrelino",
     "name": "Seu Estrelino",
-    "hello": ["Olá! Eu sou o Seu Estrelino. Eu cuido do Observatório.", "As estrelas de luz ficaram lá no alto. Suba no Observatório e pule pelos degraus de luz!"],
-    "again": ["Suba no Observatório. O último degrau precisa do pulo alto!"],
-    "after": ["Que céu lindo! Obrigado pela ajuda."],
-    "wait": ["Olá! Hoje o céu está bonito, não está?"]
+    "hello": [
+      "Olá! Eu sou o Seu Estrelino. Eu cuido do Observatório.",
+      "As estrelas de luz ficaram lá no alto. Suba no Observatório e pule pelos degraus de luz!"
+    ],
+    "again": [
+      "Suba no Observatório. O último degrau precisa do pulo alto!"
+    ],
+    "after": [
+      "Que céu lindo! Obrigado pela ajuda."
+    ],
+    "wait": [
+      "Olá! Hoje o céu está bonito, não está?"
+    ]
   },
   "goals": {
     "start": "Fale com o Seu Estrelino",
@@ -22,22 +34,43 @@
     "globe": "Leve a luz ao Globo"
   },
   "skill": {
-    "intro": ["Pulo alto: aperte A e, no ar, aperte B!"],
+    "intro": [
+      "Pulo alto: aperte A e, no ar, aperte B!"
+    ],
     "controls": "Pulo alto: A e depois B. Suba pelos degraus de luz!",
-    "left": ["Falta só uma estrela!", "Faltam duas estrelas!"],
-    "done": ["Três estrelas! O céu está esperando a luz."],
+    "left": [
+      "Falta só uma estrela!",
+      "Faltam duas estrelas!"
+    ],
+    "done": [
+      "Três estrelas! O céu está esperando a luz."
+    ],
     "hint": "Suba no Observatório e siga os degraus de luz."
   },
   "readings": {
-    "r1": { "ref": "Gênesis 1:14", "keys": ["Gn 1:14"] },
-    "r2": { "ref": "Gênesis 1:16", "keys": ["Gn 1:16"] }
+    "r1": {
+      "ref": "Gênesis 1:14",
+      "keys": [
+        "Gn 1:14"
+      ]
+    },
+    "r2": {
+      "ref": "Gênesis 1:16",
+      "keys": [
+        "Gn 1:16"
+      ]
+    }
   },
   "questions": {
     "q1": {
       "enabled": true,
       "who": "Tico",
       "prompt": "Para que Deus fez os luminares?",
-      "options": ["Para separar o dia e a noite", "Para esconder o céu", "Para molhar a terra"],
+      "options": [
+        "Para separar o dia e a noite",
+        "Para esconder o céu",
+        "Para molhar a terra"
+      ],
       "answer": 0,
       "hint": "Leia de novo o versículo 14.",
       "explain": "Deus fez os luminares na expansão dos céus para haver separação entre o dia e a noite."
@@ -46,24 +79,39 @@
       "enabled": true,
       "who": "Tico",
       "prompt": "Qual luminar Deus fez para governar a noite?",
-      "options": ["O luminar menor", "O luminar maior", "A fogueira"],
+      "options": [
+        "O luminar menor",
+        "O luminar maior",
+        "A fogueira"
+      ],
       "answer": 0,
       "hint": "O maior é para o dia.",
       "explain": "Deus fez o luminar maior para governar o dia, o luminar menor para governar a noite, e fez as estrelas."
     }
   },
   "pedrito": {
-    "call": ["As bandeirinhas das classes caíram no escuro!", "Vamos levar cada uma para a tenda da mesma cor?"],
-    "after": ["Todas as bandeirinhas no lugar!"],
+    "call": [
+      "As bandeirinhas das classes caíram no escuro!",
+      "Vamos levar cada uma para a tenda da mesma cor?"
+    ],
+    "after": [
+      "Todas as bandeirinhas no lugar!"
+    ],
     "hint": "O Pedrito chama você perto do mastro do Clube!",
-    "got": "Bandeirinha dos {x}! Procure a tenda da mesma cor e do mesmo símbolo.",
+    "got": "Achou uma bandeirinha! Leve até a tenda da mesma cor e do mesmo símbolo.",
     "wrong": "Essa tenda tem outra cor. Procure a tenda com o mesmo símbolo!",
-    "left": "Muito bem! Faltam {x}."
+    "leftList": [
+      "Muito bem! Falta só uma.",
+      "Muito bem! Faltam duas.",
+      "Muito bem! Faltam três."
+    ]
   },
   "globe": {
     "go": "Agora leve as estrelas ao Globo, na colina!",
     "voice": "Haja luminares na expansão dos céus.",
-    "after": ["O sol, a lua e as estrelas apareceram no Globo! Você achou a quarta página do Livro dos Sete Dias!"]
+    "after": [
+      "O sol, a lua e as estrelas apareceram no Globo! Você achou a quarta página do Livro dos Sete Dias!"
+    ]
   },
   "rewards": {
     "badge": "Céu Estrelado",
@@ -81,10 +129,26 @@
       "title": "O quarto dia da criação",
       "intro": "O que você fez hoje conta o quarto dia da criação (Gênesis 1:14-19).",
       "items": [
-        { "icon": "moon", "game": "O céu estava sem luz", "creation": "Ainda não havia os luminares na expansão dos céus." },
-        { "icon": "stars", "game": "Você subiu e pegou três estrelas", "creation": "Deus disse: Haja luminares na expansão dos céus." },
-        { "icon": "sunmoon", "game": "O sol, a lua e as estrelas apareceram no Globo", "creation": "Deus fez o luminar maior para o dia, o menor para a noite, e as estrelas." },
-        { "icon": "globe", "game": "O céu ficou claro de novo", "creation": "E Deus viu que era bom. Assim terminou o quarto dia." }
+        {
+          "icon": "moon",
+          "game": "O céu estava sem luz",
+          "creation": "Ainda não havia os luminares na expansão dos céus."
+        },
+        {
+          "icon": "stars",
+          "game": "Você subiu e pegou três estrelas",
+          "creation": "Deus disse: Haja luminares na expansão dos céus."
+        },
+        {
+          "icon": "sunmoon",
+          "game": "O sol, a lua e as estrelas apareceram no Globo",
+          "creation": "Deus fez o luminar maior para o dia, o menor para a noite, e as estrelas."
+        },
+        {
+          "icon": "globe",
+          "game": "O céu ficou claro de novo",
+          "creation": "E Deus viu que era bom. Assim terminou o quarto dia."
+        }
       ],
       "close": "Faltam três páginas. Volte ao portal para o próximo dia!"
     }

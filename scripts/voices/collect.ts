@@ -32,9 +32,11 @@ function add(voice: VoiceId, text: string) {
 
 /* ---------- dados dos dias ---------- */
 const SKIP = new Set(['id', 'keys', 'ref', 'status', 'answer', 'enabled', 'who', 'group']);
+/** dentro de "pedrito", estas partes são ditas pelo Tico (dicas, avisos e telas de tarefa) */
+const TICO_IN_PEDRITO = new Set(['hint', 'got', 'wrong', 'left', 'leftList', 'lit', 'title', 'sort']);
 function voiceForPath(path: string[], parentWho?: string): VoiceId {
   if (parentWho) return voiceOf(parentWho);
-  if (path.includes('pedrito')) return 'pedrito';
+  if (path.includes('pedrito')) return path.some((k) => TICO_IN_PEDRITO.has(k)) ? 'tico' : 'pedrito';
   if (path[0] === 'invites' && path[1] === 'sol') return 'sol';
   if (path[0] === 'globe' && path[1] === 'voice') return 'narrador';
   if (path[0] === 'title') return 'narrador';
@@ -61,6 +63,9 @@ for (const f of readdirSync(daysDir).filter((f) => f.endsWith('.json'))) {
 }
 // abertura narrada (docs/INTRO_SEQUENCE.md)
 walk(JSON.parse(readFileSync(join(ROOT, 'public/data/intro.json'), 'utf8')), []);
+// Quadros dos Ideais (Voto, Lei, Voto à Bíblia e Hino), lidos pelo narrador
+const club = JSON.parse(readFileSync(join(ROOT, 'public/data/content/club-texts.json'), 'utf8'));
+for (const i of Object.values<{ text: string }>(club.ideals ?? {})) for (const line of i.text.split('\n')) add('narrador', line);
 const bible = JSON.parse(readFileSync(join(ROOT, 'public/data/content/bible-acf2007.json'), 'utf8'));
 for (const v of Object.values<string>(bible.verses ?? {})) add('narrador', v);
 
