@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { WILD } from './wildlife';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { Batch } from './batch';
 import { BIG, EDGE, FALLS, H, LIGHT_ISLE, PALM_ISLE, REEF, SHORE, WY, pathD, worldOut } from './terrain';
@@ -99,6 +100,8 @@ function fishSchool(scene: THREE.Scene) {
   scene.add(fish);
   const o = new THREE.Object3D();
   return (t: number) => {
+    fish.visible = WILD.water;
+    if (!WILD.water) return;
     sch.forEach((f, i) => {
       const a = f.a + t * f.sp;
       o.position.set(f.cx + Math.cos(a) * f.r, f.y + Math.sin(t * 2 + i) * 0.08, f.cz + Math.sin(a) * f.r);
@@ -129,6 +132,7 @@ function turtle(scene: THREE.Scene) {
   g.scale.setScalar(1.1);
   scene.add(g);
   return (t: number) => {
+    g.visible = WILD.water;
     const a = t * 0.12;
     g.position.set(REEF.x + Math.cos(a) * 6.5, -1.55 + Math.sin(t * 0.7) * 0.15, REEF.z + Math.sin(a) * 5.5);
     g.rotation.y = -a - Math.PI / 2;

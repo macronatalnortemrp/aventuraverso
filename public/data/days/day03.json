@@ -1,0 +1,163 @@
+{
+  "id": "day03",
+  "title": "Dia 3: A Terra e as Plantas",
+  "_fontes": "Plano dos Dias 2 a 7 (aprovado pelo responsável em 24/11/2026). Leituras na ACF (Gn 1:9-13). Lei: texto exato do Guia (public/data/content/club-texts.json). Falas e distratores são sugestões a revisar com a liderança.",
+  "start": {
+    "who": "Tico",
+    "lines": [
+      "Olhe a horta! Só tem terra.",
+      "Não tem nenhuma flor no acampamento!"
+    ],
+    "go": "A Dona Flora está na horta, perto do lago pequeno!"
+  },
+  "npc": {
+    "who": "Dona Flora",
+    "name": "Dona Flora",
+    "hello": [
+      "Bom dia! Eu sou a Dona Flora, a jardineira.",
+      "Minha horta está só com terra. Vamos plantar juntos?"
+    ],
+    "again": [
+      "Pegue uma semente no cesto, plante e depois regue!"
+    ],
+    "after": [
+      "Que horta bonita! Obrigada pela ajuda."
+    ],
+    "wait": [
+      "Bom dia! Logo, logo vamos plantar."
+    ]
+  },
+  "goals": {
+    "start": "Fale com a Dona Flora na horta",
+    "skill": "Plante e regue os canteiros",
+    "pedrito": "Ajude o Pedrito no Quadro da Lei",
+    "globe": "Leve a luz ao Globo"
+  },
+  "skill": {
+    "intro": [
+      "Pegue uma semente no cesto. Plante num canteiro. Depois encha o regador no poço e regue!"
+    ],
+    "controls": "Chegue perto e toque no botão de ação.",
+    "gotSeed": "Você pegou uma semente! Leve até um canteiro.",
+    "gotWater": "Regador cheio! Agora regue o canteiro com semente.",
+    "needSeed": "Primeiro pegue uma semente no cesto.",
+    "needWater": "A semente precisa de água. Encha o regador no poço!",
+    "planted": "Semente plantada! Agora ela precisa de água.",
+    "watered": "Olhe! Brotou! E apareceu um pedaço de luz.",
+    "left": [
+      "Falta só um canteiro!",
+      "Faltam dois canteiros!"
+    ],
+    "done": [
+      "Três pedaços de luz! A horta ficou verde."
+    ],
+    "hint": "Siga a luz até a horta da Dona Flora."
+  },
+  "readings": {
+    "r1": {
+      "ref": "Gênesis 1:11",
+      "keys": [
+        "Gn 1:11"
+      ]
+    },
+    "r2": {
+      "ref": "Gênesis 1:12-13",
+      "keys": [
+        "Gn 1:12",
+        "Gn 1:13"
+      ]
+    }
+  },
+  "questions": {
+    "q1": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "O que a terra produziu?",
+      "options": [
+        "Erva verde e árvores com fruto",
+        "Peixes e aves",
+        "Estrelas"
+      ],
+      "answer": 0,
+      "hint": "Lembre da horta que você plantou!",
+      "explain": "Deus disse: Produza a terra erva verde, erva que dê semente, árvore frutífera que dê fruto."
+    },
+    "q2": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "Quando a terra produziu as plantas, o que Deus viu?",
+      "options": [
+        "Que era bom",
+        "Que era pequeno",
+        "Que estava faltando água"
+      ],
+      "answer": 0,
+      "hint": "Leia de novo o fim do versículo 12.",
+      "explain": "A terra produziu erva e árvores com fruto, e Deus viu que era bom. Foi o terceiro dia."
+    }
+  },
+  "pedrito": {
+    "call": [
+      "Este quadro também está apagado. Vamos montar a Lei?"
+    ],
+    "after": [
+      "Agora eu também sei a Lei!"
+    ],
+    "hint": "O Pedrito chama você perto do Quadro da Lei, na colina!",
+    "ideal": "lei",
+    "title": "Monte a Lei dos Aventureiros",
+    "distractors": [
+      "semente",
+      "flor"
+    ],
+    "lit": "O Quadro da Lei acendeu!"
+  },
+  "globe": {
+    "go": "Agora leve os pedaços de luz ao Globo, na colina!",
+    "voice": "Produza a terra erva verde.",
+    "after": [
+      "A terra e as plantas apareceram no Globo! Você achou a terceira página do Livro dos Sete Dias!"
+    ]
+  },
+  "rewards": {
+    "badge": "Semente Boa",
+    "badgeNote": "Distintivo do Acampamento (não é uma especialidade oficial).",
+    "lantern": "As flores voltaram e a horta da Dona Flora fica verde para sempre!",
+    "stars": 3
+  },
+  "realMission": {
+    "text": "Plante uma semente com sua família, num copinho ou no quintal. Regue e veja crescer! Depois agradeçam a Deus pelas plantas.",
+    "adult": "Um adulto confirma que a missão foi feita"
+  },
+  "creation": {
+    "_revisar": "Resumo do fim do dia, em linguagem infantil. Revisar com a liderança.",
+    "recap": {
+      "title": "O terceiro dia da criação",
+      "intro": "O que você fez hoje conta o terceiro dia da criação (Gênesis 1:9-13).",
+      "items": [
+        {
+          "icon": "seadown",
+          "game": "A horta estava só com terra",
+          "creation": "Deus juntou as águas num lugar e apareceu a porção seca."
+        },
+        {
+          "icon": "sunflower",
+          "game": "Você plantou e regou três canteiros",
+          "creation": "Deus disse: Produza a terra erva verde."
+        },
+        {
+          "icon": "board",
+          "game": "O Quadro da Lei acendeu",
+          "creation": "Jesus me ajuda a ser: obediente, puro, reverente, bondoso e colaborador."
+        },
+        {
+          "icon": "globe",
+          "game": "A terra e as plantas apareceram no Globo",
+          "creation": "E Deus viu que era bom. Assim terminou o terceiro dia."
+        }
+      ],
+      "close": "Faltam quatro páginas. Volte ao portal para o próximo dia!"
+    }
+  },
+  "doneMsg": "Parabéns! As flores voltaram e a horta da Dona Flora está verde!"
+}

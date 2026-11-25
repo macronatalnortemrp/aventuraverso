@@ -1,0 +1,197 @@
+{
+  "id": "day07",
+  "title": "Dia 7: O Descanso",
+  "_fontes": "Plano dos Dias 2 a 7 (aprovado pelo responsável em 24/11/2026; o sábado como memorial da criação foi pedido em 24/11/2026). Leituras na ACF (Gn 1:31 a 2:3). Voto à Bíblia: texto exato do Guia (public/data/content/club-texts.json). Falas do sábado e da cerimônia são sugestões a revisar com a liderança.",
+  "start": {
+    "who": "Tico",
+    "lines": [
+      "Falta a última página do Livro dos Sete Dias!",
+      "E o Quadro do Voto à Bíblia ainda está apagado."
+    ],
+    "go": "A Diretora Sol chama você na clareira!"
+  },
+  "npc": {
+    "who": "Diretora Sol",
+    "name": "Diretora Sol",
+    "hello": [
+      "Que semana linda! Você ajudou em cada dia da criação.",
+      "A última página está escondida pela trilha da semana. Procure as cinco luzes!"
+    ],
+    "again": [
+      "Procure as luzes no farol, no Observatório, no recife, na horta e na ilha das palmeiras."
+    ],
+    "after": [
+      "Que bom ter você no acampamento!"
+    ],
+    "wait": [
+      "Olá!"
+    ]
+  },
+  "goals": {
+    "start": "Fale com a Diretora Sol",
+    "skill": "Siga a trilha da semana",
+    "pedrito": "Ajude o Pedrito no Quadro do Voto à Bíblia",
+    "globe": "Leve a luz ao Globo"
+  },
+  "skill": {
+    "intro": [
+      "Lembra de tudo o que você aprendeu? Escalar, pular alto, nadar e mergulhar!"
+    ],
+    "controls": "Siga a luz. Você pode pegar as luzes em qualquer ordem.",
+    "left": [
+      "Falta só uma luz!",
+      "Faltam duas luzes!",
+      "Faltam três luzes!",
+      "Faltam quatro luzes!"
+    ],
+    "done": [
+      "Cinco pedaços de luz! A última página está quase completa."
+    ],
+    "hint": "Siga a luz até o próximo lugar da trilha."
+  },
+  "readings": {
+    "r1": {
+      "ref": "Gênesis 2:1",
+      "keys": [
+        "Gn 2:1"
+      ]
+    },
+    "r2": {
+      "ref": "Gênesis 1:31",
+      "keys": [
+        "Gn 1:31"
+      ]
+    }
+  },
+  "questions": {
+    "q1": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "O que foi acabado, segundo o versículo?",
+      "options": [
+        "Os céus e a terra",
+        "Só a horta",
+        "Só o lago"
+      ],
+      "answer": 0,
+      "hint": "Leia de novo: assim os céus, a terra...",
+      "explain": "Assim os céus, a terra e todo o seu exército foram acabados."
+    },
+    "q2": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "Quando Deus viu tudo o que tinha feito, como era?",
+      "options": [
+        "Muito bom",
+        "Mais ou menos",
+        "Feio"
+      ],
+      "answer": 0,
+      "hint": "Não era só bom...",
+      "explain": "Deus viu tudo quanto tinha feito, e eis que era muito bom."
+    }
+  },
+  "pedrito": {
+    "call": [
+      "Este é o último quadro apagado. Vamos montar o Voto à Bíblia?"
+    ],
+    "after": [
+      "Eu também prometo fidelidade à Bíblia!"
+    ],
+    "hint": "O Pedrito chama você perto do Quadro do Voto à Bíblia!",
+    "ideal": "votoBiblia",
+    "title": "Monte o Voto à Bíblia",
+    "distractors": [
+      "sábado",
+      "luz"
+    ],
+    "lit": "O Quadro do Voto à Bíblia acendeu!"
+  },
+  "globe": {
+    "go": "Agora leve as luzes ao Globo, na colina!",
+    "voice": "E abençoou Deus o dia sétimo, e o santificou.",
+    "after": [
+      "O Globo está completo! Você achou a última página do Livro dos Sete Dias!"
+    ]
+  },
+  "sabbath": {
+    "_revisar": "O sábado como memorial da criação, em linguagem infantil (pedido de 24/11/2026). Revisar com a liderança.",
+    "intro": [
+      "A criação tem um dia muito especial. Vamos ler juntos?"
+    ],
+    "lines": [
+      "Deus terminou de criar tudo e descansou no sétimo dia.",
+      "Ele escolheu esse dia, abençoou e santificou. Santificar é separar para Deus.",
+      "O sábado é o memorial da criação. Ele lembra que Deus é o nosso Criador.",
+      "No sábado, a gente para o trabalho para ficar com Deus, com a família e com os amigos."
+    ]
+  },
+  "ceremony": {
+    "_revisar": "Cerimônia do lenço e da farda do Pedrito (decisão de 24/11/2026). Revisar com a liderança.",
+    "sol": [
+      "Pedrito, você aprendeu o Voto, a Lei e o Voto à Bíblia.",
+      "Hoje você recebe o lenço e a farda dos Aventureiros!"
+    ],
+    "tico": [
+      "Pedrito é Aventureiro!"
+    ],
+    "pedrito": [
+      "Meu lenço e minha farda! Obrigado, Diretora Sol!",
+      "Agora eu sou Aventureiro, igual a você!"
+    ],
+    "hymn": [
+      "O Quadro do Hino acendeu! Vamos cantar juntos o Hino dos Aventureiros?"
+    ]
+  },
+  "rewards": {
+    "badge": "Dia do Descanso",
+    "badgeNote": "Distintivo do Acampamento (não é uma especialidade oficial).",
+    "lantern": "O Pedrito agora usa o lenço e a farda dos Aventureiros!",
+    "stars": 3
+  },
+  "realMission": {
+    "text": "No sábado, faça um passeio na natureza com sua família. Olhem as plantas, o céu, as aves e os animais, e agradeçam a Deus pela criação.",
+    "adult": "Um adulto confirma que a missão foi feita"
+  },
+  "creation": {
+    "_revisar": "Resumo do fim do dia, em linguagem infantil. Revisar com a liderança.",
+    "recap": {
+      "title": "O sétimo dia: o descanso",
+      "intro": "O que você fez hoje conta o sétimo dia (Gênesis 2:1-3).",
+      "items": [
+        {
+          "icon": "star",
+          "game": "Você seguiu a trilha da semana",
+          "creation": "Os céus, a terra e tudo o que há neles foram acabados."
+        },
+        {
+          "icon": "bible",
+          "game": "O Quadro do Voto à Bíblia acendeu",
+          "creation": "Prometo fidelidade à Bíblia."
+        },
+        {
+          "icon": "rest",
+          "game": "A Diretora Sol falou do sábado",
+          "creation": "Deus descansou no sétimo dia, o abençoou e o santificou. O sábado é o memorial da criação."
+        },
+        {
+          "icon": "scarf",
+          "game": "O Pedrito recebeu o lenço e a farda",
+          "creation": "Agora ele também é Aventureiro."
+        },
+        {
+          "icon": "board",
+          "game": "O Quadro do Hino acendeu: somos Aventureiros alegres",
+          "creation": "Que confiam no amigo Jesus."
+        },
+        {
+          "icon": "globe",
+          "game": "O Globo ficou completo",
+          "creation": "Deus viu tudo o que tinha feito, e era muito bom."
+        }
+      ],
+      "close": "Você completou o Livro dos Sete Dias! Um novo mundo está sendo preparado."
+    }
+  },
+  "doneMsg": "Parabéns! Você completou os sete dias da criação!"
+}

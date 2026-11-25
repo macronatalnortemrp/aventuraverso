@@ -99,7 +99,9 @@ export interface MissionDeps {
   /** coloca o jogador num ponto e reposiciona a câmera */
   place(x: number, z: number, face: number): void;
   /** volta ao acampamento normal (fim ou saída da missão) */
-  onExit(done: boolean, wantsNext: boolean): void;
+  onExit(done: boolean, wantsNext: boolean, msg?: string): void;
+  /** fim do Dia 7: o Pedrito recebe o lenço e a farda */
+  dressPedrito(): void;
   camera: THREE.PerspectiveCamera;
   /** liga o joystick e o botão A só durante o Caminho da Luz (false volta à preferência salva) */
   forceControls(on: boolean): void;

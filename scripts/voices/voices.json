@@ -5,5 +5,8 @@
   "pedrito": { "voice": "pm_alex", "speed": 1.0, "pitch": 1.7, "formant": 1.18, "quem": "Pedrito: menino de 7 anos (amostra B escolhida em 24/11/2026)" },
   "tico": { "voice": "pf_dora,pm_alex", "speed": 1.04, "pitch": 1.38, "quem": "Tico: mascote, voz infantil e animada" },
   "acampante": { "voice": "pf_dora", "speed": 1.0, "pitch": 1.3, "quem": "Acampantes: crianças" },
-  "marina": { "voice": "pf_dora", "speed": 0.98, "pitch": 1.05, "quem": "Capitã Marina: mulher adulta do cais, calma e animada (Dia 2)" }
+  "marina": { "voice": "pf_dora", "speed": 0.98, "pitch": 1.05, "quem": "Capitã Marina: mulher adulta do cais, calma e animada (Dia 2)" },
+  "flora": { "voice": "pf_dora", "speed": 0.96, "pitch": 1.12, "quem": "Dona Flora: jardineira, voz feminina adulta e carinhosa (Dia 3)" },
+  "estrelino": { "voice": "pm_santa", "speed": 0.94, "pitch": 1.08, "quem": "Seu Estrelino: astrônomo idoso, voz masculina calma e curiosa (Dia 4)" },
+  "ze": { "voice": "pm_alex", "speed": 1.0, "pitch": 0.98, "quem": "Tio Zé Bichos: cuidador dos animais, voz masculina adulta e alegre (Dia 6)" }
 }

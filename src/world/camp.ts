@@ -33,14 +33,8 @@ export interface Stump {
   used: boolean;
 }
 
-export const OBSERVATORY = { x: 24, z: -22 };
-/** Degraus do observatório: [dx, dz, altura] */
-export const OBS_STEPS: [number, number, number][] = [
-  [-6, 3, 1],
-  [-6, 1, 2],
-  [-6, -1, 3],
-  [-3.4, 0, 4],
-];
+import { FLAG, OBSERVATORY, OBS_STEPS, tentSpot } from './campLayout';
+export { FLAG, OBSERVATORY, OBS_STEPS, tentSpot };
 
 /** Murais onde os convites do Dia 1 são pendurados. */
 export const MURALS: [number, number, number][] = [
@@ -53,8 +47,6 @@ export const CENTRAL_LAMP = { x: -3, z: 5.5 };
 export const GLOBE = { x: HILL.x, z: HILL.z - 1 };
 /** Livro dos Sete Dias, no suporte de madeira diante do Globo. */
 export const BOOK = { x: 0, z: HILL.z + 5 };
-/** Mastro da bandeira do Clube. */
-export const FLAG = { x: 9, z: 8 };
 /** Tenda da classe i (0 a 3) na Clareira. */
 /** lugar de descanso do barco do cais */
 /** galeão amarrado no cais do Lago Grande (mesmo antes do Dia 2) */
@@ -62,6 +54,8 @@ export const BOAT_HOME = BOAT_DOCK;
 
 /** quebra o texto de um ideal em linhas curtas para caber no quadro */
 function wrapIdeal(t: string) {
+  // texto com quebras próprias (o Hino): mantém os versos como estão
+  if (t.includes('\n')) return t;
   const out: string[] = [];
   let line = '';
   for (const w of t.split(' ')) {
@@ -74,10 +68,6 @@ function wrapIdeal(t: string) {
   return out.join('\n');
 }
 
-export function tentSpot(i: number) {
-  const a = -0.95 + i * 0.633;
-  return { x: Math.sin(a) * 12.5, z: 2 - Math.cos(a) * 12.5, a };
-}
 
 export interface Camp {
   terrain: THREE.Mesh;
@@ -102,9 +92,13 @@ export interface Camp {
   idealSpot(i: number): { x: number; z: number; ry: number };
   /** camada do Dia 2 dentro do Globo: céu azul em cima e águas embaixo (0 = sem, 1 = completa) */
   setGlobeSky(k: number): void;
+  /** camada do dia n (3 a 7) dentro do Globo (0 = sem, 1 = completa) */
+  setGlobeLayer(n: number, k: number): void;
+  /** flores do acampamento (o Dia 3 começa sem elas) */
+  setFlowers(on: boolean): void;
 }
 
-const CLASSES: { k: EmblemKey; n: string; age: number; c: number; d: string }[] = [
+export const CLASSES: { k: EmblemKey; n: string; age: number; c: number; d: string }[] = [
   { k: 'abe', n: 'Abelhinhas', age: 6, c: 0x25aae1, d: 'organização, trabalho e dedicação na causa de Deus.' },
   { k: 'lum', n: 'Luminares', age: 7, c: 0xf26522, d: 'Jesus como direção e guia que ilumina e brilha na vida da criança.' },
   { k: 'edi', n: 'Edificadores', age: 8, c: 0x2e3192, d: 'edificação do caráter infantil para Jesus.' },
@@ -267,6 +261,8 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     [0, 36, 6],
     [-9, -19, 4],
     [10, -19, 4],
+    [-15, 17, 6.5], // Horta da Dona Flora (Dia 3)
+    [-19, -18, 8], // cercados do Tio Zé Bichos (Dia 6)
   ];
   const free = (x: number, z: number, pad = 0) =>
     Math.hypot(x, z) <= EDGE - 3 && pathD(x, z) >= 3.2 + pad && avoid.every(([ax, az, r]) => Math.hypot(x - ax, z - az) >= r + pad);
@@ -529,6 +525,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     skySet: (k: number) => void = () => {};
   let globeLit = 0,
     globeSet: (k: number) => void = () => {};
+  let layerSet: (n: number, k: number) => void = () => {};
   /* Colina do Globo: Globo (apagado), Livro dos Sete Dias e Quadros dos Ideais */
   const HY = H(HILL.x, HILL.z);
   {
@@ -579,6 +576,89 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
     animated.push((dt) => {
       if (skyK > 0) puffs.rotation.y += dt * 0.25;
     });
+    // Dias 3 a 7: cada dia acrescenta uma camada pequena dentro do vidro (só criação; Deus não é representado)
+    const lm = (c: number, e = 0.35) => new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: e, roughness: 0.6 });
+    const bx = (grp: THREE.Group, w: number, h: number, d: number, m: THREE.Material, x: number, y: number, z: number) => {
+      const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+      b.position.set(x, y, z);
+      grp.add(b);
+      return b;
+    };
+    const layers: THREE.Group[] = [];
+    {
+      // Dia 3: terra com erva verde e árvores com fruto
+      const L = new THREE.Group();
+      const land = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, 0.22, 24), lm(0x6fae4a, 0.3));
+      land.position.set(0.25, -0.78, 0.1);
+      L.add(land);
+      for (const [x, z, s] of [[0.1, 0.2, 1], [0.55, -0.25, 0.8], [0.45, 0.5, 0.7]]) {
+        bx(L, 0.07 * s, 0.32 * s, 0.07 * s, lm(0x7a5634, 0.2), x, -0.52 + 0.16 * s - 0.16, z);
+        bx(L, 0.3 * s, 0.26 * s, 0.3 * s, lm(0x4f9a3a, 0.35), x, -0.36 + 0.13 * s - 0.1, z);
+        bx(L, 0.07, 0.07, 0.07, lm(0xe0483a, 0.6), x + 0.1 * s, -0.4, z + 0.12 * s);
+      }
+      layers[3] = L;
+    }
+    {
+      // Dia 4: o luminar maior, o luminar menor e as estrelas, girando em volta
+      const L = new THREE.Group();
+      const sunM = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22, 1), lm(0xffc83a, 1.4));
+      sunM.position.set(1.05, 0.35, 0);
+      const moonM = new THREE.Mesh(new THREE.IcosahedronGeometry(0.15, 1), lm(0xf2f2ff, 0.9));
+      moonM.position.set(-1.05, 0.2, 0);
+      L.add(sunM, moonM);
+      const starM = lm(0xfff4c0, 1.6);
+      for (let i = 0; i < 9; i++) {
+        const a = i * 0.7,
+          st = bx(L, 0.06, 0.06, 0.06, starM, Math.cos(a) * 0.8, 0.55 + (i % 3) * 0.18, Math.sin(a) * 0.8);
+        st.rotation.set(0.7, 0.7, 0);
+      }
+      layers[4] = L;
+    }
+    {
+      // Dia 5: peixes nas águas e aves no céu
+      const L = new THREE.Group();
+      for (let i = 0; i < 5; i++) {
+        const a = i * 1.26;
+        bx(L, 0.16, 0.08, 0.05, lm([0xffa53a, 0x3fb8ff, 0xff6f91][i % 3], 0.5), Math.cos(a) * 1.05, -0.92, Math.sin(a) * 1.05).rotation.y = -a;
+      }
+      for (let i = 0; i < 4; i++) {
+        const a = i * 1.57 + 0.4;
+        bx(L, 0.22, 0.03, 0.07, lm(0x3a3a48, 0.2), Math.cos(a) * 0.7, 0.75 + (i % 2) * 0.15, Math.sin(a) * 0.7).rotation.y = -a;
+      }
+      layers[5] = L;
+    }
+    {
+      // Dia 6: animais na terra (o Globo mostra só o que foi criado; o resto é a Voz e a luz)
+      const L = new THREE.Group();
+      for (const [x, z, c] of [[0.0, -0.2, 0xf4efe6], [0.5, 0.15, 0x8a5a34], [0.2, 0.55, 0xd9c09a]] as [number, number, number][]) {
+        bx(L, 0.2, 0.12, 0.12, lm(c, 0.3), x, -0.6, z);
+        bx(L, 0.09, 0.09, 0.09, lm(c, 0.3), x + 0.13, -0.53, z);
+      }
+      layers[6] = L;
+    }
+    {
+      // Dia 7: o descanso, uma coroa de luz dourada e calma em volta do Globo
+      const L = new THREE.Group();
+      const halo = new THREE.Mesh(new THREE.TorusGeometry(1.55, 0.05, 8, 64), lm(0xfff1b0, 1.8));
+      halo.rotation.x = Math.PI / 2;
+      halo.position.y = 1.05;
+      L.add(halo);
+      layers[7] = L;
+    }
+    const layerK: number[] = [];
+    for (const L of layers) if (L) (L.visible = false), g.add(L);
+    layerSet = (n, k) => {
+      const L = layers[n];
+      if (!L) return;
+      layerK[n] = k;
+      L.visible = k > 0;
+      L.scale.setScalar(Math.max(0.001, k));
+    };
+    animated.push((dt) => {
+      if (layerK[4]) layers[4].rotation.y += dt * 0.5;
+      if (layerK[5]) layers[5].rotation.y -= dt * 0.35;
+      if (layerK[7]) layers[7].children[0].scale.setScalar(1 + Math.sin(performance.now() / 700) * 0.03);
+    });
     const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.07, 8, 64), new THREE.MeshStandardMaterial({ color: 0xd7a64d, roughness: 0.35, metalness: 0.6 }));
     ring.rotation.x = Math.PI / 2.4;
     g.add(ring);
@@ -601,7 +681,7 @@ export function buildCamp(scene: THREE.Scene, fx: Fx): Camp {
   }
   /* Quadros apagados: os textos só entram de arquivo conferido (public/data/content/club-texts.json). */
   const idealBoards: { t: string; x: number; y: number; z: number; ry: number; off: THREE.Mesh; lit: THREE.Mesh | null; it: Interactable; dark: string }[] = [];
-  const ideals: [string, string][] = [['Voto', 'Acende no Dia 2.'], ['Lei', 'Acende no Dia 3.'], ['Voto à Bíblia', 'Acende no Dia 7.'], ['Hino', 'Em breve.']];
+  const ideals: [string, string][] = [['Voto', 'Acende no Dia 2.'], ['Lei', 'Acende no Dia 3.'], ['Voto à Bíblia', 'Acende no Dia 7.'], ['Hino', 'Acende no Dia 7.']];
   ideals.forEach(([t, w], i) => {
     const a = -0.95 + i * 0.63,
       r = 6.4,
@@ -871,7 +951,7 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     inviteMeshes.push(inv);
   });
 
-  buildVegetation(scene, free);
+  const { flowers } = buildVegetation(scene, free);
 
   /* nuvens */
   let cloudMatRef: THREE.MeshStandardMaterial | null = null;
@@ -954,5 +1034,9 @@ vec3 c=mix(a,b,s*(1.-r));c+=pow(1.-r,3.)*.7;float al=(1.-smoothstep(.85,1.,r))*(
     },
     idealSpot: (i) => ({ x: idealBoards[i].x, z: idealBoards[i].z, ry: idealBoards[i].ry }),
     setGlobeSky: (k) => skySet(k),
+    setGlobeLayer: (n, k) => layerSet(n, k),
+    setFlowers(on) {
+      flowers.visible = on;
+    },
   };
 }

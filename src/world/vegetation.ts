@@ -100,4 +100,5 @@ export function buildVegetation(scene: THREE.Scene, free: (x: number, z: number,
   }
   flowers.count = k;
   scene.add(flowers);
+  return { flowers };
 }

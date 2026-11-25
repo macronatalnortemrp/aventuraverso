@@ -3,6 +3,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { Look, Rig, makeKid, makeTico } from '../world/builders/kid';
 import { coinGeometry, coinMaterial } from '../world/coins';
 import { makeMarina } from '../world/builders/marina';
+import { makeEstrelino, makeFlora, makeZe } from '../world/builders/npcs';
 
 /**
  * Ícones renderizados com os mesmos modelos 3D do jogo (como os jogos de plataforma fazem):
@@ -15,7 +16,15 @@ export interface Portraits {
   pedrito: string;
   camper: string;
   marina: string;
+  flora: string;
+  estrelino: string;
+  ze: string;
+  /** Pedrito com a farda (depois do Dia 7) */
+  pedritoUniform: string;
 }
+
+/** farda oficial dos Aventureiros (camisa branca, calça azul, lenço e plaqueta), como a dos outros personagens do Clube */
+export const uniform = (l: Look): Look => ({ ...l, shirt: undefined, pants: undefined, bare: false });
 
 function headShot(r: THREE.WebGLRenderer, scene: THREE.Scene, rig: Rig, camY: number, dist: number) {
   rig.root.rotation.y = -0.3;
@@ -65,6 +74,10 @@ export function renderPortraits(looks: { sol: Look; pedrito: Look; camper: Look 
     pedrito: headShot(r, s, makeKid(looks.pedrito), 0.1, 3.0),
     camper: headShot(r, s, makeKid(looks.camper), 0.1, 3.0),
     marina: headShot(r, s, makeMarina(), 0.15, 3.6),
+    flora: headShot(r, s, makeFlora(), 0.2, 3.7),
+    estrelino: headShot(r, s, makeEstrelino(), 0.15, 3.7),
+    ze: headShot(r, s, makeZe(), 0.2, 3.8),
+    pedritoUniform: headShot(r, s, makeKid(uniform(looks.pedrito)), 0.1, 3.0),
   };
   room.dispose();
   pm.dispose();

@@ -1,0 +1,177 @@
+{
+  "id": "day05",
+  "title": "Dia 5: Peixes e Aves",
+  "_fontes": "Plano dos Dias 2 a 7 (aprovado pelo responsável em 24/11/2026). Leituras na ACF (Gn 1:20-23). Falas e curiosidades das aves são sugestões a revisar com a liderança.",
+  "start": {
+    "who": "Tico",
+    "lines": [
+      "Que silêncio! O lago está sem peixes.",
+      "E não tem nenhum passarinho no céu!"
+    ],
+    "go": "A Capitã Marina está na praia do recife, no Lago Grande!"
+  },
+  "npc": {
+    "who": "Capitã Marina",
+    "name": "Capitã Marina",
+    "hello": [
+      "Olá de novo! O recife está vazio, sem nenhum peixe.",
+      "Lá no fundo tem pedaços de luz. Mergulhe e procure as bolhas!"
+    ],
+    "again": [
+      "Nade até as bolhas e aperte A para mergulhar. Cuidado com o fôlego!"
+    ],
+    "after": [
+      "Os peixes voltaram! Obrigada pela ajuda."
+    ],
+    "wait": [
+      "Olá! O recife é lindo, não é?"
+    ]
+  },
+  "goals": {
+    "start": "Fale com a Capitã Marina na praia",
+    "skill": "Mergulhe e ache a luz no recife",
+    "pedrito": "Faça o safári das aves com o Pedrito",
+    "globe": "Leve a luz ao Globo"
+  },
+  "skill": {
+    "intro": [
+      "Onde tem bolhas, tem luz lá no fundo. Fique de olho no fôlego!"
+    ],
+    "controls": "Nade até as bolhas e aperte A para mergulhar.",
+    "left": [
+      "Falta só um pedaço de luz!",
+      "Faltam dois pedaços de luz!"
+    ],
+    "done": [
+      "Três pedaços de luz! Olhe: os peixes voltaram para o lago!"
+    ],
+    "hint": "Nade até as bolhas no recife e mergulhe."
+  },
+  "readings": {
+    "r1": {
+      "ref": "Gênesis 1:20",
+      "keys": [
+        "Gn 1:20"
+      ]
+    },
+    "r2": {
+      "ref": "Gênesis 1:21",
+      "keys": [
+        "Gn 1:21"
+      ]
+    }
+  },
+  "questions": {
+    "q1": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "O que Deus disse que as águas iam produzir?",
+      "options": [
+        "Seres vivos, em abundância",
+        "Pedras",
+        "Plantas"
+      ],
+      "answer": 0,
+      "hint": "Lembre: o lago ficou cheio de vida de novo!",
+      "explain": "Deus disse: Produzam as águas abundantemente répteis de alma vivente, e voem as aves sobre a face da expansão dos céus."
+    },
+    "q2": {
+      "enabled": true,
+      "who": "Tico",
+      "prompt": "Deus criou as aves de quantas espécies?",
+      "options": [
+        "De muitas espécies",
+        "De uma só",
+        "Nenhuma"
+      ],
+      "answer": 0,
+      "hint": "Cada ave do safári é diferente!",
+      "explain": "Deus criou toda a ave de asas conforme a sua espécie, e viu que era bom."
+    }
+  },
+  "pedrito": {
+    "call": [
+      "Olhe! As primeiras aves estão chegando!",
+      "Pegue o binóculo. Vamos observar cada uma?"
+    ],
+    "after": [
+      "Quatro aves! Cada uma é diferente da outra."
+    ],
+    "hint": "O Pedrito espera você na praia, perto da Capitã Marina!",
+    "left": "Que bonita! Faltam {x}.",
+    "birds": [
+      {
+        "lines": [
+          "Um bem-te-vi!",
+          "Ele tem a barriga amarela e canta o próprio nome: bem-te-vi!"
+        ]
+      },
+      {
+        "lines": [
+          "Um sabiá-laranjeira!",
+          "A barriga dele é cor de laranja. Ele canta bonito de manhã cedo."
+        ]
+      },
+      {
+        "lines": [
+          "Um tucano!",
+          "Olhe o bico dele: grande e colorido!"
+        ]
+      },
+      {
+        "lines": [
+          "Uma arara-azul!",
+          "As penas dela são azuis, e ela é bem grande."
+        ]
+      }
+    ]
+  },
+  "globe": {
+    "go": "Agora leve os pedaços de luz ao Globo, na colina!",
+    "voice": "Voem as aves sobre a face da expansão dos céus.",
+    "after": [
+      "Os peixes e as aves apareceram no Globo! Você achou a quinta página do Livro dos Sete Dias!"
+    ]
+  },
+  "rewards": {
+    "badge": "Asas e Barbatanas",
+    "badgeNote": "Distintivo do Acampamento (não é uma especialidade oficial).",
+    "lantern": "As aves do safári ficam pousadas perto da praia!",
+    "stars": 3
+  },
+  "realMission": {
+    "text": "Observe as aves perto da sua casa com sua família. Quantas cores diferentes vocês viram? Depois agradeçam a Deus pelos peixes e pelas aves.",
+    "adult": "Um adulto confirma que a missão foi feita"
+  },
+  "creation": {
+    "_revisar": "Resumo do fim do dia, em linguagem infantil. Revisar com a liderança.",
+    "recap": {
+      "title": "O quinto dia da criação",
+      "intro": "O que você fez hoje conta o quinto dia da criação (Gênesis 1:20-23).",
+      "items": [
+        {
+          "icon": "wave",
+          "game": "O lago estava sem peixes",
+          "creation": "Ainda não havia vida nas águas nem aves no céu."
+        },
+        {
+          "icon": "fish",
+          "game": "Você mergulhou e achou três pedaços de luz",
+          "creation": "Deus disse: Produzam as águas abundantemente répteis de alma vivente."
+        },
+        {
+          "icon": "bird",
+          "game": "Você observou quatro aves diferentes",
+          "creation": "Deus criou toda a ave de asas conforme a sua espécie."
+        },
+        {
+          "icon": "globe",
+          "game": "Os peixes e as aves apareceram no Globo",
+          "creation": "Deus os abençoou e viu que era bom. Assim terminou o quinto dia."
+        }
+      ],
+      "close": "Faltam duas páginas. Volte ao portal para o próximo dia!"
+    }
+  },
+  "doneMsg": "Parabéns! Os peixes voltaram ao lago e as aves ao céu!"
+}

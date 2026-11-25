@@ -178,6 +178,67 @@ export const ICONS: Record<string, string> = {
     const a = g('#ffe57a', '#f0a91c');
     return `<circle cx="32" cy="32" r="26" fill="url(#${a.id})"/><path d="M26 20l18 12-18 12z" fill="#fff"/>`;
   }),
+  /* Dias 3 a 7: alimentos da Mesa da Família (Gn 1:29), bichos e o descanso */
+  apple: icon((g) => {
+    const a = g('#ff7a6a', '#d0302a');
+    return `<path d="M32 18c-14-6-24 4-22 18s10 22 22 18c12 4 20-6 22-18s-8-24-22-18z" fill="url(#${a.id})"/><path d="M32 18c0-5 2-9 6-11" fill="none" stroke-width="3.5"/><path d="M34 13c6-5 13-3 14 1-5 4-11 3-14-1z" fill="#6bbf4e"/>${shine(22, 28, 5, 3)}`;
+  }),
+  orange: icon((g) => {
+    const a = g('#ffc04a', '#f08a10');
+    return `<circle cx="32" cy="36" r="21" fill="url(#${a.id})"/><path d="M32 15c3-5 9-6 13-4-3 5-9 6-13 4z" fill="#6bbf4e"/><circle cx="32" cy="16" r="2" fill="#5a3a1c" stroke="none"/>${shine(24, 28, 5, 3)}`;
+  }),
+  pear: icon((g) => {
+    const a = g('#e6f07a', '#a8c63a');
+    return `<path d="M32 12c-6 0-7 8-9 14-3 8-11 10-11 20a20 20 0 0 0 40 0c0-10-8-12-11-20-2-6-3-14-9-14z" fill="url(#${a.id})"/><path d="M32 12c0-4 1-6 3-8" fill="none"/>${shine(25, 36, 4, 3)}`;
+  }),
+  mango: icon((g) => {
+    const a = g('#ffd84a', '#ef6a2a');
+    return `<path d="M14 40c0-16 14-28 28-26 10 2 12 14 6 26-6 12-20 18-28 14-4-2-6-8-6-14z" fill="url(#${a.id})"/><path d="M40 14c2-4 6-6 10-5" fill="none"/>${shine(24, 30, 5, 3)}`;
+  }),
+  lettuce: icon((g) => {
+    const a = g('#b8ec7a', '#4fae3a');
+    return `<path d="M32 56c-16 0-24-10-22-22 6 2 8-6 14-4 0-8 6-12 8-14 2 2 8 6 8 14 6-2 8 6 14 4 2 12-6 22-22 22z" fill="url(#${a.id})"/><path d="M32 54V30M32 44l-8-8M32 40l8-8" stroke="#3f7a35" fill="none" stroke-width="2.5"/>`;
+  }),
+  carrot: icon((g) => {
+    const a = g('#ffae4a', '#f07a10');
+    return `<path d="M40 22L14 54c-2 2 0 4 2 2l32-26c4-4 0-12-8-8z" fill="url(#${a.id})"/><path d="M42 22c0-8 2-12 6-14M44 24c6-4 10-4 14-2M44 22c2-6 8-8 12-8" stroke="#3f9a35" stroke-width="4" fill="none"/><path d="M26 40l4 2M22 46l3 2" stroke-width="2"/>`;
+  }),
+  corn: icon((g) => {
+    const a = g('#fff07a', '#f0c020');
+    return `<path d="M32 8c8 0 10 14 10 26s-4 20-10 20-10-8-10-20S24 8 32 8z" fill="url(#${a.id})"/><path d="M27 18h10M25 28h14M25 38h14M27 48h10M32 10v44" stroke="#c99a10" stroke-width="2" fill="none"/><path d="M22 34c-8 6-10 16-6 24 6-4 12-12 16-18M42 34c8 6 10 16 6 24-6-4-12-12-16-18" fill="#6bbf4e"/>`;
+  }),
+  beans: icon((g) => {
+    const a = g('#a8e07a', '#4f9a3a');
+    return `<path d="M10 40c10-16 30-26 44-20 2 6-6 12-14 14-10 2-18 10-26 12-4 0-6-2-4-6z" fill="url(#${a.id})"/><circle cx="24" cy="38" r="3.5" fill="#d9f0b0" stroke-width="2"/><circle cx="33" cy="33" r="3.5" fill="#d9f0b0" stroke-width="2"/><circle cx="42" cy="28" r="3.5" fill="#d9f0b0" stroke-width="2"/>`;
+  }),
+  sheep: icon((g) => {
+    const a = g('#ffffff', '#e4ddd0');
+    return `<path d="M14 44v12M24 46v10M40 46v10M50 44v12" stroke-width="5"/><path d="M12 36c-4-6 2-12 8-10 2-6 10-8 14-4 4-4 12-2 14 4 6 0 8 8 4 12 2 6-4 10-10 8-4 4-12 4-16 0-6 2-14-2-14-10z" fill="url(#${a.id})"/><ellipse cx="50" cy="30" rx="8" ry="7" fill="#3a2a22"/><circle cx="52" cy="28" r="1.6" fill="#fff" stroke="none"/>`;
+  }),
+  fish: icon((g) => {
+    const a = g('#ffc04a', '#ff7a2a');
+    return `<path d="M8 32c8-12 26-16 38-6l10-8v28l-10-8C34 48 16 44 8 32z" fill="url(#${a.id})"/><circle cx="18" cy="30" r="2.5" fill="${INK}" stroke="none"/><path d="M28 26c2 4 2 8 0 12" fill="none" stroke-width="2.5"/>${shine(22, 24, 4, 2)}`;
+  }),
+  bird: icon((g) => {
+    const a = g('#7ac8ff', '#2f7fd0');
+    return `<path d="M10 38c4-12 18-18 30-12l10-8 4 4-6 8c2 12-8 20-22 20-8 0-14-4-16-12z" fill="url(#${a.id})"/><path d="M22 34c6-8 14-8 18-4-4 6-12 8-18 4z" fill="#bfe6ff" stroke-width="2.5"/><circle cx="46" cy="24" r="2" fill="${INK}" stroke="none"/><path d="M52 22l8 1-7 4z" fill="#ffb02e"/>`;
+  }),
+  heart: icon((g) => {
+    const a = g('#ff8aa8', '#e0305a');
+    return `<path d="M32 54C14 42 6 32 8 22c2-10 16-14 24-4 8-10 22-6 24 4 2 10-6 20-24 32z" fill="url(#${a.id})"/>${shine(20, 22, 5, 3)}`;
+  }),
+  bible: icon((g) => {
+    const a = g('#8a3449', '#5a1e2c');
+    return `<rect x="12" y="8" width="38" height="48" rx="4" fill="url(#${a.id})"/><path d="M50 12v40" stroke="#f6f0e2" stroke-width="4"/><path d="M31 18v22M23 26h16" stroke="#ffd56a" stroke-width="4.5"/>`;
+  }),
+  scarf: icon((g) => {
+    const a = g('#ffd84a', '#e0a020');
+    return `<path d="M8 12h48L32 40z" fill="url(#${a.id})"/><path d="M26 34l-8 22 8-4 6 6 2-22M38 34l8 22-8-4-6 6-2-22" fill="#d7a64d"/><circle cx="32" cy="36" r="6" fill="#172d49"/>`;
+  }),
+  rest: icon((g) => {
+    const a = g('#fff6c4', '#f0cf5a');
+    return `<path d="M36 10a22 22 0 1 0 18 34A18 18 0 0 1 36 10z" fill="url(#${a.id})"/><path d="M40 16h8l-8 8h8M48 28h6l-6 6h6" fill="none" stroke-width="3"/>`;
+  }),
   badge: `<svg viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="bdg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5287"/><stop offset="1" stop-color="#132643"/></linearGradient><linearGradient id="bdg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6a0"/><stop offset="1" stop-color="#d7a64d"/></linearGradient></defs><g stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"><path d="M30 92l-12 40 24-10 18 18 4-48zM90 92l12 40-24-10-18 18-4-48z" fill="#8a3449"/><circle cx="60" cy="60" r="52" fill="url(#bdg2)"/><circle cx="60" cy="60" r="40" fill="url(#bdg1)"/><path d="M60 26c11 13 17 23 17 33a17 17 0 0 1-34 0c0-10 6-20 17-33z" fill="#ffb02e"/><path d="M60 43c6 7 9 12 9 18a9 9 0 0 1-18 0c0-6 3-11 9-18z" fill="#fff1a8" stroke-width="2.5"/></g><ellipse cx="42" cy="30" rx="12" ry="6" fill="#fff" opacity=".35" transform="rotate(-30 42 30)"/></svg>`,
   /* glifos brancos dos botões redondos (estilo controle de jogo) */
   speaker: `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h5l7-6v20l-7-6H5z" fill="currentColor"/><path d="M21 11c2 2.6 2 7.4 0 10M24.5 8c3.8 4.6 3.8 11.4 0 16" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>`,
