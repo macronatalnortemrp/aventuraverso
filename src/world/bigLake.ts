@@ -7,7 +7,7 @@ import { LIGHTHOUSE, LIGHT_STEPS, LIGHT_STEP_R, PIER, PIER_TOP } from './lakeLay
 import { Kit, LEAF, STONE, WOOD_DARK, bush, rock, tree } from './builders/props';
 import { Interactables } from './interactables';
 import { Fx } from './fx';
-import { plate } from './textures';
+import { decal, plate } from './textures';
 import { uTime } from '../engine/gfx';
 import { rnd, rr, setSeed } from '../engine/math';
 
@@ -275,6 +275,31 @@ export function buildBigLake(camp: Kit, scene: THREE.Scene, inter: Interactables
       B.add(new THREE.CylinderGeometry(rr1, rr0, h / seg, 16), i % 2 ? 0xfafafa : 0xd23b3b, x, gy + (i + 0.5) * (h / seg), z, 0, 0, 0, 1, 0.02);
     }
     B.box(0.7, 1.1, 0.12, 0x5a3a22, x, gy + 0.55, z + r - 0.02);
+    // placas grandes com o emblema da Macro Natal Norte, pregadas no meio da torre, uma para cada lado:
+    // de onde se olhar para o farol, uma delas está de frente
+    {
+      const S = 2.1, // lado da placa
+        py = gy + h * 0.5 + h / 12, // centro: meio da faixa branca (4ª de 6)
+        pr = r * (1 - ((py - gy - S / 2) / h) * 0.22) + 0.06; // raio da torre na borda de baixo da placa, um pouco para fora
+      for (let i = 0; i < 4; i++) {
+        const a = (i / 4) * Math.PI * 2,
+          ux = Math.cos(a),
+          uz = Math.sin(a),
+          ry = Math.atan2(ux, uz),
+          at = (d: number, side = 0) => [x + ux * (pr + d) + Math.cos(ry) * side, z + uz * (pr + d) - Math.sin(ry) * side] as const;
+        const [fx, fz] = at(0),
+          [wx, wz] = at(0.04);
+        B.box(S, S, 0.1, 0x172d49, fx, py, fz, { r: 0.05, ry });
+        B.box(S - 0.16, S - 0.16, 0.06, 0xfff6dc, wx, py, wz, { ry });
+        const n = S / 2 - 0.14; // pregos dourados nos cantos
+        for (const [sx, sy] of [[-n, n], [n, n], [-n, -n], [n, -n]]) {
+          const [nx, nz] = at(0.08, sx);
+          B.box(0.1, 0.1, 0.04, 0xd7a64d, nx, py + sy, nz, { ry });
+        }
+        const [lx, lz] = at(0.085);
+        decal('macro', S - 0.34, lx, py, lz, ry);
+      }
+    }
     // mirante
     const top = gy + h + 0.3;
     B.box(4.2, 0.3, 4.2, 0xbfb6a6, x, top - 0.15, z, { r: 0.05 });

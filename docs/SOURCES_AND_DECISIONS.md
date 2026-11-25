@@ -18,7 +18,7 @@
 - Não existe lema: ideais só os do Guia.
 - Significado do lenço definido pelo responsável (`docs/LENCO.md`): três significados (cor, formato, emblema). As três áreas do lenço complementam as quatro áreas do Guia; não é erro.
 - Repositório: conta GitHub `macronatalnortemrp` (sem repositórios ainda).
-- Diretora Sol usa lenço bordô de líder.
+- Diretora Cecília usa lenço bordô de líder.
 - Roupas infantis podem seguir estilo explorador.
 - A trilha de visitante não muda a identidade do avatar.
 - Emblemas oficiais A1 e LA1 recebidos e incluídos em `public/assets/official/`. O A1 tem baixa resolução.

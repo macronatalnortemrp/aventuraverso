@@ -17,7 +17,7 @@ import { angLerp } from '../../engine/math';
  * Dia 6, Animais e Pessoas (Gn 1:24-31). Os cercados do Tio Zé Bichos estão vazios.
  * Desafio de habilidade: chamar cada animal no campo e levá-lo, andando junto, até o cercado dele.
  * Cada animal no lugar certo acende um pedaço de luz. Desafio do Pedrito: arrumar a Mesa da Família com
- * o que Deus deu para alimento (Gn 1:29) e, depois, a Diretora Sol lembra que cada criança é especial (Gn 1:27).
+ * o que Deus deu para alimento (Gn 1:29) e, depois, a Diretora Cecília lembra que cada criança é especial (Gn 1:27).
  * No Globo, só a Voz e a luz (as pessoas não aparecem dentro do Globo).
  */
 
@@ -218,7 +218,7 @@ export class Day06Mission extends DayMission {
     this.following = i;
     this.warned = -1;
     sfx('ui');
-    this.d.hud.say(sk.follow.replace('{x}', o.name), 5000);
+    if (this.state.got.length === 0) this.d.hud.say(sk.follow, 5000); // só no primeiro animal
     this.syncInter();
     return true;
   }
@@ -320,7 +320,7 @@ export class Day06Mission extends DayMission {
     this.food.visible = true;
     this.d.fx.puff(TABLE.x, H(TABLE.x, TABLE.z) + 1.4, TABLE.z, { n: 20, color: 0xfff1b0, add: true, sp: 3, up: 2, s: 0.5 });
     const sp = (this.content.pedrito as unknown as { special: { intro: string[]; lines: string[] } }).special;
-    // a Diretora Sol vem até a mesa para o momento "sou especial"
+    // a Diretora Cecília vem até a mesa para o momento "sou especial"
     const sol = this.d.sol.root,
       from = sol.position.clone(),
       ry = sol.rotation.y;
@@ -328,10 +328,10 @@ export class Day06Mission extends DayMission {
     const pp = this.d.player;
     sol.rotation.y = Math.atan2(pp.x - sol.position.x, pp.z - sol.position.z);
     animateRig(this.d.sol, 0.016, { wave: true });
-    await this.talk('Diretora Sol', sp.intro);
+    await this.talk('Diretora Cecília', sp.intro);
     await this.readKeys('Gênesis 1:27', ['Gn 1:27']);
     this.endReview();
-    await this.talk('Diretora Sol', sp.lines);
+    await this.talk('Diretora Cecília', sp.lines);
     sol.position.copy(from);
     sol.rotation.y = ry;
     this.busy = false;

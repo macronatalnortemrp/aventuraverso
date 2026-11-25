@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { KNEEL, Rig, animate, kneelPose } from '../src/world/builders/kid';
 import { approach } from '../src/engine/math';
 
-/* Diretora Sol abaixada com a Bíblia (abertura, Quadro 3): a pose não pode tremer quando o tempo entre quadros varia. */
+/* Diretora Cecília abaixada com a Bíblia (abertura, Quadro 3): a pose não pode tremer quando o tempo entre quadros varia. */
 
 function rig(): Rig {
   const g = () => new THREE.Group();
@@ -28,7 +28,7 @@ function rig(): Rig {
   };
 }
 
-describe('Diretora Sol abaixada', () => {
+describe('Diretora Cecília abaixada', () => {
   test('com quadros de durações diferentes (celular), braços e corpo ficam parados na pose final', () => {
     const r = rig();
     const dts = [1 / 60, 1 / 30, 1 / 120, 1 / 45, 0.1, 1 / 60];

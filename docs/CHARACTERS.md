@@ -1,6 +1,6 @@
 # CHARACTERS.md — Elenco e seleção
 
-Todos os personagens são **bonecos de bloco gerados por código a partir de parâmetros** (modelo em `prototype/`). Um único "construtor de criança" produz os seis avatares, Pedrito, a Diretora Sol e os demais NPCs humanos.
+Todos os personagens são **bonecos de bloco gerados por código a partir de parâmetros** (modelo em `prototype/`). Um único "construtor de criança" produz os seis avatares, Pedrito, a Diretora Cecília e os demais NPCs humanos.
 
 ## Seleção do jogador
 Primeira execução: seis personagens pré-definidos, três masculinos e três femininos, em cards grandes (Meninos e Meninas). Toque seleciona (borda de foco, o boneco acena), botão "Confirmar personagem", `avatarId` salvo no aparelho e alterável nas configurações. Em seguida a criança digita um **apelido** (opcional; sem apelido, usa-se "Aventureiro" ou "Aventureira"). Os bonecos não têm nome próprio: as falas usam o apelido e a forma de gênero do boneco escolhido (`INTRO_SEQUENCE.md`). A escolha não altera dificuldade, conteúdo, recompensas nem acesso.
@@ -22,7 +22,7 @@ Roupa de aventura (bege, verde-oliva, cáqui, mochila e bota) como **conjunto al
 ## Regra comum do lenço
 Lenço triangular vinho, sempre visível, com o emblema oficial A1 aplicado como imagem: grande no triângulo das costas e pequeno no prendedor cilíndrico branco da frente (`LENCO.md`, "Como o lenço é usado"). Cabelos longos vão até os ombros para não cobrir o triângulo.
 
-## Diretora Sol
+## Diretora Cecília
 Mulher adulta, acolhedora e ativa. Uniforme de líder ou roupa de atividades **[validar com o Regulamento de Uniformes vigente]**, lenço vinho de líder com listras nas quatro cores das classes junto à base e emblema LA1 oficial, usado do mesmo jeito (`LENCO.md`). Nunca o A1. Apresenta missões, orienta, acolhe e valida o fim do dia.
 
 ## Tico

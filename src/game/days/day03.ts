@@ -209,7 +209,7 @@ export class Day03Mission extends DayMission {
         sfx('ui');
         this.hand = 'seed';
         this.carry(this.seedBag);
-        this.d.hud.say(sk.gotSeed, 4000);
+        this.teach(sk.gotSeed);
       }
       this.syncInter();
       return true;
@@ -219,7 +219,7 @@ export class Day03Mission extends DayMission {
         sfx('splash');
         this.hand = 'water';
         this.carry(this.can);
-        this.d.hud.say(sk.gotWater, 4000);
+        this.teach(sk.gotWater);
       }
       this.syncInter();
       return true;
@@ -237,7 +237,7 @@ export class Day03Mission extends DayMission {
         this.carry(null);
         this.plants[i].visible = true;
         this.grow[i] = 0.18; // brotinho
-        this.d.hud.say(sk.planted, 4500);
+        this.teach(sk.planted);
       }
     } else if (this.bed[i] === 1) {
       if (this.hand !== 'water') this.d.hud.say(sk.needWater, 4500);
@@ -248,11 +248,16 @@ export class Day03Mission extends DayMission {
         this.hand = null;
         this.carry(null);
         this.grow[i] = 0.6;
-        this.d.hud.say(sk.watered, 4500);
+        this.teach(sk.watered);
       }
     }
     this.syncInter();
     return true;
+  }
+
+  /** o Tico ensina só no primeiro canteiro; nos outros a criança faz sozinha (pedido do piloto, 25/11/2026) */
+  private teach(text: string) {
+    if (this.state.got.length === 0) this.d.hud.say(text, 4500);
   }
 
   protected pieceSpot(i: number, t: number) {

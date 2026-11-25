@@ -58,7 +58,8 @@
       "ref": "Gênesis 1:21",
       "keys": [
         "Gn 1:21"
-      ]
+      ],
+      "at": "pedrito"
     }
   },
   "questions": {
@@ -98,7 +99,6 @@
       "Quatro aves! Cada uma é diferente da outra."
     ],
     "hint": "O Pedrito espera você na praia, perto da Capitã Marina!",
-    "left": "Que bonita! Faltam {x}.",
     "birds": [
       {
         "lines": [
@@ -124,6 +124,11 @@
           "As penas dela são azuis, e ela é bem grande."
         ]
       }
+    ],
+    "leftList": [
+      "Que bonita! Falta só uma.",
+      "Que bonita! Faltam duas.",
+      "Que bonita! Faltam três."
     ]
   },
   "globe": {

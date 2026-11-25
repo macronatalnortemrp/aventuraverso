@@ -28,7 +28,7 @@ Cores das classes e das categorias de distintivo: veja `THEME_AVENTUREIROS.md`.
 - Animação por código: andar (braços e pernas), parado (respirar), acenar, comemorar (pulo), apontar, entregar.
 - Diversidade de pele, cabelo e penteado entre os seis avatares, sem estereótipos.
 - Uniforme padrão: camisa branca, bottom azul-marinho, lenço vinho com emblema oficial A1 (`THEME_AVENTUREIROS.md`, seção 8).
-- Diretora Sol: adulta (escala maior), lenço de líder com o emblema oficial LA1.
+- Diretora Cecília: adulta (escala maior), lenço de líder com o emblema oficial LA1.
 - Tico: sagui provisório, de blocos, com um lencinho vinho; desenho a aprovar.
 
 ## Emblemas

@@ -6,7 +6,7 @@ Cada fase termina com build funcionando, instruções para executar e relatório
 Repositório, Vite + TypeScript + Three.js, execução local, GitHub Actions publicando no GitHub Pages, estrutura de pastas, loop de renderização, medição de quadros por segundo, testes de A*, progressão e persistência. Portar a ideia do protótipo (`prototype/`) para módulos.
 
 ## Fase 1 — Mundo base e identidade (aprovação visual)
-- Construtor de bonecos: seis avatares com uniforme e roupa de aventura, Diretora Sol, Pedrito, Tico, com rostos expressivos e animações.
+- Construtor de bonecos: seis avatares com uniforme e roupa de aventura, Diretora Cecília, Pedrito, Tico, com rostos expressivos e animações.
 - Emblemas A1 e LA1 aplicados como decalque.
 - Acampamento completo nas zonas: Colina do Globo (Globo em 3 estados, quadros dos ideais apagados), Clareira (mastro e bandeira, tendas das classes, placas das trilhas, Mesa da Família), Lago, Mata.
 - Luz: dia, noite, escuro com lanterna.

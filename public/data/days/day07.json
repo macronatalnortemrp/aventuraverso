@@ -8,11 +8,11 @@
       "Falta a última página do Livro dos Sete Dias!",
       "E o Quadro do Voto à Bíblia ainda está apagado."
     ],
-    "go": "A Diretora Sol chama você na clareira!"
+    "go": "A Diretora Cecília chama você na clareira!"
   },
   "npc": {
-    "who": "Diretora Sol",
-    "name": "Diretora Sol",
+    "who": "Diretora Cecília",
+    "name": "Diretora Cecília",
     "hello": [
       "Que semana linda! Você ajudou em cada dia da criação.",
       "A última página está escondida pela trilha da semana. Procure as cinco luzes!"
@@ -28,7 +28,7 @@
     ]
   },
   "goals": {
-    "start": "Fale com a Diretora Sol",
+    "start": "Fale com a Diretora Cecília",
     "skill": "Siga a trilha da semana",
     "pedrito": "Ajude o Pedrito no Quadro do Voto à Bíblia",
     "globe": "Leve a luz ao Globo"
@@ -105,7 +105,11 @@
       "sábado",
       "luz"
     ],
-    "lit": "O Quadro do Voto à Bíblia acendeu!"
+    "lit": "O Quadro do Voto à Bíblia acendeu!",
+    "ceremony": [
+      "Meu lenço e minha farda! Obrigado, Diretora Cecília!",
+      "Agora eu sou Aventureiro, igual a você!"
+    ]
   },
   "globe": {
     "go": "Agora leve as luzes ao Globo, na colina!",
@@ -115,6 +119,7 @@
     ]
   },
   "sabbath": {
+    "who": "Diretora Cecília",
     "_revisar": "O sábado como memorial da criação, em linguagem infantil (pedido de 24/11/2026). Revisar com a liderança.",
     "intro": [
       "A criação tem um dia muito especial. Vamos ler juntos?"
@@ -127,6 +132,7 @@
     ]
   },
   "ceremony": {
+    "who": "Diretora Cecília",
     "_revisar": "Cerimônia do lenço e da farda do Pedrito (decisão de 24/11/2026). Revisar com a liderança.",
     "sol": [
       "Pedrito, você aprendeu o Voto, a Lei e o Voto à Bíblia.",
@@ -134,10 +140,6 @@
     ],
     "tico": [
       "Pedrito é Aventureiro!"
-    ],
-    "pedrito": [
-      "Meu lenço e minha farda! Obrigado, Diretora Sol!",
-      "Agora eu sou Aventureiro, igual a você!"
     ],
     "hymn": [
       "O Quadro do Hino acendeu! Vamos cantar juntos o Hino dos Aventureiros?"
@@ -171,7 +173,7 @@
         },
         {
           "icon": "rest",
-          "game": "A Diretora Sol falou do sábado",
+          "game": "A Diretora Cecília falou do sábado",
           "creation": "Deus descansou no sétimo dia, o abençoou e o santificou. O sábado é o memorial da criação."
         },
         {

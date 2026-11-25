@@ -1,6 +1,7 @@
 import { breathColor } from '../game/breath';
 import { sfx } from '../engine/audio';
 import { speakRecorded, stopSpeaking } from '../engine/speech';
+import { moreHint } from './more';
 
 export const $ = <T extends HTMLElement = HTMLElement>(id: string) => {
   const e = document.getElementById(id);
@@ -46,6 +47,7 @@ export class Hud {
       this.hideTico();
     };
     $('dxx').onclick = () => this.next();
+    moreHint($('dx'), $('dlg'));
   }
 
   show(id: string, on = true) {
@@ -126,6 +128,7 @@ export class Hud {
     dt.textContent = q.title === q.who ? '' : q.title;
     dt.style.display = q.title === q.who ? 'none' : '';
     $('dx').textContent = q.lines[q.i];
+    $('dx').scrollTop = 0;
     if (this.voice()) speakRecorded(q.lines[q.i], q.who);
     const row = $('dr');
     row.innerHTML = '';
@@ -134,7 +137,7 @@ export class Hud {
     b.textContent = q.i < q.lines.length - 1 ? 'Continuar' : 'Ok';
     b.onclick = () => this.next();
     row.append(b);
-    setTimeout(() => b.focus(), 30);
+    setTimeout(() => b.focus({ preventScroll: true }), 30);
   }
 
   next() {

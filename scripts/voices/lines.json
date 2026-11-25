@@ -409,6 +409,18 @@
  },
  {
   "voice": "narrador",
+  "key": "somos aventureiros alegres",
+  "text": "Somos Aventureiros alegres",
+  "file": "narrador/18570153.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "prometo fidelidade à bíblia, à sua mensagem de um salvador crucificado, ressurreto e prestes a voltar, doador de vida e liberdade a todos que nele crêem",
+  "text": "Prometo fidelidade à Bíblia, à sua mensagem de um Salvador crucificado, ressurreto e prestes a voltar, doador de vida e liberdade a todos que nEle crêem.",
+  "file": "narrador/19e962da.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "jogue no seu ritmo: um dia por vez ou vários seguidos",
   "text": "Jogue no seu ritmo: um dia por vez ou vários seguidos.",
   "file": "narrador/1f522c9c.mp3"
@@ -517,6 +529,12 @@
  },
  {
   "voice": "narrador",
+  "key": "maravilhas ao nosso redor",
+  "text": "Maravilhas ao nosso redor.",
+  "file": "narrador/483365b2.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:1-2",
   "text": "Gênesis 1:1-2.",
   "file": "narrador/4b6c19b4.mp3"
@@ -601,6 +619,12 @@
  },
  {
   "voice": "narrador",
+  "key": "jesus me ajuda a ser: obediente, puro, reverente, bondoso e colaborador",
+  "text": "Jesus me ajuda a ser: obediente, puro, reverente, bondoso e colaborador.",
+  "file": "narrador/63831544.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "cada missão do acampamento segue uma dessas trilhas",
   "text": "Cada missão do acampamento segue uma dessas trilhas.",
   "file": "narrador/66b55ef0.mp3"
@@ -673,6 +697,12 @@
  },
  {
   "voice": "narrador",
+  "key": "e o amor de um deus criador",
+  "text": "E o amor de um Deus criador.",
+  "file": "narrador/89f42a69.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:3",
   "text": "Gênesis 1:3.",
   "file": "narrador/8ec1bcbd.mp3"
@@ -727,9 +757,27 @@
  },
  {
   "voice": "narrador",
+  "key": "que confiam no amigo jesus",
+  "text": "Que confiam no amigo Jesus.",
+  "file": "narrador/a5e67020.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "ser pra todos um brilho da luz",
+  "text": "Ser pra todos um brilho da Luz.",
+  "file": "narrador/a8f3e5b0.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "gênesis 1:4-5",
   "text": "Gênesis 1:4-5.",
   "file": "narrador/a93d1bce.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "aprendemos que sempre devemos",
+  "text": "Aprendemos que sempre devemos",
+  "file": "narrador/a9de5d6a.mp3"
  },
  {
   "voice": "narrador",
@@ -829,6 +877,12 @@
  },
  {
   "voice": "narrador",
+  "key": "por amor a jesus, farei sempre o meu melhor",
+  "text": "Por amor a Jesus, farei sempre o meu melhor.",
+  "file": "narrador/cc394017.mp3"
+ },
+ {
+  "voice": "narrador",
   "key": "pegue uma bíblia e leia, com a ajuda de um adulto, gênesis 1:1 a 2",
   "text": "Pegue uma Bíblia e leia, com a ajuda de um adulto, Gênesis 1:1 a 2.",
   "file": "narrador/cd092625.mp3"
@@ -850,6 +904,12 @@
   "key": "e foi a tarde e a manhã, o dia quarto",
   "text": "E foi a tarde e a manhã, o dia quarto.",
   "file": "narrador/d0734866.mp3"
+ },
+ {
+  "voice": "narrador",
+  "key": "e amando a cristo faremos",
+  "text": "E amando a Cristo faremos",
+  "file": "narrador/dc33a22b.mp3"
  },
  {
   "voice": "narrador",
@@ -906,6 +966,12 @@
   "file": "narrador/f35da323.mp3"
  },
  {
+  "voice": "narrador",
+  "key": "descobrimos em tudo a beleza,",
+  "text": "Descobrimos em tudo a beleza,",
+  "file": "narrador/fed11730.mp3"
+ },
+ {
   "voice": "pedrito",
   "key": "só uma cor bonita",
   "text": "Só uma cor bonita",
@@ -931,30 +997,6 @@
  },
  {
   "voice": "pedrito",
-  "key": "da horta",
-  "text": "Da horta",
-  "file": "pedrito/0a4c287f.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o pedrito também é!",
-  "text": "O Pedrito também é!",
-  "file": "pedrito/0d62214e.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "monte a lei dos aventureiros",
-  "text": "Monte a Lei dos Aventureiros",
-  "file": "pedrito/1658995f.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "da horta ou da árvore?",
-  "text": "Da horta ou da árvore?",
-  "file": "pedrito/1c3c79c6.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "um sabiá-laranjeira!",
   "text": "Um sabiá-laranjeira!",
   "file": "pedrito/249fc185.mp3"
@@ -973,33 +1015,15 @@
  },
  {
   "voice": "pedrito",
-  "key": "milho",
-  "text": "Milho",
-  "file": "pedrito/38f2950d.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "vamos arrumar?",
   "text": "Vamos arrumar?",
   "file": "pedrito/3bd2a63f.mp3"
  },
  {
   "voice": "pedrito",
-  "key": "o pedrito chama você perto do quadro do voto à bíblia!",
-  "text": "O Pedrito chama você perto do Quadro do Voto à Bíblia!",
-  "file": "pedrito/3e027ea0.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "pense em jesus, que nos ama muito",
   "text": "Pense em Jesus, que nos ama muito.",
   "file": "pedrito/3e34ec19.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "pera",
-  "text": "Pera",
-  "file": "pedrito/43673ba8.mp3"
  },
  {
   "voice": "pedrito",
@@ -1012,18 +1036,6 @@
   "key": "tenho medo",
   "text": "Tenho medo...",
   "file": "pedrito/462a37a7.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o pedrito chama você perto do quadro da lei, na colina!",
-  "text": "O Pedrito chama você perto do Quadro da Lei, na colina!",
-  "file": "pedrito/46443a2c.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o que vem das árvores?",
-  "text": "O que vem das árvores?",
-  "file": "pedrito/46d8e965.mp3"
  },
  {
   "voice": "pedrito",
@@ -1051,21 +1063,15 @@
  },
  {
   "voice": "pedrito",
-  "key": "a horta",
-  "text": "a horta",
-  "file": "pedrito/4ae45e5f.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "das árvores",
-  "text": "Das árvores",
-  "file": "pedrito/4c0bd350.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "as primeiras aves estão chegando!",
   "text": "As primeiras aves estão chegando!",
   "file": "pedrito/4e926473.mp3"
+ },
+ {
+  "voice": "pedrito",
+  "key": "obrigado, diretora cecília!",
+  "text": "Obrigado, Diretora Cecília!",
+  "file": "pedrito/50b9325a.mp3"
  },
  {
   "voice": "pedrito",
@@ -1093,27 +1099,9 @@
  },
  {
   "voice": "pedrito",
-  "key": "muito bem!",
-  "text": "Muito bem!",
-  "file": "pedrito/5adda3d5.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "vamos acender o lampião?",
   "text": "Vamos acender o lampião?",
   "file": "pedrito/5eebab15.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o quadro do voto à bíblia acendeu!",
-  "text": "O Quadro do Voto à Bíblia acendeu!",
-  "file": "pedrito/65035431.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o pedrito chama você na mesa da família!",
-  "text": "O Pedrito chama você na Mesa da Família!",
-  "file": "pedrito/653d60da.mp3"
  },
  {
   "voice": "pedrito",
@@ -1135,12 +1123,6 @@
  },
  {
   "voice": "pedrito",
-  "key": "o pedrito espera você na praia, perto da capitã marina!",
-  "text": "O Pedrito espera você na praia, perto da Capitã Marina!",
-  "file": "pedrito/71a87834.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "ajude o pedrito no quadro do voto à bíblia",
   "text": "Ajude o Pedrito no Quadro do Voto à Bíblia",
   "file": "pedrito/725d2634.mp3"
@@ -1150,12 +1132,6 @@
   "key": "a cor de uma fruta",
   "text": "A cor de uma fruta",
   "file": "pedrito/77ef752d.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "agora eu quero contar uma coisa para vocês",
-  "text": "Agora eu quero contar uma coisa para vocês.",
-  "file": "pedrito/7838f4c2.mp3"
  },
  {
   "voice": "pedrito",
@@ -1186,24 +1162,6 @@
   "key": "que mesa bonita!",
   "text": "Que mesa bonita!",
   "file": "pedrito/7f25be93.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "separe: o que vem da horta?",
-  "text": "Separe: o que vem da horta?",
-  "file": "pedrito/816f75f0.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "maçã",
-  "text": "Maçã",
-  "file": "pedrito/82851ff6.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "as árvores",
-  "text": "as árvores",
-  "file": "pedrito/886df2b0.mp3"
  },
  {
   "voice": "pedrito",
@@ -1255,12 +1213,6 @@
  },
  {
   "voice": "pedrito",
-  "key": "manga",
-  "text": "Manga",
-  "file": "pedrito/a2a75bf6.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "ai, que escuro!",
   "text": "Ai, que escuro!",
   "file": "pedrito/a3d42f8b.mp3"
@@ -1279,21 +1231,9 @@
  },
  {
   "voice": "pedrito",
-  "key": "alface",
-  "text": "Alface",
-  "file": "pedrito/a9ee5c3e.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "vamos observar cada uma?",
   "text": "Vamos observar cada uma?",
   "file": "pedrito/ace1c6fd.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "procure a tenda da mesma cor e do mesmo símbolo",
-  "text": "Procure a tenda da mesma cor e do mesmo símbolo.",
-  "file": "pedrito/af000c57.mp3"
  },
  {
   "voice": "pedrito",
@@ -1306,12 +1246,6 @@
   "key": "as penas dela são azuis, e ela é bem grande",
   "text": "As penas dela são azuis, e ela é bem grande.",
   "file": "pedrito/b5297343.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "procure a tenda com o mesmo símbolo!",
-  "text": "Procure a tenda com o mesmo símbolo!",
-  "file": "pedrito/b5f84f14.mp3"
  },
  {
   "voice": "pedrito",
@@ -1330,24 +1264,6 @@
   "key": "e eu também sou especial!",
   "text": "E eu também sou especial!",
   "file": "pedrito/b8584725.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "o quadro da lei acendeu!",
-  "text": "O Quadro da Lei acendeu!",
-  "file": "pedrito/b9ea4f80.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "obrigado, diretora sol!",
-  "text": "Obrigado, Diretora Sol!",
-  "file": "pedrito/bd32c9c6.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "feijão",
-  "text": "Feijão",
-  "file": "pedrito/bfe092b6.mp3"
  },
  {
   "voice": "pedrito",
@@ -1375,27 +1291,9 @@
  },
  {
   "voice": "pedrito",
-  "key": "essa tenda tem outra cor",
-  "text": "Essa tenda tem outra cor.",
-  "file": "pedrito/ca904881.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "monte o voto à bíblia",
-  "text": "Monte o Voto à Bíblia",
-  "file": "pedrito/d4315325.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "não tenho mais medo!",
   "text": "Não tenho mais medo!",
   "file": "pedrito/d674b7cc.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "cenoura",
-  "text": "Cenoura",
-  "file": "pedrito/dda4bbb9.mp3"
  },
  {
   "voice": "pedrito",
@@ -1417,45 +1315,15 @@
  },
  {
   "voice": "pedrito",
-  "key": "o pedrito chama você perto do mastro do clube!",
-  "text": "O Pedrito chama você perto do mastro do Clube!",
-  "file": "pedrito/eb16faa2.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "deus fez você à imagem dele",
-  "text": "Deus fez você à imagem dEle.",
-  "file": "pedrito/f2ddefb2.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "que lenço é esse?",
   "text": "Que lenço é esse?",
   "file": "pedrito/f85aa740.mp3"
  },
  {
   "voice": "pedrito",
-  "key": "que bonita!",
-  "text": "Que bonita!",
-  "file": "pedrito/f97e44ab.mp3"
- },
- {
-  "voice": "pedrito",
   "key": "uma arara-azul!",
   "text": "Uma arara-azul!",
   "file": "pedrito/fc34cebc.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "laranja",
-  "text": "Laranja",
-  "file": "pedrito/fc987b53.mp3"
- },
- {
-  "voice": "pedrito",
-  "key": "você é especial para deus",
-  "text": "Você é especial para Deus.",
-  "file": "pedrito/fd1d4f5a.mp3"
  },
  {
   "voice": "sol",
@@ -1471,6 +1339,30 @@
  },
  {
   "voice": "sol",
+  "key": "no sábado, a gente para o trabalho para ficar com deus, com a família e com os amigos",
+  "text": "No sábado, a gente para o trabalho para ficar com Deus, com a família e com os amigos.",
+  "file": "sol/0b068a10.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "deus fez você à imagem dele",
+  "text": "Deus fez você à imagem dEle.",
+  "file": "sol/114d6a49.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "o sábado é o memorial da criação",
+  "text": "O sábado é o memorial da criação.",
+  "file": "sol/199b49ed.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "o quadro do hino acendeu!",
+  "text": "O Quadro do Hino acendeu!",
+  "file": "sol/1a5487a3.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "bom dia!",
   "text": "Bom dia!",
   "file": "sol/1a9de654.mp3"
@@ -1483,9 +1375,33 @@
  },
  {
   "voice": "sol",
+  "key": "agora eu quero contar uma coisa para vocês",
+  "text": "Agora eu quero contar uma coisa para vocês.",
+  "file": "sol/1bfff707.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "ele lembra que deus é o nosso criador",
+  "text": "Ele lembra que Deus é o nosso Criador.",
+  "file": "sol/1f43966a.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "mas um vento forte soprou!",
   "text": "Mas um vento forte soprou!",
   "file": "sol/212c6367.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "vamos ler juntos?",
+  "text": "Vamos ler juntos?",
+  "file": "sol/2322966a.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "diretora cecília",
+  "text": "Diretora Cecília",
+  "file": "sol/3079a0a3.mp3"
  },
  {
   "voice": "sol",
@@ -1501,9 +1417,33 @@
  },
  {
   "voice": "sol",
+  "key": "o pedrito também é!",
+  "text": "O Pedrito também é!",
+  "file": "sol/39ab1b55.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "que semana linda!",
   "text": "Que semana linda!",
   "file": "sol/3e9ac4f6.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "que mesa bonita!",
+  "text": "Que mesa bonita!",
+  "file": "sol/3f68408e.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "pedrito é aventureiro!",
+  "text": "Pedrito é Aventureiro!",
+  "file": "sol/648126e8.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "vamos cantar juntos o hino dos aventureiros?",
+  "text": "Vamos cantar juntos o Hino dos Aventureiros?",
+  "file": "sol/67518886.mp3"
  },
  {
   "voice": "sol",
@@ -1537,9 +1477,27 @@
  },
  {
   "voice": "sol",
+  "key": "ele escolheu esse dia, abençoou e santificou",
+  "text": "Ele escolheu esse dia, abençoou e santificou.",
+  "file": "sol/934bc8df.mp3"
+ },
+ {
+  "voice": "sol",
   "key": "procure as cinco luzes!",
   "text": "Procure as cinco luzes!",
   "file": "sol/9edac565.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "você é especial para deus",
+  "text": "Você é especial para Deus.",
+  "file": "sol/a1b8f615.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "hoje você recebe o lenço e a farda dos aventureiros!",
+  "text": "Hoje você recebe o lenço e a farda dos Aventureiros!",
+  "file": "sol/a1d9e48f.mp3"
  },
  {
   "voice": "sol",
@@ -1555,9 +1513,27 @@
  },
  {
   "voice": "sol",
-  "key": "diretora sol",
-  "text": "Diretora Sol",
-  "file": "sol/c28324df.mp3"
+  "key": "pedrito, você aprendeu o voto, a lei e o voto à bíblia",
+  "text": "Pedrito, você aprendeu o Voto, a Lei e o Voto à Bíblia.",
+  "file": "sol/c0a0d0fd.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "deus terminou de criar tudo e descansou no sétimo dia",
+  "text": "Deus terminou de criar tudo e descansou no sétimo dia.",
+  "file": "sol/c72e209f.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "a criação tem um dia muito especial",
+  "text": "A criação tem um dia muito especial.",
+  "file": "sol/d0e1d0ac.mp3"
+ },
+ {
+  "voice": "sol",
+  "key": "santificar é separar para deus",
+  "text": "Santificar é separar para Deus.",
+  "file": "sol/e6a13a8b.mp3"
  },
  {
   "voice": "sol",
@@ -1588,6 +1564,12 @@
   "key": "encha o regador no poço!",
   "text": "Encha o regador no poço!",
   "file": "tico/00528b71.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "agora faça isso mais 2 vezes, sozinho",
+  "text": "Agora faça isso mais 2 vezes, sozinho.",
+  "file": "tico/02f0da2c.mp3"
  },
  {
   "voice": "tico",
@@ -1693,6 +1675,12 @@
  },
  {
   "voice": "tico",
+  "key": "monte o voto à bíblia",
+  "text": "Monte o Voto à Bíblia",
+  "file": "tico/0b5de75b.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "deus criou as aves de quantas espécies?",
   "text": "Deus criou as aves de quantas espécies?",
   "file": "tico/0b6d26e4.mp3"
@@ -1759,12 +1747,6 @@
  },
  {
   "voice": "tico",
-  "key": "ele escolheu esse dia, abençoou e santificou",
-  "text": "Ele escolheu esse dia, abençoou e santificou.",
-  "file": "tico/0e3b9d58.mp3"
- },
- {
-  "voice": "tico",
   "key": "plantas",
   "text": "Plantas",
   "file": "tico/0e5bf5b9.mp3"
@@ -1822,6 +1804,12 @@
   "key": "você achou a primeira página do livro dos sete dias!",
   "text": "Você achou a primeira página do Livro dos Sete Dias!",
   "file": "tico/149db056.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "procure a tenda com o mesmo símbolo!",
+  "text": "Procure a tenda com o mesmo símbolo!",
+  "file": "tico/15277dd6.mp3"
  },
  {
   "voice": "tico",
@@ -1921,9 +1909,21 @@
  },
  {
   "voice": "tico",
+  "key": "maçã",
+  "text": "Maçã",
+  "file": "tico/1a339ea0.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "assim terminou o segundo dia",
   "text": "Assim terminou o segundo dia.",
   "file": "tico/1b8b879c.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o quadro do voto à bíblia acendeu!",
+  "text": "O Quadro do Voto à Bíblia acendeu!",
+  "file": "tico/1bc9ce1f.mp3"
  },
  {
   "voice": "tico",
@@ -2005,6 +2005,12 @@
  },
  {
   "voice": "tico",
+  "key": "leve até o cercado com a placa do nome dele",
+  "text": "Leve até o cercado com a placa do nome dele.",
+  "file": "tico/2170b13d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "água",
   "text": "água",
   "file": "tico/21e0d29a.mp3"
@@ -2065,6 +2071,12 @@
  },
  {
   "voice": "tico",
+  "key": "a diretora cecília falou do sábado",
+  "text": "A Diretora Cecília falou do sábado",
+  "file": "tico/25c05a7d.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "terra",
   "text": "Terra",
   "file": "tico/25d075a2.mp3"
@@ -2110,6 +2122,12 @@
   "key": "este quadro ainda está apagado",
   "text": "Este quadro ainda está apagado.",
   "file": "tico/28396780.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito chama você perto do quadro da lei, na colina!",
+  "text": "O Pedrito chama você perto do Quadro da Lei, na colina!",
+  "file": "tico/2885f80e.mp3"
  },
  {
   "voice": "tico",
@@ -2227,6 +2245,12 @@
  },
  {
   "voice": "tico",
+  "key": "o quadro da lei acendeu!",
+  "text": "O Quadro da Lei acendeu!",
+  "file": "tico/32c3663e.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "você separou o dia e a noite",
   "text": "Você separou o dia e a noite",
   "file": "tico/331b377f.mp3"
@@ -2236,12 +2260,6 @@
   "key": "use as setas ou as teclas w, a, s e d para andar",
   "text": "Use as setas ou as teclas W, A, S e D para andar.",
   "file": "tico/338a848f.mp3"
- },
- {
-  "voice": "tico",
-  "key": "pedrito é aventureiro!",
-  "text": "Pedrito é Aventureiro!",
-  "file": "tico/340120db.mp3"
  },
  {
   "voice": "tico",
@@ -2272,6 +2290,18 @@
   "key": "você pode pegar as luzes em qualquer ordem",
   "text": "Você pode pegar as luzes em qualquer ordem.",
   "file": "tico/36678c83.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "leve até a tenda da mesma cor e do mesmo símbolo",
+  "text": "Leve até a tenda da mesma cor e do mesmo símbolo.",
+  "file": "tico/36aced61.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "milho",
+  "text": "Milho",
+  "file": "tico/372d879f.mp3"
  },
  {
   "voice": "tico",
@@ -2314,12 +2344,6 @@
   "key": "o globo ficou completo",
   "text": "O Globo ficou completo",
   "file": "tico/3a7ed761.mp3"
- },
- {
-  "voice": "tico",
-  "key": "vamos ler juntos?",
-  "text": "Vamos ler juntos?",
-  "file": "tico/3ac4f917.mp3"
  },
  {
   "voice": "tico",
@@ -2392,6 +2416,12 @@
   "key": "uau!",
   "text": "Uau!",
   "file": "tico/3f3f9f00.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "essa tenda tem outra cor",
+  "text": "Essa tenda tem outra cor.",
+  "file": "tico/3f8a905b.mp3"
  },
  {
   "voice": "tico",
@@ -2635,21 +2665,9 @@
  },
  {
   "voice": "tico",
-  "key": "vamos cantar juntos o hino dos aventureiros?",
-  "text": "Vamos cantar juntos o Hino dos Aventureiros?",
-  "file": "tico/54cd7b9d.mp3"
- },
- {
-  "voice": "tico",
   "key": "de muitas espécies",
   "text": "De muitas espécies",
   "file": "tico/54f42f75.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a diretora sol chama você na clareira!",
-  "text": "A Diretora Sol chama você na clareira!",
-  "file": "tico/55bf33cc.mp3"
  },
  {
   "voice": "tico",
@@ -2791,6 +2809,12 @@
  },
  {
   "voice": "tico",
+  "key": "o pedrito chama você na mesa da família!",
+  "text": "O Pedrito chama você na Mesa da Família!",
+  "file": "tico/63e72fa0.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "lembre: ainda não tinha luz",
   "text": "Lembre: ainda não tinha luz.",
   "file": "tico/63ebc941.mp3"
@@ -2800,6 +2824,12 @@
   "key": "vou estar sempre do seu lado!",
   "text": "Vou estar sempre do seu lado!",
   "file": "tico/63ee70ba.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "pera",
+  "text": "Pera",
+  "file": "tico/6401f9c6.mp3"
  },
  {
   "voice": "tico",
@@ -2887,12 +2917,6 @@
  },
  {
   "voice": "tico",
-  "key": "hoje você recebe o lenço e a farda dos aventureiros!",
-  "text": "Hoje você recebe o lenço e a farda dos Aventureiros!",
-  "file": "tico/69a331e0.mp3"
- },
- {
-  "voice": "tico",
   "key": "o quinto dia da criação",
   "text": "O quinto dia da criação",
   "file": "tico/6a465366.mp3"
@@ -2935,12 +2959,6 @@
  },
  {
   "voice": "tico",
-  "key": "no sábado, a gente para o trabalho para ficar com deus, com a família e com os amigos",
-  "text": "No sábado, a gente para o trabalho para ficar com Deus, com a família e com os amigos.",
-  "file": "tico/6d8388d9.mp3"
- },
- {
-  "voice": "tico",
   "key": "os animais estão em casa",
   "text": "Os animais estão em casa.",
   "file": "tico/6dae752a.mp3"
@@ -2980,6 +2998,12 @@
   "key": "oi!",
   "text": "Oi!",
   "file": "tico/6ffd5e43.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "falta só uma",
+  "text": "Falta só uma.",
+  "file": "tico/70206707.mp3"
  },
  {
   "voice": "tico",
@@ -3043,15 +3067,15 @@
  },
  {
   "voice": "tico",
-  "key": "não tem nenhuma flor no acampamento!",
-  "text": "Não tem nenhuma flor no acampamento!",
-  "file": "tico/76806f99.mp3"
+  "key": "o que vem das árvores?",
+  "text": "O que vem das árvores?",
+  "file": "tico/767edd43.mp3"
  },
  {
   "voice": "tico",
-  "key": "a criação tem um dia muito especial",
-  "text": "A criação tem um dia muito especial.",
-  "file": "tico/76a39975.mp3"
+  "key": "não tem nenhuma flor no acampamento!",
+  "text": "Não tem nenhuma flor no acampamento!",
+  "file": "tico/76806f99.mp3"
  },
  {
   "voice": "tico",
@@ -3070,6 +3094,12 @@
   "key": "primeira luz",
   "text": "Primeira Luz",
   "file": "tico/777b8228.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "da horta",
+  "text": "Da horta",
+  "file": "tico/7851aaf1.mp3"
  },
  {
   "voice": "tico",
@@ -3259,6 +3289,12 @@
  },
  {
   "voice": "tico",
+  "key": "a diretora cecília chama você na clareira!",
+  "text": "A Diretora Cecília chama você na clareira!",
+  "file": "tico/84c58718.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "olhe a horta!",
   "text": "Olhe a horta!",
   "file": "tico/84f3c0b8.mp3"
@@ -3268,12 +3304,6 @@
   "key": "a fogueira",
   "text": "A fogueira",
   "file": "tico/85b1fa3d.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a diretora sol falou do sábado",
-  "text": "A Diretora Sol falou do sábado",
-  "file": "tico/85c6d591.mp3"
  },
  {
   "voice": "tico",
@@ -3322,6 +3352,12 @@
   "key": "deus falou, e a luz apareceu!",
   "text": "Deus falou, e a luz apareceu!",
   "file": "tico/8771c858.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "cenoura",
+  "text": "Cenoura",
+  "file": "tico/87956e37.mp3"
  },
  {
   "voice": "tico",
@@ -3415,6 +3451,12 @@
  },
  {
   "voice": "tico",
+  "key": "achou uma bandeirinha!",
+  "text": "Achou uma bandeirinha!",
+  "file": "tico/8f8cb5a3.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "que era bom",
   "text": "Que era bom",
   "file": "tico/8fa0820d.mp3"
@@ -3424,6 +3466,12 @@
   "key": "deus chamou a luz de dia, e a escuridão, de noite",
   "text": "Deus chamou a luz de Dia, e a escuridão, de Noite.",
   "file": "tico/90195414.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito espera você na praia, perto da capitã marina!",
+  "text": "O Pedrito espera você na praia, perto da Capitã Marina!",
+  "file": "tico/90ac13ee.mp3"
  },
  {
   "voice": "tico",
@@ -3448,6 +3496,12 @@
   "key": "deus disse: produzam as águas abundantemente répteis de alma vivente, e voem as aves sobre a face da expansão dos céus",
   "text": "Deus disse: Produzam as águas abundantemente répteis de alma vivente, e voem as aves sobre a face da expansão dos céus.",
   "file": "tico/93403682.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a horta",
+  "text": "a horta",
+  "file": "tico/93c1c06d.mp3"
  },
  {
   "voice": "tico",
@@ -3499,18 +3553,6 @@
  },
  {
   "voice": "tico",
-  "key": "pedrito, você aprendeu o voto, a lei e o voto à bíblia",
-  "text": "Pedrito, você aprendeu o Voto, a Lei e o Voto à Bíblia.",
-  "file": "tico/96d0b0a2.mp3"
- },
- {
-  "voice": "tico",
-  "key": "faltam dois canteiros!",
-  "text": "Faltam dois canteiros!",
-  "file": "tico/976e5c07.mp3"
- },
- {
-  "voice": "tico",
   "key": "antes de comer, agradeçam a deus pelo alimento e por cada pessoa da família",
   "text": "Antes de comer, agradeçam a Deus pelo alimento e por cada pessoa da família.",
   "file": "tico/98162c6a.mp3"
@@ -3544,12 +3586,6 @@
   "key": "suba pelos degraus em volta da torre!",
   "text": "Suba pelos degraus em volta da torre!",
   "file": "tico/999e3633.mp3"
- },
- {
-  "voice": "tico",
-  "key": "a diretora sol chama você!",
-  "text": "A Diretora Sol chama você!",
-  "file": "tico/99a94ce8.mp3"
  },
  {
   "voice": "tico",
@@ -3664,6 +3700,12 @@
   "key": "leia de novo: assim os céus, a terra",
   "text": "Leia de novo: assim os céus, a terra...",
   "file": "tico/a3793374.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito chama você perto do mastro do clube!",
+  "text": "O Pedrito chama você perto do mastro do Clube!",
+  "file": "tico/a3d1d258.mp3"
  },
  {
   "voice": "tico",
@@ -3823,12 +3865,6 @@
  },
  {
   "voice": "tico",
-  "key": "deus terminou de criar tudo e descansou no sétimo dia",
-  "text": "Deus terminou de criar tudo e descansou no sétimo dia.",
-  "file": "tico/ac255d12.mp3"
- },
- {
-  "voice": "tico",
   "key": "uma ponte",
   "text": "Uma ponte",
   "file": "tico/acba0a27.mp3"
@@ -3877,9 +3913,9 @@
  },
  {
   "voice": "tico",
-  "key": "o quadro do hino acendeu!",
-  "text": "O Quadro do Hino acendeu!",
-  "file": "tico/b083c556.mp3"
+  "key": "alface",
+  "text": "Alface",
+  "file": "tico/affe7bc8.mp3"
  },
  {
   "voice": "tico",
@@ -3979,6 +4015,12 @@
  },
  {
   "voice": "tico",
+  "key": "das árvores",
+  "text": "Das árvores",
+  "file": "tico/b8950e06.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "plante e regue os canteiros",
   "text": "Plante e regue os canteiros",
   "file": "tico/b915ed47.mp3"
@@ -3994,6 +4036,12 @@
   "key": "começar!",
   "text": "Começar!",
   "file": "tico/b95ef1e5.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "separe: o que vem da horta?",
+  "text": "Separe: o que vem da horta?",
+  "file": "tico/b98b987e.mp3"
  },
  {
   "voice": "tico",
@@ -4039,15 +4087,33 @@
  },
  {
   "voice": "tico",
+  "key": "laranja",
+  "text": "Laranja",
+  "file": "tico/bd7f1125.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "nade até o meio e aperte a para mergulhar!",
   "text": "Nade até o meio e aperte A para mergulhar!",
   "file": "tico/bd829926.mp3"
  },
  {
   "voice": "tico",
+  "key": "manga",
+  "text": "Manga",
+  "file": "tico/be13bbd4.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "leia de novo o versículo 14",
   "text": "Leia de novo o versículo 14.",
   "file": "tico/beab4aaa.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o pedrito chama você perto do quadro do voto à bíblia!",
+  "text": "O Pedrito chama você perto do Quadro do Voto à Bíblia!",
+  "file": "tico/bf016c26.mp3"
  },
  {
   "voice": "tico",
@@ -4129,6 +4195,12 @@
  },
  {
   "voice": "tico",
+  "key": "faltam duas",
+  "text": "Faltam duas.",
+  "file": "tico/c863a162.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "segure b no pulo: marretada no chão!",
   "text": "Segure B no pulo: marretada no chão!",
   "file": "tico/c8a85d6a.mp3"
@@ -4138,6 +4210,12 @@
   "key": "a água",
   "text": "a água",
   "file": "tico/c8cba887.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "o animal está andando com você!",
+  "text": "O animal está andando com você!",
+  "file": "tico/c9381275.mp3"
  },
  {
   "voice": "tico",
@@ -4189,6 +4267,12 @@
  },
  {
   "voice": "tico",
+  "key": "fale com a diretora cecília",
+  "text": "Fale com a Diretora Cecília",
+  "file": "tico/ccd9c5b4.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "você levou os animais aos cercados",
   "text": "Você levou os animais aos cercados",
   "file": "tico/ccfd3ce8.mp3"
@@ -4207,15 +4291,15 @@
  },
  {
   "voice": "tico",
-  "key": "santificar é separar para deus",
-  "text": "Santificar é separar para Deus.",
-  "file": "tico/cdc811f8.mp3"
- },
- {
-  "voice": "tico",
   "key": "chegamos!",
   "text": "Chegamos!",
   "file": "tico/cdcb2fe6.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "da horta ou da árvore?",
+  "text": "Da horta ou da árvore?",
+  "file": "tico/cde0a400.mp3"
  },
  {
   "voice": "tico",
@@ -4309,6 +4393,12 @@
  },
  {
   "voice": "tico",
+  "key": "faltam três",
+  "text": "Faltam três.",
+  "file": "tico/d28f3f04.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "falta a última página do livro dos sete dias!",
   "text": "Falta a última página do Livro dos Sete Dias!",
   "file": "tico/d2ada7ec.mp3"
@@ -4318,12 +4408,6 @@
   "key": "faltam três páginas",
   "text": "Faltam três páginas.",
   "file": "tico/d2c19e83.mp3"
- },
- {
-  "voice": "tico",
-  "key": "leve até o cercado com a placa do mesmo nome",
-  "text": "Leve até o cercado com a placa do mesmo nome.",
-  "file": "tico/d34e93e2.mp3"
  },
  {
   "voice": "tico",
@@ -4348,6 +4432,12 @@
   "key": "quer jogar o próximo dia?",
   "text": "Quer jogar o próximo dia?",
   "file": "tico/d50262e2.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "que bonita!",
+  "text": "Que bonita!",
+  "file": "tico/d511c6ed.mp3"
  },
  {
   "voice": "tico",
@@ -4387,12 +4477,6 @@
  },
  {
   "voice": "tico",
-  "key": "ele lembra que deus é o nosso criador",
-  "text": "Ele lembra que Deus é o nosso Criador.",
-  "file": "tico/d9c7a413.mp3"
- },
- {
-  "voice": "tico",
   "key": "agora leve as estrelas ao globo, na colina!",
   "text": "Agora leve as estrelas ao Globo, na colina!",
   "file": "tico/da034dbe.mp3"
@@ -4414,12 +4498,6 @@
   "key": "os animais estão nos cercados e a mesa da família está pronta!",
   "text": "Os animais estão nos cercados e a Mesa da Família está pronta!",
   "file": "tico/dc14ef3e.mp3"
- },
- {
-  "voice": "tico",
-  "key": "fale com a diretora sol",
-  "text": "Fale com a Diretora Sol",
-  "file": "tico/dc608e04.mp3"
  },
  {
   "voice": "tico",
@@ -4471,6 +4549,12 @@
  },
  {
   "voice": "tico",
+  "key": "a diretora cecília disse que você é especial",
+  "text": "A Diretora Cecília disse que você é especial",
+  "file": "tico/e07c45a9.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "o sexto dia da criação",
   "text": "O sexto dia da criação",
   "file": "tico/e1376ef3.mp3"
@@ -4498,6 +4582,12 @@
   "key": "assim terminou o primeiro dia da criação",
   "text": "Assim terminou o primeiro dia da criação.",
   "file": "tico/e76c2479.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "a diretora cecília chama você!",
+  "text": "A Diretora Cecília chama você!",
+  "file": "tico/e78359cc.mp3"
  },
  {
   "voice": "tico",
@@ -4564,6 +4654,12 @@
   "key": "olhe em volta",
   "text": "Olhe em volta.",
   "file": "tico/ec8e5ef0.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "as árvores",
+  "text": "as árvores",
+  "file": "tico/ec92ca32.mp3"
  },
  {
   "voice": "tico",
@@ -4681,6 +4777,12 @@
  },
  {
   "voice": "tico",
+  "key": "feijão",
+  "text": "Feijão",
+  "file": "tico/f5e078c0.mp3"
+ },
+ {
+  "voice": "tico",
   "key": "escalar, pular alto, nadar e mergulhar!",
   "text": "Escalar, pular alto, nadar e mergulhar!",
   "file": "tico/f6ef01fa.mp3"
@@ -4729,12 +4831,6 @@
  },
  {
   "voice": "tico",
-  "key": "a diretora sol disse que você é especial",
-  "text": "A Diretora Sol disse que você é especial",
-  "file": "tico/fb09bb15.mp3"
- },
- {
-  "voice": "tico",
   "key": "é só entrar no portal quando quiser",
   "text": "É só entrar no portal quando quiser.",
   "file": "tico/fb2d2e61.mp3"
@@ -4780,6 +4876,12 @@
   "key": "muito bem!",
   "text": "Muito bem!",
   "file": "tico/fecd7007.mp3"
+ },
+ {
+  "voice": "tico",
+  "key": "monte a lei dos aventureiros",
+  "text": "Monte a Lei dos Aventureiros",
+  "file": "tico/fef44411.mp3"
  },
  {
   "voice": "tico",

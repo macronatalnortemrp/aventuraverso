@@ -22,7 +22,7 @@ O emblema central reforça valores essenciais do clube centrados em Jesus Cristo
 
 ## Como o lenço é usado (decisão de 20/11/2026)
 O lenço é um triângulo equilátero. O emblema fica entre duas arestas, perto da ponta; a aresta sem emblema é a **base**. A partir da base, o lenço é enrolado até sobrarem duas pontas, e vai ao pescoço assim:
-- **Costas:** aparece o triângulo, com a ponta para baixo e o emblema grande (A1 nas crianças, LA1 na Diretora Sol).
+- **Costas:** aparece o triângulo, com a ponta para baixo e o emblema grande (A1 nas crianças, LA1 na Diretora Cecília).
 - **Pescoço:** o rolo de tecido dá a volta.
 - **Frente:** as duas pontas descem e são unidas, na altura do pescoço, por um **prendedor cilíndrico branco**, proporcional às pontas, com um emblema pequeno.
 - **Lenço de líder (LA1):** listras nas quatro cores das classes junto à base, visíveis no triângulo das costas (`THEME_AVENTUREIROS.md`, seção 3). Ordem usada: Abelhinhas, Luminares, Edificadores, Mãos Ajudadoras, a partir da base **[validar a ordem]**.

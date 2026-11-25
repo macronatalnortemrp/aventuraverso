@@ -98,7 +98,7 @@ export const PEN_R = 2;
 export const TABLE = { x: -9, z: 8 };
 
 /* ---------- Dia 7: trilha da semana ---------- */
-/** onde a Diretora Sol fica no acampamento (main.ts) */
+/** onde a Diretora Cecília fica no acampamento (main.ts) */
 export const SOL_SPOT: Spot = { x: 6.5, z: 5.5 };
 export function trailSpots(): P3[] {
   const lhTop = H(LIGHTHOUSE.x, LIGHTHOUSE.z) + LIGHTHOUSE.h + 0.3;

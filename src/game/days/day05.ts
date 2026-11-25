@@ -183,8 +183,8 @@ export class Day05Mission extends DayMission {
       this.syncPerches();
       sfx('coin');
       const left = this.pedParts - this.state.ped.length;
-      const pd = this.content.pedrito as DayContent['pedrito'] & Record<string, string>;
-      if (left > 0) this.d.hud.say(pd.left.replace('{x}', String(left)), 4500);
+      const pl = (this.content.pedrito as unknown as { leftList: string[] }).leftList;
+      if (left > 0) this.d.hud.say(pl[Math.min(left, pl.length) - 1], 4500);
       else {
         this.carry(null);
         const r = this.pedResolve;

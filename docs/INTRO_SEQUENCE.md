@@ -11,9 +11,9 @@ Cada quadro cumpre uma função narrativa diferente, sem repetir informação do
 
 | Quadro | Função | Quem fala |
 |---|---|---|
-| 1 — A chegada | Encantamento | Diretora Sol, fora de cena |
-| 2 — O problema | Mistério | Diretora Sol, fora de cena |
-| 3 — A Diretora Sol | Propósito | Diretora Sol, em cena |
+| 1 — A chegada | Encantamento | Diretora Cecília, fora de cena |
+| 2 — O problema | Mistério | Diretora Cecília, fora de cena |
+| 3 — A Diretora Cecília | Propósito | Diretora Cecília, em cena |
 | 4 — Tico aparece | Companheirismo | Tico |
 | 5 — O Livro | Participação | Tico |
 | 6 — Começar | Expectativa | texto na tela |
@@ -38,7 +38,7 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 6. **A chegada da criança.** A câmera desce até a clareira: o boneco escolhido entra correndo, dá um pulo de alegria e acena. O lenço vinho fica bem visível.
 7. **O nome em destaque.** Surge o texto grande "Bem-vindo, {apelido}!" ou "Bem-vinda, {apelido}!", com um estouro de estrelinhas douradas.
 
-**Narração da Diretora Sol (fora de cena):**
+**Narração da Diretora Cecília (fora de cena):**
 - Menino: "Olá, {apelido}! Bem-vindo ao Acampamento do Livro Aberto!"
 - Menina: "Olá, {apelido}! Bem-vinda ao Acampamento do Livro Aberto!"
 
@@ -52,20 +52,20 @@ A Voz não narra a abertura: ela é reservada aos acontecimentos da criação.
 ## Quadro 2 — O problema (Mistério) · ~15 s
 **Visual:** a música alegre para de repente, numa nota suspensa, e sopra um vento forte. A câmera voa até a Colina: o Livro dos Sete Dias está aberto sobre o suporte de madeira. O vento vira as páginas, que se soltam e sobem em espiral até sumir no céu. O Globo do Éden pisca e se apaga; **três faíscas escapam dele** e se escondem em pontos diferentes do acampamento (os mesmos lugares das faíscas da etapa 2 do Dia 1). O pôr do sol vira noite e as estrelas aparecem. A câmera volta à criança, sozinha no escuro. Tom de mistério, sem susto: nada de barulho alto nem escuro repentino.
 
-**Narração da Diretora Sol (fora de cena):**
+**Narração da Diretora Cecília (fora de cena):**
 "Mas um vento forte soprou! As páginas do Livro sumiram. E o Globo do Éden se apagou!"
 
 O sumiço das páginas não tem causa nem vilão (decisão de 20/11/2026), para não entrar em terreno doutrinário.
 
-## Quadro 3 — A Diretora Sol (Propósito) · ~20 s
-**Visual:** a Sol chega com um lampião, se abaixa até a altura da criança e ergue uma Bíblia de blocos (um livro com a palavra "Bíblia" na capa, sem nenhum outro símbolo).
+## Quadro 3 — A Diretora Cecília (Propósito) · ~20 s
+**Visual:** a Diretora Cecília chega com um lampião, se abaixa até a altura da criança e ergue uma Bíblia de blocos (um livro com a palavra "Bíblia" na capa, sem nenhum outro símbolo).
 
-**Fala da Diretora Sol** (em duas legendas):
+**Fala da Diretora Cecília** (em duas legendas):
 1. "Calma! A Bíblia continua aqui, inteirinha."
 2. "Com ela, vamos refazer o Livro dos Sete Dias!"
 
 ## Quadro 4 — Tico aparece (Companheirismo) · ~10 s
-**Visual:** um galho balança. O Tico está pendurado de cabeça para baixo, diz "Psiu!", cai dando uma cambalhota, ajeita o lencinho e acena. A Sol sorri.
+**Visual:** um galho balança. O Tico está pendurado de cabeça para baixo, diz "Psiu!", cai dando uma cambalhota, ajeita o lencinho e acena. A Diretora Cecília sorri.
 
 **Fala do Tico:**
 "Psiu! Eu sou o Tico. Vou estar sempre do seu lado!"
@@ -101,7 +101,7 @@ Não se usa "acender a luz no acampamento": no Dia 1 quem cria a luz é Deus ("H
 - Só vozes gravadas; nunca a voz do aparelho. Sem gravação, só legenda.
 
 ## Versão 3D (decisão de 18/11/2026)
-Os "quadros" da abertura são cenas 3D em blocos com câmera dirigida (sobrevoo do acampamento, aproximação do Livro e do Globo, do Tico e da Diretora Sol), sem ilustrações separadas. Tico e Sol aparecem com expressões e gestos de bloco. A bandeira do Clube e as tendas das classes devem estar visíveis no plano amplo do Quadro 1. Legendas e botões Pular e Repetir continuam em HTML.
+Os "quadros" da abertura são cenas 3D em blocos com câmera dirigida (sobrevoo do acampamento, aproximação do Livro e do Globo, do Tico e da Diretora Cecília), sem ilustrações separadas. Tico e a Diretora Cecília aparecem com expressões e gestos de bloco. A bandeira do Clube e as tendas das classes devem estar visíveis no plano amplo do Quadro 1. Legendas e botões Pular e Repetir continuam em HTML.
 
 ## Pendências
 - Trilha sonora: a abertura usa o tema do jogo — festa (Quadro 1), mistério com vento (Quadro 2), acolhida (Quadros 3 a 5) e a vinheta esperança (Quadro 6). Não usar o Hino sem autorização.

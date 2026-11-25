@@ -1,6 +1,6 @@
 """Gera amostras de voz para o responsável escolher de ouvido (não vão para o jogo).
 
-Compara, para Tico, Pedrito e Diretora Sol:
+Compara, para Tico, Pedrito e Diretora Cecília:
 - o perfil atual (reamostragem: sobe o tom acelerando a fala, efeito "esquilo");
 - Kokoro com mudança de tom pelo vocoder WORLD (tom e formantes separados, fala no ritmo natural);
 - Piper (outro motor livre com vozes pt-BR), também com WORLD.

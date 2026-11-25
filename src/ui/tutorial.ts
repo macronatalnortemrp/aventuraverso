@@ -158,7 +158,7 @@ export class Tutorial {
         place();
         stopSpeaking();
         if (this.voice()) speak(s.text, 'Tico');
-        setTimeout(() => next.focus(), 40);
+        setTimeout(() => next.focus({ preventScroll: true }), 40);
       };
       addEventListener('resize', place);
       root.addEventListener('keydown', (e) => {

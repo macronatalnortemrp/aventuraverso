@@ -358,7 +358,7 @@ export class Day01Mission {
       return true;
     }
     if (o.npc === 'sol' && s.step === 'invites') {
-      void this.talk('Diretora Sol', this.content.invites.sol);
+      void this.talk('Diretora Cecília', this.content.invites.sol);
       return true;
     }
     if (o.id?.startsWith('mural') && s.step === 'invites') {

@@ -1,7 +1,7 @@
 {
   "_fontes": "docs/INTRO_SEQUENCE.md (Quadros 1 a 6, aprovados em 20/11/2026). {apelido} é trocado pelo apelido da criança; m/f = boneco escolhido (menino/menina). Frases com {apelido} não têm áudio gravado: aparecem só na legenda. Falas encurtadas em 21/11/2026 (teste do piloto).",
   "q1": {
-    "who": "Diretora Sol",
+    "who": "Diretora Cecília",
     "line": {
       "m": "Olá, {apelido}! Bem-vindo ao Acampamento do Livro Aberto!",
       "f": "Olá, {apelido}! Bem-vinda ao Acampamento do Livro Aberto!"
@@ -12,11 +12,11 @@
     }
   },
   "q2": {
-    "who": "Diretora Sol",
+    "who": "Diretora Cecília",
     "line": "Mas um vento forte soprou! As páginas do Livro sumiram. E o Globo do Éden se apagou!"
   },
   "q3": {
-    "who": "Diretora Sol",
+    "who": "Diretora Cecília",
     "lines": [
       "Calma! A Bíblia continua aqui, inteirinha.",
       "Com ela, vamos refazer o Livro dos Sete Dias!"
